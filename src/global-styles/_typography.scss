@@ -1,0 +1,38 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: clamp(1.75rem, 1.5rem + 1vw, 2.5rem);
+}
+
+h2 {
+    font-size: clamp(1.375rem, 1.2rem + 1vw, 2.375rem);
+}
+
+h3 {
+    font-size: clamp(1.125rem, 1.05rem + 1vw, 2rem);
+}
+
+p {
+    font-size: clamp(0.875rem, 0.8rem + 1vw, 1.1rem);
+}
+
+a,
+a:visited,
+a:active {
+    text-decoration: none;
+}
+
+label {
+    font-family: Helvetica, Arial, sans-serif;
+}
