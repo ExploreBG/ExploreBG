@@ -1,9 +1,15 @@
-// import styles from './page.module.css';
+import React from 'react';
 
-export default function Home() {
+import './home.scss';
+
+interface HomeProps { }
+
+const Home: React.FC<HomeProps> = () => {
     return (
         <main>
             <p>Home page</p>
         </main>
     );
-}
+};
+
+export default Home;
