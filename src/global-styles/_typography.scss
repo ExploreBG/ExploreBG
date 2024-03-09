@@ -1,12 +1,12 @@
 body {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: var(--font-main), Helvetica, Arial, sans-serif;
 }
 
 h1,
 h2,
 h3,
 h4 {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: var(--font-heading), Helvetica, Arial, sans-serif;
     font-weight: 700;
     line-height: 1.1;
 }
@@ -34,5 +34,5 @@ a:active {
 }
 
 label {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: var(--font-heading), Helvetica, Arial, sans-serif;
 }
