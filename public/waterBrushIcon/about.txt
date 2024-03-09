@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Water Brush
+- Font Author: Copyright 2004-2021 The Water Brush Project Authors (https://github.com/googlefonts/water-brush)
+- Font Source: https://fonts.gstatic.com/s/waterbrush/v4/AYCPpXPqc8cJWLhp4hywKHJq7PKP5Z_G.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
