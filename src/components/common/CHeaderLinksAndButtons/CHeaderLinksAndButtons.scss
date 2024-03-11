@@ -1,0 +1,91 @@
+@use '@/global-styles/main' as gs;
+
+.nav-wrapper {
+    @include gs.flex(none, none, center);
+    margin-right: 2rem;
+
+    &__links {
+        @include gs.flex(none, none, center);
+
+        @include gs.display(tablet) {
+            display: none;
+        }
+
+        &__user {
+            &>figure>img {
+                border-radius: 100%;
+                cursor: pointer;
+            }
+
+            &__links {
+                position: absolute;
+                top: 5rem;
+                z-index: 1;
+                background-color: transparent;
+                backdrop-filter: blur(0.25rem);
+                border: 2px solid black;
+                border-radius: 0.5rem;
+                animation: opacityShow 1.5s ease;
+
+                &>ul {
+                    padding: 1rem;
+                }
+            }
+        }
+
+        &>ul {
+            display: flex;
+        }
+    }
+
+    &__navbar {
+        display: none;
+
+        @include gs.display(tablet) {
+            display: inline;
+        }
+    }
+
+    &__mobile-links {
+        display: none;
+
+        @include gs.display(tablet) {
+            position: absolute;
+            top: 5rem;
+            right: 0;
+            width: 50%;
+            height: calc(100vh - 6.25rem);
+            background: rgb(0, 255, 255);
+            background: linear-gradient(180deg, rgba(75, 195, 195, 0.3) 31%, rgba(70, 252, 181, 0.6) 97%);
+            backdrop-filter: blur(0.5rem);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 85%);
+            @include gs.flex(column, center, center);
+            gap: 1.5rem;
+            animation: opacityShow 1.5s forwards;
+        }
+
+        &>figure>img {
+            border-radius: 100%;
+            cursor: pointer;
+        }
+
+        &>ul {
+            @include gs.flex(column, none, none);
+            gap: 1rem;
+        }
+    }
+}
+
+.glow-on-hover {
+    @include gs.glow-on-hover-button();
+}
+
+@keyframes opacityShow {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
