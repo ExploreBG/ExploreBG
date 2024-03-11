@@ -1,0 +1,12 @@
+.link {
+    padding: 0 1rem;
+    transition: all .7s ease;
+
+    &:hover {
+        color: blue;
+    }
+}
+
+.active {
+    color: blue;
+}
