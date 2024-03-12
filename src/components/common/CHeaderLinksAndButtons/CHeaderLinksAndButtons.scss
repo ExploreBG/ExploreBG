@@ -4,6 +4,10 @@
     @include gs.flex(none, none, center);
     margin-right: 2rem;
 
+    @include gs.display(mobile) {
+        margin-right: 1.25rem;
+    }
+
     &__links {
         @include gs.flex(none, none, center);
 
@@ -39,10 +43,30 @@
     }
 
     &__navbar {
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 1s ease;
         display: none;
 
         @include gs.display(tablet) {
             display: inline;
+        }
+
+        @include gs.display(mobile) {
+            font-size: 1.25rem;
+        }
+
+        &:hover {
+            color: blue;
+        }
+
+        &__close {
+            font-size: 2rem;
+            animation: rotate 1.5s forwards;
+
+            @include gs.display(mobile) {
+                font-size: 1.5rem;
+            }
         }
     }
 
@@ -62,6 +86,11 @@
             @include gs.flex(column, center, center);
             gap: 1.5rem;
             animation: opacityShow 1.5s forwards;
+        }
+        
+        @include gs.display(mobile) {
+            top: 3.5rem;
+            width: 70%;
         }
 
         &>figure>img {
@@ -87,5 +116,11 @@
 
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
     }
 }

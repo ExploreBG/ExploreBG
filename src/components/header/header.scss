@@ -5,7 +5,11 @@
     left: 0;
     width: 100%;
     height: 5rem;
-    @include gs.flex(none, space-between, center);
+    @include gs.flex(none, space-around, center);
+
+    @include gs.display(mobile) {
+        height: 3.5rem;
+    }
 
     background: rgb(0, 255, 255);
     background: linear-gradient(180deg, rgba(75, 195, 195, 0.3) 31%, rgba(70, 252, 181, 0.6) 97%);
@@ -14,11 +18,9 @@
     // border-bottom: 1px solid gs.$light-primary;
 
     backdrop-filter: blur(0.5rem);
-    padding-right: 1rem;
     animation: showHeader 1.7s forwards;
 
     &__logo {
-        margin-left: 3rem;
         display: flex;
 
         &>figcaption {
@@ -27,6 +29,17 @@
             background-image: linear-gradient(to top, #020302e7 20%, #88FF00, #020302e7 90%);
             color: transparent;
             background-clip: text;
+
+            @include gs.display(mobile) {
+                font-size: 1.75rem;
+            }
+        }
+
+        &>img {
+            @include gs.display(mobile) {
+                width: 2.15rem;
+                height: 2.15rem;
+            }
         }
     }
 
@@ -36,6 +49,15 @@
         &__theme-lang {
             @include gs.flex(column, none, none);
             gap: 0.5rem;
+
+            @include gs.display(tablet) {
+                @include gs.flex(row-reverse, none, center);
+                gap: 1.5rem;
+            }
+
+            @include gs.display(mobile) {
+                gap: 1rem;
+            }
 
             &__theme {
                 cursor: pointer;

@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { FaBarsStaggered } from 'react-icons/fa6';
+import { MdClose } from 'react-icons/md';
 
 import './CHeaderLinksAndButtons.scss';
 import CLink from '../CLink/CLink';
@@ -50,7 +52,11 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                 {!userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">Login/Sign up</button>}
             </nav>
 
-            <button onClick={() => setIsOpenNavbar(state => !state)} className="nav-wrapper__navbar">Menu</button>
+            <div onClick={() => setIsOpenNavbar(state => !state)} className="nav-wrapper__navbar">
+                {!isOpenNavbar && <FaBarsStaggered />}
+
+                {isOpenNavbar && <MdClose className="nav-wrapper__navbar__close" />}
+            </div>
 
             {isOpenNavbar && (
                 <nav className="nav-wrapper__mobile-links" aria-label="small-screen-navigation">
