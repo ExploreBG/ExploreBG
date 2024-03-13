@@ -1,3 +1,158 @@
-main {
-    background-color: aqua;
+@use '@/global-styles/main' as gs;
+
+.home {
+    background-attachment: fixed;
+    background-image: url('/images/backgr.png');
+    background-position: center;
+    background-size: cover;
+
+    &__top {
+        max-width: 68.75rem;
+        min-height: 100vh;
+        @include gs.flex(column, center, center);
+
+        &>h1,
+        &>h3 {
+            margin-bottom: 2rem;
+            text-shadow: 0 0 1rem black;
+            color: white;
+        }
+
+        &__images {
+            display: flex;
+            gap: 1vmin;
+            overflow: hidden;
+            padding: 0.75rem;
+            margin-bottom: 2rem;
+
+            &>img {
+                max-width: 20vmin;
+                height: 36vmin;
+                border: 2px solid green;
+                border-radius: 0.5rem;
+                box-shadow: 3px 3px 6px gray;
+                filter: contrast(75%);
+            }
+        }
+
+        &>blockquote {
+            width: 100%;
+            text-align: right;
+            font-style: italic;
+
+            &>p::before {
+                content: '\201C';
+            }
+
+            &>p::after {
+                content: '\201D';
+            }
+        }
+    }
+
+    &__section-wrapper {
+        max-width: 68.75rem;
+        min-height: 100vh;
+        @include gs.flex(column, center, center);
+        background-attachment: fixed;
+        background-image: url('/images/bridge.jpg');
+        background-position: center;
+        background-size: cover;
+        row-gap: 4rem;
+        filter: contrast(75%);
+        border-radius: 0.5rem;
+        box-shadow: 0.25rem 0.25rem 1rem black;
+
+        &>h2,
+        &>p {
+            padding: 0 15rem;
+            text-shadow: 4px 4px 2px black;
+            color: white;
+        }
+    }
+
+    &__section-buffer {
+        width: 100%;
+        min-height: 30vh;
+    }
+
+    &__section-title {
+        margin-bottom: 2rem;
+    }
+
+    &__section-links {
+        margin-top: 1rem;
+        width: 100%;
+        max-width: 68.75rem;
+        @include gs.flex(none, flex-end, none);
+        gap: 1rem;
+
+        &>a {
+            @include gs.glow-on-hover-button();
+        }
+    }
+
+    &__section-cards {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        padding: 6rem 1rem;
+        gap: 1.6rem;
+    }
+}
+
+.destinations {
+    background-image: url('/images/1.avif');
+}
+
+.trails {
+    background-image: url('/images/5.avif');
+}
+
+.hikes {
+    background-image: url('/images/6.avif');
+}
+
+.hidden {
+    opacity: 0;
+    filter: blur(0.25rem);
+    transform: translateX(-100%);
+    transition: all 1.5s;
+}
+
+.show {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+.card {
+    max-width: 20rem;
+    @include gs.flex(column, none, center);
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, 0.501);
+    backdrop-filter: blur(0.25rem);
+    box-shadow: 0 2rem 2.5rem -1rem rgb(0 0 0 / 43%);
+
+    &>figure {
+        width: 100%;
+        height: 12.5rem;
+        background-position: center;
+        background-size: cover;
+        border-radius: 0.5rem;
+
+        &>img {
+            width: 100%;
+            height: 100%;
+            border-radius: 1rem;
+        }
+    }
+
+    &>a {
+        border: 2px solid green;
+        border-radius: 1.5rem;
+        padding: 0 0.75rem;
+    }
 }
