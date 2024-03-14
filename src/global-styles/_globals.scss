@@ -25,5 +25,5 @@ a {
 
 main {
     @include gs.page-center(column, center, center);
-    min-height: 90vh;        // Temporary -> update after create footer
+    min-height: calc(100vh - 10rem);
 }

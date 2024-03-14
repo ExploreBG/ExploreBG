@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { BsMoonStarsFill } from 'react-icons/bs';
 import { GiSun } from 'react-icons/gi';
 
 import './header.scss';
+import CLogo from '../common/CLogo/CLogo';
 import CHeaderLinksAndButtons from '../common/CHeaderLinksAndButtons/CHeaderLinksAndButtons';
 
 interface HeaderProps { }
@@ -36,16 +35,7 @@ const Header: React.FC<HeaderProps> = () => {
 
     return (
         <header className="header" style={{ display: isHeaderVisible ? 'flex' : 'none' }}>
-            <Link href={'/'}>
-                <figure className="header__logo">
-                    <figcaption>Explore BG</figcaption>
-                    <Image
-                        src="/logo.png"
-                        width={40} height={40} loading="eager"
-                        alt="logo" title="Logo" priority={true}
-                    />
-                </figure>
-            </Link>
+            <CLogo />
 
             <article className="header__nav">
                 <CHeaderLinksAndButtons />

@@ -1,3 +1,40 @@
+@use '@/global-styles/main' as gs;
+
 footer {
-    background-color: bisque;
+    background-color: black;
+    color: white;
+    height: 10rem;
+    @include gs.flex(column, space-between, none);
+
+    &>section:first-of-type {
+        height: 100%;
+        @include gs.flex(none, space-around, center);
+
+        @include gs.display(L-mobile) {
+            flex-direction: column;
+            margin: 1rem 0;
+        }
+
+        &>aside {
+            width: 50%;
+
+            @include gs.display(L-mobile) {
+                width: 100%;
+            }
+
+            &>ul {
+                @include gs.flex(none, flex-end, none);
+                gap: 1.5rem;
+
+                @include gs.display(L-mobile) {
+                    justify-content: center;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &>section:last-of-type {
+        padding: 0.5rem 0;
+    }
 }

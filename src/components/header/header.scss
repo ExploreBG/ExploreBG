@@ -21,29 +21,6 @@
     backdrop-filter: blur(0.5rem);
     animation: showHeader 1.7s forwards;
 
-    &__logo {
-        display: flex;
-
-        &>figcaption {
-            font-size: 2rem;
-            font-weight: bold;
-            background-image: linear-gradient(to top, #020302e7 20%, #88FF00, #020302e7 90%);
-            color: transparent;
-            background-clip: text;
-
-            @include gs.display(mobile) {
-                font-size: 1.75rem;
-            }
-        }
-
-        &>img {
-            @include gs.display(mobile) {
-                width: 2.15rem;
-                height: 2.15rem;
-            }
-        }
-    }
-
     &__nav {
         display: flex;
 
