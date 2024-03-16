@@ -25,6 +25,7 @@
             margin-bottom: 2rem;
             text-shadow: 0 0 1rem black;
             color: white;
+            animation: showTitle 1.5s forwards;
         }
 
         [data-theme="dark"] &>h1,
@@ -32,7 +33,6 @@
             background-image: linear-gradient(to top, #fff 20%, #90ee90, #fff 90%);
             color: transparent;
             background-clip: text;
-
         }
 
         &__images {
@@ -49,10 +49,15 @@
                 border-radius: 0.5rem;
                 box-shadow: 3px 3px 6px gray;
                 filter: contrast(75%);
+                transition: all 1s ease;
 
                 @include gs.display(tablet) {
                     max-width: 25vmin;
                     height: 40vmin;
+                }
+
+                &:hover {
+                    transform: scale(1.05);
                 }
 
                 &:nth-child(5),
@@ -232,4 +237,18 @@
 
 [data-theme="dark"] .card {
     color: black;
+}
+
+@keyframes showTitle {
+    from {
+        opacity: 0;
+        filter: blur(0.25rem);
+        transform: translateY(-100%);
+    }
+    
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
 }

@@ -33,6 +33,18 @@
 
                 &>ul {
                     padding: 1rem;
+
+                    &>li {
+                        margin-bottom: 0.5rem;
+
+                        &>button {
+                            @include gs.glow-on-hover-button();
+                        }
+
+                        [data-theme="dark"] &>button {
+                            border: 1px solid white;
+                        }
+                    }
                 }
             }
         }
