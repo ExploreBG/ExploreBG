@@ -1,20 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { BsMoonStarsFill } from 'react-icons/bs';
-import { GiSun } from 'react-icons/gi';
 
 import './header.scss';
 import CLogo from '../common/CLogo/CLogo';
 import CHeaderLinksAndButtons from '../common/CHeaderLinksAndButtons/CHeaderLinksAndButtons';
+import SwitchTheme from '../SwitchTheme';
 
 interface HeaderProps { }
 
 const Header: React.FC<HeaderProps> = () => {
     const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
     const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
-    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
-    const [isHoveredThemeIcon, setIsHoveredThemeIcon] = useState<boolean>(false);
     const [isBGlang, setIsBGlang] = useState<boolean>(false);
 
     useEffect(() => {
@@ -41,15 +38,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <CHeaderLinksAndButtons />
 
                 <aside className="header__nav__theme-lang">
-                    <span
-                        onMouseEnter={() => setIsHoveredThemeIcon(true)}
-                        onMouseLeave={() => setIsHoveredThemeIcon(false)}
-                        onClick={() => setIsDarkTheme(state => !state)}
-                        className="header__nav__theme-lang__theme"
-                    >       
-                        {!isDarkTheme && <BsMoonStarsFill className={isHoveredThemeIcon ? 'header__nav__theme-lang__theme__moon' : ''} />}
-                        {isDarkTheme && <GiSun className={isHoveredThemeIcon ? 'header__nav__theme-lang__theme__sun' : ''} />}
-                    </span>
+                    <SwitchTheme />
 
                     <span
                         onClick={() => setIsBGlang(state => !state)}
