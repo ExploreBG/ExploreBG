@@ -1,12 +1,14 @@
+@use '@/global-styles/main' as gs;
+
 .link {
     padding: 0 1rem;
     transition: all .7s ease;
 
     &:hover {
-        color: blue;
+        color: gs.$middle-primary;
     }
 }
 
 .active {
-    color: blue;
+    color: gs.$middle-primary;
 }

@@ -7,19 +7,14 @@
     width: 100%;
     height: 5rem;
     @include gs.flex(none, space-around, center);
+    background-color: transparent;
+    border-bottom: 1px solid gs.$light-primary;
+    backdrop-filter: blur(0.5rem);
+    animation: showHeader 1.7s forwards;
 
     @include gs.display(mobile) {
         height: 3.5rem;
     }
-
-    // background: rgb(0, 255, 255);
-    // background: linear-gradient(180deg, rgba(75, 195, 195, 0.3) 31%, rgba(70, 252, 181, 0.6) 97%);
-
-    background-color: transparent;
-    border-bottom: 1px solid gs.$light-primary;
-
-    backdrop-filter: blur(0.5rem);
-    animation: showHeader 1.7s forwards;
 
     &__nav {
         display: flex;
@@ -64,7 +59,7 @@
                 transition: all 1s ease;
 
                 &:hover {
-                    color: blue;
+                    color: gs.$middle-primary;
                     transform: scale(1.25);
                 }
             }

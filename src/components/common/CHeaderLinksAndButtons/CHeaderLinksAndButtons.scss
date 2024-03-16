@@ -57,7 +57,7 @@
         }
 
         &:hover {
-            color: blue;
+            color: gs.$middle-primary;
         }
 
         &__close {
@@ -107,6 +107,10 @@
 
 .glow-on-hover {
     @include gs.glow-on-hover-button();
+}
+
+[data-theme="dark"] .glow-on-hover {
+    border: 1px solid white;
 }
 
 @keyframes opacityShow {

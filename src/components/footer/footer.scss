@@ -38,3 +38,8 @@ footer {
         padding: 0.5rem 0;
     }
 }
+
+[data-theme="dark"] footer {
+    border-top: 1px solid gs.$light-primary;
+    color: gs.$light-primary;
+}

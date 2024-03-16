@@ -14,7 +14,7 @@ const Home: React.FC<HomeProps> = () => {
     return (
         <main className="home">
             <section className="home__top">
-                <h1>Looking for adventures or just want to visit new place</h1>
+                <h1>Looking for adventures or just want to visit a new place</h1>
                 <h3>ExploreBG is the perfect choice</h3>
 
                 <figure className="home__top__images">

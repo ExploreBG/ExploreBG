@@ -27,6 +27,14 @@
             color: white;
         }
 
+        [data-theme="dark"] &>h1,
+        [data-theme="dark"] &>h3 {
+            background-image: linear-gradient(to top, #fff 20%, #90ee90, #fff 90%);
+            color: transparent;
+            background-clip: text;
+
+        }
+
         &__images {
             display: flex;
             gap: 1vmin;
@@ -102,6 +110,10 @@
         }
     }
 
+    [data-theme="dark"] &__section-wrapper {
+        box-shadow: 0 0 1.5rem white;
+    }
+
     &__section-buffer {
         width: 100%;
         min-height: 30vh;
@@ -130,6 +142,10 @@
         &>a {
             @include gs.glow-on-hover-button();
         }
+
+        [data-theme="dark"] &>a {
+            border: 1px solid white;
+        }
     }
 
     &__section-cards {
@@ -139,6 +155,10 @@
         padding: 6rem 1rem;
         gap: 1.6rem;
     }
+}
+
+[data-theme="dark"] .home {
+    background-image: unset;
 }
 
 .destinations {
@@ -208,4 +228,8 @@
             color: green;
         }
     }
+}
+
+[data-theme="dark"] .card {
+    color: black;
 }
