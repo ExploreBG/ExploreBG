@@ -53,16 +53,6 @@
                     }
                 }
             }
-
-            &__lang {
-                cursor: pointer;
-                transition: all 1s ease;
-
-                &:hover {
-                    color: gs.$middle-primary;
-                    transform: scale(1.25);
-                }
-            }
         }
     }
 }

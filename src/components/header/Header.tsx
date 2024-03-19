@@ -6,13 +6,13 @@ import './header.scss';
 import CLogo from '../common/CLogo/CLogo';
 import CHeaderLinksAndButtons from '../common/CHeaderLinksAndButtons/CHeaderLinksAndButtons';
 import SwitchTheme from '../SwitchTheme';
+import LocaleSwitcher from '../LocaleSwitcher/LocaleSwitcher';
 
 interface HeaderProps { }
 
 const Header: React.FC<HeaderProps> = () => {
     const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
     const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
-    const [isBGlang, setIsBGlang] = useState<boolean>(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -40,12 +40,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <aside className="header__nav__theme-lang">
                     <SwitchTheme />
 
-                    <span
-                        onClick={() => setIsBGlang(state => !state)}
-                        className="header__nav__theme-lang__lang"
-                    >
-                        {isBGlang ? 'EN' : 'BG'}
-                    </span>
+                    <LocaleSwitcher />
                 </aside>
             </article>
         </header>

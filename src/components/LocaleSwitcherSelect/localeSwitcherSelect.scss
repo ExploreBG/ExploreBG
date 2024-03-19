@@ -1,0 +1,16 @@
+@use '@/global-styles/main' as gs;
+
+figcaption {
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
+.select {
+    border: unset;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+[data-theme="dark"] .select {
+    color: gs.$light-primary;
+}
