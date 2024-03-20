@@ -1,0 +1,32 @@
+{
+    "navigation": {
+        "about": "About",
+        "FAQ": "FAQ",
+        "destinations": "Destinations",
+        "trails": "Trails",
+        "hikes": "Hikes",
+        "accommodation": "Accommodation",
+        "login": "Login/Sign up",
+        "profile": "My profile",
+        "favorite": "Favorite",
+        "created-hikes": "Created hikes",
+        "logout": "Logout"
+    },
+    "home": {
+        "section-top": {
+            "h1": "Looking for adventures or just want to visit a new place",
+            "h2": "Explore BG is the perfect choice",
+            "quote": {
+                "text": "If we were meant to stay in one place, we'd have roots instead of feet.",
+                "author": "Rachel Wolchin"
+            }
+        },
+        "section-2": {
+            "title": "The Devil's bridge",
+            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur minima natus delectus temporibus, voluptatibus eveniet ut minus alias cumque soluta adipisci repudiandae at, vel quos quod impedit repellendus praesentium voluptatum."
+        },
+        "section-destination": {
+            "title": "Discover unforgettable destinations"
+        }
+    }
+}

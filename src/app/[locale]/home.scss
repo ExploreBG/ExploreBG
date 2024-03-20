@@ -21,7 +21,7 @@
         }
 
         &>h1,
-        &>h3 {
+        &>h2 {
             margin-bottom: 2rem;
             text-shadow: 0 0 1rem black;
             color: white;
@@ -29,7 +29,7 @@
         }
 
         [data-theme="dark"] &>h1,
-        [data-theme="dark"] &>h3 {
+        [data-theme="dark"] &>h2 {
             background-image: linear-gradient(to top, #fff 20%, #90ee90, #fff 90%);
             color: transparent;
             background-clip: text;

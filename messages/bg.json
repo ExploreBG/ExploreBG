@@ -1,0 +1,32 @@
+{
+    "navigation": {
+        "about": "3а нас",
+        "FAQ": "ЧЗВ",
+        "destinations": "Дестинации",
+        "trails": "Маршрути",
+        "hikes": "Походи",
+        "accommodation": "Настаняване",
+        "login": "Вход/Регистрация",
+        "profile": "Моят профил",
+        "favorite": "Любими",
+        "created-hikes": "Създадени походи",
+        "logout": "Изход"
+    },
+    "home": {
+        "section-top": {
+            "h1": "Търсите приключения или просто искате да посетите ново място",
+            "h2": "Explore BG е идеалният избор",
+            "quote": {
+                "text": "Ако ни е писано да останем на едно място, щяхме да имаме корени вместо крака.",
+                "author": "Рейчъл Уолчин"
+            }
+        },
+        "section-2": {
+            "title": "Дяволския мост",
+            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur minima natus delectus temporibus, voluptatibus eveniet ut minus alias cumque soluta adipisci repudiandae at, vel quos quod impedit repellendus praesentium voluptatum."
+        },
+        "section-destination": {
+            "title": "Открийте незабравими дестинации"
+        }
+    }
+}
