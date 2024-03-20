@@ -1,5 +1,9 @@
 @use '@/global-styles/main' as gs;
 
+label {
+    display: flex;
+}
+
 figcaption {
     display: inline-block;
     margin-right: 0.25rem;

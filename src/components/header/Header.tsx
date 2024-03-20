@@ -8,9 +8,11 @@ import CHeaderLinksAndButtons from '../common/CHeaderLinksAndButtons/CHeaderLink
 import SwitchTheme from '../SwitchTheme';
 import LocaleSwitcher from '../LocaleSwitcher/LocaleSwitcher';
 
-interface HeaderProps { }
+interface HeaderProps {
+    t: any
+}
 
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC<HeaderProps> = ({ t }) => {
     const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
     const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
 
@@ -35,7 +37,7 @@ const Header: React.FC<HeaderProps> = () => {
             <CLogo />
 
             <article className="header__nav">
-                <CHeaderLinksAndButtons />
+                <CHeaderLinksAndButtons t={t} />
 
                 <aside className="header__nav__theme-lang">
                     <SwitchTheme />

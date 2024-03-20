@@ -7,7 +7,7 @@ import { locales } from '@/config';
 
 import '@/global-styles/main.scss';
 import { mainFont, headingFont } from '@/global-styles/fonts';
-import Header from '@/components/header/Header';
+import HeaderWrapper from '@/components/HeaderWrapper/HeaderWrapper';
 import Footer from '@/components/footer/Footer';
 
 interface RootLayoutProps {
@@ -40,7 +40,7 @@ export default function RootLayout({
             <body>
                 <div className="container">
                     <ProvideTheme>
-                        {includeHeaderAndFooter && <Header />}
+                        {includeHeaderAndFooter && <HeaderWrapper />}
 
                         {children}
 

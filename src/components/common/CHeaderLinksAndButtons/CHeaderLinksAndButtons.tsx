@@ -6,12 +6,14 @@ import { FaBarsStaggered } from 'react-icons/fa6';
 import { MdClose } from 'react-icons/md';
 
 import './CHeaderLinksAndButtons.scss';
-import CLink from '../CLink/CLink';
-import { navLinks, userLinks } from './links';
+import NavigationLinks from '@/components/NavigationLinks/NavigationLinks';
+import UserNavLinks from '@/components/UserNavLinks/UserNavLinks';
 
-interface CHeaderLinksAndButtonsProps { }
+interface CHeaderLinksAndButtonsProps {
+    t: any
+}
 
-const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
+const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) => {
     const [isOpenNavbar, setIsOpenNavbar] = useState<boolean>(false);
     const [userSession, setUserSession] = useState<boolean>(false);
     const [isShownUserLinks, setIsShownUserLinks] = useState<boolean>(false);
@@ -33,11 +35,9 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                         {isShownUserLinks && (
                             <aside className="nav-wrapper__links__user__links">
                                 <ul>
-                                    {userLinks.map((link) => (
-                                        <li key={link.title}><CLink item={link} /></li>
-                                    ))}
+                                    <UserNavLinks t={t} />
                                     <li>
-                                        {userSession && <button onClick={() => setUserSession(state => !state)}>Logout</button>}
+                                        {userSession && <button onClick={() => setUserSession(state => !state)}>{t.logout}</button>}
                                     </li>
                                 </ul>
                             </aside>
@@ -46,10 +46,10 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                 )}
 
                 <ul>
-                    {navLinks.map((link) => <li key={link.title}><CLink item={link} /></li>)}
+                    <NavigationLinks t={t} />
                 </ul>
 
-                {!userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">Login/Sign up</button>}
+                {!userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">{t.login}</button>}
             </nav>
 
             <div onClick={() => setIsOpenNavbar(state => !state)} className="nav-wrapper__navbar">
@@ -73,19 +73,15 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
 
                     <ul>
                         {userSession && (
-                            userLinks.map((link) => (
-                                <li key={link.title}><CLink item={link} /></li>
-                            ))
+                            <UserNavLinks t={t} />
                         )}
 
-                        {navLinks.map((link) => (
-                            <li key={link.title}><CLink item={link} /></li>
-                        ))}
+                        <NavigationLinks t={t} />
                     </ul>
 
-                    {!userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">Login/Sign up</button>}
+                    {!userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">{t.login}</button>}
 
-                    {userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">Logout</button>}
+                    {userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">{t.logout}</button>}
                 </nav>
             )}
         </div>
