@@ -1,24 +1,19 @@
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import React, { ComponentProps } from 'react';
+import { useSelectedLayoutSegment } from 'next/navigation';
+
+import type { AppPathnames } from '@/config';
+import { Link } from '@/navigation';
 
 import './CLink.scss';
 
-interface CLinkProps {
-    item: {
-        title: string
-        path: string
-    }
-}
-
-const CLink: React.FC<CLinkProps> = ({ item }) => {
-    const pathName = usePathname();
+export default function CLink<Pathname extends AppPathnames>({
+    href, ...rest
+}: ComponentProps<typeof Link<Pathname>>) {
+    const selectedLayoutSegment = useSelectedLayoutSegment();
+    const pathname = selectedLayoutSegment ? `/${selectedLayoutSegment}` : '/';
+    const isActive = pathname == href;
 
     return (
-        <Link href={item.path} className={`link ${pathName == item.path && 'active'}`}>
-            {item.title}
-        </Link>
+        <Link href={href} className={`link ${isActive && 'active'}`} {...rest} />
     );
-};
-
-export default CLink;
+}
