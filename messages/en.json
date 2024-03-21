@@ -13,6 +13,9 @@
         "logout": "Logout"
     },
     "home": {
+        "metadata": {
+            "desc": "You love nature, traveling and discovering new exciting places - Explore BG will guide you on  your journey into the unknown."
+        },
         "section-top": {
             "h1": "Looking for adventures or just want to visit a new place",
             "h2": "Explore BG is the perfect choice",
