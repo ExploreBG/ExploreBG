@@ -1,15 +1,33 @@
 import React from 'react';
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { FaRegCopyright } from 'react-icons/fa6';
 
-import RootLayout from './layout';
+import { Link } from '@/navigation';
+import CLogo from '@/components/common/CLogo/CLogo';
 
-const NotFound = () => {
+interface NotFoundProps {
+    params: { locale: string }
+}
+
+const NotFound: React.FC<NotFoundProps> = ({ params }) => {
+    const locale = params?.locale;
+    unstable_setRequestLocale(locale);
+
+    const t = useTranslations('not-found');
+
     return (
-        <RootLayout includeHeaderAndFooter={false} >
-            <main>
-                <h1>Not Found</h1>
-                <p>Sorry, the page you are looking for does not exist.</p>
-            </main>
-        </RootLayout>
+        <main className="not-found">
+            <header><CLogo /></header>
+
+            <section>
+                <h1>{t('title')}</h1>
+                <p>{t('text')}</p>
+                <Link href={'/'}>{t('btn')}</Link>
+            </section>
+
+            <footer><FaRegCopyright /> {new Date().getFullYear()} Explore BG</footer>
+        </main>
     );
 };
 
