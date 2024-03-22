@@ -31,5 +31,8 @@
         "section-destination": {
             "title": "Discover unforgettable destinations"
         }
+    },
+    "loading": {
+        "text": "Loading"
     }
 }
