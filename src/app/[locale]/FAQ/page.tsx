@@ -1,12 +1,15 @@
 import React from 'react';
 
 import './FAQ.scss';
+import Layout from '@/components/Layout/Layout';
 
 interface FAQProps { }
 
 const FAQ: React.FC<FAQProps> = () => {
     return (
-        <main>FAQ page</main>
+        <Layout>
+            <main>FAQ page</main>
+        </Layout>
     );
 };
 
