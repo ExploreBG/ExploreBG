@@ -18,10 +18,19 @@
         @include gs.display(mobile) {
             font-size: 1.75rem;
         }
+
+        @media (max-height: 34rem) and (orientation: landscape) {
+            font-size: 1.75rem;
+        }
     }
 
     &>img {
         @include gs.display(mobile) {
+            width: 2.15rem;
+            height: 2.15rem;
+        }
+
+        @media (max-height: 34rem) and (orientation: landscape) {
             width: 2.15rem;
             height: 2.15rem;
         }

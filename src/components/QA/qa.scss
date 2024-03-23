@@ -1,0 +1,59 @@
+@use '@/global-styles/main' as gs;
+
+.question-wrapper {
+    border-bottom: 1px solid gs.$light-primary;
+    cursor: pointer;
+    backdrop-filter: blur(0.25rem);
+    padding: 0 1rem;
+    transition: all 1s ease;
+
+    &:hover {
+        color: gs.$middle-primary;
+    }
+
+    &__question {
+        @include gs.flex(none, space-between, none);
+        padding: 1rem 0;
+
+        &>p {
+            text-align: left;
+        }
+
+        &>svg {
+            margin-left: 1.5rem;
+            animation: rotatePlus 1s forwards;
+
+            @include gs.display(L-mobile) {
+                display: none;
+            }
+        }
+    }
+
+    &__answer {
+        background-color: rgba(211, 211, 211, 0.496);
+        padding: 1.5rem;
+        box-shadow: 0px 0px 6px #808080;
+        margin-bottom: 0.5rem;
+        animation: opacityShow 2s ease;
+    }
+
+    [data-theme="dark"] &>p {
+        background-color: gs.$dark-background-secondary;
+    }
+}
+
+@keyframes rotatePlus {
+    to {
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes opacityShow {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

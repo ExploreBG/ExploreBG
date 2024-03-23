@@ -1,3 +1,74 @@
-main {
-    background-color: aqua;
+@use '@/global-styles/main' as gs;
+
+.faq {
+    padding: 8rem 0;
+    background-image: url('/images/backgr.png');
+    background-attachment: fixed;
+
+    @include gs.display(mobile) {
+        padding: 5rem 0;
+    }
+
+    @media (max-height: 34rem) and (orientation: landscape) {
+        padding: 4rem 0;
+    }
+
+    &__qa {
+        width: 100%;
+        max-width: 68.75rem;
+        padding: 0 2rem;
+
+        @include gs.display(L-mobile) {
+            padding: 0 1rem;
+        }
+
+        &__top {
+            background-image: url('/images/faq.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: right;
+            padding: 1.5rem 0;
+            backdrop-filter: blur(0.25rem);
+
+            @include gs.display(mobile) {
+                text-align: left;
+                padding-left: 2rem;
+            }
+        }
+
+        &>h1 {
+            margin: 3rem 0;
+            text-shadow: 0 0 1rem black;
+            color: white;
+            animation: showTitle 1.5s forwards;
+
+            @media (max-height: 34rem) and (orientation: landscape) {
+                margin: 1rem 0;
+            }
+        }
+
+        [data-theme="dark"] &>h1 {
+            background-image: linear-gradient(to top, #fff 20%, #90ee90, #fff 90%);
+            color: transparent;
+            background-clip: text;
+        }
+    }
+}
+
+[data-theme="dark"] .faq {
+    background-image: unset;
+}
+
+@keyframes showTitle {
+    from {
+        opacity: 0;
+        filter: blur(0.25rem);
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
 }
