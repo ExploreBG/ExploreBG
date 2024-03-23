@@ -4,12 +4,19 @@ import React, { useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { MdClear } from 'react-icons/md';
 
-import { questionsData } from '@/utils/utils';
 import './qa.scss';
 
-interface QAProps { }
+interface IQuestion {
+    id: number
+    question: string
+    answer: string
+}
 
-const QA: React.FC<QAProps> = () => {
+interface QAProps {
+    questionsData: IQuestion[]
+}
+
+const QA: React.FC<QAProps> = ({ questionsData }) => {
     const [isOpenQuestion, setIsOpenQuestion] = useState<number | null>(null);
 
     const onOpenCloseQuestion = (id: number) => {
