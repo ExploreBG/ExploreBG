@@ -14,6 +14,6 @@ export default function CLink<Pathname extends AppPathnames>({
     const isActive = pathname == href;
 
     return (
-        <Link href={href} className={`link ${isActive && 'active'}`} {...rest} />
+        <Link href={href} prefetch={false} className={`link ${isActive && 'active'}`} {...rest} />
     );
 }

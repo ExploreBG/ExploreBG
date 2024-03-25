@@ -38,7 +38,7 @@
     "not-found": {
         "title": "Not Found",
         "text": "Sorry, the page you are looking for does not exist.",
-        "btn": "Home page"
+        "btn": "Back"
     },
     "faq": {
         "metadata": {

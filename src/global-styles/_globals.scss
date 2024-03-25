@@ -131,7 +131,7 @@ main {
             height: 60vh;
         }
 
-        &>a {
+        &>button {
             @include gs.glow-on-hover-button();
         }
     }
