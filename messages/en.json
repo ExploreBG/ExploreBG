@@ -32,6 +32,15 @@
             "title": "Discover unforgettable destinations"
         }
     },
+    "hikes": {
+        "metadata": {
+            "tab-name": "Hikes"
+        },
+        "title": "Find an exciting hike",
+        "create-btn": "Create Hike",
+        "card-btn": "Learn more",
+        "empty-page": "Currently there aren't created hikes."
+    },
     "loading": {
         "text": "Loading"
     },

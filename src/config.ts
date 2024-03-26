@@ -24,6 +24,14 @@ export const pathnames = {
         en: '/hikes',
         bg: '/prehodi'
     },
+    '/hikes/:hikeId': {
+        en: '/hikes/:hikeId',
+        bg: '/prehodi/:hikeId'
+    },
+    '/hikes/create': {
+        en: '/hikes/create',
+        bg: '/prehodi/dobavi-prehod'
+    },
     '/accommodation': {
         en: '/accommodation',
         bg: '/mesta-za-nastaniavane'

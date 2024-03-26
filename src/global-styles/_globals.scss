@@ -35,6 +35,52 @@ main {
     min-height: 100vh;
 }
 
+.catalog-wrapper {
+    background-image: url('/images/backgr.png');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+
+    &>h1 {
+        margin: 8rem 1rem 2rem 1rem;
+        @include gs.titles();
+
+        @include br.display(mobile) {
+            margin-top: 5rem;
+        }
+
+        @media (max-height: 34rem) and (orientation: landscape) {
+            margin-top: 5rem;
+        }
+    }
+
+    [data-theme="dark"] &>h1 {
+        @include gs.titles-dark();
+    }
+
+    &__create-btn {
+        @include gs.glow-on-hover-button();
+        margin-bottom: 2rem;
+    }
+
+    [data-theme="dark"] &__create-btn {
+        border: 1px solid white;
+    }
+
+    &__cards {
+        max-width: 68.75rem;
+        @include gs.flex(row, center, center);
+        flex-wrap: wrap;
+        padding: 2rem;
+        gap: 1.6rem;
+        margin-bottom: 5rem;
+    }
+}
+
+[data-theme="dark"] .catalog-wrapper {
+    background-image: unset;
+}
+
 .card {
     max-width: 20rem;
     @include gs.flex(column, none, center);

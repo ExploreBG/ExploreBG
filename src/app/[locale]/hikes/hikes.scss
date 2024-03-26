@@ -1,0 +1,10 @@
+@use '@/global-styles/main' as gs;
+
+.hikes-wrapper {
+
+    &__empty-page {
+        font-size: 2rem;
+        font-weight: bold;
+        padding: 1.5rem;
+    }
+}
