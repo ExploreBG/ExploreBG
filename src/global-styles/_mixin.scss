@@ -23,6 +23,32 @@
     align-items: $items;
 }
 
+@mixin titles() {
+    text-shadow: 0 0 1rem black;
+    color: white;
+    animation: showTitle 1.5s forwards;
+
+    @keyframes showTitle {
+        from {
+            opacity: 0;
+            filter: blur(0.25rem);
+            transform: translateY(-100%);
+        }
+    
+        to {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+    }
+}
+
+@mixin titles-dark() {
+    background-image: linear-gradient(to top, #fff 20%, #90ee90, #fff 90%);
+    color: transparent;
+    background-clip: text;
+}
+
 @mixin glow-on-hover-button() {
     padding: 0.25rem 0.75rem;
     border: none;

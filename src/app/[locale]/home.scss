@@ -23,16 +23,12 @@
         &>h1,
         &>h2 {
             margin-bottom: 2rem;
-            text-shadow: 0 0 1rem black;
-            color: white;
-            animation: showTitle 1.5s forwards;
+            @include gs.titles();
         }
 
         [data-theme="dark"] &>h1,
         [data-theme="dark"] &>h2 {
-            background-image: linear-gradient(to top, #fff 20%, #90ee90, #fff 90%);
-            color: transparent;
-            background-clip: text;
+            @include gs.titles-dark();
         }
 
         &__images {
@@ -191,64 +187,14 @@
     transform: translateX(0);
 }
 
-.card {
-    max-width: 20rem;
-    @include gs.flex(column, none, center);
-    gap: 1rem;
-    padding-bottom: 1rem;
-    border-radius: 1rem;
-    background-color: rgba(255, 255, 255, 0.501);
-    backdrop-filter: blur(0.25rem);
-    box-shadow: 0 2rem 2.5rem -1rem rgb(0 0 0 / 43%);
+.home .card {
+    &>figure {
+        height: 25vh;
+    }
 
     &:last-child {
         @include gs.display(mobile) {
             display: none;
         }
-    }
-
-    &>figure {
-        width: 100%;
-        height: 12.5rem;
-        background-position: center;
-        background-size: cover;
-        border-radius: 0.5rem;
-
-        &>img {
-            width: 100%;
-            height: 100%;
-            border-radius: 1rem;
-        }
-    }
-
-    &>a {
-        border: 2px solid gs.$light-primary;
-        border-radius: 1.5rem;
-        padding: 0 0.75rem;
-        box-shadow: 1px 1px 4px black;
-        transition: all 1.2s ease;
-
-        &:hover {
-            background-color: white;
-            color: green;
-        }
-    }
-}
-
-[data-theme="dark"] .card {
-    color: black;
-}
-
-@keyframes showTitle {
-    from {
-        opacity: 0;
-        filter: blur(0.25rem);
-        transform: translateY(-100%);
-    }
-    
-    to {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateY(0);
     }
 }
