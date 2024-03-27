@@ -41,6 +41,11 @@
         "card-btn": "Learn more",
         "empty-page": "Currently there aren't created hikes."
     },
+    "hike-details": {
+        "metadata": {
+            "tab-name": "Hike details"
+        }
+    },
     "loading": {
         "text": "Loading"
     },

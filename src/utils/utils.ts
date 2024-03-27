@@ -36,6 +36,19 @@ export const dummyHikeData = [
     },
 ];
 
+export const dummyHike = {
+    'id': 2,
+    'hikeDate': '2024-05-21',
+    'hikeInfo': 'Tsar Ivan Asen II eco-trail is ready to welcome enthusiasts and lovers of ecotourism. The route leads in the footsteps of "Tsar Ivan Asen II" and brings us back to the memory of the glorious battle near the village of Klokotnitsa - one of the most significant events in the history of Bulgaria.',
+    'location': 'Haskovo',
+    'owner': {
+        'id': 1,
+        'username': 'member',
+        'imageUrl': 'https://picsum.photos/200'
+    },
+    'comments': []
+};
+
 export const dummyCardData = [
     {
         id: '1',

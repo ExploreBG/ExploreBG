@@ -1,0 +1,83 @@
+@use '@/global-styles/main' as gs;
+
+.hike-details {
+    background-image: url('/images/hike-details.png');
+    background-attachment: fixed;
+    background-position: right;
+    background-repeat: no-repeat;
+    color: gs.$light-primary;
+    padding: 8rem 0 3rem 0;
+
+    &>h1 {
+        @include gs.titles();
+        margin-bottom: 2rem;
+    }
+
+    [data-theme="dark"] &>h1 {
+        @include gs.titles-dark();
+    }
+
+    &>section {
+        width: 60vw;
+        max-width: 68.75rem;
+        border: 1px solid black;
+        border-radius: 1.5rem;
+        padding: 3rem;
+        margin-bottom: 2rem;
+        background-color: rgba(0, 0, 0, 0.395);
+
+        @include gs.display(display) {
+            width: 80vw;
+        }
+
+        @include gs.display(mobile) {
+            padding: 1.5rem 1rem;
+        }
+
+        & svg {
+            color: purple;
+        }
+    }
+
+    [data-theme="dark"] &>section {
+        border: 1px solid white;
+    }
+
+    &__owner-info {
+        &>h3 {
+            margin-bottom: 2rem;
+
+            &>svg {
+                animation: rotateLocation 4s infinite
+            }
+        }
+
+        &__date-owner {
+            @include gs.flex(none, space-around, center);
+            margin-bottom: 2rem;
+
+            &>a>img {
+                border-radius: 100%;
+                transition: all 1s ease;
+
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
+        }
+
+        &__info {
+            padding: 0 6rem;
+
+            @include gs.display(display) {
+                padding: unset;
+            }
+        }
+    }
+}
+
+@keyframes rotateLocation {
+    to {
+        transform: rotateY(360deg);
+    }
+}

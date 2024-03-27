@@ -36,9 +36,9 @@ export const pathnames = {
         en: '/accommodation',
         bg: '/mesta-za-nastaniavane'
     },
-    '/user/[userId]': {
-        en: '/user/[userId]',
-        bg: '/potrebitel/[userId]'
+    '/user/:userId': {
+        en: '/user/:userId',
+        bg: '/potrebitel/:userId'
     },
     '/user/[userId]/favorite': {
         en: '/user/[userId]/favorite',
