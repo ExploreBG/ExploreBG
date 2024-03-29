@@ -12,6 +12,9 @@
         "created-hikes": "Създадени походи",
         "logout": "Изход"
     },
+    "cards": {
+        "card-btn": "Виж повече"
+    },
     "home": {
         "metadata": {
             "desc": "Обичате природата, пътешествията и откриването на нови вълнуващи места - Explore BG ще ви напътства в пътуването ви към неизвестното."
@@ -28,8 +31,15 @@
             "title": "Дяволския мост",
             "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur minima natus delectus temporibus, voluptatibus eveniet ut minus alias cumque soluta adipisci repudiandae at, vel quos quod impedit repellendus praesentium voluptatum."
         },
+        "buttons": {
+            "view-all": "Виж всички преходи",
+            "create": "Добави преход"
+        },
         "section-destination": {
             "title": "Открийте незабравими дестинации"
+        },
+        "section-hikes": {
+            "title": "Вълнуващи преходи"
         }
     },
     "hikes": {

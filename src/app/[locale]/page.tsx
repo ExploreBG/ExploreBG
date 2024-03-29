@@ -2,11 +2,13 @@ import React from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import { Link } from '@/navigation';
 
 import './home.scss';
 import Layout from '@/components/Layout/Layout';
 import IntersectionObserverComponent from '@/components/IntersectionObserverComponent';
 import HomeSection from '@/components/homeSection/HomeSection';
+import HomeHikesSection from '@/components/HomeHikesSection/HomeHikesSection';
 import { dummyCardData, homeTopImages } from '@/utils/utils';
 
 interface HomeProps {
@@ -21,6 +23,8 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
     return (
         <Layout>
             <main className="home">
+                <IntersectionObserverComponent />
+
                 <section className="home__top">
                     <h1>{t('section-top.h1')}</h1>
                     <h2>{t('section-top.h2')}</h2>
@@ -66,16 +70,14 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
 
                 <section className="home__section-buffer"></section>
 
-                <HomeSection
-                    title='Hikes section title'
-                    name='hikes'
-                    data={dummyCardData}
-                    linkCreate='hike'
-                />
+                <h2 className="home__section-title">{t('section-hikes.title')}</h2>
+                <HomeHikesSection />
+                <aside className="home__section-links">
+                    <Link href={'/hikes'}>{t('buttons.view-all')}</Link>
+                    <Link href={'/hikes/create'}>{t('buttons.create')}</Link>
+                </aside>
 
                 <section className="home__section-buffer"></section>
-
-                <IntersectionObserverComponent />
             </main>
         </Layout>
     );

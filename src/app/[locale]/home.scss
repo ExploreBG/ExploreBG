@@ -91,6 +91,7 @@
     }
 
     &__section-wrapper {
+        width: 100%;
         max-width: 68.75rem;
         min-height: 100vh;
         @include gs.flex(column, center, center);
