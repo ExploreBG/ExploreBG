@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Link } from '@/navigation';
@@ -8,6 +7,7 @@ import { dummyHikeData } from '@/utils/utils';
 
 import './hikes.scss';
 import Layout from '@/components/Layout/Layout';
+import HikeCard from '@/components/HikeCard/HikeCard';
 
 interface HikesProps {
     params: { locale: string }
@@ -42,20 +42,7 @@ const Hikes: React.FC<HikesProps> = ({ params: { locale } }) => {
                     <section className="catalog-wrapper__cards">
                         {dummyHikeData.map((card) => (
                             <article key={card.id} className="card">
-                                <figure>
-                                    <Image
-                                        src={card.hikeImage || '/images/hike-default.jpg'}
-                                        width={200} height={200}
-                                        loading="lazy" alt="Hike image"
-                                        title={card.location} priority={false}
-                                    />
-                                </figure>
-
-                                <h3>{card.location}</h3>
-                                <span>{card.hikeDate}</span>
-                                <p>{card.hikeInfo.slice(0, 150)} .....</p>
-                                {/* @ts-ignore */}
-                                <Link href={`/hikes/${card.id}`}>{t('card-btn')}</Link>
+                                <HikeCard card={card} />
                             </article>
                         ))}
                     </section>
