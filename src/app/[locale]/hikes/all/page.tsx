@@ -8,9 +8,11 @@ import { IHikeCard } from '@/interfaces/interfaces';
 import './hikes.scss';
 import Layout from '@/components/Layout/Layout';
 import HikeCard from '@/components/HikeCard/HikeCard';
+import PaginationControls from '@/components/PaginationControls/PaginationControls';
 
 interface HikesProps {
     params: { locale: string }
+    searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export async function generateMetadata({
@@ -23,11 +25,15 @@ export async function generateMetadata({
     };
 }
 
-const Hikes: React.FC<HikesProps> = async ({ params: { locale } }) => {
+const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams }) => {
     unstable_setRequestLocale(locale);
     const t = await getTranslations('hikes');
 
-    const hikes = await agent.apiHikes.getAllHikes();
+    const page = searchParams['pageNumber'] ?? '1';
+    const cardsPerPage = searchParams['pageSize'] ?? '6';
+    const query = `?pageNumber=${page}&pageSize=${cardsPerPage}&sortBy=hikeDate&sortDir=DESC`;
+
+    const hikes = await agent.apiHikes.getAllHikes(query);
 
     return (
         <Layout>
@@ -49,6 +55,8 @@ const Hikes: React.FC<HikesProps> = async ({ params: { locale } }) => {
                         ))}
                     </section>
                 )}
+
+                <PaginationControls totalElements={hikes.totalElements} cardsPerPage={Number(cardsPerPage)} />
             </main>
         </Layout>
     );

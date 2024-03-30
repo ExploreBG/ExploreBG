@@ -1,0 +1,40 @@
+@use '@/global-styles/main' as gs;
+
+.pagination-buttons {
+
+    &>button {
+        margin-bottom: 4rem;
+        margin-right: 0.5rem;
+        font-size: 1.15rem;
+        width: 2rem;
+        box-shadow: 2px 2px 4px black;
+        cursor: pointer;
+
+        @include gs.display(mobile) {
+            font-size: 0.85rem;
+            width: 1.25rem;
+            margin-right: 0.25rem;
+        }
+
+        &:first-of-type,
+        &:last-of-type {
+            border: unset;
+            background-color: transparent;
+            box-shadow: unset;
+            width: 3.25rem !important;
+            font-size: 1.5rem;
+        }
+    }
+
+    &__prev-next {
+        width: 3.25rem !important;
+
+        @include gs.display(mobile) {
+            width: 2.35rem !important;
+        }
+    }
+}
+
+.current-btn {
+    background-color: gs.$light-primary;
+}
