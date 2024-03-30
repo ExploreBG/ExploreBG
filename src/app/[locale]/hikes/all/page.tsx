@@ -1,9 +1,9 @@
 import React from 'react';
-import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Link } from '@/navigation';
 
-import { dummyHikeData } from '@/utils/utils';
+import { agent } from '@/api/agent';
+import { IHikeCard } from '@/interfaces/interfaces';
 
 import './hikes.scss';
 import Layout from '@/components/Layout/Layout';
@@ -23,24 +23,26 @@ export async function generateMetadata({
     };
 }
 
-const Hikes: React.FC<HikesProps> = ({ params: { locale } }) => {
+const Hikes: React.FC<HikesProps> = async ({ params: { locale } }) => {
     unstable_setRequestLocale(locale);
-    const t = useTranslations('hikes');
+    const t = await getTranslations('hikes');
+
+    const hikes = await agent.apiHikes.getAllHikes();
 
     return (
         <Layout>
             <main className="catalog-wrapper hikes-wrapper">
-                {dummyHikeData.length > 0 && <h1>{t('title')}</h1>}
+                {hikes.content.length > 0 && <h1>{t('title')}</h1>}
 
-                {dummyHikeData.length == 0 && (
+                {hikes.content.length == 0 && (
                     <p className="hikes-wrapper__empty-page">{t('empty-page')}</p>
                 )}
 
                 <Link href={'/hikes/create'} className="catalog-wrapper__create-btn">{t('create-btn')}</Link>
 
-                {dummyHikeData.length > 0 && (
+                {hikes.content.length > 0 && (
                     <section className="catalog-wrapper__cards">
-                        {dummyHikeData.map((card) => (
+                        {hikes.content.map((card: IHikeCard) => (
                             <article key={card.id} className="card">
                                 <HikeCard card={card} />
                             </article>

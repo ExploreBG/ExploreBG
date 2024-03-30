@@ -73,7 +73,7 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
                 <h2 className="home__section-title">{t('section-hikes.title')}</h2>
                 <HomeHikesSection />
                 <aside className="home__section-links">
-                    <Link href={'/hikes'}>{t('buttons.view-all')}</Link>
+                    <Link href={'/hikes/all'}>{t('buttons.view-all')}</Link>
                     <Link href={'/hikes/create'}>{t('buttons.create')}</Link>
                 </aside>
 

@@ -20,9 +20,9 @@ export const pathnames = {
         en: '/trails',
         bg: '/marshruti'
     },
-    '/hikes': {
-        en: '/hikes',
-        bg: '/prehodi'
+    '/hikes/all': {
+        en: '/hikes/all',
+        bg: '/prehodi/vsichki'
     },
     '/hikes/:hikeId': {
         en: '/hikes/:hikeId',
