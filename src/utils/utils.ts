@@ -1,16 +1,3 @@
-export const dummyHike = {
-    'id': 2,
-    'hikeDate': '2024-05-21',
-    'hikeInfo': 'Tsar Ivan Asen II eco-trail is ready to welcome enthusiasts and lovers of ecotourism. The route leads in the footsteps of "Tsar Ivan Asen II" and brings us back to the memory of the glorious battle near the village of Klokotnitsa - one of the most significant events in the history of Bulgaria.',
-    'location': 'Haskovo',
-    'owner': {
-        'id': 1,
-        'username': 'member',
-        'imageUrl': 'https://picsum.photos/200'
-    },
-    'comments': []
-};
-
 export const dummyCardData = [
     {
         id: '1',
@@ -47,3 +34,12 @@ export const homeTopImages = [
     '/images/1.avif',
     '/images/4.avif'
 ];
+
+export const formatDate = (inputDate: string) => {
+    const [year, monthNumber, day] = inputDate.split('-');
+    const date = new Date();
+    date.setMonth(Number(monthNumber) - 1);
+    const month = date.toDateString().split(' ')[1];
+
+    return `${day} ${month} ${year}`;
+};

@@ -4,17 +4,14 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 
 import { IHikeCard } from '@/interfaces/interfaces';
+import { formatDate } from '@/utils/utils';
 
 interface HikeCardProps {
     card: IHikeCard
 }
 
 const HikeCard: React.FC<HikeCardProps> = ({ card }) => {
-    const [year, monthNumber, day] = card.hikeDate.split('-');
-    const date = new Date();
-    date.setMonth(Number(monthNumber) - 1);
-    const month = date.toDateString().split(' ')[1];
-    const formattedHikeDate = `${day} ${month} ${year}`;
+    const formattedHikeDate = formatDate(card.hikeDate);
 
     const t = useTranslations('cards');
 

@@ -16,7 +16,8 @@ const request = async (url: string) => {
 
 const apiHikes = {
     get4RandomHikes: () => request(`${baseUrl}/hikes/random`),
-    getAllHikes: (query: string) => request(`${baseUrl}/hikes/all${query}`)
+    getAllHikes: (query: string) => request(`${baseUrl}/hikes/all${query}`),
+    getHikeById: (hikeId: string) => request(`${baseUrl}/hikes/${hikeId}`)
 };
 
 export const agent = {
