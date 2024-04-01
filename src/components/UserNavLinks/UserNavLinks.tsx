@@ -6,7 +6,7 @@ interface UserNavLinksProps {
     t: any
 }
 
-const UserNavLinks: React.FC<UserNavLinksProps> = ({ t }) => {
+const UserNavLinks: React.FC<UserNavLinksProps> = () => {
     return (
         <>
             {/* <li><CLink href={''}>{t.profile}</CLink></li>

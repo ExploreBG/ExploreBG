@@ -24,21 +24,25 @@ export const pathnames = {
         en: '/hikes/all',
         bg: '/prehodi/vsichki'
     },
-    '/hikes/:hikeId': {
-        en: '/hikes/:hikeId',
-        bg: '/prehodi/:hikeId'
+    '/hikes/[hikeId]': {
+        en: '/hikes/[hikeId]',
+        bg: '/prehodi/[hikeId]'
     },
     '/hikes/create': {
         en: '/hikes/create',
         bg: '/prehodi/dobavi-prehod'
     },
-    '/accommodation': {
-        en: '/accommodation',
+    '/accommodations': {
+        en: '/accommodations',
         bg: '/mesta-za-nastaniavane'
     },
-    '/user/:userId': {
-        en: '/user/:userId',
-        bg: '/potrebitel/:userId'
+    '/accommodations/[id]': {
+        en: '/accommodations/[id]',
+        bg: '/mesta-za-nastaniavane/[id]'
+    },
+    '/users/[id]': {
+        en: '/users/[id]',
+        bg: '/potrebiteli/[id]'
     },
     '/user/[userId]/favorite': {
         en: '/user/[userId]/favorite',

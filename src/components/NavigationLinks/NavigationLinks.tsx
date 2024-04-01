@@ -14,7 +14,7 @@ const NavigationLinks: React.FC<NavigationLinksProps> = ({ t }) => {
             <li><CLink href={'/destination'}>{t.destinations}</CLink></li>
             <li><CLink href={'/trails'}>{t.trails}</CLink></li>
             <li><CLink href={'/hikes/all'}>{t.hikes}</CLink></li>
-            <li><CLink href={'/accommodation'}>{t.accommodation}</CLink></li>
+            <li><CLink href={'/accommodations'}>{t.accommodation}</CLink></li>
         </>
     );
 };

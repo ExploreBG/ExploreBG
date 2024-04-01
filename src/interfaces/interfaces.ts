@@ -12,3 +12,47 @@ export interface IHikeCard {
     hikeInfo: string
     location: string
 }
+
+export interface IHut {
+    id: number
+    accommodationName: string
+    owner: IOwner
+}
+
+export interface IOwner {
+    id: number
+    username: string
+    imageUrl: string
+}
+
+export interface IComment {
+    id: number
+    message: string
+    owner: IOwner
+}
+
+export interface IHike {
+    id: number
+    hikeDate: string
+    hikeInfo: string
+    location: string
+    hikingTrail: ITrail
+    comments: IComment[]
+}
+
+export interface ITrail {
+    id: number
+    startPoint: string
+    endPoint: string
+    totalDistance: number
+    trailInfo: string
+    imageUrl: string
+    seasonVisited: string
+    waterAvailable: boolean
+    availableHuts: IHut[]
+    trailDifficulty: string
+    activity: string
+    comments: IComment[]
+    elevationGained: number
+    nextTo: string
+}
