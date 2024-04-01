@@ -3,16 +3,18 @@ import Image from 'next/image';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Link } from '@/navigation';
 import { IoLocationOutline } from 'react-icons/io5';
-import { BsCalendar2Date } from 'react-icons/bs';
+import { BsCalendar2Date, BsHouseFill } from 'react-icons/bs';
 import { GrMapLocation } from 'react-icons/gr';
-import { GiPathDistance, GiMountainRoad } from 'react-icons/gi';
+import { GiPathDistance, GiMountainRoad, GiHiking } from 'react-icons/gi';
 import { FaHandHoldingWater } from 'react-icons/fa';
 
 import { agent } from '@/api/agent';
+import { IHut } from '@/interfaces/interfaces';
 import { formatDate } from '@/utils/utils';
 
 import './hikeDetails.scss';
 import Layout from '@/components/Layout/Layout';
+import HikeCommentsSection from '@/components/HikeCommentsSection/HikeCommentsSection';
 
 interface HikeDetailsProps {
     params: { locale: string, hikeId: string }
@@ -30,7 +32,7 @@ export async function generateMetadata({
 
 const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeId } }) => {
     unstable_setRequestLocale(locale);
-    const t = await getTranslations('hike-details');
+    // const t = await getTranslations('hike-details');
 
     const hike = await agent.apiHikes.getHikeById(hikeId);
     const formattedHikeDate = formatDate(hike.hikeDate);
@@ -38,7 +40,7 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
     return (
         <Layout>
             <main className="hike-details">
-                <h1>Some title</h1>
+                <h1>Hike details</h1>
 
                 <section className="hike-details__owner-info">
                     <h3><IoLocationOutline /> {hike.location}</h3>
@@ -51,10 +53,12 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
 
                         {hike.owner && (
                             <>
-                                {/* @ts-ignore */}
-                                <Link href={`/user/${hike.owner.id}`}>
+                                <Link href={{
+                                    pathname: '/users/[id]',
+                                    params: { id: hike.owner.id }
+                                }}>
                                     <Image
-                                        src={'/images/user-profile-pic.png'}
+                                        src={hike.owner.imageUrl || '/images/user-profile-pic.png'}
                                         width={40} height={40} loading="eager"
                                         alt="User picture" title={hike.owner.username}
                                         priority={true}
@@ -81,7 +85,7 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
                         </div>
 
                         <div className="hike-details__trail-info__pair">
-                            <p><GiPathDistance />&nbsp; {hike.hikingTrail.totalDistance} km</p>
+                            <p><GiPathDistance />&nbsp; distance: {hike.hikingTrail.totalDistance} km</p>
                             <p><GiMountainRoad />&nbsp; elevation: {hike.hikingTrail.elevationGained} m</p>
                         </div>
 
@@ -94,18 +98,32 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
                         </div>
 
                         <div className="hike-details__trail-info__pair">
-                            <p><FaHandHoldingWater />&nbsp; water sources: {hike.hikingTrail.waterAvailable ? 'Yes' : 'No'}</p>
-                            <p><GiMountainRoad />&nbsp; difficulty: {hike.hikingTrail.trailDifficulty}</p>
+                            <p>
+                                <FaHandHoldingWater />&nbsp;
+                                water sources: {hike.hikingTrail.waterAvailable ? 'Yes' : 'No'}
+                            </p>
+                            <p><GiHiking />&nbsp; difficulty: {hike.hikingTrail.trailDifficulty}</p>
                         </div>
 
                         <p className="hike-details__trail-info__info">{hike.hikingTrail.trailInfo}</p>
+
+                        <aside className="hike-details__trail-info__huts">
+                            <h4><BsHouseFill />&nbsp; Lodges in the area:</h4>
+
+                            {hike.hikingTrail.availableHuts.map((h: IHut) => (
+                                <Link key={h.id} href={{
+                                    pathname: '/accommodations/[id]',
+                                    params: { id: h.id }
+                                }}>
+                                    / {h.accommodationName} /
+                                </Link>
+                            ))}
+                        </aside>
                     </section>
                 )}
 
-                {hike.comments.length && (
-                    <section className="hike-details__comments">
-                        <article>comments: </article>
-                    </section>
+                {(hike.comments.length > 0 || hike.hikingTrail?.comments.length > 0) && (
+                    <HikeCommentsSection hike={hike} trail={hike.hikingTrail} />
                 )}
             </main>
         </Layout>

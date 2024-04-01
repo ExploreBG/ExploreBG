@@ -75,7 +75,7 @@
     }
 
     &__trail-info {
-        
+
         &__pair {
             @include gs.flex(none, space-around, center);
             margin-bottom: 1.5rem;
@@ -104,10 +104,24 @@
 
         &__info {
             padding: 0 6rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 3rem;
 
             @include gs.display(display) {
                 padding: unset;
+            }
+        }
+
+        &__huts {
+            &>h4 {
+                margin-bottom: 1.5rem;
+            }
+
+            &>a {
+                color: gs.$light-secondary;
+
+                &:first-of-type {
+                    margin-right: 1.5rem;
+                }
             }
         }
     }
