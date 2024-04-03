@@ -50,7 +50,7 @@ export interface ITrail {
     seasonVisited: string
     waterAvailable: boolean
     availableHuts: IHut[]
-    trailDifficulty: string
+    trailDifficulty: number
     activity: string
     comments: IComment[]
     elevationGained: number

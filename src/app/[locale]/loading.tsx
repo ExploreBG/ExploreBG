@@ -1,15 +1,9 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
 
-interface LoadingProps {
-    params: { locale: string }
-}
+interface LoadingProps { }
 
-const Loading: React.FC<LoadingProps> = ({ params }) => {
-    const locale = params?.locale;
-    unstable_setRequestLocale(locale);
-    
+const Loading: React.FC<LoadingProps> = () => {
     const t = useTranslations('loading');
     const text = t('text');
 

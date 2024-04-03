@@ -34,7 +34,6 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({ totalElements, 
         buttons.push(
             <button
                 key={i}
-                // @ts-ignore
                 onClick={() => onChangePage(i)}
                 className={i == page ? 'current-btn' : ''}
             >
@@ -44,8 +43,15 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({ totalElements, 
     }
 
     const onChangePage = (page: number) => {
-        // @ts-ignore
-        return router.push(`?pageNumber=${page}&pageSize=${cardsPerPage}&sortBy=hikeDate&sortDir=DESC`);
+        return router.push({
+            pathname: '/hikes/all',
+            query: {
+                pageNumber: page,
+                pageSize: cardsPerPage,
+                sortBy: 'hikeDate',
+                sortDir: 'DESC'
+            }
+        });
     };
 
     return (
@@ -65,7 +71,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({ totalElements, 
             </button>
 
             {buttons}
-            
+
             <button
                 onClick={() => onChangePage(page + 1)}
                 className="pagination-buttons__prev-next"

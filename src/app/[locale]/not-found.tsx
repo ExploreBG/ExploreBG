@@ -1,19 +1,13 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
 import { FaRegCopyright } from 'react-icons/fa6';
 
 import CLogo from '@/components/common/CLogo/CLogo';
 import CBackBtn from '@/components/common/CBackBtn/CBackBtn';
 
-interface NotFoundProps {
-    params: { locale: string }
-}
+interface NotFoundProps { }
 
-const NotFound: React.FC<NotFoundProps> = ({ params }) => {
-    const locale = params?.locale;
-    unstable_setRequestLocale(locale);
-
+const NotFound: React.FC<NotFoundProps> = () => {
     const t = useTranslations('not-found');
 
     return (

@@ -3,9 +3,9 @@ import Image from 'next/image';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Link } from '@/navigation';
 import { IoLocationOutline } from 'react-icons/io5';
-import { BsCalendar2Date, BsHouseFill } from 'react-icons/bs';
+import { BsCalendar2Date, BsHouseFill, BsThermometerSun, BsWind, BsThermometerSnow } from 'react-icons/bs';
 import { GrMapLocation } from 'react-icons/gr';
-import { GiPathDistance, GiMountainRoad, GiHiking } from 'react-icons/gi';
+import { GiPathDistance, GiMountainRoad, GiHiking, GiRaining } from 'react-icons/gi';
 import { FaHandHoldingWater } from 'react-icons/fa';
 
 import { agent } from '@/api/agent';
@@ -30,12 +30,33 @@ export async function generateMetadata({
     };
 }
 
+const seasonIcons = {
+    'spring': <GiRaining />,
+    'summer': <BsThermometerSun />,
+    'autumn': <BsWind />,
+    'winter': <BsThermometerSnow />,
+};
+
 const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeId } }) => {
     unstable_setRequestLocale(locale);
     // const t = await getTranslations('hike-details');
 
     const hike = await agent.apiHikes.getHikeById(hikeId);
     const formattedHikeDate = formatDate(hike.hikeDate);
+    const season = hike.hikingTrail.seasonVisited.toLowerCase();
+
+    const repeatIcon = (end: number) => {
+        let icons = [];
+        for (let i = 1; i <= end; i++) {
+            icons.push(
+                <span key={i}><GiHiking /></span>
+            );
+        }
+
+        return icons;
+    };
+
+    const maxDifficultyLevel = 6;
 
     return (
         <Layout>
@@ -90,7 +111,11 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
                         </div>
 
                         <div className="hike-details__trail-info__pair">
-                            <p>visited in:&nbsp; {hike.hikingTrail.seasonVisited}</p>
+                            <p>
+                                {/* @ts-ignore */}
+                                {seasonIcons[season]}&nbsp;
+                                visited in:&nbsp; {hike.hikingTrail.seasonVisited}
+                            </p>
                             <ul>suitable for:
                                 <li><p>{hike.hikingTrail.activity}</p></li>
                                 <li><p> ??? </p></li>
@@ -102,7 +127,15 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
                                 <FaHandHoldingWater />&nbsp;
                                 water sources: {hike.hikingTrail.waterAvailable ? 'Yes' : 'No'}
                             </p>
-                            <p><GiHiking />&nbsp; difficulty: {hike.hikingTrail.trailDifficulty}</p>
+                            <p className="hike-details__trail-info__pair__difficulty">
+                                difficulty:&nbsp;
+                                <div>
+                                    {repeatIcon(hike.hikingTrail.trailDifficulty)}
+                                </div>
+                                <div className="hike-details__trail-info__pair__difficulty__empty">
+                                    {repeatIcon(maxDifficultyLevel - hike.hikingTrail.trailDifficulty)}
+                                </div>
+                            </p>
                         </div>
 
                         <p className="hike-details__trail-info__info">{hike.hikingTrail.trailInfo}</p>
@@ -110,14 +143,17 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
                         <aside className="hike-details__trail-info__huts">
                             <h4><BsHouseFill />&nbsp; Lodges in the area:</h4>
 
-                            {hike.hikingTrail.availableHuts.map((h: IHut) => (
-                                <Link key={h.id} href={{
-                                    pathname: '/accommodations/[id]',
-                                    params: { id: h.id }
-                                }}>
-                                    / {h.accommodationName} /
-                                </Link>
-                            ))}
+                            {hike.hikingTrail.availableHuts > 0
+                                ? hike.hikingTrail.availableHuts.map((h: IHut) => (
+                                    <Link key={h.id} href={{
+                                        pathname: '/accommodations/[id]',
+                                        params: { id: h.id }
+                                    }}>
+                                        / {h.accommodationName} /
+                                    </Link>
+                                ))
+                                : <p>not available</p>
+                            }
                         </aside>
                     </section>
                 )}
