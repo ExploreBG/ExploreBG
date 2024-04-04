@@ -22,11 +22,11 @@ const HikeCard: React.FC<HikeCardProps> = ({ card }) => {
                     src={card.imageUrl || '/images/hike-default.jpg'}
                     width={200} height={200}
                     loading="lazy" alt="Hike image"
-                    title={card.location} priority={false}
+                    title={card.hikeName} priority={false}
                 />
             </figure>
 
-            <h3>{card.location}</h3>
+            <h4>{card.hikeName}</h4>
             <time dateTime={card.hikeDate}>{formattedHikeDate}</time>
             <p>{card.hikeInfo.slice(0, 145)} .....</p>
             <Link href={{

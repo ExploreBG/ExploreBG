@@ -10,13 +10,12 @@ export interface IHikeCard {
     imageUrl: string
     hikeDate: string
     hikeInfo: string
-    location: string
+    hikeName: string
 }
 
 export interface IHut {
     id: number
     accommodationName: string
-    owner: IOwner
 }
 
 export interface IOwner {
@@ -34,8 +33,10 @@ export interface IComment {
 export interface IHike {
     id: number
     hikeDate: string
+    hikeName: string
     hikeInfo: string
-    location: string
+    nextTo: string
+    owner: IOwner
     hikingTrail: ITrail
     comments: IComment[]
 }
@@ -51,7 +52,7 @@ export interface ITrail {
     waterAvailable: boolean
     availableHuts: IHut[]
     trailDifficulty: number
-    activity: string
+    activity: string[]
     comments: IComment[]
     elevationGained: number
     nextTo: string

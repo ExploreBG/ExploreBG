@@ -16,7 +16,7 @@ body {
 
 [data-theme="dark"] body {
     background-color: black;
-    color: c.$light-primary;
+    color: green;
 }
 
 a {
@@ -73,7 +73,7 @@ main {
         flex-wrap: wrap;
         padding: 2rem;
         gap: 1.6rem;
-        margin-bottom: 5rem;
+        margin-bottom: 3rem;
     }
 }
 
@@ -133,6 +133,32 @@ main {
 
 [data-theme="dark"] .card {
     color: black;
+}
+
+.details-page-section {
+    width: 60vw;
+    max-width: 68.75rem;
+    border: 1px solid black;
+    border-radius: 1.5rem;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    background-color: rgba(0, 0, 0, 0.395);
+
+    @include br.display(display) {
+        width: 85vw;
+    }
+
+    @include br.display(mobile) {
+        padding: 1.5rem 1rem;
+    }
+
+    & svg {
+        color: purple;
+    }
+}
+
+[data-theme="dark"] .details-page-section {
+    border: 1px solid white;
 }
 
 .loading {

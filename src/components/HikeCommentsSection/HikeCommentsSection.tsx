@@ -41,7 +41,7 @@ const HikeCommentsSection: React.FC<HikeCommentsSectionProps> = ({ hike, trail }
     const [isHike, setIsHike] = useState<boolean>(hike.comments.length > 0 ? true : false);
 
     return (
-        <section className="comments">
+        <section className="comments details-page-section">
             <h3>comments:</h3>
 
             {hike.comments.length > 0 && trail?.comments?.length > 0 && (
