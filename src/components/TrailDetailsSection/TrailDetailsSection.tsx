@@ -22,7 +22,7 @@ const seasonIcons = {
 };
 
 const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
-    const season = trail.seasonVisited.toLowerCase();
+    const season = trail.seasonVisited?.toLowerCase();
     const maxDifficultyLevel = 6;
 
     const repeatIcon = (end: number) => {
@@ -69,7 +69,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
                     : <p>not available</p>
                 }
                 <ul>suitable for:
-                    {trail.activity.length > 0
+                    {trail.activity?.length > 0
                         ? trail.activity.map((a: string, index: number) => (
                             <li key={index}>{a}</li>
                         ))
@@ -99,7 +99,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
             <aside className="trail__huts">
                 <h4><BsHouseFill />&nbsp; Lodges in the area:</h4>
 
-                {trail.availableHuts.length > 0
+                {trail.availableHuts?.length > 0
                     ? trail.availableHuts.map((h: IHut) => (
                         <Link key={h.id} href={{
                             pathname: '/accommodations/[id]',

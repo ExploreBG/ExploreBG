@@ -42,6 +42,11 @@
             "title": "Вълнуващи преходи"
         }
     },
+    "trail-details": {
+        "metadata": {
+            "tab-name": "Маршрут - подробности"
+        }
+    },
     "hikes": {
         "metadata": {
             "tab-name": "Преходи"

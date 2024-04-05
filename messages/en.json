@@ -42,6 +42,11 @@
             "title": "Exciting hikes"
         }
     },
+    "trail-details": {
+        "metadata": {
+            "tab-name": "Trail details"
+        }
+    },
     "hikes": {
         "metadata": {
             "tab-name": "Hikes"

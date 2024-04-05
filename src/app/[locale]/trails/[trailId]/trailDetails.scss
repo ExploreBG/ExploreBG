@@ -1,0 +1,27 @@
+@use '@/global-styles/main' as gs;
+
+.trail-details {
+    background-image: url('/images/trail-details-light.avif');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    padding: 8rem 0 3rem 0;
+
+    &>h1 {
+        @include gs.titles();
+        margin-bottom: 2rem;
+    }
+
+    [data-theme="dark"] &>h1 {
+        @include gs.titles-dark();
+    }
+}
+
+[data-theme="light"] .trail-details {
+    color: #fff0db;
+    text-shadow: 1px 1px 3px black;
+}
+
+[data-theme="dark"] .trail-details {
+    background-image: url('/images/trail-details-dark.jpg');
+}
