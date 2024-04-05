@@ -161,6 +161,59 @@ main {
     border: 1px solid white;
 }
 
+.comments {
+
+    &>h3 {
+        margin-bottom: 2rem;
+    }
+
+    &>nav {
+        @include gs.flex(none, center, none);
+        gap: 1rem;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+
+        &>span,
+        &>h4 {
+            cursor: pointer;
+        }
+
+        &>span {
+            animation: shake 3s cubic-bezier(.36, .07, .19, .97) infinite;
+        }
+    }
+
+    &>div {
+        display: flex;
+        height: 3rem;
+
+        &>a {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 100%;
+            margin-right: 0.5rem;
+
+            &>img {
+                border-radius: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &>p {
+            margin-top: 1rem;
+            background-color: darkgray;
+            border-bottom-left-radius: 2.5rem;
+            border-top-right-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            padding: 0.15rem 1rem;
+        }
+
+        [data-theme="dark"] &>p {
+            background-color: #454545;
+        }
+    }
+}
+
 .loading {
     height: 100vh;
     letter-spacing: 0.5rem;
@@ -279,5 +332,28 @@ main {
 
     100% {
         transform: translate(0);
+    }
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
     }
 }
