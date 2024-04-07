@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Link } from '@/navigation';
 import { GrMapLocation } from 'react-icons/gr';
@@ -9,6 +11,7 @@ import { FaHandHoldingWater } from 'react-icons/fa';
 import { ITrail, IHut } from '@/interfaces/interfaces';
 
 import './trailDetailsSection.scss';
+import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
 
 interface TrailDetailsSectionProps {
     trail: ITrail
@@ -94,7 +97,9 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
                 </p>
             </div>
 
-            <p className="trail__info">{trail.trailInfo}</p>
+            <div className="trail__info">
+                <ExpandTextToggle text={trail.trailInfo} length={155} />
+            </div>
 
             <aside className="trail__huts">
                 <h4><BsHouseFill />&nbsp; Lodges in the area:</h4>

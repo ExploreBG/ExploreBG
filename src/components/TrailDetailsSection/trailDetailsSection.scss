@@ -39,6 +39,7 @@
     &__info {
         padding: 0 6rem;
         margin-bottom: 3rem;
+        cursor: pointer;
 
         @include gs.display(display) {
             padding: unset;
