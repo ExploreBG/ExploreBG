@@ -15,6 +15,18 @@
             }
         }
 
+        @include gs.display(mobile) {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &__last {
+            @include gs.display(L-mobile) {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
         & strong {
             font-size: 1.5rem;
         }
@@ -47,6 +59,10 @@
     }
 
     &__huts {
+        @include gs.display(mobile) {
+            @include gs.flex(column, none, none);
+        }
+
         &>h4 {
             margin-bottom: 1.5rem;
         }

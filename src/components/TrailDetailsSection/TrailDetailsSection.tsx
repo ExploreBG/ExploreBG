@@ -81,12 +81,12 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
                 </ul>
             </div>
 
-            <div className="trail__pair">
+            <div className="trail__pair trail__pair__last">
                 <p>
                     <FaHandHoldingWater />&nbsp;
                     water sources: {trail.waterAvailable ? 'Yes' : 'No'}
                 </p>
-                <p className="trail__pair__difficulty">
+                <div className="trail__pair__difficulty">
                     difficulty:&nbsp;
                     <div>
                         {repeatIcon(trail.trailDifficulty)}
@@ -94,7 +94,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
                     <div className="trail__pair__difficulty__empty">
                         {repeatIcon(maxDifficultyLevel - trail.trailDifficulty)}
                     </div>
-                </p>
+                </div>
             </div>
 
             <div className="trail__info">
