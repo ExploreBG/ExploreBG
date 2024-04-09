@@ -5,6 +5,13 @@ export interface ICard {
     description: string
 }
 
+export interface ITrailCard {
+    id: number
+    trailName: string
+    trailInfo: string
+    imageUrl: string
+}
+
 export interface IHikeCard {
     id: number
     imageUrl: string
