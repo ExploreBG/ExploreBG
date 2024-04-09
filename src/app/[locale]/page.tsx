@@ -8,6 +8,7 @@ import './home.scss';
 import Layout from '@/components/Layout/Layout';
 import IntersectionObserverComponent from '@/components/IntersectionObserverComponent';
 import HomeSection from '@/components/homeSection/HomeSection';
+import HomeTrailsSection from '@/components/HomeTrailsSection/HomeTrailsSection';
 import HomeHikesSection from '@/components/HomeHikesSection/HomeHikesSection';
 import { dummyCardData, homeTopImages } from '@/utils/utils';
 
@@ -61,20 +62,19 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
 
                 <section className="home__section-buffer"></section>
 
-                <HomeSection
-                    title='Trails section title'
-                    name='trails'
-                    data={dummyCardData}
-                    linkCreate='trail'
-                />
+                <h2 className="home__section-title">{t('section-trails.title')}</h2>
+                <HomeTrailsSection />
+                <aside className="home__section-links">
+                    <Link href={'/trails/all'}>{t('section-trails.btn-view-all')}</Link>
+                </aside>
 
                 <section className="home__section-buffer"></section>
 
                 <h2 className="home__section-title">{t('section-hikes.title')}</h2>
                 <HomeHikesSection />
                 <aside className="home__section-links">
-                    <Link href={'/hikes/all'}>{t('buttons.view-all')}</Link>
-                    <Link href={'/hikes/create'}>{t('buttons.create')}</Link>
+                    <Link href={'/hikes/all'}>{t('section-hikes.btn-view-all')}</Link>
+                    <Link href={'/hikes/create'}>{t('section-hikes.btn-create')}</Link>
                 </aside>
 
                 <section className="home__section-buffer"></section>

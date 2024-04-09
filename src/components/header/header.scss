@@ -21,7 +21,25 @@
     }
 
     &__nav {
-        display: flex;
+        @include gs.flex(none, none, center);
+
+        &>svg {
+            font-size: 1.5rem;
+            cursor: pointer;
+
+            @include gs.display(tablet) {
+                margin-right: 2rem;
+            }
+        }
+
+        &__search {
+            position: absolute;
+            top: 5rem;
+            left: 0;
+            border: 1px solid black;
+            width: 100%;
+            backdrop-filter: blur(0.5rem);
+        }
 
         &__theme-lang {
             @include gs.flex(column, none, none);

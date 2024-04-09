@@ -16,9 +16,13 @@ export const pathnames = {
         en: '/destination',
         bg: '/mesta'
     },
-    '/trails': {
-        en: '/trails',
-        bg: '/marshruti'
+    '/trails/all': {
+        en: '/trails/all',
+        bg: '/marshruti/vsichki'
+    },
+    '/trails/[trailId]': {
+        en: '/trails/[trailId]',
+        bg: '/marshruti/[trailId]'
     },
     '/hikes/all': {
         en: '/hikes/all',

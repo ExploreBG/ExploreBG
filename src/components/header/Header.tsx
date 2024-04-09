@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 import './header.scss';
 import CLogo from '../common/CLogo/CLogo';
@@ -15,6 +16,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ t }) => {
     const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
     const [isHeaderVisible, setIsHeaderVisible] = useState<boolean>(true);
+    const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -37,6 +39,13 @@ const Header: React.FC<HeaderProps> = ({ t }) => {
             <CLogo />
 
             <article className="header__nav">
+                <FaSearch onClick={() => setIsSearchOpen(!isSearchOpen)} />
+                {isSearchOpen && (
+                    <section className="header__nav__search">
+                        <p>Search</p>
+                    </section>
+                )}
+
                 <CHeaderLinksAndButtons t={t} />
 
                 <aside className="header__nav__theme-lang">

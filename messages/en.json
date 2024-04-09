@@ -31,15 +31,17 @@
             "title": "The Devil's bridge",
             "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur minima natus delectus temporibus, voluptatibus eveniet ut minus alias cumque soluta adipisci repudiandae at, vel quos quod impedit repellendus praesentium voluptatum."
         },
-        "buttons": {
-            "view-all": "View all hikes",
-            "create": "Create hike"
-        },
         "section-destination": {
             "title": "Discover unforgettable destinations"
         },
+        "section-trails": {
+            "title": "Trails",
+            "btn-view-all": "View all trails"
+        },
         "section-hikes": {
-            "title": "Exciting hikes"
+            "title": "Exciting hikes",
+            "btn-view-all": "View all hikes",
+            "btn-create": "Create hike"
         }
     },
     "trail-details": {

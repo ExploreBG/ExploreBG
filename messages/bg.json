@@ -31,15 +31,17 @@
             "title": "Дяволския мост",
             "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur minima natus delectus temporibus, voluptatibus eveniet ut minus alias cumque soluta adipisci repudiandae at, vel quos quod impedit repellendus praesentium voluptatum."
         },
-        "buttons": {
-            "view-all": "Виж всички преходи",
-            "create": "Добави преход"
-        },
         "section-destination": {
             "title": "Открийте незабравими дестинации"
         },
+        "section-trails": {
+            "title": "Маршрути",
+            "btn-view-all": "Виж всички маршрути"
+        },
         "section-hikes": {
-            "title": "Вълнуващи преходи"
+            "title": "Вълнуващи преходи",
+            "btn-view-all": "Виж всички преходи",
+            "btn-create": "Добави преход"
         }
     },
     "trail-details": {
