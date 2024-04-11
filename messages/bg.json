@@ -44,6 +44,14 @@
             "btn-create": "Добави преход"
         }
     },
+    "trails": {
+        "metadata": {
+            "tab-name": "Маршрути"
+        },
+        "title": "Намерете вълнуващ маршрут",
+        "create-btn": "Добави маршрут",
+        "card-btn": "Виж повече"
+    },
     "trail-details": {
         "metadata": {
             "tab-name": "Маршрут - подробности"

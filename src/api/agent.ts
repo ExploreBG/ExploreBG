@@ -16,6 +16,7 @@ const request = async (url: string) => {
 
 const apiTrails = {
     get4RandomTrails: () => request(`${baseUrl}/trails/random`),
+    getAllTrails: (query: string) => request(`${baseUrl}/trails/all${query}`),
     getTrailById: (trailId: string) => request(`${baseUrl}/trails/${trailId}`)
 };
 

@@ -44,6 +44,14 @@
             "btn-create": "Create hike"
         }
     },
+    "trails": {
+        "metadata": {
+            "tab-name": "Trails"
+        },
+        "title": "Find an exciting trails",
+        "create-btn": "Create Trail",
+        "card-btn": "Learn more"
+    },
     "trail-details": {
         "metadata": {
             "tab-name": "Trail details"
