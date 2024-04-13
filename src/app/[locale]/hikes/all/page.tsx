@@ -31,7 +31,7 @@ const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams })
 
     const page = searchParams['pageNumber'] ?? '1';
     const cardsPerPage = searchParams['pageSize'] ?? '6';
-    const query = `?pageNumber=${page}&pageSize=${cardsPerPage}&sortBy=hikeDate&sortDir=DESC`;
+    const query = `?pageNumber=${page}&pageSize=${cardsPerPage}&sortBy=hikeDate&sortDir=ASC`;
 
     const hikes = await agent.apiHikes.getAllHikes(query);
 
@@ -56,7 +56,13 @@ const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams })
                     </section>
                 )}
 
-                <PaginationControls totalElements={hikes.totalElements} cardsPerPage={Number(cardsPerPage)} />
+                <PaginationControls
+                    totalElements={hikes.totalElements}
+                    cardsPerPage={Number(cardsPerPage)}
+                    pathname={'/hikes/all'}
+                    sortBy={'hikeDate'}
+                    sortDir={'ASC'}
+                />
             </main>
         </Layout>
     );

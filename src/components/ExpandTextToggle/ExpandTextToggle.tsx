@@ -9,13 +9,14 @@ interface ExpandTextToggleProps {
 const ExpandTextToggle: React.FC<ExpandTextToggleProps> = ({ text, length }) => {
     const [isExpand, setIsExpand] = useState<boolean>(false);
 
+    const slice = text.length > length
+        ? text.slice(0, length) + ' ..... click to expand '
+        : text;
+
     return (
         <p onClick={() => setIsExpand(!isExpand)}>
-            {isExpand
-                ? text
-                : text.slice(0, length) + ' ..... click to expand '
-            }
-            &nbsp;&nbsp;<GiClick />
+            {isExpand ? text : slice}
+            &nbsp;&nbsp;{text.length > length && <GiClick />}
         </p>
     );
 };

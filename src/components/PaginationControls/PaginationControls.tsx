@@ -9,9 +9,14 @@ import './paginationControls.scss';
 interface PaginationControlsProps {
     totalElements: number
     cardsPerPage: number
+    pathname: string
+    sortBy: string
+    sortDir: string
 }
 
-const PaginationControls: React.FC<PaginationControlsProps> = ({ totalElements, cardsPerPage }) => {
+const PaginationControls: React.FC<PaginationControlsProps> = ({ 
+    totalElements, cardsPerPage, pathname, sortBy, sortDir
+}) => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -44,12 +49,13 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({ totalElements, 
 
     const onChangePage = (page: number) => {
         return router.push({
-            pathname: '/hikes/all',
+            // @ts-ignore
+            pathname: pathname,
             query: {
                 pageNumber: page,
                 pageSize: cardsPerPage,
-                sortBy: 'hikeDate',
-                sortDir: 'DESC'
+                sortBy: sortBy,
+                sortDir: sortDir
             }
         });
     };

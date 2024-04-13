@@ -82,6 +82,7 @@ main {
 }
 
 .card {
+    min-width: 18rem;
     max-width: 20rem;
     @include gs.flex(column, none, center);
     gap: 1rem;
@@ -113,6 +114,7 @@ main {
         }
     }
 
+    &>h4,
     &>p {
         padding: 0 0.75rem;
     }

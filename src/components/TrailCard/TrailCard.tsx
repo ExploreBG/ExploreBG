@@ -24,7 +24,7 @@ const TrailCard: React.FC<TrailCardProps> = ({ card }) => {
             </figure>
 
             <h4>{card.trailName}</h4>
-            <p>{card.trailInfo.slice(0, 145)} .....</p>
+            <p>{card.trailInfo.slice(0, 145)} {card.trailInfo.length > 145 && '.....'}</p>
             <Link href={{
                 pathname: '/trails/[trailId]',
                 params: { trailId: card.id }

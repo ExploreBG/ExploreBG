@@ -28,7 +28,7 @@ const HikeCard: React.FC<HikeCardProps> = ({ card }) => {
 
             <h4>{card.hikeName}</h4>
             <time dateTime={card.hikeDate}>{formattedHikeDate}</time>
-            <p>{card.hikeInfo.slice(0, 145)} .....</p>
+            <p>{card.hikeInfo.slice(0, 145)} {card.hikeInfo.length > 145 && '.....'}</p>
             <Link href={{
                 pathname: '/hikes/[hikeId]',
                 params: { hikeId: card.id }

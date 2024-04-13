@@ -27,6 +27,7 @@ const seasonIcons = {
 const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
     const season = trail.seasonVisited?.toLowerCase();
     const maxDifficultyLevel = 6;
+    const trailInfoTextLength = 155;
 
     const repeatIcon = (end: number) => {
         let icons = [];
@@ -97,8 +98,11 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
                 </div>
             </div>
 
-            <div className="trail__info">
-                <ExpandTextToggle text={trail.trailInfo} length={155} />
+            <div
+                className="trail__info"
+                style={{ cursor: trail.trailInfo.length > trailInfoTextLength ? 'pointer' : 'unset' }}
+            >
+                <ExpandTextToggle text={trail.trailInfo} length={trailInfoTextLength} />
             </div>
 
             <aside className="trail__huts">

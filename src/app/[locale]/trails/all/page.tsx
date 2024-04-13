@@ -7,6 +7,7 @@ import { ITrailCard } from '@/interfaces/interfaces';
 
 import Layout from '@/components/Layout/Layout';
 import TrailCard from '@/components/TrailCard/TrailCard';
+import PaginationControls from '@/components/PaginationControls/PaginationControls';
 
 interface AllTrailsProps {
     params: { locale: string }
@@ -47,6 +48,14 @@ const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale }, searchP
                         </article>
                     ))}
                 </section>
+
+                <PaginationControls
+                    totalElements={trails.totalElements}
+                    cardsPerPage={Number(cardsPerPage)}
+                    pathname={'/trails/all'}
+                    sortBy={'id'}
+                    sortDir={'DESC'}
+                />
             </main>
         </Layout>
     );
