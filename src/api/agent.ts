@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8080/api';
+const baseUrl = `${process.env.API_URL}/api` || 'http://localhost:8080/api';
 
 const request = async (url: string) => {
     try {
