@@ -42,6 +42,10 @@
             "title": "Exciting hikes",
             "btn-view-all": "View all hikes",
             "btn-create": "Create hike"
+        },
+        "section-accommodations": {
+            "title": "Accommodations",
+            "btn-view-all": "View all accommodations"
         }
     },
     "trails": {

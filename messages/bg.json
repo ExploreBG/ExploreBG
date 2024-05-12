@@ -42,6 +42,10 @@
             "title": "Вълнуващи преходи",
             "btn-view-all": "Виж всички преходи",
             "btn-create": "Добави преход"
+        },
+        "section-accommodations": {
+            "title": "Настаняване",
+            "btn-view-all": "Виж всички"
         }
     },
     "trails": {

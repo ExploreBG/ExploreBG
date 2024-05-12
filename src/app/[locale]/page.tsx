@@ -10,6 +10,7 @@ import IntersectionObserverComponent from '@/components/IntersectionObserverComp
 import HomeSection from '@/components/homeSection/HomeSection';
 import HomeTrailsSection from '@/components/HomeTrailsSection/HomeTrailsSection';
 import HomeHikesSection from '@/components/HomeHikesSection/HomeHikesSection';
+import HomeAccommodationsSection from '@/components/HomeAccommodationsSection/HomeAccommodationsSection';
 import { dummyCardData, homeTopImages } from '@/utils/utils';
 
 interface HomeProps {
@@ -75,6 +76,14 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
                 <aside className="home__section-links">
                     <Link href={'/hikes/all'}>{t('section-hikes.btn-view-all')}</Link>
                     <Link href={'/hikes/create'}>{t('section-hikes.btn-create')}</Link>
+                </aside>
+
+                <section className="home__section-buffer"></section>
+
+                <h2 className="home__section-title">{t('section-accommodations.title')}</h2>
+                <HomeAccommodationsSection />
+                <aside className="home__section-links">
+                    <Link href={'/accommodations/all'}>{t('section-accommodations.btn-view-all')}</Link>
                 </aside>
 
                 <section className="home__section-buffer"></section>
