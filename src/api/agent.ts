@@ -27,7 +27,8 @@ const apiHikes = {
 };
 
 const apiAccommodations = {
-    get4RandomAccommodations: () => request(`${baseUrl}/accommodations/random`)
+    get4RandomAccommodations: () => request(`${baseUrl}/accommodations/random`),
+    getAllAccommodations: (query: string) => request(`${baseUrl}/accommodations/all${query}`)
 };
 
 export const agent = {

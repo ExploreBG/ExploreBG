@@ -75,6 +75,14 @@
             "tab-name": "Hike details"
         }
     },
+    "accommodations": {
+        "metadata": {
+            "tab-name": "Accommodations"
+        },
+        "title": "Accommodations",
+        "create-btn": "Create accommodation",
+        "card-btn": "Learn more"
+    },
     "loading": {
         "text": "Loading"
     },
