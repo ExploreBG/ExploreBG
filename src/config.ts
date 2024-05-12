@@ -36,13 +36,13 @@ export const pathnames = {
         en: '/hikes/create',
         bg: '/prehodi/dobavi-prehod'
     },
-    '/accommodations': {
-        en: '/accommodations',
-        bg: '/mesta-za-nastaniavane'
+    '/accommodations/all': {
+        en: '/accommodations/all',
+        bg: '/mesta-za-nastaniavane/vsichki'
     },
-    '/accommodations/[id]': {
-        en: '/accommodations/[id]',
-        bg: '/mesta-za-nastaniavane/[id]'
+    '/accommodations/[accommodationId]': {
+        en: '/accommodations/[accommodationId]',
+        bg: '/mesta-za-nastaniavane/[accommodationId]'
     },
     '/users/[id]': {
         en: '/users/[id]',

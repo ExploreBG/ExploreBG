@@ -20,6 +20,12 @@ export interface IHikeCard {
     hikeName: string
 }
 
+export interface IAccommodationCard {
+    id: number
+    accommodationName: string
+    imageUrl: string
+}
+
 export interface IHut {
     id: number
     accommodationName: string
