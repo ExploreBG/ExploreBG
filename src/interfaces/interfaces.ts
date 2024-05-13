@@ -70,3 +70,20 @@ export interface ITrail {
     elevationGained: number
     nextTo: string
 }
+
+export interface IAccommodation {
+    id: number
+    accommodationName: string
+    owner: IOwner
+    phoneNumber: string
+    site: string
+    imageUrl: string
+    accommodationInfo: string
+    bedCapacity: number
+    pricePerBed: number
+    foodAvailable: boolean
+    access: string
+    type: string
+    nextTo: string
+    comments: IComment[]
+}

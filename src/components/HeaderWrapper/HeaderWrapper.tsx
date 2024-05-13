@@ -14,7 +14,7 @@ const HeaderWrapper: React.FC<HeaderWrapperProps> = () => {
         'destinations': translate('destinations'),
         'trails': translate('trails'),
         'hikes': translate('hikes'),
-        'accommodation': translate('accommodation'),
+        'accommodations': translate('accommodations'),
         'login': translate('login'),
         'profile': translate('profile'),
         'favorite': translate('favorite'),

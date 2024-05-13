@@ -5,7 +5,7 @@
         "destinations": "Дестинации",
         "trails": "Маршрути",
         "hikes": "Походи",
-        "accommodation": "Настаняване",
+        "accommodations": "Настаняване",
         "login": "Вход/Регистрация",
         "profile": "Моят профил",
         "favorite": "Любими",
@@ -82,6 +82,11 @@
         "title": "Места за настаняване",
         "create-btn": "Добави място за настаняване",
         "card-btn": "Виж повече"
+    },
+    "accommodation-details": {
+        "metadata": {
+            "tab-name": "Настаняване - подробности"
+        }
     },
     "loading": {
         "text": "Зареждане"

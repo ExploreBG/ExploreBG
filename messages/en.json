@@ -5,7 +5,7 @@
         "destinations": "Destinations",
         "trails": "Trails",
         "hikes": "Hikes",
-        "accommodation": "Accommodation",
+        "accommodations": "Accommodations",
         "login": "Login/Sign up",
         "profile": "My profile",
         "favorite": "Favorite",
@@ -82,6 +82,11 @@
         "title": "Accommodations",
         "create-btn": "Create accommodation",
         "card-btn": "Learn more"
+    },
+    "accommodation-details": {
+        "metadata": {
+            "tab-name": "Accommodation details"
+        }
     },
     "loading": {
         "text": "Loading"

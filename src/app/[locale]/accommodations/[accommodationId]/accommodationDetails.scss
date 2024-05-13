@@ -1,0 +1,99 @@
+@use '@/global-styles/main' as gs;
+
+.accommodation-details {
+    background-image: url('/images/backgr.png');
+    background-attachment: fixed;
+    padding: 6rem 0 3rem 0;
+
+    &>h1 {
+        margin: 2rem 0;
+        @include gs.titles();
+    }
+
+    [data-theme="dark"] &>h1 {
+        @include gs.titles-dark();
+    }
+
+    & section {
+        backdrop-filter: blur(.15rem);
+    }
+
+    &__info {
+
+        &__site {
+            color: blue;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        &__pair {
+            @include gs.flex(none, space-around, center);
+            margin-bottom: 1.5rem;
+
+            &:first-of-type {
+                margin-top: 1.5rem;
+
+                &>a:first-of-type {
+                    color: blue;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                &>a>img {
+                    border-radius: 100%;
+                    transition: all 1s ease;
+
+                    &:hover {
+                        transform: scale(1.2);
+                    }
+                }
+            }
+
+            @include gs.display(L-mobile) {
+                justify-content: space-between;
+
+                &:first-of-type {
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+            }
+
+            @include gs.display(mobile) {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        &__text {
+            margin-top: 1.5rem;
+            padding: 0 6rem;
+
+            @include gs.display(display) {
+                padding: unset;
+            }
+        }
+    }
+
+    &__img {
+        margin-bottom: 2rem;
+        z-index: 1;
+
+        &>img {
+            border-radius: 1.5rem;
+            box-shadow: 0 0 .75rem black;
+            transition: all 1s ease-in-out;
+
+            &:hover {
+                transform: scale(1.5);
+            }
+        }
+    }
+}
+
+[data-theme="dark"] .accommodation-details {
+    background-image: url('/images/dark-backgr.png');
+}
