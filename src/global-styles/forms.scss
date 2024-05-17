@@ -1,0 +1,21 @@
+.login-register-form {
+    width: 30rem;
+    height: 50vh;
+    margin-top: 1.5rem;
+
+    &>h1 {
+        color: purple;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &>form {
+        display: flex;
+        flex-direction: column;
+
+        &>input:last-of-type {
+            margin-top: 1rem;
+            background-color: aquamarine;
+        }
+    }
+}
