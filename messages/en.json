@@ -88,6 +88,11 @@
             "tab-name": "Accommodation details"
         }
     },
+    "login-register": {
+        "metadata": {
+            "tab-name": "Login / Register"
+        }
+    },
     "loading": {
         "text": "Loading"
     },

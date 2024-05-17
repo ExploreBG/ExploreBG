@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { Link } from '@/navigation';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { MdClose } from 'react-icons/md';
 
@@ -49,7 +50,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) =>
                     <NavigationLinks t={t} />
                 </ul>
 
-                {!userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">{t.login}</button>}
+                {!userSession && <Link href={'/login-register'} className="glow-on-hover">{t.login}</Link>}
             </nav>
 
             <div onClick={() => setIsOpenNavbar(state => !state)} className="nav-wrapper__navbar">
@@ -79,7 +80,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) =>
                         <NavigationLinks t={t} />
                     </ul>
 
-                    {!userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">{t.login}</button>}
+                    {!userSession && <Link href={'/login-register'} className="glow-on-hover">{t.login}</Link>}
 
                     {userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">{t.logout}</button>}
                 </nav>

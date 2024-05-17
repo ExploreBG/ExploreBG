@@ -88,6 +88,11 @@
             "tab-name": "Настаняване - подробности"
         }
     },
+    "login-register": {
+        "metadata": {
+            "tab-name": "Вход / Регистрация"
+        }
+    },
     "loading": {
         "text": "Зареждане"
     },

@@ -44,6 +44,10 @@ export const pathnames = {
         en: '/accommodations/[accommodationId]',
         bg: '/mesta-za-nastaniavane/[accommodationId]'
     },
+    '/login-register': {
+        en: '/login-register',
+        bg: '/vhod-registratsia'
+    },
     '/users/[id]': {
         en: '/users/[id]',
         bg: '/potrebiteli/[id]'
