@@ -1,3 +1,128 @@
+@use '@/global-styles/main' as gs;
+
 .login-register {
-    background-color: gray;
+    position: relative;
+    padding: 5rem 0;
+
+    &::before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        background-image: url('/images/login-register.jpeg');
+        position: absolute;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        filter: grayscale(90%);
+    }
+
+    &>header {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        @include gs.flex(none, space-between, none);
+        padding: 1.5rem 3rem;
+
+        @include gs.display(mobile) {
+            padding: 1.5rem 1rem;
+        }
+
+        &>a {
+            backdrop-filter: blur(0.25rem);
+            border-radius: 1.5rem;
+            padding: 0 0.25rem;
+        }
+
+        &>button {
+            @include gs.glow-on-hover-button();
+            border: 1px solid white;
+            margin: 0.5rem 0;
+        }
+    }
+
+    &>.forms {
+        position: relative;
+        backdrop-filter: blur(0.2rem);
+        padding: 2rem;
+        border-radius: 1.5rem;
+        margin-bottom: 12rem;
+        box-shadow: 0 0 4px aquamarine;
+
+        @media (max-height: 750px) and (orientation: landscape) {
+            margin-bottom: unset;
+        }
+
+        @include gs.display(L-mobile) {
+            margin-bottom: unset;
+        }
+
+        @include gs.display(mobile) {
+            padding: 0.5rem;
+        }
+
+        &>.buttons {
+            margin-bottom: 2rem;
+            @include gs.flex(none, space-evenly, none);
+
+            &>button {
+                all: unset;
+                color: gray;
+                font-size: 2rem;
+                cursor: pointer;
+                transition: all 1s ease;
+
+                &:hover {
+                    color: gs.$light-primary;
+                }
+            }
+
+            &>.current {
+                color: gs.$light-primary;
+                border-bottom: 3px solid aquamarine;
+            }
+        }
+    }
+
+    &>.img-info-icon {
+        position: absolute;
+        bottom: 2rem;
+        left: 1rem;
+        color: gs.$middle-primary;
+        backdrop-filter: blur(0.15rem);
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:hover .info,
+        &>.active {
+            display: block;
+            position: absolute;
+            top: -2rem;
+            right: -15rem;
+            font-size: 1.25rem;
+            backdrop-filter: blur(0.15rem);
+            color: black;
+        }
+
+        &>figcaption {
+            display: none;
+        }
+
+        &>svg {
+            font-size: 2rem;
+        }
+    }
+
+    &>footer {
+        all: unset;
+        position: absolute;
+        bottom: 0.5rem;
+        color: black;
+        backdrop-filter: blur(0.15rem);
+        padding: 0 0.15rem;
+        border-radius: 0.5rem;
+    }
+
+    [data-theme="dark"] &>footer {
+        color: black;
+    }
 }
