@@ -91,7 +91,19 @@
     "login-register": {
         "metadata": {
             "tab-name": "Login / Register"
-        }
+        },
+        "back-btn": "Back",
+        "login-title": "Login",
+        "register-title": "Register",
+        "email": "Email",
+        "username": "Username",
+        "password": "Password",
+        "confirm-pass": "Confirm password",
+        "username-email": "Username or Email",
+        "remember-me": "Remember Me",
+        "login-btn": "Login",
+        "register-btn": "Sign up",
+        "img-info": "Ancient Theater - Plovdiv"
     },
     "loading": {
         "text": "Loading"

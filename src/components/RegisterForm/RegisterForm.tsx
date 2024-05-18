@@ -1,8 +1,12 @@
 import React, { FormEvent } from 'react';
 
-interface RegisterFormProps { }
+import { ILoginRegisterTranslate } from '@/interfaces/interfaces';
 
-export const RegisterForm: React.FC<RegisterFormProps> = () => {
+interface RegisterFormProps {
+    translate: ILoginRegisterTranslate
+}
+
+export const RegisterForm: React.FC<RegisterFormProps> = ({ translate }) => {
 
     const onRegisterSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -15,28 +19,26 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
 
         if (password != confirmPassword) {
             console.log('Passwords mismatch!');
-            
+
             return;
-        } 
+        }
 
         console.log(email, '\n', username, '\n', password, '\n', confirmPassword, '\n', 'Successful Register');
     };
 
     return (
         <section className="login-register-form">
-            <h1>Register form</h1>
-
             <form onSubmit={onRegisterSubmit}>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">{translate.email}</label>
                 <input type="email" name="email" required placeholder='john.doe@gmail.com' />
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">{translate.username}</label>
                 <input type="text" name="username" required placeholder='John Doe' />
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">{translate.pass}</label>
                 <input type="password" name="password" required placeholder='*********' />
-                <label htmlFor="confirmPassword">Confirm Password</label>
+                <label htmlFor="confirmPassword">{translate.confirmPass}</label>
                 <input type="password" name="confirmPassword" required placeholder='*********' />
 
-                <input type="submit" value="Sign up" />
+                <input type="submit" value={translate.registerBtn} />
             </form>
         </section>
     );
