@@ -37,6 +37,11 @@
             @include gs.glow-on-hover-button();
             border: 1px solid white;
             margin: 0.5rem 0;
+
+            @include gs.display(mobile) {
+                margin: 0.25rem 0;
+                font-size: 0.85rem;
+            }
         }
     }
 

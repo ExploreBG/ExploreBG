@@ -13,7 +13,7 @@
     animation: showHeader 1.7s forwards;
 
     @include gs.display(mobile) {
-        height: 3.5rem;
+        flex-direction: column;
     }
 
     @media (max-height: 34rem) and (orientation: landscape) {
@@ -29,6 +29,11 @@
 
             @include gs.display(tablet) {
                 margin-right: 2rem;
+            }
+
+            @include gs.display(mobile) {
+                margin-right: 1rem;
+                font-size: 1.15rem;
             }
         }
 

@@ -5,6 +5,10 @@
     background-attachment: fixed;
     padding: 6rem 0 3rem 0;
 
+    @media (max-height: 540px) and (orientation: landscape) {
+        padding-top: 3.5rem;
+    }
+
     &>h1 {
         margin: 2rem 0;
         @include gs.titles();
@@ -19,6 +23,9 @@
     }
 
     &__info {
+        @include gs.display(L-mobile) {
+            padding: 1.5rem !important;
+        }
 
         &__site {
             color: blue;
@@ -53,16 +60,8 @@
                 }
             }
 
-            @include gs.display(L-mobile) {
+            @media (max-width: 600px) {
                 justify-content: space-between;
-
-                &:first-of-type {
-                    flex-direction: column;
-                    gap: 1rem;
-                }
-            }
-
-            @include gs.display(mobile) {
                 flex-direction: column;
                 gap: 1rem;
             }
