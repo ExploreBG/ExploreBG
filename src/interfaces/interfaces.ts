@@ -43,6 +43,11 @@ export interface IComment {
     owner: IOwner
 }
 
+export interface IDestination {
+    id: number
+    destinationName: string
+}
+
 export interface IHike {
     id: number
     hikeDate: string
@@ -69,6 +74,7 @@ export interface ITrail {
     comments: IComment[]
     elevationGained: number
     nextTo: string
+    destinations: IDestination[]
 }
 
 export interface IAccommodation {

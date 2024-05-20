@@ -16,6 +16,10 @@ export const pathnames = {
         en: '/destination',
         bg: '/mesta'
     },
+    '/destinations/[destinationId]': {
+        en: '/destinations/[destinationId]',
+        bg: '/mesta/[destinationId]'
+    },
     '/trails/all': {
         en: '/trails/all',
         bg: '/marshruti/vsichki'

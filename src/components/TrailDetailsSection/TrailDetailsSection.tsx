@@ -2,13 +2,13 @@
 
 import React from 'react';
 import { Link } from '@/navigation';
-import { GrMapLocation } from 'react-icons/gr';
+import { GrMapLocation, GrOverview } from 'react-icons/gr';
 import { BsThermometerSun, BsHouseFill } from 'react-icons/bs';
 import { GiPathDistance, GiMountainRoad, GiBeech, GiFallingLeaf, GiHiking } from 'react-icons/gi';
 import { FaSnowflake } from 'react-icons/fa6';
 import { FaHandHoldingWater } from 'react-icons/fa';
 
-import { ITrail, IHut } from '@/interfaces/interfaces';
+import { ITrail, IHut, IDestination } from '@/interfaces/interfaces';
 
 import './trailDetailsSection.scss';
 import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
@@ -111,10 +111,24 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
                 {trail.availableHuts?.length > 0
                     ? trail.availableHuts.map((h: IHut) => (
                         <Link key={h.id} href={{
-                            pathname: '/accommodations/[id]',
-                            params: { id: h.id }
+                            pathname: '/accommodations/[accommodationId]',
+                            params: { accommodationId: h.id }
                         }}>
                             / {h.accommodationName} /
+                        </Link>
+                    ))
+                    : <p>not available</p>
+                }
+
+                <h4><GrOverview />&nbsp; Curious places:</h4>
+
+                {trail.destinations?.length > 0
+                    ? trail.destinations.map((d: IDestination) => (
+                        <Link key={d.id} href={{
+                            pathname: '/destinations/[destinationId]',
+                            params: { destinationId: d.id }
+                        }}>
+                            / {d.destinationName} /
                         </Link>
                     ))
                     : <p>not available</p>
