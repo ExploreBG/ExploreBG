@@ -12,9 +12,9 @@ export const pathnames = {
         en: '/FAQ',
         bg: '/vuprosi'
     },
-    '/destination': {
-        en: '/destination',
-        bg: '/mesta'
+    '/destinations/all': {
+        en: '/destinations/all',
+        bg: '/mesta/vsichki'
     },
     '/destinations/[destinationId]': {
         en: '/destinations/[destinationId]',

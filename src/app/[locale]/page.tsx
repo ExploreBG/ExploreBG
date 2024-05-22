@@ -7,11 +7,11 @@ import { Link } from '@/navigation';
 import './home.scss';
 import Layout from '@/components/Layout/Layout';
 import IntersectionObserverComponent from '@/components/IntersectionObserverComponent';
-import HomeSection from '@/components/homeSection/HomeSection';
+import HomeDestinationsSection from '@/components/HomeDestinationsSection/HomeDestinationsSection';
 import HomeTrailsSection from '@/components/HomeTrailsSection/HomeTrailsSection';
 import HomeHikesSection from '@/components/HomeHikesSection/HomeHikesSection';
 import HomeAccommodationsSection from '@/components/HomeAccommodationsSection/HomeAccommodationsSection';
-import { dummyCardData, homeTopImages } from '@/utils/utils';
+import { homeTopImages } from '@/utils/utils';
 
 interface HomeProps {
     params: { locale: string }
@@ -55,11 +55,11 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
 
                 <section className="home__section-buffer"></section>
 
-                <HomeSection
-                    title={t('section-destination.title')}
-                    name='destinations'
-                    data={dummyCardData}
-                />
+                <h2 className="home__section-title">{t('section-destinations.title')}</h2>
+                <HomeDestinationsSection />
+                <aside className="home__section-links">
+                    <Link href={'/destinations/all'}>{t('section-destinations.btn-view-all')}</Link>
+                </aside>
 
                 <section className="home__section-buffer"></section>
 

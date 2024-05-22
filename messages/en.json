@@ -31,8 +31,9 @@
             "title": "The Devil's bridge",
             "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur minima natus delectus temporibus, voluptatibus eveniet ut minus alias cumque soluta adipisci repudiandae at, vel quos quod impedit repellendus praesentium voluptatum."
         },
-        "section-destination": {
-            "title": "Discover unforgettable destinations"
+        "section-destinations": {
+            "title": "Discover unforgettable destinations",
+            "btn-view-all": "View all destinations"
         },
         "section-trails": {
             "title": "Trails",

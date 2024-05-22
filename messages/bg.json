@@ -31,8 +31,9 @@
             "title": "Дяволския мост",
             "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur minima natus delectus temporibus, voluptatibus eveniet ut minus alias cumque soluta adipisci repudiandae at, vel quos quod impedit repellendus praesentium voluptatum."
         },
-        "section-destination": {
-            "title": "Открийте незабравими дестинации"
+        "section-destinations": {
+            "title": "Открийте незабравими дестинации",
+            "btn-view-all": "Виж всички дестинации"
         },
         "section-trails": {
             "title": "Маршрути",

@@ -9,6 +9,22 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'picsum.photos'
+            },
+            {
+                protocol: 'https',
+                hostname: 'www.svilengrad.bg'
+            },
+            {
+                protocol: 'https',
+                hostname: 'static.pochivka.bg'
+            },
+            {
+                protocol: 'https',
+                hostname: 'rila.ws'
+            },
+            {
+                protocol: 'https',
+                hostname: 'welcome.bg'
             }
         ]
     }
