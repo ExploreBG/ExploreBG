@@ -1,10 +1,3 @@
-export interface ICard {
-    id: string
-    image: string
-    title: string
-    description: string
-}
-
 export interface ITrailCard {
     id: number
     trailName: string
@@ -46,6 +39,8 @@ export interface IComment {
 export interface IDestination {
     id: number
     destinationName: string
+    imageUrl: string
+    nextTo: string
 }
 
 export interface IHike {

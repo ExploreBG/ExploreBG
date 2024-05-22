@@ -14,6 +14,10 @@ const request = async (url: string) => {
     }
 };
 
+const apiDestinations = {
+    get4RandomDestinations: () => request(`${baseUrl}/destinations/random`)
+};
+
 const apiTrails = {
     get4RandomTrails: () => request(`${baseUrl}/trails/random`),
     getAllTrails: (query: string) => request(`${baseUrl}/trails/all${query}`),
@@ -33,6 +37,7 @@ const apiAccommodations = {
 };
 
 export const agent = {
+    apiDestinations,
     apiTrails,
     apiHikes,
     apiAccommodations
