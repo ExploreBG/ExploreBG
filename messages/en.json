@@ -49,6 +49,14 @@
             "btn-view-all": "View all accommodations"
         }
     },
+    "destinations": {
+        "metadata": {
+            "tab-name": "Destinations"
+        },
+        "title": "Explore unforgettable destinations",
+        "create-btn": "Create destination",
+        "card-btn": "Learn more"
+    },
     "trails": {
         "metadata": {
             "tab-name": "Trails"

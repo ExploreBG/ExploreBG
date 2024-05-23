@@ -49,6 +49,14 @@
             "btn-view-all": "Виж всички"
         }
     },
+    "destinations": {
+        "metadata": {
+            "tab-name": "Дестинации"
+        },
+        "title": "Открийте незабравими дестинации",
+        "create-btn": "Добави дестинация",
+        "card-btn": "Виж повече"
+    },
     "trails": {
         "metadata": {
             "tab-name": "Маршрути"

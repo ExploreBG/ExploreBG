@@ -45,10 +45,6 @@ main {
         margin: 8rem 1rem 2rem 1rem;
         @include gs.titles();
 
-        @include br.display(mobile) {
-            margin-top: 5rem;
-        }
-
         @media (max-height: 34rem) and (orientation: landscape) {
             margin-top: 5rem;
         }
