@@ -1,0 +1,63 @@
+@use '@/global-styles/main' as gs;
+
+.destination-details {
+    background-image: url('/images/backgr.png');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 6rem 0 3rem 0;
+
+    @media (max-height: 540px) and (orientation: landscape) {
+        padding-top: 3.5rem;
+    }
+
+    &>h1 {
+        margin: 2rem 0;
+        @include gs.titles();
+    }
+
+    [data-theme="dark"] &>h1 {
+        @include gs.titles-dark();
+    }
+
+    & section {
+        backdrop-filter: blur(.15rem);
+    }
+
+    &__info {
+
+        &>h3,
+        &__type,
+        &__location {
+            margin-bottom: 1rem;
+        }
+
+        &__text {
+            margin-top: 1.5rem;
+            padding: 0 6rem;
+
+            @include gs.display(display) {
+                padding: unset;
+            }
+        }
+    }
+
+    &__img {
+        margin-bottom: 2rem;
+        z-index: 1;
+
+        &>img {
+            border-radius: 1.5rem;
+            box-shadow: 0 0 .75rem black;
+            transition: all 1s ease-in-out;
+
+            &:hover {
+                transform: scale(1.5);
+            }
+        }
+    }
+}
+
+[data-theme="dark"] .destination-details {
+    background-image: url('/images/dark-backgr.png');
+}

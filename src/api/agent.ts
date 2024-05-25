@@ -16,7 +16,8 @@ const request = async (url: string) => {
 
 const apiDestinations = {
     get4RandomDestinations: () => request(`${baseUrl}/destinations/random`),
-    getAllDestinations: (query: string) => request(`${baseUrl}/destinations/all${query}`)
+    getAllDestinations: (query: string) => request(`${baseUrl}/destinations/all${query}`),
+    getDestinationById: (destinationId: string) => request(`${baseUrl}/destinations/${destinationId}`)
 };
 
 const apiTrails = {

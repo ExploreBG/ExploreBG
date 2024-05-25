@@ -39,8 +39,12 @@ export interface IComment {
 export interface IDestination {
     id: number
     destinationName: string
+    location: string
+    destinationInfo: string
     imageUrl: string
     nextTo: string
+    type: string
+    comments: IComment[]
 }
 
 export interface IHike {

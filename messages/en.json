@@ -57,6 +57,11 @@
         "create-btn": "Create destination",
         "card-btn": "Learn more"
     },
+    "destination-details": {
+        "metadata": {
+            "tab-name": "Destination details"
+        }
+    },
     "trails": {
         "metadata": {
             "tab-name": "Trails"

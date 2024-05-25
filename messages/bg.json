@@ -57,6 +57,11 @@
         "create-btn": "Добави дестинация",
         "card-btn": "Виж повече"
     },
+    "destination-details": {
+        "metadata": {
+            "tab-name": "Дестинация - подробности"
+        }
+    },
     "trails": {
         "metadata": {
             "tab-name": "Маршрути"
