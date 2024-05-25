@@ -1,3 +1,10 @@
+export interface IDestinationCard {
+    id: number
+    destinationName: string
+    imageUrl: string
+    nextTo: string
+}
+
 export interface ITrailCard {
     id: number
     trailName: string
@@ -13,9 +20,7 @@ export interface IHikeCard {
     hikeName: string
 }
 
-export interface IAccommodationCard {
-    id: number
-    accommodationName: string
+export interface IAccommodationCard extends IHut {
     imageUrl: string
 }
 
@@ -36,35 +41,24 @@ export interface IComment {
     owner: IOwner
 }
 
-export interface IDestination {
-    id: number
-    destinationName: string
+export interface IDestination extends IDestinationCard {
     location: string
     destinationInfo: string
-    imageUrl: string
-    nextTo: string
     type: string
     comments: IComment[]
 }
 
-export interface IHike {
-    id: number
-    hikeDate: string
-    hikeName: string
-    hikeInfo: string
+export interface IHike extends IHikeCard {
     nextTo: string
     owner: IOwner
     hikingTrail: ITrail
     comments: IComment[]
 }
 
-export interface ITrail {
-    id: number
+export interface ITrail extends ITrailCard {
     startPoint: string
     endPoint: string
     totalDistance: number
-    trailInfo: string
-    imageUrl: string
     seasonVisited: string
     waterAvailable: boolean
     availableHuts: IHut[]
@@ -76,13 +70,10 @@ export interface ITrail {
     destinations: IDestination[]
 }
 
-export interface IAccommodation {
-    id: number
-    accommodationName: string
+export interface IAccommodation extends IAccommodationCard {
     owner: IOwner
     phoneNumber: string
     site: string
-    imageUrl: string
     accommodationInfo: string
     bedCapacity: number
     pricePerBed: number

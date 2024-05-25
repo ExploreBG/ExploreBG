@@ -6,10 +6,10 @@ import { FaPersonWalkingDashedLineArrowRight } from 'react-icons/fa6';
 
 import { agent } from '@/api/agent';
 import { IDestination } from '@/interfaces/interfaces';
-import { renderComments } from '@/utils/util';
 
 import './destinationDetails.scss';
 import Layout from '@/components/Layout/Layout';
+import RenderComments from '@/components/RenderComments/RenderComments';
 
 interface DestinationDetailsProps {
     params: { locale: string, destinationId: string }
@@ -58,7 +58,7 @@ const DestinationDetails: React.FC<DestinationDetailsProps> = async ({ params: {
                     <section className="comments details-page-section">
                         <h3>comments:</h3>
 
-                        {renderComments(destination.comments)}
+                        <RenderComments comments={destination.comments} />
                     </section>
                 )}
             </main>

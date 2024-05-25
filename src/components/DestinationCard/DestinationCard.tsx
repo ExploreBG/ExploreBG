@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 
-import { IDestination } from '@/interfaces/interfaces';
+import { IDestinationCard } from '@/interfaces/interfaces';
 
 interface DestinationCardProps {
-    card: IDestination
+    card: IDestinationCard
 }
 
 const DestinationCard: React.FC<DestinationCardProps> = ({ card }) => {

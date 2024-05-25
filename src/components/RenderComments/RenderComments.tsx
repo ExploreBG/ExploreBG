@@ -1,10 +1,16 @@
+import React from 'react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
+
 import { IComment } from '@/interfaces/interfaces';
 
-export const renderComments = (data: IComment[]) => {
+interface RenderCommentsProps {
+    comments: IComment[]
+}
+
+const RenderComments: React.FC<RenderCommentsProps> = ({ comments }) => {
     return (
-        data
+        comments
             .sort((a: { id: number }, b: { id: number }) => a.id - b.id)
             .map((c: IComment) => (
                 <div key={c.id}>
@@ -12,6 +18,7 @@ export const renderComments = (data: IComment[]) => {
                         pathname: '/users/[id]',
                         params: { id: c.owner.id }
                     }}>
+                        <span><em>{c.owner.username}</em></span>
                         <Image
                             src={c.owner.imageUrl || '/images/user-profile-pic.png'}
                             width={30} height={30} alt="User picture" loading="lazy"
@@ -24,3 +31,5 @@ export const renderComments = (data: IComment[]) => {
             ))
     );
 };
+
+export default RenderComments;

@@ -9,10 +9,10 @@ import { GiKnifeFork } from 'react-icons/gi';
 
 import { agent } from '@/api/agent';
 import { IAccommodation } from '@/interfaces/interfaces';
-import { renderComments } from '@/utils/util';
 
 import './accommodationDetails.scss';
 import Layout from '@/components/Layout/Layout';
+import RenderComments from '@/components/RenderComments/RenderComments';
 
 interface AccommodationDetailsProps {
     params: { locale: string, accommodationId: string }
@@ -110,7 +110,7 @@ const AccommodationDetails: React.FC<AccommodationDetailsProps> = async ({ param
                     <section className="comments details-page-section">
                         <h3>comments:</h3>
 
-                        {renderComments(accommodation.comments)}
+                        <RenderComments comments={accommodation.comments} />
                     </section>
                 )}
             </main>

@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 import { FaHandPointLeft, FaHandPointRight } from 'react-icons/fa';
 
 import { IHike, ITrail } from '@/interfaces/interfaces';
-import { renderComments } from '@/utils/util';
+
+import RenderComments from '../RenderComments/RenderComments';
 
 interface HikeCommentsSectionProps {
     hike: IHike
@@ -26,9 +27,9 @@ const HikeCommentsSection: React.FC<HikeCommentsSectionProps> = ({ hike, trail }
                 </nav>
             )}
 
-            {isHike && renderComments(hike.comments)}
+            {isHike && <RenderComments comments={hike.comments} />}
 
-            {!isHike && renderComments(trail.comments)}
+            {!isHike && <RenderComments comments={trail.comments} />}
         </section>
     );
 };

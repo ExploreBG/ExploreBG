@@ -183,13 +183,28 @@ main {
 
     &>div {
         display: flex;
-        height: 3rem;
+        align-items: center;
+
+        @include br.display(L-mobile) {
+            flex-direction: column;
+            align-items: unset;
+        }
 
         &>a {
-            width: 2rem;
+            width: fit-content;
             height: 2rem;
             border-radius: 100%;
             margin-right: 0.5rem;
+            @include gs.flex(none, none, center);
+            gap: 0.5rem;
+
+            @include br.display(L-mobile) {
+                flex-direction: row-reverse;
+            }
+
+            &>span {
+                font-size: 0.9rem;
+            }
 
             &>img {
                 border-radius: 100%;
@@ -198,12 +213,31 @@ main {
         }
 
         &>p {
-            margin-top: 1rem;
+            margin-top: 2rem;
             background-color: darkgray;
             border-bottom-left-radius: 2.5rem;
             border-top-right-radius: 2rem;
             border-bottom-right-radius: 2rem;
             padding: 0.15rem 1rem;
+            box-shadow: 0 0 6px plum;
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: -0.25rem;
+                left: -0.25rem;
+                width: 0.55rem;
+                height: 0.55rem;
+                border-radius: 50%;
+                background-color: white;
+                border: 2px solid black;
+            }
+
+            @include br.display(L-mobile) {
+                margin: 0.5rem 0 1rem 1rem;
+                width: fit-content;
+            }
         }
 
         [data-theme="dark"] &>p {

@@ -3,7 +3,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 // import { Link } from '@/navigation';
 
 import { agent } from '@/api/agent';
-import { IDestination } from '@/interfaces/interfaces';
+import { IDestinationCard } from '@/interfaces/interfaces';
 
 import Layout from '@/components/Layout/Layout';
 import DestinationCard from '@/components/DestinationCard/DestinationCard';
@@ -42,7 +42,7 @@ const AllDestinations: React.FC<AllDestinationsProps> = async ({ params: { local
                 {/* <Link href='/destinations/all' className="catalog-wrapper__create-btn">{t('create-btn')}</Link> */}
 
                 <section className="catalog-wrapper__cards">
-                    {destinations.content.map((card: IDestination) => (
+                    {destinations.content.map((card: IDestinationCard) => (
                         <article key={card.id} className="card">
                             <DestinationCard card={card} />
                         </article>

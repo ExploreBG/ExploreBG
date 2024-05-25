@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IDestination } from '@/interfaces/interfaces';
+import { IDestinationCard } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
 
 import DestinationCard from '../DestinationCard/DestinationCard';
@@ -16,7 +16,7 @@ const HomeDestinationsSection: React.FC<HomeDestinationsSectionProps> = async ()
             <section className={'home__section-wrapper home__section-cards destinations'}>
                 <IntersectionObserverComponent />
 
-                {destinations.map((destination: IDestination) => (
+                {destinations.map((destination: IDestinationCard) => (
                     <article key={destination.id} className="card hidden">
                         <DestinationCard card={destination} />
                     </article>

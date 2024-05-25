@@ -2,11 +2,11 @@ import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
 import { agent } from '@/api/agent';
-import { renderComments } from '@/utils/util';
 
 import './trailDetails.scss';
 import Layout from '@/components/Layout/Layout';
 import TrailDetailsSection from '@/components/TrailDetailsSection/TrailDetailsSection';
+import RenderComments from '@/components/RenderComments/RenderComments';
 
 interface TrailDetailsProps {
     params: { locale: string, trailId: string }
@@ -38,7 +38,7 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
                 <section className="comments details-page-section">
                     <h3>comments:</h3>
 
-                    {trail.comments.length > 0 && renderComments(trail.comments)}
+                    {trail.comments.length > 0 && <RenderComments comments={trail.comments} />}
                 </section>
             </main>
         </Layout>
