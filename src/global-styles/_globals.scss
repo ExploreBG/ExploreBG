@@ -179,6 +179,10 @@ main {
         &>span {
             animation: shake 3s cubic-bezier(.36, .07, .19, .97) infinite;
         }
+
+        &>.not-active {
+            color: gray;
+        }
     }
 
     &>div {

@@ -21,9 +21,9 @@ const HikeCommentsSection: React.FC<HikeCommentsSectionProps> = ({ hike, trail }
 
             {hike.comments.length > 0 && trail?.comments?.length > 0 && (
                 <nav onClick={() => setIsHike(!isHike)} aria-label="comments-navigation">
-                    <h4>Hike</h4>
+                    <h4 className={!isHike ? 'not-active' : ''}>Hike</h4>
                     <span>{isHike ? <FaHandPointLeft /> : <FaHandPointRight />}</span>
-                    <h4>Trail</h4>
+                    <h4 className={isHike ? 'not-active' : ''}>Trail</h4>
                 </nav>
             )}
 
