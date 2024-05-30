@@ -51,8 +51,8 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
                         {hike.owner && (
                             <>
                                 <Link href={{
-                                    pathname: '/users/[id]',
-                                    params: { id: hike.owner.id }
+                                    pathname: '/users/[userId]/profile',
+                                    params: { userId: hike.owner.id }
                                 }}>
                                     <Image
                                         src={hike.owner.imageUrl || '/images/user-profile-pic.png'}

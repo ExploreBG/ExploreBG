@@ -59,8 +59,8 @@ const AccommodationDetails: React.FC<AccommodationDetailsProps> = async ({ param
                         {accommodation.owner && (
                             <>
                                 <Link href={{
-                                    pathname: '/users/[id]',
-                                    params: { id: accommodation.owner.id }
+                                    pathname: '/users/[userId]/profile',
+                                    params: { userId: accommodation.owner.id }
                                 }}>
                                     <Image
                                         src={accommodation.owner.imageUrl || '/images/user-profile-pic.png'}
