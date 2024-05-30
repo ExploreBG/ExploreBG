@@ -1,14 +1,15 @@
 'use client';
 
-import React, { ReactNode } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import React from 'react';
+import { useFormState } from 'react-dom';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 
 import { login } from './action';
 import { loginSchema } from './loginSchema';
-
 import { ILoginRegisterTranslate } from '@/interfaces/interfaces';
+
+import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface LoginFormProps {
     translate: ILoginRegisterTranslate
@@ -72,20 +73,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({ translate }) => {
                     />
                 </div>
 
-                <Button>{translate.loginBtn}</Button>
+                <CSubmitButton buttonName={translate.loginBtn} />
             </form>
         </section>
     );
 };
 
 export default LoginForm;
-
-function Button({ children }: { children: ReactNode }) {
-    const { pending } = useFormStatus();
-
-    return (
-        <button disabled={pending}>
-            {pending ? 'Loading...' : children}
-        </button>
-    );
-}
