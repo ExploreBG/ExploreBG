@@ -88,35 +88,6 @@
         }
     }
 
-    &>.img-info-icon {
-        position: absolute;
-        bottom: 2rem;
-        left: 1rem;
-        color: gs.$middle-primary;
-        backdrop-filter: blur(0.15rem);
-        border-radius: 50%;
-        cursor: pointer;
-
-        &:hover .info,
-        &>.active {
-            display: block;
-            position: absolute;
-            top: -2rem;
-            right: -15rem;
-            font-size: 1.25rem;
-            backdrop-filter: blur(0.15rem);
-            color: black;
-        }
-
-        &>figcaption {
-            display: none;
-        }
-
-        &>svg {
-            font-size: 2rem;
-        }
-    }
-
     &>footer {
         all: unset;
         position: absolute;

@@ -33,6 +33,7 @@
         },
         "section-destinations": {
             "title": "Discover unforgettable destinations",
+            "backgr-img-info": "Old town - Nessebar",
             "btn-view-all": "View all destinations"
         },
         "section-trails": {
@@ -46,6 +47,7 @@
         },
         "section-accommodations": {
             "title": "Accommodations",
+            "backgr-img-info": "Old town - Sozopol",
             "btn-view-all": "View all accommodations"
         }
     },

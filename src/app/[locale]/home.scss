@@ -165,6 +165,18 @@
 
 .destinations {
     background-image: url('/images/home-destinations-backgr.jpg');
+
+    &>.img-info-icon {
+        bottom: 0.5rem;
+        color: black;
+        backdrop-filter: unset;
+
+        &:hover .info,
+        &>.active {
+            top: 0;
+            right: -14rem;
+        }
+    }
 }
 
 .trails {
@@ -177,6 +189,18 @@
 
 .accommodations {
     background-image: url('/images/home-accommodations-backgr.jpg');
+
+    &>.img-info-icon {
+        bottom: 0.5rem;
+        backdrop-filter: unset;
+
+        &:hover .info,
+        &>.active {
+            top: 0;
+            right: -14rem;
+            color: gs.$middle-primary;
+        }
+    }
 }
 
 .hidden {

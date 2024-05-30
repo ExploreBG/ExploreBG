@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import { GiPhotoCamera } from 'react-icons/gi';
 
+import './CPhotoInfo.scss';
+
 interface CPhotoInfoProps {
     imgInfo: string
 }

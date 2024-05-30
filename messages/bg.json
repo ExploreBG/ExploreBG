@@ -33,6 +33,7 @@
         },
         "section-destinations": {
             "title": "Открийте незабравими дестинации",
+            "backgr-img-info": "Стария град - Несебър",
             "btn-view-all": "Виж всички дестинации"
         },
         "section-trails": {
@@ -46,6 +47,7 @@
         },
         "section-accommodations": {
             "title": "Настаняване",
+            "backgr-img-info": "Стария град - Созопол",
             "btn-view-all": "Виж всички"
         }
     },
