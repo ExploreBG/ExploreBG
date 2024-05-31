@@ -24,14 +24,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ translate }) => {
 
         onValidate({ formData }) {
             return parseWithZod(formData, { schema: loginSchema });
-        },
-
-        onSubmit(e) {
-            const formData = new FormData(e.currentTarget);
-            const usernameOrEmail = formData.get('usernameOrEmail');
-            const password = formData.get('password');
-
-            console.log(usernameOrEmail, '\n', password, '\n', 'Successful login');
         }
     });
 

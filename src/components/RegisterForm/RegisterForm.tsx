@@ -26,16 +26,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ translate }) => {
 
         onValidate({ formData }) {
             return parseWithZod(formData, { schema: registerSchema });
-        },
-
-        onSubmit(e) {
-            const formData = new FormData(e.currentTarget);
-            const email = formData.get('email');
-            const username = formData.get('username');
-            const password = formData.get('password');
-            const confirmPassword = formData.get('confirmPassword');
-
-            console.log(email, '\n', username, '\n', password, '\n', confirmPassword, '\n', 'Successful Register');
         }
     });
 

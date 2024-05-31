@@ -1,0 +1,66 @@
+@use '@/global-styles/main' as gs;
+
+.my-profile-container {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(137, 190, 125, 1) 16%, rgba(190, 189, 89, 1) 71%, rgba(253, 187, 45, 1) 100%);
+
+    &>article {
+        padding: 6rem 0 3rem 0;
+        width: 100%;
+        max-width: 68.75rem;
+        min-height: 100vh;
+        @include gs.flex(row, space-evenly, center);
+
+        &>h1 {
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            font-size: 5rem;
+            color: gray;
+            text-shadow: 0 0 6px black;
+            margin-right: 5rem;
+        }
+
+        &>section {
+            & svg {
+                color: gray;
+            }
+
+            &>figure {
+
+                &>img {
+                    border-radius: 50%;
+                    margin: 0 auto;
+                    border: 1px solid white;
+                    box-shadow: 0 2px 8px black;
+                    cursor: pointer;
+                    margin-bottom: 0.5rem;
+                }
+
+                &>figcaption {
+                    font-size: 1.5rem;
+                    margin-bottom: 2rem;
+                }
+            }
+
+            &>p {
+                margin-bottom: 2rem;
+            }
+
+            &>aside {
+                
+                &>button {
+                    @include gs.glow-on-hover-button();
+
+                    &:first-of-type {
+                        margin-right: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.edit {
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
