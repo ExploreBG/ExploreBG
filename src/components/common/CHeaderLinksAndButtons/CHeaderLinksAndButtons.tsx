@@ -1,10 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Link } from '@/navigation';
+import { Link, useRouter } from '@/navigation';
+import { JWTPayload } from 'jose';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { MdClose } from 'react-icons/md';
+
+import { getSession, clearSession } from '@/utils/userSession';
 
 import './CHeaderLinksAndButtons.scss';
 import NavigationLinks from '@/components/NavigationLinks/NavigationLinks';
@@ -16,8 +19,22 @@ interface CHeaderLinksAndButtonsProps {
 
 const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) => {
     const [isOpenNavbar, setIsOpenNavbar] = useState<boolean>(false);
-    const [userSession, setUserSession] = useState<boolean>(false);
+    const [userSession, setUserSession] = useState<JWTPayload | null>(null);
     const [isShownUserLinks, setIsShownUserLinks] = useState<boolean>(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        async function session() {
+            setUserSession(await getSession());
+        }
+        session();
+    }, []);
+
+    const onLogoutClick = async () => {
+        await clearSession();
+
+        router.push('/');
+    };
 
     return (
         <div className="nav-wrapper">
@@ -38,7 +55,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) =>
                                 <ul>
                                     <UserNavLinks t={t} />
                                     <li>
-                                        {userSession && <button onClick={() => setUserSession(state => !state)}>{t.logout}</button>}
+                                        {userSession && <button onClick={onLogoutClick}>{t.logout}</button>}
                                     </li>
                                 </ul>
                             </aside>
@@ -82,7 +99,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) =>
 
                     {!userSession && <Link href={'/login-register'} className="glow-on-hover">{t.login}</Link>}
 
-                    {userSession && <button onClick={() => setUserSession(state => !state)} className="glow-on-hover">{t.logout}</button>}
+                    {userSession && <button onClick={onLogoutClick} className="glow-on-hover">{t.logout}</button>}
                 </nav>
             )}
         </div>

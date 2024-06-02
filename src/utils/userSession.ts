@@ -1,6 +1,6 @@
 'use server';
 
-import { SignJWT } from 'jose';
+import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 
 const key = new TextEncoder().encode(process.env.USER_SESSION_SECRET_KEY);
@@ -10,8 +10,15 @@ const encrypt = async (payload: any) => {
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
-        .setExpirationTime('3 days from now')
+        .setExpirationTime('3d')
         .sign(key);
+};
+
+const decrypt = async (input: string) => {
+    const { payload } = await jwtVerify(input, key, {
+        algorithms: ['HS256']
+    });
+    return payload;
 };
 
 export const setSession = async (userData: any) => {
@@ -21,6 +28,22 @@ export const setSession = async (userData: any) => {
     cookies().set('user-session', session, {
         expires,
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production'
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        path: '/'
     });
+};
+
+export const getSession = async () => {
+    const session = cookies().get('user-session')?.value;
+
+    if (!session) {
+        return null;
+    }
+
+    return await decrypt(session);
+};
+
+export const clearSession = async () => {
+    cookies().set('user-session', '', { expires: new Date(0) });
 };
