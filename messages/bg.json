@@ -121,6 +121,16 @@
         "register-btn": "Регистрирай се",
         "img-info": "Античен театър - Пловдив"
     },
+    "my-profile": {
+        "metadata": {
+            "tab-name": "Моят профил"
+        },
+        "title": "Моят профил",
+        "gender": "пол",
+        "birthday": "рожденна дата",
+        "del-account-btn": "Изтрий този акаунт",
+        "change-pass-btn": "Промени парола"
+    },
     "loading": {
         "text": "Зареждане"
     },

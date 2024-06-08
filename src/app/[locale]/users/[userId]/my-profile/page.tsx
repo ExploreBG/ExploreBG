@@ -1,20 +1,38 @@
 import React from 'react';
 import Image from 'next/image';
-import { FaUserNinja, FaMale, FaFemale, FaEdit } from 'react-icons/fa';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { FaUserNinja } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
-import { LiaBirthdayCakeSolid } from 'react-icons/lia';
 
 import './myProfile.scss';
 import Layout from '@/components/Layout/Layout';
+import MyProfileGenderField from '@/components/MyProfileGenderField/MyProfileGenderField';
+import MyProfileBirthdayField from '@/components/MyProfileBirthdayField/MyProfileBirthdayField';
+import MyProfileInfoField from '@/components/MyProfileInfoField/MyProfileInfoField';
 
-interface MyProfileProps { }
+interface MyProfileProps {
+    params: { locale: string, userId: string }
+}
 
-export const MyProfile: React.FC<MyProfileProps> = () => {
+export async function generateMetadata({
+    params: { locale }
+}: Omit<MyProfileProps, 'children'>) {
+    const t = await getTranslations({ locale, namespace: 'my-profile' });
+
+    return {
+        title: t('metadata.tab-name'),
+    };
+}
+
+export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } }) => {
+    unstable_setRequestLocale(locale);
+    const t = await getTranslations('my-profile');
+
     return (
         <Layout>
             <main className="my-profile-container">
                 <article>
-                    <h1>My Profile</h1>
+                    <h1>{t('title')}</h1>
 
                     <section>
                         <figure>
@@ -27,16 +45,15 @@ export const MyProfile: React.FC<MyProfileProps> = () => {
                             <FaUserNinja />&nbsp;<figcaption>Username</figcaption>
                         </figure>
 
-                        <p><HiOutlineMail /> <strong>user-email@gmail.com</strong></p>
-                        <p><FaMale /> gender: <strong>male</strong> <FaEdit className="edit" /></p>
-                        {/* <FaFemale /> */}
-                        <p><LiaBirthdayCakeSolid /> birthday: <strong>03 feb 1990</strong> <FaEdit className="edit" /></p>
+                        <div><HiOutlineMail /> <strong>user-email@gmail.com</strong></div>
+                        <MyProfileGenderField translate={t('gender')} />
+                        <MyProfileBirthdayField translate={t('birthday')} />
 
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, inventore reiciendis velit magni eum similique nesciunt, corrupti ipsum vitae error officia ut. Quo harum quam repudiandae quaerat rem, saepe fugit id. Ex nam deleniti sapiente at amet, doloremque rerum corrupti fugit non recusandae accusantium qui pariatur. Quas dicta nisi voluptatum necessitatibus optio quis, iste tempora animi recusandae, temporibus fugiat? Eos sint natus iure error modi fugiat qui ad aperiam quae, commodi ullam debitis sed facilis dolor ipsa ex nisi odio est voluptates corrupti placeat ea quod nesciunt? Enim, quam incidunt quae reprehenderit delectus vel modi perspiciatis saepe ratione deserunt corrupti? <FaEdit className="edit" /></p>
+                        <MyProfileInfoField />
 
                         <aside>
-                            <button>Delete this account</button>
-                            <button>Change password</button>
+                            <button>{t('del-account-btn')}</button>
+                            <button>{t('change-pass-btn')}</button>
                         </aside>
                     </section>
                 </article>

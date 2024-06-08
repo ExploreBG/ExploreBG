@@ -121,6 +121,16 @@
         "register-btn": "Sign up",
         "img-info": "Ancient Theater - Plovdiv"
     },
+    "my-profile": {
+        "metadata": {
+            "tab-name": "My Profile page"
+        },
+        "title": "My Profile",
+        "gender": "gender",
+        "birthday": "birthday",
+        "del-account-btn": "Delete this account",
+        "change-pass-btn": "Change password"
+    },
     "loading": {
         "text": "Loading"
     },

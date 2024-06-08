@@ -1,6 +1,8 @@
 import React from 'react';
 import type { Viewport } from 'next';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ProvideTheme from './theme-provider';
 import { locales } from '@/config';
@@ -99,6 +101,15 @@ export default function RootLayout({
                 <div className="container">
                     <ProvideTheme>
                         {children}
+                        <ToastContainer 
+                            position='top-right' 
+                            autoClose={5000} 
+                            hideProgressBar={false} 
+                            newestOnTop={false} 
+                            closeOnClick 
+                            rtl={false} 
+                            pauseOnFocusLoss draggable pauseOnHover 
+                        />
                     </ProvideTheme>
                 </div>
             </body>

@@ -6,6 +6,7 @@ import { Link, useRouter } from '@/navigation';
 import { JWTPayload } from 'jose';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { MdClose } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import { getSession, clearSession } from '@/utils/userSession';
 
@@ -33,6 +34,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) =>
     const onLogoutClick = async () => {
         await clearSession();
 
+        toast.success('Successfully logged out');
         router.push('/');
     };
 
