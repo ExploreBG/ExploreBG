@@ -1,0 +1,64 @@
+@use '@/global-styles/main' as gs;
+
+.profile-container {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(125, 128, 190, 1) 16%, rgba(89, 136, 190, 1) 71%, rgba(45, 197, 253, 1) 100%);
+    padding: 0 2rem;
+
+    &>article {
+        padding: 7rem 0 3rem 0;
+        width: 100%;
+        max-width: 68.75rem;
+        min-height: 100vh;
+        @include gs.flex(column, space-evenly, center);
+
+        &>h1 {
+            font-size: 2.5rem;
+            color: gray;
+            text-shadow: 0 0 6px black;
+            margin-bottom: 2rem;
+        }
+
+        &>section {
+            @include gs.flex(none, none, center);
+            gap: 2rem;
+            padding: 1rem;
+
+            @include gs.display(L-mobile) {
+                flex-direction: column-reverse;
+            }
+
+            &>aside {
+                width: 60%;
+
+                @include gs.display(L-mobile) {
+                    width: 100%;
+                }
+
+                &>p {
+                    margin-bottom: 2rem;
+                }
+            }
+
+            &>figure {
+                margin: 0 auto;
+
+                &>img {
+                    border-radius: 1.5rem;
+                    border: 1px solid white;
+                    box-shadow: 0 2px 8px black;
+                    margin-bottom: 0.5rem;
+                }
+
+                &>figcaption {
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+}
+
+[data-theme="dark"] .profile-container {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(125, 128, 190, 1) 16%, rgba(0, 0, 0, 1) 71%, rgba(149, 149, 149, 1) 100%);
+}

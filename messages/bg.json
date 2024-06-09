@@ -131,6 +131,14 @@
         "del-account-btn": "Изтрий този акаунт",
         "change-pass-btn": "Промени парола"
     },
+    "user-profile": {
+        "metadata": {
+            "tab-name": "Профилна страница"
+        },
+        "title": "Профилът на",
+        "gender": "пол",
+        "birthday": "рожденна дата"
+    },
     "loading": {
         "text": "Зареждане"
     },

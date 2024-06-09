@@ -3,13 +3,18 @@
 .my-profile-container {
     background: rgb(0, 0, 0);
     background: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(137, 190, 125, 1) 16%, rgba(190, 189, 89, 1) 71%, rgba(253, 187, 45, 1) 100%);
+    padding: 0 3rem;
 
     &>article {
-        padding: 6rem 0 3rem 0;
+        padding: 7rem 0 3rem 0;
         width: 100%;
         max-width: 68.75rem;
         min-height: 100vh;
         @include gs.flex(row, space-evenly, center);
+
+        @media (max-width: 35rem) {
+            flex-direction: column;
+        }
 
         &>h1 {
             writing-mode: vertical-lr;
@@ -18,6 +23,25 @@
             color: gray;
             text-shadow: 0 0 6px black;
             margin-right: 5rem;
+
+            @include gs.display(L-mobile) {
+                margin-right: 3rem;
+            }
+
+            @media (max-width: 35rem) {
+                writing-mode: initial;
+                transform: unset;
+                margin-right: unset;
+                margin-bottom: 2rem;
+            }
+
+            @include gs.display(mobile) {
+                font-size: 3rem;
+            }
+
+            @media (max-height: 35rem) and (orientation: landscape) {
+                font-size: 3rem;
+            }
         }
 
         &>section {
@@ -67,13 +91,21 @@
                 }
 
                 &>.info-text {
-                    width: 40vw;
+                    width: 50vw;
+
+                    @media (max-width: 35rem) {
+                        width: 85vw;
+                    }
                 }
 
                 &>.form-info {
                     flex-direction: column;
-                    width: 40vw;
-                    height: 20vh;
+                    width: 50vw;
+                    height: 25vh;
+
+                    @media (max-width: 35rem) {
+                        width: 85vw;
+                    }
 
                     &>textarea {
                         width: 100%;
@@ -83,17 +115,30 @@
             }
 
             &>aside {
+                @include gs.display(mobile) {
+                    @include gs.flex(column-reverse, none, center);
+                    gap: 1rem;
+                }
 
                 &>button {
                     @include gs.glow-on-hover-button();
 
                     &:first-of-type {
                         margin-right: 1rem;
+
+                        @include gs.display(mobile) {
+                            margin-right: unset;
+                        }
                     }
                 }
             }
         }
     }
+}
+
+[data-theme="dark"] .my-profile-container {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(145, 190, 120, 1) 16%, rgba(0, 0, 0, 1) 71%, rgba(149, 149, 149, 1) 100%);
 }
 
 .edit {

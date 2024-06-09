@@ -131,6 +131,14 @@
         "del-account-btn": "Delete this account",
         "change-pass-btn": "Change password"
     },
+    "user-profile": {
+        "metadata": {
+            "tab-name": "Profile page"
+        },
+        "title": "'s Profile",
+        "gender": "gender",
+        "birthday": "birthday"
+    },
     "loading": {
         "text": "Loading"
     },
