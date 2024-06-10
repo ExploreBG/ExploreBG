@@ -9,6 +9,7 @@ import Layout from '@/components/Layout/Layout';
 import MyProfileGenderField from '@/components/MyProfileGenderField/MyProfileGenderField';
 import MyProfileBirthdayField from '@/components/MyProfileBirthdayField/MyProfileBirthdayField';
 import MyProfileInfoField from '@/components/MyProfileInfoField/MyProfileInfoField';
+import MyProfileButtons from '@/components/MyProfileButtons/MyProfileButtons';
 
 interface MyProfileProps {
     params: { locale: string, userId: string }
@@ -51,10 +52,7 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
 
                         <MyProfileInfoField />
 
-                        <aside>
-                            <button>{t('del-account-btn')}</button>
-                            <button>{t('change-pass-btn')}</button>
-                        </aside>
+                        <MyProfileButtons />
                     </section>
                 </article>
             </main>

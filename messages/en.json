@@ -105,6 +105,13 @@
         }
     },
     "pop-up": {
+        "del-question": "Are you sure you want to delete",
+        "del-btn": "Yes, delete",
+        "cancel-btn": "Cancel",
+        "current-pass": "Current password",
+        "new-pass": "New password",
+        "repeat-new-pass": "Repeat new password",
+        "change-btn": "Change",
         "pass-info-begin": "Password must contain at least one uppercase, lowercase, digit, special character",
         "pass-info-end": "and must be at least 5 characters!"
     },
@@ -133,7 +140,8 @@
         "gender": "gender",
         "birthday": "birthday",
         "del-account-btn": "Delete this account",
-        "change-pass-btn": "Change password"
+        "change-pass-btn": "Change password",
+        "deletion-obj": "this account"
     },
     "user-profile": {
         "metadata": {
