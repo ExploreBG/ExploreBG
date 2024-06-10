@@ -1,3 +1,5 @@
+@use './colors' as c;
+
 @mixin flex($direction, $content, $items) {
     display: flex;
     flex-direction: $direction;
@@ -34,7 +36,7 @@
             filter: blur(0.25rem);
             transform: translateY(-100%);
         }
-    
+
         to {
             opacity: 1;
             filter: blur(0);
@@ -112,6 +114,67 @@
 
         100% {
             background-position: 0 0;
+        }
+    }
+}
+
+@mixin pop-up-button() {
+    margin: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid lightgray;
+    border-radius: 1.5rem;
+    background-color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.8s ease;
+
+    &:hover {
+        box-shadow: 0 0 12px #ffffff;
+    }
+}
+
+@mixin set-form() {
+    display: flex;
+    flex-direction: column;
+
+    &>label {
+        display: flex;
+        justify-content: center;
+        color: c.$beige;
+    }
+
+    &>input {
+        background: transparent;
+        border-radius: 0.35rem;
+        padding-left: 0.5rem;
+        margin-bottom: 0.25rem;
+        color: white;
+
+        &::placeholder {
+            color: white;
+        }
+    }
+
+    &>button {
+        margin: 1rem 2rem 0 2rem;
+        background-color: aquamarine;
+        border-radius: 1.5rem;
+        cursor: pointer;
+        transition: all 1s ease;
+
+        &:hover {
+            transform: scale(1.1);
+            background-color: rgb(4, 195, 131);
+            box-shadow: 0 0 4px yellow;
+            color: yellow;
+        }
+    }
+
+    [data-theme="dark"] &>button {
+        color: black;
+
+        &:hover {
+            color: yellow;
         }
     }
 }

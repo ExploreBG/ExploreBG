@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useFormState } from 'react-dom';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
-import { TiInfo } from 'react-icons/ti';
 
 import { register } from './action';
 import { registerSchema } from './registerSchema';
 import { ILoginRegisterTranslate } from '@/interfaces/interfaces';
 
+import CPasswordInfo from '../common/CPasswordInfo/CPasswordInfo';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface RegisterFormProps {
@@ -17,7 +17,6 @@ interface RegisterFormProps {
 }
 
 export const RegisterForm: React.FC<RegisterFormProps> = ({ translate }) => {
-    const [isShowInfoPass, setIsShowInfoPass] = useState<boolean>(false);
     const [lastResult, action] = useFormState(register, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -30,10 +29,8 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ translate }) => {
     });
 
     const passwordErrors = (errors: string[] | undefined) => {
-        return errors !=undefined ? errors[0] : errors;
+        return errors != undefined ? errors[0] : errors;
     };
-
-    const passwordInfoText = 'Password must contain at least one uppercase, lowercase, digit, special character ( ! @ # $ % ^ & * ( ) , . ? " : { } | < > ) and must be at least 5 characters!';
 
     return (
         <section className="login-register-form">
@@ -64,17 +61,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ translate }) => {
                 <div className="error-message">{fields.username.errors}</div>
 
                 <label htmlFor="password">{translate.pass} &nbsp;
-                    <figure 
-                        className="password-info" 
-                        onClick={() => setIsShowInfoPass(!isShowInfoPass)}
-                    >
-                        <figcaption 
-                            className={`info ${isShowInfoPass ? 'active' : ''}`}
-                        >
-                            {passwordInfoText}
-                        </figcaption>
-                        <TiInfo />
-                    </figure>
+                    <CPasswordInfo />
                 </label>
                 <input
                     type="password"

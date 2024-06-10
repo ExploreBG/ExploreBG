@@ -1,5 +1,6 @@
 @use './colors' as c;
 @use './breakpoints' as b;
+@use './mixin' as m;
 
 .login-register-form {
     width: 30rem;
@@ -14,84 +15,7 @@
     }
 
     &>form {
-        display: flex;
-        flex-direction: column;
-
-        &>label {
-            justify-content: center;
-            color: c.$beige;
-            display: flex;
-
-            &>.password-info {
-                font-size: 1.25rem;
-                cursor: pointer;
-                position: relative;
-
-                &:hover .info,
-                &>.active {
-                    display: block;
-                    position: absolute;
-                    top: -2rem;
-                    left: 2rem;
-                    font-size: 1rem;
-                    width: 13rem;
-                    border: 2px solid red;
-                    background-color: rgba(255, 255, 255, 0.6);
-                    backdrop-filter: blur(0.15rem);
-                    color: black;
-                    padding: 0.5rem;
-                    border-radius: 0.5rem;
-
-                    @media (max-width: 34.375rem) {
-                        top: -10.5rem;
-                        left: -6rem;
-                    }
-                }
-
-                &>figcaption {
-                    display: none;
-                }
-
-                &>svg {
-                    color: red;
-                }
-            }
-        }
-
-        &>input {
-            background: transparent;
-            border-radius: 0.35rem;
-            padding-left: 0.5rem;
-            margin-bottom: 0.25rem;
-            color: white;
-
-            &::placeholder {
-                color: white;
-            }
-        }
-
-        &>button {
-            margin: 1rem 2rem 0 2rem;
-            background-color: aquamarine;
-            border-radius: 1.5rem;
-            cursor: pointer;
-            transition: all 1s ease;
-
-            &:hover {
-                transform: scale(1.1);
-                background-color: rgb(4, 195, 131);
-                box-shadow: 0 0 4px yellow;
-                color: yellow;
-            }
-        }
-
-        [data-theme="dark"] &>button {
-            color: black;
-
-            &:hover {
-                color: yellow;
-            }
-        }
+        @include m.set-form();
 
         &>div {
             display: flex;

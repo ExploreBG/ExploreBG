@@ -104,6 +104,10 @@
             "tab-name": "Accommodation details"
         }
     },
+    "pop-up": {
+        "pass-info-begin": "Password must contain at least one uppercase, lowercase, digit, special character",
+        "pass-info-end": "and must be at least 5 characters!"
+    },
     "login-register": {
         "metadata": {
             "tab-name": "Login / Register"

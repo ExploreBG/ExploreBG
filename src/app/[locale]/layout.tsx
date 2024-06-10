@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Viewport } from 'next';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -95,20 +96,24 @@ export default function RootLayout({
     // Enable static rendering
     unstable_setRequestLocale(locale);
 
+    const messages = useMessages();
+
     return (
         <html lang={locale} className={`${mainFont.variable} ${headingFont.variable}`}>
             <body>
                 <div className="container">
                     <ProvideTheme>
-                        {children}
-                        <ToastContainer 
-                            position='top-right' 
-                            autoClose={5000} 
-                            hideProgressBar={false} 
-                            newestOnTop={false} 
-                            closeOnClick 
-                            rtl={false} 
-                            pauseOnFocusLoss draggable pauseOnHover 
+                        <NextIntlClientProvider locale={locale} messages={messages}>
+                            {children}
+                        </NextIntlClientProvider>
+                        <ToastContainer
+                            position='top-right'
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss draggable pauseOnHover
                         />
                     </ProvideTheme>
                 </div>
