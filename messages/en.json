@@ -110,7 +110,7 @@
         "cancel-btn": "Cancel",
         "current-pass": "Current password",
         "new-pass": "New password",
-        "repeat-new-pass": "Repeat new password",
+        "confirm-new-pass": "Confirm new password",
         "change-btn": "Change",
         "pass-info-begin": "Password must contain at least one uppercase, lowercase, digit, special character",
         "pass-info-end": "and must be at least 5 characters!"

@@ -41,7 +41,7 @@ export const MyProfileButtons: React.FC<MyProfileButtonsProps> = () => {
                 <CConfirmationModal deletionObj={t('deletion-obj')} confirm={onConfirmClick} cancel={onCancelClick} />
             )}
 
-            {isClickChangePassBtn && <ChangePasswordPopUp cancel={onCancelClick} />}
+            {isClickChangePassBtn && <ChangePasswordPopUp closePopUp={onCancelClick} />}
         </>
     );
 };

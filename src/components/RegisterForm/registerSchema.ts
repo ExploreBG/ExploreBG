@@ -1,12 +1,6 @@
 import { z } from 'zod';
 
-const passwordSchema = z
-    .string({ required_error: 'Password is required!' })
-    .regex(/[a-z]/, 'Password must contain at least one lowercase letter!')
-    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter!')
-    .regex(/\d/, 'Password must contain at least one number!')
-    .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character!')
-    .min(5, 'Password must contain at least 5 characters!');
+import { passwordSchema } from '@/utils/passwordSchema';
 
 export const registerSchema = z.object({
     email: z.string({ required_error: 'Email is required!' }).email(),

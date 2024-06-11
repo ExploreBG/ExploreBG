@@ -8,6 +8,7 @@ import { parseWithZod } from '@conform-to/zod';
 import { register } from './action';
 import { registerSchema } from './registerSchema';
 import { ILoginRegisterTranslate } from '@/interfaces/interfaces';
+import { passwordErrors } from '@/utils/passwordSchema';
 
 import CPasswordInfo from '../common/CPasswordInfo/CPasswordInfo';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -27,10 +28,6 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ translate }) => {
             return parseWithZod(formData, { schema: registerSchema });
         }
     });
-
-    const passwordErrors = (errors: string[] | undefined) => {
-        return errors != undefined ? errors[0] : errors;
-    };
 
     return (
         <section className="login-register-form">
