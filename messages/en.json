@@ -141,7 +141,12 @@
         "birthday": "birthday",
         "del-account-btn": "Delete this account",
         "change-pass-btn": "Change password",
-        "deletion-obj": "this account"
+        "deletion-obj": "this account",
+        "change-btn": "Change",
+        "cancel-btn": "Cancel",
+        "err-username-require": "Username is required!",
+        "err-username-length": "Username must contain at least 3 characters!",
+        "successful-update-username": "Successfully update your username"
     },
     "user-profile": {
         "metadata": {

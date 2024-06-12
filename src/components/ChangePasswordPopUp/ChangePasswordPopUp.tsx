@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 import { changePassword } from './action';
 import { changePasswordSchema } from './changePasswordSchema';
-import { passwordErrors } from '@/utils/passwordSchema';
+import { passwordErrors } from '@/utils/validations';
 
 import './changePasswordPopUp.scss';
 import CPasswordInfo from '../common/CPasswordInfo/CPasswordInfo';
