@@ -1,11 +1,11 @@
 import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { HiOutlineMail } from 'react-icons/hi';
 
 import './myProfile.scss';
 import Layout from '@/components/Layout/Layout';
 import MyProfilePhotoField from '@/components/MyProfilePhotoField/MyProfilePhotoField';
 import MyProfileUsernameField from '@/components/MyProfileUsernameField/MyProfileUsernameField';
+import MyProfileEmailField from '@/components/MyProfileEmailField/MyProfileEmailField';
 import MyProfileGenderField from '@/components/MyProfileGenderField/MyProfileGenderField';
 import MyProfileBirthdayField from '@/components/MyProfileBirthdayField/MyProfileBirthdayField';
 import MyProfileInfoField from '@/components/MyProfileInfoField/MyProfileInfoField';
@@ -39,7 +39,7 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
                         <MyProfilePhotoField />
 
                         <MyProfileUsernameField />
-                        <div><HiOutlineMail /> <strong>user-email@gmail.com</strong></div>
+                        <MyProfileEmailField />
                         <MyProfileGenderField translate={t('gender')} />
                         <MyProfileBirthdayField translate={t('birthday')} />
 

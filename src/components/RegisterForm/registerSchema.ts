@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-import { usernameValidation, passwordValidation } from '@/utils/validations';
+import { usernameValidation, emailValidation, passwordValidation } from '@/utils/validations';
 
 export const registerSchema = z.object({
-    email: z.string({ required_error: 'Email is required!' }).email(),
+    email: emailValidation,
     username: usernameValidation,
     password: passwordValidation,
     confirmPassword: z.string({ required_error: 'Confirm password is required!' }),
