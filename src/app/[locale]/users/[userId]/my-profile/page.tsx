@@ -1,11 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { FaUserNinja } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
 
 import './myProfile.scss';
 import Layout from '@/components/Layout/Layout';
+import MyProfilePhotoField from '@/components/MyProfilePhotoField/MyProfilePhotoField';
+import MyProfileUsernameField from '@/components/MyProfileUsernameField/MyProfileUsernameField';
 import MyProfileGenderField from '@/components/MyProfileGenderField/MyProfileGenderField';
 import MyProfileBirthdayField from '@/components/MyProfileBirthdayField/MyProfileBirthdayField';
 import MyProfileInfoField from '@/components/MyProfileInfoField/MyProfileInfoField';
@@ -36,16 +36,9 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
                     <h1>{t('title')}</h1>
 
                     <section>
-                        <figure>
-                            <Image
-                                src={'/images/user-profile-pic.png'}
-                                width={200} height={200} alt="User photo"
-                                loading="eager"
-                                title="User photo" priority={true}
-                            />
-                            <FaUserNinja />&nbsp;<figcaption>Username</figcaption>
-                        </figure>
+                        <MyProfilePhotoField />
 
+                        <MyProfileUsernameField />
                         <div><HiOutlineMail /> <strong>user-email@gmail.com</strong></div>
                         <MyProfileGenderField translate={t('gender')} />
                         <MyProfileBirthdayField translate={t('birthday')} />

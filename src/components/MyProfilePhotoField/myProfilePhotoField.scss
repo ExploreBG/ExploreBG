@@ -1,0 +1,19 @@
+.image-wrapper {
+    margin-bottom: 2rem;
+
+    &>label {
+        width: fit-content;
+        margin: 0 auto;
+
+        &>img {
+            border-radius: 50%;
+            border: 1px solid white;
+            box-shadow: 0 2px 8px black;
+            cursor: pointer;
+        }
+    }
+
+    &>input {
+        display: none;
+    }
+}

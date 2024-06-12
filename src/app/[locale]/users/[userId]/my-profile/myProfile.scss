@@ -49,23 +49,6 @@
                 color: gray;
             }
 
-            &>figure {
-
-                &>img {
-                    border-radius: 50%;
-                    margin: 0 auto;
-                    border: 1px solid white;
-                    box-shadow: 0 2px 8px black;
-                    cursor: pointer;
-                    margin-bottom: 0.5rem;
-                }
-
-                &>figcaption {
-                    font-size: 1.5rem;
-                    margin-bottom: 2rem;
-                }
-            }
-
             &>div {
                 margin-bottom: 2rem;
 
@@ -73,6 +56,7 @@
                     justify-content: center;
                     gap: 0.25rem;
 
+                    &>.username-field,
                     &>.gender-field,
                     &>.birthday-field,
                     &>.info-field {

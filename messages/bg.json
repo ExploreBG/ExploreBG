@@ -137,16 +137,17 @@
             "tab-name": "Моят профил"
         },
         "title": "Моят профил",
-        "gender": "пол",
-        "birthday": "рожденна дата",
-        "del-account-btn": "Изтрий този акаунт",
-        "change-pass-btn": "Промени парола",
-        "deletion-obj": "този акаунт",
+        "successful-update-photo": "Снимката е актуализирана успешно",
         "change-btn": "Промени",
         "cancel-btn": "Отказ",
         "err-username-require": "Полето е задължително!",
         "err-username-length": "Потребителското име трябва да съдържа поне 3 знака!",
-        "successful-update-username": "Успешно актуализиране на вашето потребителско име"
+        "successful-update-username": "Успешно актуализиране на вашето потребителско име",
+        "gender": "пол",
+        "birthday": "рожденна дата",
+        "del-account-btn": "Изтрий този акаунт",
+        "change-pass-btn": "Промени парола",
+        "deletion-obj": "този акаунт"
     },
     "user-profile": {
         "metadata": {
