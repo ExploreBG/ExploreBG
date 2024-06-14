@@ -10,7 +10,8 @@
         "profile": "Моят профил",
         "favorite": "Любими",
         "created-hikes": "Създадени походи",
-        "logout": "Изход"
+        "logout": "Изход",
+        "successful-logout": "Успешно излизане"
     },
     "cards": {
         "card-btn": "Виж повече"

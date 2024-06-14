@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HeaderWrapper from '../HeaderWrapper/HeaderWrapper';
+import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
 interface LayoutProps {
@@ -10,7 +10,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <>
-            <HeaderWrapper />
+            <Header />
 
             {children}
 

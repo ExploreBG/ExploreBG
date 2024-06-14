@@ -10,7 +10,8 @@
         "profile": "My profile",
         "favorite": "Favorite",
         "created-hikes": "Created hikes",
-        "logout": "Logout"
+        "logout": "Logout",
+        "successful-logout": "Successfully logged out"
     },
     "cards": {
         "card-btn": "Learn more"

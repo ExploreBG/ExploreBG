@@ -1,17 +1,27 @@
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
-// import CLink from '../common/CLink/CLink';
+import CLink from '../common/CLink/CLink';
 
 interface UserNavLinksProps {
-    t: any
+    id: string
 }
 
-const UserNavLinks: React.FC<UserNavLinksProps> = () => {
+const UserNavLinks: React.FC<UserNavLinksProps> = ({ id }) => {
+    const t = useTranslations('navigation');
+
     return (
         <>
-            {/* <li><CLink href={''}>{t.profile}</CLink></li>
-            <li><CLink href={''}>{t.favorite}</CLink></li>
-            <li><CLink href={''}>{t.created-hikes}</CLink></li> */}
+            <li>
+                <CLink href={{
+                    pathname: '/users/[userId]/my-profile',
+                    params: { userId: id }
+                }}>
+                    {t('profile')}
+                </CLink>
+            </li>
+            {/* <li><CLink href={''}>{t('favorite')}</CLink></li>
+            <li><CLink href={''}>{t('created-hikes')}</CLink></li> */}
         </>
     );
 };

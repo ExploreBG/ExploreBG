@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/navigation';
 import { JWTPayload } from 'jose';
 import { FaBarsStaggered } from 'react-icons/fa6';
@@ -14,19 +15,25 @@ import './CHeaderLinksAndButtons.scss';
 import NavigationLinks from '@/components/NavigationLinks/NavigationLinks';
 import UserNavLinks from '@/components/UserNavLinks/UserNavLinks';
 
-interface CHeaderLinksAndButtonsProps {
-    t: any
-}
+interface CHeaderLinksAndButtonsProps { }
 
-const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) => {
+const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
+    const t = useTranslations('navigation');
     const [isOpenNavbar, setIsOpenNavbar] = useState<boolean>(false);
     const [userSession, setUserSession] = useState<JWTPayload | null>(null);
+    const [userId, setUserId] = useState<string>('');
     const [isShownUserLinks, setIsShownUserLinks] = useState<boolean>(false);
     const router = useRouter();
 
     useEffect(() => {
         async function session() {
-            setUserSession(await getSession());
+            const data = await getSession();
+
+            if (data) {
+                setUserSession(data);
+                // @ts-ignore
+                setUserId(data.userData.userId);
+            }
         }
         session();
     }, []);
@@ -34,7 +41,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) =>
     const onLogoutClick = async () => {
         await clearSession();
 
-        toast.success('Successfully logged out');
+        toast.success(t('successful-logout'));
         router.push('/');
     };
 
@@ -55,9 +62,9 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) =>
                         {isShownUserLinks && (
                             <aside className="nav-wrapper__links__user__links">
                                 <ul>
-                                    <UserNavLinks t={t} />
+                                    <UserNavLinks id={userId} />
                                     <li>
-                                        {userSession && <button onClick={onLogoutClick}>{t.logout}</button>}
+                                        {userSession && <button onClick={onLogoutClick}>{t('logout')}</button>}
                                     </li>
                                 </ul>
                             </aside>
@@ -66,10 +73,10 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) =>
                 )}
 
                 <ul>
-                    <NavigationLinks t={t} />
+                    <NavigationLinks />
                 </ul>
 
-                {!userSession && <Link href={'/login-register'} className="glow-on-hover">{t.login}</Link>}
+                {!userSession && <Link href={'/login-register'} className="glow-on-hover">{t('login')}</Link>}
             </nav>
 
             <div onClick={() => setIsOpenNavbar(state => !state)} className="nav-wrapper__navbar">
@@ -93,15 +100,15 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = ({ t }) =>
 
                     <ul>
                         {userSession && (
-                            <UserNavLinks t={t} />
+                            <UserNavLinks id={userId} />
                         )}
 
-                        <NavigationLinks t={t} />
+                        <NavigationLinks />
                     </ul>
 
-                    {!userSession && <Link href={'/login-register'} className="glow-on-hover">{t.login}</Link>}
+                    {!userSession && <Link href={'/login-register'} className="glow-on-hover">{t('login')}</Link>}
 
-                    {userSession && <button onClick={onLogoutClick} className="glow-on-hover">{t.logout}</button>}
+                    {userSession && <button onClick={onLogoutClick} className="glow-on-hover">{t('logout')}</button>}
                 </nav>
             )}
         </div>
