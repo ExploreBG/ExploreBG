@@ -1,7 +1,9 @@
 import { z } from 'zod';
 
+import { emailValidation } from '@/utils/validations';
+
 export const loginSchema = z.object({
-    usernameOrEmail: z.string({ required_error: 'This field is required!' }),
+    email: emailValidation,
     password: z.string({ required_error: 'Password is required!' }),
     remember: z.boolean().optional(),
 });

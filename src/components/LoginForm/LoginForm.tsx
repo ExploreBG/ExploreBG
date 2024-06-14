@@ -2,20 +2,19 @@
 
 import React from 'react';
 import { useFormState } from 'react-dom';
+import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 
 import { login } from './action';
 import { loginSchema } from './loginSchema';
-import { ILoginRegisterTranslate } from '@/interfaces/interfaces';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
-interface LoginFormProps {
-    translate: ILoginRegisterTranslate
-}
+interface LoginFormProps { }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ translate }) => {
+export const LoginForm: React.FC<LoginFormProps> = () => {
+    const t = useTranslations('login-register');
     const [lastResult, action] = useFormState(login, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -35,17 +34,17 @@ export const LoginForm: React.FC<LoginFormProps> = ({ translate }) => {
                 action={action}
                 noValidate
             >
-                <label htmlFor="usernameOrEmail">{translate.usernameOrEmail}</label>
+                <label htmlFor="email">{t('email')}</label>
                 <input
-                    type="text"
-                    key={fields.usernameOrEmail.key}
-                    name={fields.usernameOrEmail.name}
-                    defaultValue={fields.usernameOrEmail.initialValue}
+                    type="email"
+                    key={fields.email.key}
+                    name={fields.email.name}
+                    defaultValue={fields.email.initialValue}
                     placeholder='John Doe'
                 />
-                <div className="error-message">{fields.usernameOrEmail.errors}</div>
+                <div className="error-message">{fields.email.errors}</div>
 
-                <label htmlFor="password">{translate.pass}</label>
+                <label htmlFor="password">{t('password')}</label>
                 <input
                     type="password"
                     key={fields.password.key}
@@ -56,7 +55,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ translate }) => {
                 <div className="error-message">{fields.password.errors}</div>
 
                 <div>
-                    <label htmlFor="remember">{translate.rememberMe}</label>
+                    <label htmlFor="remember">{t('remember-me')}</label>
                     <input
                         type="checkbox"
                         key={fields.remember.key}
@@ -65,7 +64,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ translate }) => {
                     />
                 </div>
 
-                <CSubmitButton buttonName={translate.loginBtn} />
+                <CSubmitButton buttonName={t('login-btn')} />
             </form>
         </section>
     );

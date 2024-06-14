@@ -27,19 +27,6 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ params: { locale } }) => 
     unstable_setRequestLocale(locale);
     const t = useTranslations('login-register');
 
-    const translate = {
-        loginTitle: t('login-title'),
-        registerTitle: t('register-title'),
-        email: t('email'),
-        username: t('username'),
-        pass: t('password'),
-        confirmPass: t('confirm-pass'),
-        usernameOrEmail: t('username-email'),
-        rememberMe: t('remember-me'),
-        loginBtn: t('login-btn'),
-        registerBtn: t('register-btn')
-    };
-
     return (
         <main className="login-register">
             <header>
@@ -47,7 +34,7 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ params: { locale } }) => 
                 <CBackBtn btn={t('back-btn')} />
             </header>
 
-            <LoginRegisterFormsWrapper translate={translate} />
+            <LoginRegisterFormsWrapper />
 
             <CPhotoInfo imgInfo={t('img-info')} />
             <CSmallFooter />

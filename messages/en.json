@@ -126,7 +126,6 @@
         "username": "Username",
         "password": "Password",
         "confirm-pass": "Confirm password",
-        "username-email": "Username or Email",
         "remember-me": "Remember Me",
         "login-btn": "Login",
         "register-btn": "Sign up",

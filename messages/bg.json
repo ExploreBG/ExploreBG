@@ -126,7 +126,6 @@
         "username": "Потребителско име",
         "password": "Парола",
         "confirm-pass": "Повтори паролата",
-        "username-email": "Потребителско име или имейл",
         "remember-me": "Запомни паролата",
         "login-btn": "Влез",
         "register-btn": "Регистрирай се",

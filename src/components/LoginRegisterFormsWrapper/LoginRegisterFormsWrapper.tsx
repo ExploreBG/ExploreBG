@@ -1,19 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
-
-import { ILoginRegisterTranslate } from '@/interfaces/interfaces';
+import { useTranslations } from 'next-intl';
 
 import LoginForm from '@/components/LoginForm/LoginForm';
 import RegisterForm from '@/components/RegisterForm/RegisterForm';
 
-interface LoginRegisterFormsWrapperProps {
-    translate: ILoginRegisterTranslate
-}
+interface LoginRegisterFormsWrapperProps { }
 
-export const LoginRegisterFormsWrapper: React.FC<LoginRegisterFormsWrapperProps> = ({
-    translate
-}) => {
+export const LoginRegisterFormsWrapper: React.FC<LoginRegisterFormsWrapperProps> = () => {
+    const t = useTranslations('login-register');
     const [isLogin, setIsLogin] = useState<boolean>(true);
 
     return (
@@ -23,17 +19,17 @@ export const LoginRegisterFormsWrapper: React.FC<LoginRegisterFormsWrapperProps>
                     onClick={() => setIsLogin(true)}
                     className={isLogin ? 'current' : ''}
                 >
-                    {translate.loginTitle}
+                    {t('login-title')}
                 </button>
                 <button
                     onClick={() => setIsLogin(false)}
                     className={isLogin ? '' : 'current'}
                 >
-                    {translate.registerTitle}
+                    {t('register-title')}
                 </button>
             </div>
 
-            {isLogin ? <LoginForm translate={translate} /> : <RegisterForm translate={translate} />}
+            {isLogin ? <LoginForm /> : <RegisterForm />}
         </article>
     );
 };

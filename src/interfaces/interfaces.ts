@@ -83,16 +83,3 @@ export interface IAccommodation extends IAccommodationCard {
     nextTo: string
     comments: IComment[]
 }
-
-export interface ILoginRegisterTranslate {
-    loginTitle: string
-    registerTitle: string
-    email: string
-    username: string
-    pass: string
-    confirmPass: string
-    usernameOrEmail: string
-    rememberMe: string
-    loginBtn: string
-    registerBtn: string
-}
