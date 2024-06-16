@@ -148,7 +148,8 @@
         "err-pass-max-length": "Password can be maximum 24 characters!",
         "err-pass-confirm-require": "Confirm password is required!",
         "err-pass-mismatch": "Passwords don't match!",
-        "successful-register": "Welcome {name}! Your registration was successful."
+        "successful-register": "Welcome {name}! Your registration was successful.",
+        "successful-login": "Welcome {name}!"
     },
     "my-profile": {
         "metadata": {

@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { register } from './action';
 import { registerSchema } from './registerSchema';
 import { agent } from '@/api/agent';
+import { getSession } from '@/utils/userSession';
 
 import CPasswordInfo from '../common/CPasswordInfo/CPasswordInfo';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -35,8 +36,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
 
             try {
                 const res = await agent.apiUsers.register(formData!);
+                const session = await getSession();
 
-                if (res.id) {
+                if (session) {
                     toast.success(t('successful-register', { name: res.username }));
                     router.push({
                         pathname: '/users/[userId]/my-profile',

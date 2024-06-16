@@ -148,7 +148,8 @@
         "err-pass-max-length": "Паролата може да бъде максимум 24 символа!",
         "err-pass-confirm-require": "Изисква се потвърждение на паролата!",
         "err-pass-mismatch": "Паролите не съвпадат!",
-        "successful-register": "Здравейте, {name}! Вашата регистрация беше успешна."
+        "successful-register": "Здравейте, {name}! Вашата регистрация беше успешна.",
+        "successful-login": "Здравейте, {name}!"
     },
     "my-profile": {
         "metadata": {

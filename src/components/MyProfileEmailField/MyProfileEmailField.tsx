@@ -14,9 +14,11 @@ import { emailSchema } from './emailSchema';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
-interface MyProfileEmailFieldProps { }
+interface MyProfileEmailFieldProps {
+    email: string
+}
 
-export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = () => {
+export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ email }) => {
     const t = useTranslations('my-profile');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [lastResult, action] = useFormState(changeEmail, undefined);
@@ -50,7 +52,7 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = () => {
     return (
         <div>
             <p style={{ display: (isVisible ? 'none' : 'block') }}>
-                <HiOutlineMail /> <strong>shamar@gmail.com</strong>
+                <HiOutlineMail /> <strong>{email}</strong>
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
 

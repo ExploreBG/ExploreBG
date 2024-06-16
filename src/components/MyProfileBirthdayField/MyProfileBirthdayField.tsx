@@ -8,10 +8,11 @@ import { FaEdit } from 'react-icons/fa';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileBirthdayFieldProps {
+    birthday: string | null
     translate: string
 }
 
-export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ translate }) => {
+export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ birthday, translate }) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [form, fields] = useForm({
         onSubmit(e) {
@@ -26,7 +27,7 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
     return (
         <div>
             <p style={{ display: (isVisible ? 'none' : 'block') }}>
-                <LiaBirthdayCakeSolid /> {translate}: <strong>03 feb 1990</strong> &nbsp;
+                <LiaBirthdayCakeSolid /> {translate}: <strong>{birthday ?? '.....'}</strong> &nbsp;
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
 

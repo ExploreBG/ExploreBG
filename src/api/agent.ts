@@ -8,12 +8,19 @@ const headers = {
     multipart: { 'Content-Type': 'multipart/form-data' }
 };
 
-const request = async (url: string, method: string = 'GET', headers?: any, body?: any) => {
+const request = async (url: string, method: string = 'GET', headers?: any, sessionToken?: string, body?: any) => {
     const options: RequestInit = {
         method,
         headers,
         cache: 'no-cache'
     };
+
+    if (sessionToken) {
+        options.headers = {
+            ...options.headers,
+            'Authorization': `Bearer ${sessionToken}`
+        };
+    }
 
     if (body) {
         options.body = JSON.stringify(body);
@@ -42,7 +49,9 @@ const request = async (url: string, method: string = 'GET', headers?: any, body?
 };
 
 const apiUsers = {
-    register: (data: Record<string, unknown>) => request(`${baseUrl}/users/register`, 'POST', headers.appJSON, data)
+    register: (data: Record<string, unknown>) => request(`${baseUrl}/users/register`, 'POST', headers.appJSON, undefined, data),
+    login: (data: Record<string, unknown>) => request(`${baseUrl}/users/login`, 'POST', headers.appJSON, undefined, data),
+    getMyProfile: (userId: string, token: string) => request(`${baseUrl}/users/${userId}/my-profile`, 'GET', {}, token)
 };
 
 const apiDestinations = {

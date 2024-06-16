@@ -13,9 +13,11 @@ import { usernameSchema } from './usernameSchema';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
-interface MyProfileUsernameFieldProps { }
+interface MyProfileUsernameFieldProps {
+    username: string
+}
 
-export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = () => {
+export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ username }) => {
     const t = useTranslations('my-profile');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [lastResult, action] = useFormState(changeUsername, undefined);
@@ -49,7 +51,7 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = () 
     return (
         <div>
             <p style={{ display: (isVisible ? 'none' : 'block') }}>
-                <FaUserNinja />&nbsp;<strong>Misho Shamara</strong>&nbsp;
+                <FaUserNinja />&nbsp;<strong>{username}</strong>&nbsp;
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
 

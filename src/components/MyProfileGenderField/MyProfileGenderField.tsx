@@ -7,10 +7,11 @@ import { FaEdit, FaMale } from 'react-icons/fa';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileGenderFieldProps {
+    gender: string | null
     translate: string
 }
 
-export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ translate }) => {
+export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gender, translate }) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [form, fields] = useForm({
         onSubmit(e) {
@@ -25,7 +26,7 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ tran
     return (
         <div>
             <p style={{ display: (isVisible ? 'none' : 'block') }}>
-                <FaMale /> {translate}: <strong>male</strong> &nbsp;
+                <FaMale /> {translate}: <strong>{gender ?? '.....'}</strong> &nbsp;
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
             {/* <FaFemale /> */}

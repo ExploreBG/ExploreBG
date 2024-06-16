@@ -6,9 +6,11 @@ import { FaEdit } from 'react-icons/fa';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
-interface MyProfileInfoFieldProps { }
+interface MyProfileInfoFieldProps {
+    userInfo: string | null
+}
 
-export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = () => {
+export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo }) => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [form, fields] = useForm({
         onSubmit(e) {
@@ -22,11 +24,11 @@ export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = () => {
 
     return (
         <div>
-            <p 
+            <p
                 style={{ display: (isVisible ? 'none' : 'block') }}
                 className="info-text"
             >
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus, inventore reiciendis velit magni eum similique nesciunt, corrupti ipsum vitae error officia ut. Quo harum quam repudiandae quaerat rem, saepe fugit id. Ex nam deleniti sapiente at amet, doloremque rerum corrupti fugit non recusandae accusantium qui pariatur. Quas dicta nisi voluptatum necessitatibus optio quis, iste tempora animi recusandae, temporibus fugiat? Eos sint natus iure error modi fugiat qui ad aperiam quae, commodi ullam debitis sed facilis dolor ipsa ex nisi odio est voluptates corrupti placeat ea quod nesciunt? Enim, quam incidunt quae reprehenderit delectus vel modi perspiciatis saepe ratione deserunt corrupti? &nbsp;
+                {userInfo ?? <><span>My info: </span><strong>.........</strong></>} &nbsp;
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
 

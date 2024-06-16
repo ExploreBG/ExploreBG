@@ -1,5 +1,9 @@
 import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { redirect } from '@/navigation';
+
+import { getSession } from '@/utils/userSession';
+import { agent } from '@/api/agent';
 
 import './myProfile.scss';
 import Layout from '@/components/Layout/Layout';
@@ -29,6 +33,18 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
     unstable_setRequestLocale(locale);
     const t = await getTranslations('my-profile');
 
+    const session = await getSession();
+    // @ts-expect-error
+    const sessionToken = session?.userData?.token;
+
+    const res = await agent.apiUsers.getMyProfile(userId, sessionToken);
+
+    if (res.message) {
+        redirect('/');
+    }
+
+    const { username, email, gender, birthday, imageUrl, userInfo, createdHikes } = res;
+
     return (
         <Layout>
             <main className="my-profile-container">
@@ -36,14 +52,14 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
                     <h1>{t('title')}</h1>
 
                     <section>
-                        <MyProfilePhotoField />
+                        <MyProfilePhotoField imageUrl={imageUrl} />
 
-                        <MyProfileUsernameField />
-                        <MyProfileEmailField />
-                        <MyProfileGenderField translate={t('gender')} />
-                        <MyProfileBirthdayField translate={t('birthday')} />
+                        <MyProfileUsernameField username={username} />
+                        <MyProfileEmailField email={email} />
+                        <MyProfileGenderField gender={gender} translate={t('gender')} />
+                        <MyProfileBirthdayField birthday={birthday} translate={t('birthday')} />
 
-                        <MyProfileInfoField />
+                        <MyProfileInfoField userInfo={userInfo} />
 
                         <MyProfileButtons />
                     </section>

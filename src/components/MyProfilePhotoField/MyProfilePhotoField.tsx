@@ -7,9 +7,11 @@ import { toast } from 'react-toastify';
 import './myProfilePhotoField.scss';
 import { useTranslations } from 'next-intl';
 
-interface MyProfilePhotoFieldProps { }
+interface MyProfilePhotoFieldProps {
+    imageUrl: string | null
+}
 
-export const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = () => {
+export const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ imageUrl }) => {
     const t = useTranslations('my-profile');
 
     const changePhoto = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -26,7 +28,7 @@ export const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = () => {
         <form className="image-wrapper">
             <label htmlFor="file-input">
                 <Image
-                    src={'/images/user-profile-pic.png'}
+                    src={imageUrl ?? '/images/user-profile-pic.png'}
                     width={200} height={200} alt="User photo"
                     loading="eager"
                     title="User photo" priority={true}
