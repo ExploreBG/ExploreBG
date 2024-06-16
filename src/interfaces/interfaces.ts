@@ -83,3 +83,8 @@ export interface IAccommodation extends IAccommodationCard {
     nextTo: string
     comments: IComment[]
 }
+
+export interface IUserSession {
+    token: string
+    userId: number
+}

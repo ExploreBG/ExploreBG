@@ -5,10 +5,12 @@ import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
+import { useRouter } from '@/navigation';
+import { toast } from 'react-toastify';
 
 import { register } from './action';
 import { registerSchema } from './registerSchema';
-import { passwordErrors } from '@/utils/validations';
+import { agent } from '@/api/agent';
 
 import CPasswordInfo from '../common/CPasswordInfo/CPasswordInfo';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -17,6 +19,7 @@ interface RegisterFormProps { }
 
 export const RegisterForm: React.FC<RegisterFormProps> = () => {
     const t = useTranslations('login-register');
+    const router = useRouter();
     const [lastResult, action] = useFormState(register, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -25,6 +28,26 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
 
         onValidate({ formData }) {
             return parseWithZod(formData, { schema: registerSchema });
+        },
+
+        async onSubmit(event, context) {
+            const formData = context.submission?.payload;
+
+            try {
+                const res = await agent.apiUsers.register(formData!);
+
+                if (res.id) {
+                    toast.success(t('successful-register', { name: res.username }));
+                    router.push({
+                        pathname: '/users/[userId]/my-profile',
+                        params: { userId: res.id }
+                    });
+                } else {
+                    res.errors.slice(0, 4).map((err: string) => toast.error(err, { autoClose: 10000 }));
+                }
+            } catch (err) {
+                console.error(err);
+            }
         }
     });
 
@@ -36,7 +59,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
                 action={action}
                 noValidate
             >
-                <label htmlFor="email">{ t('email')}</label>
+                <label htmlFor="email">{t('email')}</label>
                 <input
                     type="email"
                     key={fields.email.key}
@@ -44,7 +67,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
                     defaultValue={fields.email.initialValue}
                     placeholder='john.doe@gmail.com'
                 />
-                <div className="error-message">{fields.email.errors}</div>
+                <div className="error-message">{fields.email.errors && t(fields.email.errors[0])}</div>
 
                 <label htmlFor="username">{t('username')}</label>
                 <input
@@ -54,7 +77,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
                     defaultValue={fields.username.initialValue}
                     placeholder='John Doe'
                 />
-                <div className="error-message">{fields.username.errors}</div>
+                <div className="error-message">{fields.username.errors && t(fields.username.errors[0])}</div>
 
                 <label htmlFor="password">{t('password')} &nbsp;
                     <CPasswordInfo />
@@ -66,7 +89,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
                     defaultValue={fields.password.initialValue}
                     placeholder='*********'
                 />
-                <div className="error-message">{passwordErrors(fields.password.errors)}</div>
+                <div className="error-message">{fields.password.errors && t(fields.password.errors[0])}</div>
 
                 <label htmlFor="confirmPassword">{t('confirm-pass')}</label>
                 <input
@@ -76,7 +99,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
                     defaultValue={fields.confirmPassword.initialValue}
                     placeholder='*********'
                 />
-                <div className="error-message">{fields.confirmPassword.errors}</div>
+                <div className="error-message">{fields.confirmPassword.errors && t(fields.confirmPassword.errors[0])}</div>
 
                 <CSubmitButton buttonName={t('register-btn')} />
             </form>

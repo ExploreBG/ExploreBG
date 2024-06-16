@@ -1,12 +1,14 @@
 'use server';
 
-import { SignJWT, jwtVerify } from 'jose';
+import { JWTPayload, SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
+
+import { IUserSession } from '@/interfaces/interfaces';
 
 const key = new TextEncoder().encode(process.env.USER_SESSION_SECRET_KEY);
 const expireTime = Date.now() + 3 * 24 * 60 * 60 * 1000;
 
-const encrypt = async (payload: any) => {
+const encrypt = async (payload: JWTPayload) => {
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
@@ -21,7 +23,7 @@ const decrypt = async (input: string) => {
     return payload;
 };
 
-export const setSession = async (userData: any) => {
+export const setSession = async (userData: IUserSession) => {
     const expires = new Date(expireTime);
     const session = await encrypt({ userData, expires });
 

@@ -6,8 +6,8 @@ export const registerSchema = z.object({
     email: emailValidation,
     username: usernameValidation,
     password: passwordValidation,
-    confirmPassword: z.string({ required_error: 'Confirm password is required!' }),
+    confirmPassword: z.string({ required_error: 'err-pass-confirm-require' }),
 }).refine(data => data.password === data.confirmPassword, {
-    message: 'Passwords don\'t match!',
+    message: 'err-pass-mismatch',
     path: ['confirmPassword']
 });

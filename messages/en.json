@@ -130,7 +130,25 @@
         "remember-me": "Remember Me",
         "login-btn": "Login",
         "register-btn": "Sign up",
-        "img-info": "Ancient Theater - Plovdiv"
+        "img-info": "Ancient Theater - Plovdiv",
+        "err-email-require": "Email is required!",
+        "err-email-invalid": "Invalid email!",
+        "err-username-require": "Username is required!",
+        "err-username-start-with": "Username should start with English letter!",
+        "err-username-contain": "Username should contain only English letters, numbers and underscore!",
+        "err-username-min-length": "Username must contain at least 3 characters!",
+        "err-username-max-length": "Username can be maximum 30 characters!",
+        "err-pass-require": "Password is required!",
+        "err-pass-lowercase": "Password must contain at least one lowercase letter!",
+        "err-pass-uppercase": "Password must contain at least one uppercase letter!",
+        "err-pass-number": "Password must contain at least one number!",
+        "err-pass-special-char": "Password must contain at least one special character!",
+        "err-pass-interval": "Password must not contain spaces!",
+        "err-pass-min-length": "Password must contain at least 5 characters!",
+        "err-pass-max-length": "Password can be maximum 24 characters!",
+        "err-pass-confirm-require": "Confirm password is required!",
+        "err-pass-mismatch": "Passwords don't match!",
+        "successful-register": "Welcome {name}! Your registration was successful."
     },
     "my-profile": {
         "metadata": {

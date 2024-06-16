@@ -1,17 +1,48 @@
+import { RequestInit } from 'next/dist/server/web/spec-extension/request';
+import { setSession } from '@/utils/userSession';
+
 const baseUrl = process.env.NODE_ENV == 'production' ? `${process.env.API_URL}/api` : 'http://localhost:8080/api';
 
-const request = async (url: string) => {
+const headers = {
+    appJSON: { 'Content-Type': 'application/json' },
+    multipart: { 'Content-Type': 'multipart/form-data' }
+};
+
+const request = async (url: string, method: string = 'GET', headers?: any, body?: any) => {
+    const options: RequestInit = {
+        method,
+        headers,
+        cache: 'no-cache'
+    };
+
+    if (body) {
+        options.body = JSON.stringify(body);
+    }
+
     try {
-        const response = await fetch(url, { cache: 'no-cache' });
+        const response = await fetch(url, options);
 
         if (!response.ok) {
-            throw new Error('Something went wrong!');
+            console.error('Something went wrong!');
         }
 
-        return response.json();
+        const data = await response.json();
+
+        const token = response.headers.get('Authorization');
+        const userId = data.id;
+
+        if (token && userId) {
+            setSession({ token, userId });
+        }
+
+        return data;
     } catch (err) {
         console.error(err);
     }
+};
+
+const apiUsers = {
+    register: (data: Record<string, unknown>) => request(`${baseUrl}/users/register`, 'POST', headers.appJSON, data)
 };
 
 const apiDestinations = {
@@ -39,6 +70,7 @@ const apiAccommodations = {
 };
 
 export const agent = {
+    apiUsers,
     apiDestinations,
     apiTrails,
     apiHikes,
