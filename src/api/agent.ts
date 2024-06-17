@@ -1,5 +1,5 @@
 import { RequestInit } from 'next/dist/server/web/spec-extension/request';
-import { setSession } from '@/utils/userSession';
+import { setSession, getUserId } from '@/utils/userSession';
 
 const baseUrl = process.env.NODE_ENV == 'production' ? `${process.env.API_URL}/api` : 'http://localhost:8080/api';
 
@@ -40,6 +40,10 @@ const request = async (url: string, method: string = 'GET', headers?: any, sessi
 
         if (token && userId) {
             setSession({ token, userId });
+        } else if (token) {
+            const id = await getUserId();
+
+            setSession({ token, userId: id });
         }
 
         return data;
@@ -51,7 +55,8 @@ const request = async (url: string, method: string = 'GET', headers?: any, sessi
 const apiUsers = {
     register: (data: Record<string, unknown>) => request(`${baseUrl}/users/register`, 'POST', headers.appJSON, undefined, data),
     login: (data: Record<string, unknown>) => request(`${baseUrl}/users/login`, 'POST', headers.appJSON, undefined, data),
-    getMyProfile: (userId: string, token: string) => request(`${baseUrl}/users/${userId}/my-profile`, 'GET', {}, token)
+    getMyProfile: (userId: string, token: string) => request(`${baseUrl}/users/${userId}/my-profile`, 'GET', {}, token),
+    updateEmail: (userId: string, token: string, newEmail: unknown) => request(`${baseUrl}/users/${userId}/update-email`, 'PATCH', headers.appJSON, token, newEmail)
 };
 
 const apiDestinations = {

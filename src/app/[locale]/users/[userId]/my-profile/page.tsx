@@ -2,7 +2,7 @@ import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { redirect } from '@/navigation';
 
-import { getSession } from '@/utils/userSession';
+import { getToken } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import './myProfile.scss';
@@ -33,9 +33,7 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
     unstable_setRequestLocale(locale);
     const t = await getTranslations('my-profile');
 
-    const session = await getSession();
-    // @ts-expect-error
-    const sessionToken = session?.userData?.token;
+    const sessionToken = await getToken();
 
     const res = await agent.apiUsers.getMyProfile(userId, sessionToken);
 
@@ -55,7 +53,7 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
                         <MyProfilePhotoField imageUrl={imageUrl} />
 
                         <MyProfileUsernameField username={username} />
-                        <MyProfileEmailField email={email} />
+                        <MyProfileEmailField initialEmail={email} userId={userId} />
                         <MyProfileGenderField gender={gender} translate={t('gender')} />
                         <MyProfileBirthdayField birthday={birthday} translate={t('birthday')} />
 

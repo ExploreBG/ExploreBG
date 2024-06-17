@@ -11,16 +11,20 @@ import { toast } from 'react-toastify';
 
 import { changeEmail } from './action';
 import { emailSchema } from './emailSchema';
+import { getToken } from '@/utils/userSession';
+import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileEmailFieldProps {
-    email: string
+    initialEmail: string
+    userId: string
 }
 
-export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ email }) => {
+export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initialEmail, userId }) => {
     const t = useTranslations('my-profile');
     const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>(initialEmail);
     const [lastResult, action] = useFormState(changeEmail, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -31,23 +35,25 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ email 
             return parseWithZod(formData, { schema: emailSchema });
         },
 
-        onSubmit(event, context) {
+        async onSubmit(event, context) {
             const inputData = context.submission?.payload.email;
 
-            console.log(inputData);
+            const token = await getToken();
+            const newEmail = { email: inputData };
 
-            toast.success(t('successful-update-email'));
-            setIsVisible(false);
+            const res = await agent.apiUsers.updateEmail(userId, token, newEmail);
+
+            if (res.email) {
+                setEmail(res.email);
+                toast.success(t('successful-update-email'));
+                setIsVisible(false);
+            } else if (res.message) {
+                toast.error(res.message);
+            } else if (res.errors) {
+                toast.error(res.errors[0]);
+            }
         }
     });
-
-    const translateErrors = (error: string[] | undefined): string | undefined => {
-        if (error && error[0] === 'Email is required!') {
-            return t('err-email-require');
-        } else if (error && error[0] === 'Invalid email') {
-            return t('err-email-invalid');
-        }
-    };
 
     return (
         <div>
@@ -76,7 +82,7 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ email 
             </form>
 
             <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
-                {translateErrors(fields.email.errors)}
+                {fields.email.errors && t(fields.email.errors[0])}
             </div>
         </div>
     );

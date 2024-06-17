@@ -46,6 +46,30 @@ export const getSession = async () => {
     return await decrypt(session);
 };
 
+export const getUserId = async () => {
+    const session = cookies().get('user-session')?.value;
+
+    if (!session) {
+        return null;
+    }
+
+    const res = await decrypt(session);
+    // @ts-ignore
+    return res.userData.userId;
+};
+
+export const getToken = async () => {
+    const session = cookies().get('user-session')?.value;
+
+    if (!session) {
+        return null;
+    }
+
+    const res = await decrypt(session);
+    // @ts-ignore
+    return res.userData.token;
+};
+
 export const clearSession = async () => {
     cookies().set('user-session', '', { expires: new Date(0) });
 };
