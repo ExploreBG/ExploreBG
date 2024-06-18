@@ -21,7 +21,3 @@ export const passwordValidation = z
     .min(5, 'err-pass-min-length')
     .max(24, 'err-pass-max-length');
 
-
-export const passwordErrors = (errors: string[] | undefined) => {
-    return errors != undefined ? errors[0] : errors;
-};

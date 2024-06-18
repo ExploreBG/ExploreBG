@@ -6,9 +6,11 @@ import { useTranslations } from 'next-intl';
 import CConfirmationModal from '../common/CConfirmationModal/CConfirmationModal';
 import ChangePasswordPopUp from '../ChangePasswordPopUp/ChangePasswordPopUp';
 
-interface MyProfileButtonsProps { }
+interface MyProfileButtonsProps {
+    userId: string
+}
 
-export const MyProfileButtons: React.FC<MyProfileButtonsProps> = () => {
+export const MyProfileButtons: React.FC<MyProfileButtonsProps> = ({ userId }) => {
     const [isClickDelAccountBtn, setIsClickDelAccountBtn] = useState<boolean>(false);
     const [isClickChangePassBtn, setIsClickChangePassBtn] = useState<boolean>(false);
     const t = useTranslations('my-profile');
@@ -41,7 +43,7 @@ export const MyProfileButtons: React.FC<MyProfileButtonsProps> = () => {
                 <CConfirmationModal deletionObj={t('deletion-obj')} confirm={onConfirmClick} cancel={onCancelClick} />
             )}
 
-            {isClickChangePassBtn && <ChangePasswordPopUp closePopUp={onCancelClick} />}
+            {isClickChangePassBtn && <ChangePasswordPopUp closePopUp={onCancelClick} userId={userId} />}
         </>
     );
 };

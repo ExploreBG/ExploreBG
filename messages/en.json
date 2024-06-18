@@ -149,7 +149,10 @@
         "err-pass-confirm-require": "Confirm password is required!",
         "err-pass-mismatch": "Passwords don't match!",
         "successful-register": "Welcome {name}! Your registration was successful.",
-        "successful-login": "Welcome {name}!"
+        "successful-login": "Welcome {name}!",
+        "err-current-pass-require": "Current password is required!",
+        "err-confirm-new-pass-require": "Confirm new password is required!",
+        "successful-update-pass": "Successfully update password"
     },
     "my-profile": {
         "metadata": {

@@ -10,16 +10,21 @@ import { toast } from 'react-toastify';
 
 import { changeUsername } from './action';
 import { usernameSchema } from './usernameSchema';
+import { getToken } from '@/utils/userSession';
+import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileUsernameFieldProps {
-    username: string
+    initialUsername: string
+    userId: string
 }
 
-export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ username }) => {
+export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ initialUsername, userId }) => {
     const t = useTranslations('my-profile');
+    const t2 = useTranslations('login-register');
     const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [username, setUsername] = useState<string>(initialUsername);
     const [lastResult, action] = useFormState(changeUsername, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -30,23 +35,29 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
             return parseWithZod(formData, { schema: usernameSchema });
         },
 
-        onSubmit(event, context) {
+        async onSubmit(event, context) {
             const inputData = context.submission?.payload.username;
 
-            console.log(inputData);
+            const token = await getToken();
+            const newUsername = { username: inputData };
 
-            toast.success(t('successful-update-username'));
-            setIsVisible(false);
+            try {
+                const res = await agent.apiUsers.updateUsername(userId, token, newUsername);
+
+                if (res.username) {
+                    setUsername(res.username);
+                    toast.success(t('successful-update-username'));
+                    setIsVisible(false);
+                } else if (res.message) {
+                    toast.error(res.message);
+                } else if (res.errors) {
+                    toast.error(res.errors[0]);
+                }
+            } catch (err) {
+                console.error(err);
+            }
         }
     });
-
-    const translateErrors = (error: string[] | undefined): string | undefined => {
-        if (error && error[0] === 'Username is required!') {
-            return t('err-username-require');
-        } else if (error && error[0] === 'Username must contain at least 3 characters!') {
-            return t('err-username-length');
-        }
-    };
 
     return (
         <div>
@@ -75,7 +86,7 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
             </form>
 
             <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
-                {translateErrors(fields.username.errors)}
+                {fields.username.errors && t2(fields.username.errors[0])}
             </div>
         </div>
     );

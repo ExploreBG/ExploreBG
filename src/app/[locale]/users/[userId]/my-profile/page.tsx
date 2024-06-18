@@ -52,14 +52,14 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
                     <section>
                         <MyProfilePhotoField imageUrl={imageUrl} />
 
-                        <MyProfileUsernameField username={username} />
+                        <MyProfileUsernameField initialUsername={username} userId={userId} />
                         <MyProfileEmailField initialEmail={email} userId={userId} />
                         <MyProfileGenderField gender={gender} translate={t('gender')} />
                         <MyProfileBirthdayField birthday={birthday} translate={t('birthday')} />
 
                         <MyProfileInfoField userInfo={userInfo} />
 
-                        <MyProfileButtons />
+                        <MyProfileButtons userId={userId} />
                     </section>
                 </article>
             </main>

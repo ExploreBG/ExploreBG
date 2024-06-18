@@ -7,17 +7,20 @@ import { toast } from 'react-toastify';
 
 import { changePassword } from './action';
 import { changePasswordSchema } from './changePasswordSchema';
-import { passwordErrors } from '@/utils/validations';
+import { getToken } from '@/utils/userSession';
+import { agent } from '@/api/agent';
 
 import './changePasswordPopUp.scss';
 import CPasswordInfo from '../common/CPasswordInfo/CPasswordInfo';
 
 interface ChangePasswordPopUpProps {
     closePopUp: () => void
+    userId: string
 }
 
-export const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closePopUp }) => {
+export const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closePopUp, userId }) => {
     const t = useTranslations('pop-up');
+    const t2 = useTranslations('login-register');
     const [lastResult, action] = useFormState(changePassword, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -28,14 +31,26 @@ export const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closeP
             return parseWithZod(formData, { schema: changePasswordSchema });
         },
 
-        onSubmit(event, context) {
-            const userData = context.submission?.payload;
+        async onSubmit(event, context) {
+            const inputData = context.submission?.payload;
 
-            console.log(userData);
+            const token = await getToken();
 
-            toast.success('Successfully update password');
-            closePopUp();
-        },
+            try {
+                const res = await agent.apiUsers.changePassword(userId, token, inputData);
+
+                if (res.message) {
+                    toast.success(res.success);
+                    closePopUp();
+                } else if (res.message) {
+                    toast.error(res.message);
+                } else if (res.errors) {
+                    toast.error(res.errors[0]);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
     });
 
     return (
@@ -48,37 +63,37 @@ export const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closeP
                     noValidate
                     className="change-pass-form"
                 >
-                    <label htmlFor="currentPass">{t('current-pass')}</label>
+                    <label htmlFor="currentPassword">{t('current-pass')}</label>
                     <input
                         type="password"
-                        key={fields.currentPass.key}
-                        name={fields.currentPass.name}
-                        defaultValue={fields.currentPass.initialValue}
+                        key={fields.currentPassword.key}
+                        name={fields.currentPassword.name}
+                        defaultValue={fields.currentPassword.initialValue}
                         placeholder="***************"
                     />
-                    <div className="error-message">{fields.currentPass.errors}</div>
+                    <div className="error-message">{fields.currentPassword.errors && t2(fields.currentPassword.errors[0])}</div>
 
-                    <label htmlFor="newPass">
+                    <label htmlFor="newPassword">
                         {t('new-pass')} &nbsp;
                         <CPasswordInfo />
                     </label>
                     <input
                         type="password"
-                        key={fields.newPass.key}
-                        name={fields.newPass.name}
-                        defaultValue={fields.newPass.initialValue}
+                        key={fields.newPassword.key}
+                        name={fields.newPassword.name}
+                        defaultValue={fields.newPassword.initialValue}
                         placeholder="***************"
                     />
-                    <div className="error-message">{passwordErrors(fields.newPass.errors)}</div>
+                    <div className="error-message">{fields.newPassword.errors && t2(fields.newPassword.errors[0])}</div>
 
-                    <label htmlFor="confirmNewPass">{t('confirm-new-pass')}</label>
+                    <label htmlFor="confirmNewPassword">{t('confirm-new-pass')}</label>
                     <input
                         type="password"
-                        key={fields.confirmNewPass.key}
-                        name={fields.confirmNewPass.name}
-                        defaultValue={fields.confirmNewPass.initialValue}
+                        key={fields.confirmNewPassword.key}
+                        name={fields.confirmNewPassword.name}
+                        defaultValue={fields.confirmNewPassword.initialValue}
                         placeholder="***************" />
-                    <div className="error-message">{fields.confirmNewPass.errors}</div>
+                    <div className="error-message">{fields.confirmNewPassword.errors && t2(fields.confirmNewPassword.errors[0])}</div>
 
                     <button type="submit">{t('change-btn')}</button>
                 </form>
