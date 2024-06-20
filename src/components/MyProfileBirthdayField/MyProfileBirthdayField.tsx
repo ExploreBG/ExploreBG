@@ -1,40 +1,77 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useFormState } from 'react-dom';
+import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
+import { parseWithZod } from '@conform-to/zod';
 import { LiaBirthdayCakeSolid } from 'react-icons/lia';
 import { FaEdit } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+
+import { formatDate } from '@/utils/utils';
+import { changeBirthDate } from './action';
+import { birthDateSchema } from './birthDateSchema';
+import { getToken } from '@/utils/userSession';
+import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileBirthdayFieldProps {
     birthday: string | null
-    translate: string
+    userId: string
 }
 
-export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ birthday, translate }) => {
+export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ birthday, userId }) => {
+    const t = useTranslations('my-profile');
+    const [birthDateValue, setBirthDateValue] = useState<string | null>(birthday);
     const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [lastResult, action] = useFormState(changeBirthDate, undefined);
     const [form, fields] = useForm({
-        onSubmit(e) {
-            e.preventDefault();
+        lastResult,
+        shouldValidate: 'onBlur',
+        shouldRevalidate: 'onInput',
 
-            console.log(e.currentTarget.birthday.value);
+        onValidate({ formData }) {
+            return parseWithZod(formData, { schema: birthDateSchema });
+        },
 
-            setIsVisible(!isVisible);
+        async onSubmit(event, context) {
+            const inputData = context.submission?.payload.birthday;
+
+            const token = await getToken();
+            const newData = { birthdate: inputData };
+
+            try {
+                const res = await agent.apiUsers.updateBirthDate(userId, token, newData);
+
+                if (res.birthDate) {
+                    setBirthDateValue(res.birthDate);
+                    toast.success(t('successful-update-birthday'));
+                    setIsVisible(!isVisible);
+                } else if (res.message) {
+                    toast.error(res.message);
+                } else if (res.errors) {
+                    toast.error(res.errors[0]);
+                }
+            } catch (err) {
+                console.error(err);
+            }
         }
     });
 
     return (
         <div>
             <p style={{ display: (isVisible ? 'none' : 'block') }}>
-                <LiaBirthdayCakeSolid /> {translate}: <strong>{birthday ?? '.....'}</strong> &nbsp;
+                <LiaBirthdayCakeSolid /> {t('birthday')}: 
+                <strong>{birthDateValue ? formatDate(birthDateValue) : '.....'}</strong> &nbsp;
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
 
             <form
                 id={form.id}
                 onSubmit={form.onSubmit}
-                // action={action}
+                action={action}
                 noValidate
                 style={{ display: (isVisible ? 'flex' : 'none') }}
             >
@@ -42,13 +79,17 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
                     type="date"
                     key={fields.birthday.key}
                     name={fields.birthday.name}
-                    // defaultValue={fields.birthday.initialValue}
+                    defaultValue={birthDateValue ?? ''}
                     className='birthday-field'
                 />
 
-                <CSubmitButton buttonName='Change' />
-                <button type='button' onClick={() => setIsVisible(!isVisible)}>Cancel</button>
+                <CSubmitButton buttonName={t('change-btn')} />
+                <button type='button' onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}</button>
             </form>
+
+            <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
+                {fields.birthday.errors && t(fields.birthday.errors[0])}
+            </div>
         </div>
     );
 };

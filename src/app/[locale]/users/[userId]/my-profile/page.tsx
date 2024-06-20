@@ -41,7 +41,7 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
         redirect('/');
     }
 
-    const { username, email, gender, birthday, imageUrl, userInfo, createdHikes } = res;
+    const { username, email, gender, birthdate, imageUrl, userInfo, createdHikes } = res;
 
     return (
         <Layout>
@@ -55,9 +55,9 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
                         <MyProfileUsernameField initialUsername={username} userId={userId} />
                         <MyProfileEmailField initialEmail={email} userId={userId} />
                         <MyProfileGenderField gender={gender} translate={t('gender')} />
-                        <MyProfileBirthdayField birthday={birthday} translate={t('birthday')} />
+                        <MyProfileBirthdayField birthday={birthdate} userId={userId} />
 
-                        <MyProfileInfoField userInfo={userInfo} />
+                        <MyProfileInfoField userInfo={userInfo} userId={userId} />
 
                         <MyProfileButtons userId={userId} />
                     </section>

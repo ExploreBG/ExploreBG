@@ -38,8 +38,8 @@ export const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closeP
 
             try {
                 const res = await agent.apiUsers.changePassword(userId, token, inputData);
-
-                if (res.message) {
+                
+                if (res.success) {
                     toast.success(res.success);
                     closePopUp();
                 } else if (res.message) {
