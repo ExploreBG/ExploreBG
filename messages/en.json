@@ -167,6 +167,8 @@
         "err-email-invalid": "Invalid email!",
         "successful-update-email": "Successfully update your email",
         "gender": "gender",
+        "be-valid-err-gender": "Field gender can not be blank!",
+        "successful-update-gender": "Successfully update",
         "birthday": "birthday",
         "err-birthday-require": "The field cannot be empty!",
         "successful-update-birthday": "Successfully update birth date",

@@ -167,6 +167,8 @@
         "err-email-invalid": "Невалиден имейл!",
         "successful-update-email": "Успешно актуализиране на вашия имейл",
         "gender": "пол",
+        "be-valid-err-gender": "Полето не може да бъде празно!",
+        "successful-update-gender": "Успешно актуализиране",
         "birthday": "рожденна дата",
         "err-birthday-require": "Полето не може да бъде празно!",
         "successful-update-birthday": "Успешно актуализиране на рождената дата",

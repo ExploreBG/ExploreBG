@@ -73,7 +73,7 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initia
                     type="email"
                     key={fields.email.key}
                     name={fields.email.name}
-                    defaultValue={fields.email.initialValue}
+                    defaultValue={email}
                     className="email-field"
                 />
 

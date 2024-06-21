@@ -77,7 +77,7 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
                     type="text"
                     key={fields.username.key}
                     name={fields.username.name}
-                    defaultValue={fields.username.initialValue}
+                    defaultValue={username}
                     className="username-field"
                 />
 

@@ -29,7 +29,7 @@ export async function generateMetadata({
     };
 }
 
-export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } }) => {
+const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } }) => {
     unstable_setRequestLocale(locale);
     const t = await getTranslations('my-profile');
 
@@ -54,7 +54,7 @@ export const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, us
 
                         <MyProfileUsernameField initialUsername={username} userId={userId} />
                         <MyProfileEmailField initialEmail={email} userId={userId} />
-                        <MyProfileGenderField gender={gender} translate={t('gender')} />
+                        <MyProfileGenderField gender={gender} userId={userId} />
                         <MyProfileBirthdayField birthday={birthdate} userId={userId} />
 
                         <MyProfileInfoField userInfo={userInfo} userId={userId} />
