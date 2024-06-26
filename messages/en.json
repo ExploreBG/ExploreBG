@@ -178,7 +178,8 @@
         "successful-update-info": "Successfully update my info",
         "del-account-btn": "Delete this account",
         "change-pass-btn": "Change password",
-        "deletion-obj": "this account"
+        "deletion-obj": "this account",
+        "created-hikes":"Created hikes"
     },
     "user-profile": {
         "metadata": {

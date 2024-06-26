@@ -119,6 +119,20 @@
             }
         }
     }
+
+    & .user-profile-section__created-hikes {
+        &>article {
+            height: fit-content;
+
+            &>figure {
+                height: 25vh;
+            }
+
+            &>p {
+                display: none;
+            }
+        }
+    }
 }
 
 [data-theme="dark"] .my-profile-container {

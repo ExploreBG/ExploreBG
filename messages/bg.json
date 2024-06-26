@@ -178,7 +178,8 @@
         "successful-update-info": "Успешно актуализиране",
         "del-account-btn": "Изтрий този акаунт",
         "change-pass-btn": "Промени парола",
-        "deletion-obj": "този акаунт"
+        "deletion-obj": "този акаунт",
+        "created-hikes":"Създадени походи"
     },
     "user-profile": {
         "metadata": {

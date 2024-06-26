@@ -1,4 +1,5 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { redirect } from '@/navigation';
 
@@ -14,6 +15,11 @@ import MyProfileGenderField from '@/components/MyProfileGenderField/MyProfileGen
 import MyProfileBirthdayField from '@/components/MyProfileBirthdayField/MyProfileBirthdayField';
 import MyProfileInfoField from '@/components/MyProfileInfoField/MyProfileInfoField';
 import MyProfileButtons from '@/components/MyProfileButtons/MyProfileButtons';
+
+const UserCreatedHikes = dynamic(() => import('@/components/UserCreatedHikes/UserCreatedHikes'), {
+    loading: () => <p>Loading...</p>,
+    ssr: false
+});
 
 interface MyProfileProps {
     params: { locale: string, userId: string }
@@ -62,6 +68,10 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } 
                         <MyProfileButtons userId={userId} />
                     </section>
                 </article>
+
+                {createdHikes.length > 0 && (
+                    <UserCreatedHikes hikes={createdHikes} />
+                )}
             </main>
         </Layout>
     );

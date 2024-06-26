@@ -250,6 +250,50 @@ main {
     }
 }
 
+.user-profile-section {
+    margin-bottom: 4rem;
+
+    &>hr {
+        width: 80vw;
+        height: 0.5rem;
+        border-radius: 50%;
+    }
+
+    &>h2 {
+        margin: 2rem 0;
+    }
+
+    &>button {
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        font-weight: bold;
+        border-radius: 50%;
+        border: 1px solid black;
+        padding: 0 1rem;
+        background-color: transparent;
+        cursor: pointer;
+        transition: all 1s ease;
+
+        &:first-of-type {
+            margin-right: 2rem;
+        }
+    }
+
+    &__active-btn:hover {
+        background-color: ivory;
+    }
+
+    [data-theme="dark"] &__active-btn {
+        color: black;
+    }
+
+    &__created-hikes {
+        @include gs.flex(none, space-evenly, none);
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+}
+
 .loading {
     height: 100vh;
     letter-spacing: 0.5rem;
