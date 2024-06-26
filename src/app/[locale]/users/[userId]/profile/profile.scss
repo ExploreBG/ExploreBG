@@ -56,6 +56,12 @@
             }
         }
     }
+
+    & .user-profile-section__created-hikes {
+        &>article>figure {
+            height: 30vh;
+        }
+    }
 }
 
 [data-theme="dark"] .profile-container {

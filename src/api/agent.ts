@@ -1,6 +1,8 @@
 import { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import { setSession, getUserId } from '@/utils/userSession';
 
+interface IHeader { [key: string]: string }
+
 const baseUrl = process.env.NODE_ENV == 'production' ? `${process.env.API_URL}/api` : 'http://localhost:8080/api';
 
 const headers = {
@@ -8,7 +10,7 @@ const headers = {
     multipart: { 'Content-Type': 'multipart/form-data' }
 };
 
-const request = async (url: string, method: string = 'GET', headers?: any, sessionToken?: string, body?: any) => {
+const request = async (url: string, method: string = 'GET', headers?: IHeader, sessionToken?: string, body?: any) => {
     const options: RequestInit = {
         method,
         headers,
@@ -53,6 +55,7 @@ const request = async (url: string, method: string = 'GET', headers?: any, sessi
 };
 
 const apiUsers = {
+    getUserProfile: (userId: string) => request(`${baseUrl}/users/${userId}/profile`),
     register: (data: Record<string, unknown>) => request(`${baseUrl}/users/register`, 'POST', headers.appJSON, undefined, data),
     login: (data: Record<string, unknown>) => request(`${baseUrl}/users/login`, 'POST', headers.appJSON, undefined, data),
     getMyProfile: (userId: string, token: string) => request(`${baseUrl}/users/${userId}/my-profile`, 'GET', {}, token),
