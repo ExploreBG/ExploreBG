@@ -1,0 +1,29 @@
+@use '@/global-styles/main' as gs;
+
+.form-container {
+    padding: 5rem 0;
+
+    &>h1 {
+        margin-bottom: 3rem;
+    }
+
+    &__form {
+        width: 80vw;
+        @include gs.set-form();
+
+        &>div,
+        &>input,
+        &>select,
+        &>textarea {
+            margin-bottom: 0.75rem;
+        }
+
+        &>input,
+        &__pair>div>input {
+
+            &::placeholder {
+                color: gray;
+            }
+        }
+    }
+}

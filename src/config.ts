@@ -24,6 +24,10 @@ export const pathnames = {
         en: '/trails/all',
         bg: '/marshruti/vsichki'
     },
+    '/trails/create': {
+        en: '/trails/create',
+        bg: '/marshruti/dobavi-marshrut'
+    },
     '/trails/[trailId]': {
         en: '/trails/[trailId]',
         bg: '/marshruti/[trailId]'

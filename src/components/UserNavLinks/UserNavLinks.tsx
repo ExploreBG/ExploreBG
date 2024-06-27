@@ -20,8 +20,8 @@ const UserNavLinks: React.FC<UserNavLinksProps> = ({ id }) => {
                     {t('profile')}
                 </CLink>
             </li>
-            {/* <li><CLink href={''}>{t('favorite')}</CLink></li>
-            <li><CLink href={''}>{t('created-hikes')}</CLink></li> */}
+            <li><CLink href={'/trails/create'}>{t('create-trail')}</CLink></li>
+            {/* <li><CLink href={''}>{t('favorite')}</CLink></li> */}
         </>
     );
 };

@@ -8,8 +8,8 @@
         "accommodations": "Настаняване",
         "login": "Вход/Регистрация",
         "profile": "Моят профил",
+        "create-trail": "Добави маршрут",
         "favorite": "Любими",
-        "created-hikes": "Създадени походи",
         "logout": "Изход",
         "successful-logout": "Успешно излизане"
     },
@@ -39,7 +39,8 @@
         },
         "section-trails": {
             "title": "Маршрути",
-            "btn-view-all": "Виж всички маршрути"
+            "btn-view-all": "Виж всички маршрути",
+            "btn-create": "Добави маршрут"
         },
         "section-hikes": {
             "title": "Вълнуващи преходи",

@@ -67,6 +67,7 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
                 <HomeTrailsSection />
                 <aside className="home__section-links">
                     <Link href={'/trails/all'}>{t('section-trails.btn-view-all')}</Link>
+                    <Link href={'/trails/create'}>{t('section-trails.btn-create')}</Link>
                 </aside>
 
                 <section className="home__section-buffer"></section>

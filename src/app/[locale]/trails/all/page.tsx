@@ -39,7 +39,7 @@ const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale }, searchP
             <main className="catalog-wrapper">
                 <h1>{t('title')}</h1>
 
-                <Link href='/trails/all' className="catalog-wrapper__create-btn">{t('create-btn')}</Link>
+                <Link href='/trails/create' className="catalog-wrapper__create-btn">{t('create-btn')}</Link>
 
                 <section className="catalog-wrapper__cards">
                     {trails.content.map((card: ITrailCard) => (

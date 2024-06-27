@@ -8,8 +8,8 @@
         "accommodations": "Accommodations",
         "login": "Login/Sign up",
         "profile": "My profile",
+        "create-trail": "Create trail",
         "favorite": "Favorite",
-        "created-hikes": "Created hikes",
         "logout": "Logout",
         "successful-logout": "Successfully logged out"
     },
@@ -39,7 +39,8 @@
         },
         "section-trails": {
             "title": "Trails",
-            "btn-view-all": "View all trails"
+            "btn-view-all": "View all trails",
+            "btn-create": "Create trail"
         },
         "section-hikes": {
             "title": "Exciting hikes",

@@ -85,7 +85,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
             <div className="trail__pair trail__pair__last">
                 <p>
                     <FaHandHoldingWater />&nbsp;
-                    water sources: {trail.waterAvailable ? 'Yes' : 'No'}
+                    water sources: {trail.waterAvailable}
                 </p>
                 <div className="trail__pair__difficulty">
                     difficulty:&nbsp;
