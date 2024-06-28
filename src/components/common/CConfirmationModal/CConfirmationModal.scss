@@ -1,0 +1,37 @@
+@use '@/global-styles/main' as gs;
+
+.pop-up-wrapper {
+    @include gs.set-pop-up-modal();
+
+    &__modal__confirmation {
+        background-color: rgba(240, 111, 111, 0.7);
+        padding: 1rem 1rem 0.5rem 1rem;
+        border-radius: 1.5rem;
+
+        &>p {
+            font-size: 1.3rem;
+            text-shadow: 1px 0px 1px #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        &>button {
+            @include gs.pop-up-button();
+        }
+
+        [data-theme="dark"] &>button {
+            color: black;
+        }
+
+        &>.deleteBtn {
+            border: 2px solid red;
+
+            &:hover {
+                color: red;
+            }
+        }
+    }
+
+    [data-theme="dark"] &__modal__confirmation {
+        color: black;
+    }
+}

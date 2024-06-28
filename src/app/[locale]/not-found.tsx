@@ -18,7 +18,7 @@ const NotFound: React.FC<NotFoundProps> = () => {
                 <h1>{t('title')}</h1>
                 <p>{t('text')}</p>
 
-                <CBackBtn btn={t('btn')} />
+                <CBackBtn />
             </section>
 
             <CSmallFooter />

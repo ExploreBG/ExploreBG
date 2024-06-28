@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 
+import './CConfirmationModal.scss';
+
 interface CConfirmationModalProps {
     deletionObj: string
     confirm: () => void
@@ -12,8 +14,8 @@ export const CConfirmationModal: React.FC<CConfirmationModalProps> = ({ deletion
 
     return (
         <section className="pop-up-wrapper">
-            <article className="pop-up-wrapper__modal confirmation-modal">
-                <div>
+            <article className="pop-up-wrapper__modal">
+                <div className="pop-up-wrapper__modal__confirmation">
                     <p>{t('del-question')} {deletionObj}?</p>
 
                     <button onClick={confirm} className="deleteBtn">{t('del-btn')}</button>

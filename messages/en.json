@@ -11,7 +11,8 @@
         "create-trail": "Create trail",
         "favorite": "Favorite",
         "logout": "Logout",
-        "successful-logout": "Successfully logged out"
+        "successful-logout": "Successfully logged out",
+        "back-btn": "Back"
     },
     "cards": {
         "card-btn": "Learn more"
@@ -107,6 +108,8 @@
         }
     },
     "pop-up": {
+        "require-auth-message": "Only logged in users can open this page!",
+        "login-btn": "Login / Sign up",
         "del-question": "Are you sure you want to delete",
         "del-btn": "Yes, delete",
         "cancel-btn": "Cancel",
@@ -180,7 +183,7 @@
         "del-account-btn": "Delete this account",
         "change-pass-btn": "Change password",
         "deletion-obj": "this account",
-        "created-hikes":"Created hikes"
+        "created-hikes": "Created hikes"
     },
     "user-profile": {
         "metadata": {
@@ -196,8 +199,7 @@
     },
     "not-found": {
         "title": "Not Found",
-        "text": "Sorry, the page you are looking for does not exist.",
-        "btn": "Back"
+        "text": "Sorry, the page you are looking for does not exist."
     },
     "faq": {
         "metadata": {

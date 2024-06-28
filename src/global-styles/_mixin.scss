@@ -118,6 +118,44 @@
     }
 }
 
+@mixin set-pop-up-modal() {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    background-color: rgb(122, 120, 120, 0.6);
+    backdrop-filter: blur(0.15rem);
+    @include flex(none, center, center);
+    z-index: 99;
+
+    &__modal {
+        border: 0.15rem solid black;
+        border-radius: 1.5rem;
+        box-shadow: 0 0 18px #ffffff;
+        text-align: center;
+        backdrop-filter: blur(0.25rem);
+        margin: 2rem;
+        animation: showPopUpModal 1s both;
+
+        &>div>p {
+            font-size: 1.3rem;
+        }
+    }
+
+    @keyframes showPopUpModal {
+        0% {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}
+
 @mixin pop-up-button() {
     margin: 0.5rem;
     padding: 0.5rem 0.75rem;
