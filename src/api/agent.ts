@@ -77,7 +77,8 @@ const apiDestinations = {
 const apiTrails = {
     get4RandomTrails: () => request(`${baseUrl}/trails/random`),
     getAllTrails: (query: string) => request(`${baseUrl}/trails/all${query}`),
-    getTrailById: (trailId: string) => request(`${baseUrl}/trails/${trailId}`)
+    getTrailById: (trailId: string) => request(`${baseUrl}/trails/${trailId}`),
+    getFormEnums: () => request(`${baseUrl}/utility/create/trail-enums`)
 };
 
 const apiHikes = {

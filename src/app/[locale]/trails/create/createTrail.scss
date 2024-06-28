@@ -1,15 +1,27 @@
 @use '@/global-styles/main' as gs;
 
 .form-container {
+    position: relative;
     padding: 5rem 0;
+    background-image: url('/images/pirin.avif');
+    background-size: cover;
+    background-position: center;
 
     &>h1 {
         margin-bottom: 3rem;
     }
 
     &__form {
-        width: 80vw;
+        width: 40vw;
         @include gs.set-form();
+        backdrop-filter: blur(0.2rem);
+        padding: 2rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 0 4px aquamarine;
+
+        @include gs.display(mobile) {
+            padding: 0.5rem;
+        }
 
         &>div,
         &>input,
