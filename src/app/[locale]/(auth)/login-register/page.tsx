@@ -3,8 +3,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
 import './login-register.scss';
-import CLogo from '@/components/common/CLogo/CLogo';
-import CBackBtn from '@/components/common/CBackBtn/CBackBtn';
+import CSmallHeader from '@/components/common/CSmallHeader/CSmallHeader';
 import LoginRegisterFormsWrapper from '@/components/LoginRegisterFormsWrapper/LoginRegisterFormsWrapper';
 import CPhotoInfo from '@/components/common/CPhotoInfo/CPhotoInfo';
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';
@@ -29,10 +28,7 @@ const LoginRegister: React.FC<LoginRegisterProps> = ({ params: { locale } }) => 
 
     return (
         <main className="login-register">
-            <header>
-                <CLogo />
-                <CBackBtn btn={t('back-btn')} />
-            </header>
+            <CSmallHeader />
 
             <LoginRegisterFormsWrapper />
 

@@ -1,0 +1,30 @@
+@use '@/global-styles/main' as gs;
+
+header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    @include gs.flex(none, space-between, none);
+    padding: 1.5rem 3rem;
+
+    @include gs.display(mobile) {
+        padding: 1.5rem 1rem;
+    }
+
+    &>a {
+        backdrop-filter: blur(0.25rem);
+        border-radius: 1.5rem;
+        padding: 0 0.25rem;
+    }
+
+    &>button {
+        @include gs.glow-on-hover-button();
+        border: 1px solid white;
+        margin: 0.5rem 0;
+
+        @include gs.display(mobile) {
+            margin: 0.25rem 0;
+            font-size: 0.85rem;
+        }
+    }
+}

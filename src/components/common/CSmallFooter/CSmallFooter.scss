@@ -1,0 +1,13 @@
+.small-footer {
+    all: unset;
+    position: absolute;
+    bottom: 0.5rem;
+    color: black;
+    backdrop-filter: blur(0.15rem);
+    padding: 0 0.15rem;
+    border-radius: 0.5rem;
+}
+
+[data-theme="dark"] .small-footer {
+    color: black;
+}
