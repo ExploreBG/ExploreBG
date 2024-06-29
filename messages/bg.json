@@ -80,6 +80,9 @@
             "tab-name": "Маршрут - подробности"
         }
     },
+    "trail-create": {
+        "photo-info": "Национален парк Пирин"
+    },
     "hikes": {
         "metadata": {
             "tab-name": "Преходи"

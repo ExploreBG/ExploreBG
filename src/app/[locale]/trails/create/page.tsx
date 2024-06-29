@@ -1,5 +1,5 @@
 import React from 'react';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
@@ -7,6 +7,7 @@ import { agent } from '@/api/agent';
 import './createTrail.scss';
 import CSmallHeader from '@/components/common/CSmallHeader/CSmallHeader';
 import CreateTrailForm from '@/components/CreateTrailForm/CreateTrailForm';
+import CPhotoInfo from '@/components/common/CPhotoInfo/CPhotoInfo';
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';
 
 interface CreateTrailProps {
@@ -15,6 +16,7 @@ interface CreateTrailProps {
 
 export const CreateTrail: React.FC<CreateTrailProps> = async ({ params: { locale } }) => {
     unstable_setRequestLocale(locale);
+    const t = await getTranslations('trail-create');
 
     const session = await getSession();
     const formEnums = await agent.apiTrails.getFormEnums();
@@ -27,6 +29,7 @@ export const CreateTrail: React.FC<CreateTrailProps> = async ({ params: { locale
 
             <CreateTrailForm session={Boolean(session)} formEnums={formEnums} />
 
+            <CPhotoInfo imgInfo={t('photo-info')} />
             <CSmallFooter />
         </main>
     );

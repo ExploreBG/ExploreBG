@@ -183,7 +183,9 @@
     }
 
     &>input,
-    &__pair>div>input {
+    &__pair>div>input,
+    &__pair>div>select,
+    &>textarea {
         background: transparent;
         border-radius: 0.35rem;
         padding-left: 0.5rem;
@@ -205,6 +207,20 @@
             &>input {
                 width: 90%;
             }
+
+            &>select {
+                width: 50%;
+            }
+        }
+
+        &__checkbox {
+            &>p {
+                color: c.$beige;
+            }
+
+            >div>label {
+                color: c.$light-primary;
+            }
         }
 
         &__search {
@@ -213,7 +229,8 @@
             &__suggestions {
                 position: absolute;
                 left: 1.5rem;
-                backdrop-filter: blur(0.25rem);
+                background-color: white;
+                color: c.$form-input-color;
                 border: 1px solid white;
                 border-radius: 0.5rem;
                 width: fit-content;
@@ -224,12 +241,17 @@
                     padding: 0.5rem 2rem;
                     cursor: pointer;
 
+                    &.active,
                     &:hover {
-                        background-color: gray;
+                        background-color: c.$active-option-field;
                     }
                 }
             }
         }
+    }
+
+    &>textarea {
+        height: 25vh;
     }
 
     &>button {

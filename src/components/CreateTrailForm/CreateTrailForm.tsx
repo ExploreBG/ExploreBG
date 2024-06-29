@@ -215,7 +215,7 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({ session, formE
                 <textarea
                     key={fields.trailInfo.key}
                     name={fields.trailInfo.name}
-                    cols={30} rows={10}
+                    // cols={30} rows={10}
                     placeholder="........."
                 />
                 {/* <div className="error-message">{fields.trailInfo.errors && t(fields.trailInfo.errors[0])}</div> */}

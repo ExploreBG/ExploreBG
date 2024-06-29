@@ -80,6 +80,9 @@
             "tab-name": "Trail details"
         }
     },
+    "trail-create": {
+        "photo-info": "Pirin National Park"
+    },
     "hikes": {
         "metadata": {
             "tab-name": "Hikes"

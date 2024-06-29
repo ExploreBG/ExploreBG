@@ -11,6 +11,10 @@
         margin-bottom: 3rem;
     }
 
+    [data-theme="dark"] &>h1 {
+        color: black;
+    }
+
     &__form {
         width: 40vw;
         @include gs.set-form();
@@ -31,11 +35,19 @@
         }
 
         &>input,
-        &__pair>div>input {
+        &__pair>div>input,
+        &__pair>div>select,
+        &>textarea {
+            border: 1px solid black;
+            color: gs.$form-input-color;
 
             &::placeholder {
                 color: gray;
             }
         }
+    }
+
+    &>.img-info-icon>.info {
+        right: -12rem;
     }
 }
