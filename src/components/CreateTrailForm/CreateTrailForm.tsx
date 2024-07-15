@@ -20,13 +20,19 @@ const CFormInputSearch = dynamic(() => import('@/components/common/CFormInputSea
 interface CreateTrailFormProps {
     session: boolean
     formEnums: { [key: string]: string[] | number[] }
+    availableAccommodations: { id: number, accommodationName: string }[]
+    availableDestinations: { id: number, destinationName: string }[]
 }
 
-export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({ session, formEnums }) => {
+export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
+    session, formEnums, availableAccommodations, availableDestinations
+}) => {
     // const t = useTranslations('create-trail');
     const tPopUp = useTranslations('pop-up');
     const router = useRouter();
     const [activity, setActivity] = useState<string[]>([]);
+    const [availableHuts, setAvailableHuts] = useState<{ id: number }[]>([]);
+    const [destinations, setDestinations] = useState<{ id: number }[]>([]);
     const [lastResult, action] = useFormState(createTrail, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -40,7 +46,21 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({ session, formE
         async onSubmit(event, context) {
             const formData = context.submission?.payload;
 
-            console.log(formData);
+            const totalDistance = Number(formData?.totalDistance);
+            const trailDifficulty = Number(formData?.trailDifficulty);
+            const elevationGained = Number(formData?.elevationGained);
+
+            const data = {
+                ...formData,
+                totalDistance,
+                trailDifficulty,
+                elevationGained,
+                activity,
+                availableHuts,
+                destinations
+            }
+
+            console.log(data);
         }
     });
 
@@ -50,10 +70,14 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({ session, formE
     };
 
     const onActivityClick = (e: React.FormEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value);
-    }
+        const current = e.currentTarget.value;
 
-    const suggestions = ['Vazov', 'Kumata', 'Kamen del', 'Blue arrow', 'Red hat'];
+        if (activity.includes(current)) {
+            setActivity(activity.filter(a => a !== current));
+        } else {
+            setActivity([...activity, current]);
+        }
+    }
 
     return (
         <>
@@ -171,9 +195,12 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({ session, formE
                     <div className="form-container__form__pair__search">
                         <label htmlFor="availableHuts">Lodges in the area</label>
                         <CFormInputSearch
-                            suggestions={suggestions}
+                            suggestions={availableAccommodations}
                             key={fields.availableHuts.key}
                             name={fields.availableHuts.name}
+                            onAddSelection={(selectedValue) => setAvailableHuts([...availableHuts, selectedValue])}
+                            onRemoveSelection={(id) => setAvailableHuts(availableHuts.filter(h => h.id !== id))}
+                            getSuggestionLabel={(suggestion) => suggestion.accommodationName}
                         />
                         {/* <div className="error-message">{fields.availableHuts.errors && t(fields.availableHuts.errors[0])}</div> */}
                     </div>
@@ -181,35 +208,24 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({ session, formE
                     <div className="form-container__form__pair__search">
                         <label htmlFor="destinations">Destinations in the area</label>
                         <CFormInputSearch
-                            suggestions={suggestions}
+                            suggestions={availableDestinations}
                             key={fields.destinations.key}
                             name={fields.destinations.name}
+                            onAddSelection={(selectedValue) => setDestinations([...destinations, selectedValue])}
+                            onRemoveSelection={(id) => setDestinations(destinations.filter(d => d.id !== id))}
+                            getSuggestionLabel={(suggestion) => suggestion.destinationName}
                         />
                         {/* <div className="error-message">{fields.destinations.errors && t(fields.destinations.errors[0])}</div> */}
                     </div>
                 </div>
 
-                <div className="form-container__form__pair">
-                    <div>
-                        <label htmlFor="nextTo">Next to</label>
-                        <input
-                            type="text"
-                            key={fields.nextTo.key}
-                            name={fields.nextTo.name}
-                        />
-                        {/* <div className="error-message">{fields.nextTo.errors && t(fields.nextTo.errors[0])}</div> */}
-                    </div>
-
-                    <div>
-                        <label htmlFor="imageUrl">Image</label>
-                        <input
-                            type="file"
-                            key={fields.imageUrl.key}
-                            name={fields.imageUrl.name}
-                        />
-                        {/* <div className="error-message">{fields.imageUrl.errors && t(fields.imageUrl.errors[0])}</div> */}
-                    </div>
-                </div>
+                <label htmlFor="nextTo">Next to</label>
+                <input
+                    type="text"
+                    key={fields.nextTo.key}
+                    name={fields.nextTo.name}
+                />
+                {/* <div className="error-message">{fields.nextTo.errors && t(fields.nextTo.errors[0])}</div> */}
 
                 <label htmlFor="trailInfo">Trail info</label>
                 <textarea

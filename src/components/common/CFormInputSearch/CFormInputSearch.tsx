@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 
-interface CFormInputSearchProps {
-    suggestions: string[]
-    key: string | undefined
-    name: string | undefined
+interface ISuggestion {
+    id: number
+    [key: string]: any
 }
 
-export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({ suggestions, key, name }) => {
+interface CFormInputSearchProps {
+    suggestions: ISuggestion[]
+    key: string | undefined
+    name: string | undefined
+    onAddSelection: (selectedValue: { id: number }) => void;
+    onRemoveSelection: (id: number) => void;
+    getSuggestionLabel: (suggestion: ISuggestion) => string;
+}
+
+export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
+    suggestions, name, key, onAddSelection, onRemoveSelection, getSuggestionLabel
+}) => {
     const [search, setSearch] = useState<string>('');
-    const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+    const [filteredSuggestions, setFilteredSuggestions] = useState<ISuggestion[]>([]);
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState<number>(-1);
+    const [selectedValues, setSelectedValues] = useState<ISuggestion[]>([]);
 
     const onSearch = (e: React.FormEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
@@ -17,7 +28,7 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({ suggestions,
         setSearch(value);
 
         if (value) {
-            const filtered = suggestions.filter(s => s.toLowerCase().includes(value.toLowerCase()));
+            const filtered = suggestions.filter(s => getSuggestionLabel(s).toLowerCase().includes(value.toLowerCase()));
 
             setFilteredSuggestions(filtered);
             setActiveSuggestionIndex(-1);
@@ -26,8 +37,13 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({ suggestions,
         }
     };
 
-    const onSuggestionClick = (submission: React.SetStateAction<string>) => {
-        setSearch(submission);
+    const onSuggestionClick = (suggestion: ISuggestion) => {
+        if (!selectedValues.find(selected => selected.id === suggestion.id)) {
+            setSelectedValues([...selectedValues, suggestion]);
+            onAddSelection({ id: suggestion.id });
+        }
+
+        setSearch('');
         setFilteredSuggestions([]);
         setActiveSuggestionIndex(-1);
     };
@@ -43,11 +59,24 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({ suggestions,
             e.preventDefault();
 
             if (activeSuggestionIndex >= 0 && activeSuggestionIndex < filteredSuggestions.length) {
-                setSearch(filteredSuggestions[activeSuggestionIndex]);
+                const selectedSuggestion = filteredSuggestions[activeSuggestionIndex];
+
+                if (!selectedValues.find(selected => selected.id === selectedSuggestion.id)) {
+                    setSelectedValues([...selectedValues, selectedSuggestion]);
+                    onAddSelection({ id: selectedSuggestion.id });
+                }
+
+                setSearch('');
                 setFilteredSuggestions([]);
                 setActiveSuggestionIndex(-1);
             }
         }
+    };
+
+    const removeSelectedValue = (id: number) => {
+        const newSelectedValues = selectedValues.filter(selectedValue => selectedValue.id !== id);
+        setSelectedValues(newSelectedValues);
+        onRemoveSelection(id);
     };
 
     return (
@@ -66,15 +95,23 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({ suggestions,
                 <ul className="form-container__form__pair__search__suggestions">
                     {filteredSuggestions.map((suggestion, index) => (
                         <li
-                            key={index}
+                            key={suggestion.id}
                             onClick={() => onSuggestionClick(suggestion)}
                             className={index === activeSuggestionIndex ? 'active' : ''}
                         >
-                            {suggestion}
+                            {getSuggestionLabel(suggestion)}
                         </li>
                     ))}
                 </ul>
             )}
+            <div>
+                {selectedValues.map((value) => (
+                    <span key={value.id}>
+                        {getSuggestionLabel(value)}
+                        <button type="button" onClick={() => removeSelectedValue(value.id)}>X</button>
+                    </span>
+                ))}
+            </div>
         </>
     );
 };
