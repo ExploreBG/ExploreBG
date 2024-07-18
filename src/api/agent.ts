@@ -1,6 +1,8 @@
 import { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import { setSession, getUserId } from '@/utils/userSession';
 
+import { ICreateTrail } from '@/components/CreateTrailForm/CreateTrailForm';
+
 interface IHeader { [key: string]: string }
 
 const baseUrl = process.env.NODE_ENV == 'production' ? `${process.env.API_URL}/api` : 'http://localhost:8080/api';
@@ -80,7 +82,8 @@ const apiTrails = {
     getTrailById: (trailId: string) => request(`${baseUrl}/trails/${trailId}`),
     getFormEnums: () => request(`${baseUrl}/utility/create/trail-enums`),
     getAvailableAccommodations: (token: string) => request(`${baseUrl}/accommodations/select`, 'GET', {}, token),
-    getAvailableDestinations: (token: string) => request(`${baseUrl}/destinations/select`, 'GET', {}, token)
+    getAvailableDestinations: (token: string) => request(`${baseUrl}/destinations/select`, 'GET', {}, token),
+    createTrail: (userId: number, token: string, trailData: ICreateTrail) => request(`${baseUrl}/trails/create/${userId}`, 'POST', headers.appJSON, token, trailData)
 };
 
 const apiHikes = {

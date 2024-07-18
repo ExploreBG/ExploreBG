@@ -1,4 +1,7 @@
 {
+    "common": {
+        "type-to-search": "Type to search..."
+    },
     "navigation": {
         "about": "About",
         "FAQ": "FAQ",
@@ -81,7 +84,48 @@
         }
     },
     "trail-create": {
-        "photo-info": "Pirin National Park"
+        "create-trail": "Create trail",
+        "start-point": "Start point",
+        "start-point-placeholder": "Karlovo",
+        "end-point": "End point",
+        "end-point-placeholder": "Botev peak",
+        "total-distance": "Total distance in km",
+        "elevation": "Elevation in metres",
+        "visited-in": "Visited in ( season )",
+        "spring": "Spring",
+        "summer": "Summer",
+        "autumn": "Autumn",
+        "winter": "Winter",
+        "suitable-for": "Suitable for",
+        "trail-running": "Trail running",
+        "mountain-biking": "Mountain biking",
+        "hiking": "Hiking",
+        "water-sources": "Water sources",
+        "no-information": "No information",
+        "yes": "Yes",
+        "no": "No",
+        "trail-difficulty": "Trail difficulty",
+        "lodges-in-the-area": "Lodges in the area",
+        "destinations-in-the-area": "Destinations in the area",
+        "next-to": "Next to",
+        "next-to-placeholder": "city ​​/ town",
+        "trail-info": "Trail info",
+        "trail-info-info": "Share the details of your favorite trail with us—describe the scenery, the difficulty level, any wildlife you encountered, and the special moments that made your hike memorable. Your insights could inspire fellow hikers and help them discover new paths to explore!",
+        "photos-message": "You can add photos after create this trail.",
+        "btn-create": "Create",
+        "photo-info": "Pirin National Park",
+        "err-start-point-required": "Start point is required!",
+        "err-place-regex": "Valid characters include A-z and space (not in the beginning)!",
+        "err-place-length": "Length should be between {minLength} and {maxLength} symbols!",
+        "err-end-point-required": "End point is required!",
+        "err-total-distance": "Total distance should be number greater than 0!",
+        "err-total-elevation": "Elevation gained should be number greater than 0!",
+        "err-activity": "Please enter at least one activity!",
+        "err-next-to-required": "Please enter town or city name that is close to the trail!",
+        "err-trail-info-required": "Please enter a short description of the trail!",
+        "err-trail-info-regex": "Valid characters include A-z 0-9 ( ) : ; ' ` ? ! - . , space and new line",
+        "err-trail-info-max-length": "The trail info text shouldn't exceed {maxLength} characters!",
+        "successful-create": "Successful create"
     },
     "hikes": {
         "metadata": {

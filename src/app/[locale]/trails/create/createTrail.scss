@@ -18,7 +18,8 @@
     &__form {
         width: 40vw;
         @include gs.set-form();
-        backdrop-filter: blur(0.2rem);
+        background-color: rgba(149, 146, 146, 0.544);
+        backdrop-filter: blur(0.1rem);
         padding: 2rem;
         border-radius: 1.5rem;
         box-shadow: 0 0 4px aquamarine;
@@ -39,10 +40,10 @@
         &__pair>div>select,
         &>textarea {
             border: 1px solid black;
-            color: gs.$form-input-color;
+            color: black;
 
             &::placeholder {
-                color: gray;
+                color: rgb(87, 87, 87);
             }
         }
     }

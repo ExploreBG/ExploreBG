@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface ISuggestion {
     id: number
@@ -7,16 +8,15 @@ interface ISuggestion {
 
 interface CFormInputSearchProps {
     suggestions: ISuggestion[]
-    key: string | undefined
-    name: string | undefined
     onAddSelection: (selectedValue: { id: number }) => void;
     onRemoveSelection: (id: number) => void;
     getSuggestionLabel: (suggestion: ISuggestion) => string;
 }
 
 export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
-    suggestions, name, key, onAddSelection, onRemoveSelection, getSuggestionLabel
+    suggestions, onAddSelection, onRemoveSelection, getSuggestionLabel
 }) => {
+    const t = useTranslations('common');
     const [search, setSearch] = useState<string>('');
     const [filteredSuggestions, setFilteredSuggestions] = useState<ISuggestion[]>([]);
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState<number>(-1);
@@ -83,13 +83,11 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
         <>
             <input
                 type="text"
-                key={key}
-                name={name}
                 value={search}
                 onChange={onSearch}
                 onKeyDown={handleKeyDown}
                 autoComplete="off"
-                placeholder="Type to search..."
+                placeholder={t('type-to-search')}
             />
             {filteredSuggestions.length > 0 && (
                 <ul className="form-container__form__pair__search__suggestions">
