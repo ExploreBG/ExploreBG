@@ -13,10 +13,12 @@ import { ITrail, IHut, IDestination } from '@/interfaces/interfaces';
 
 import './trailDetailsSection.scss';
 import CMemberImage from '../common/CMemberImage/CMemberImage';
+import TrailDetailsStartPointField from '../TrailDetailsStartPointField/TrailDetailsStartPointField';
 import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
 
 interface TrailDetailsSectionProps {
     trail: ITrail
+    userId: number
 }
 
 const seasonIcons = {
@@ -26,7 +28,7 @@ const seasonIcons = {
     'winter': <FaSnowflake className="winter" />,
 };
 
-const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
+const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId }) => {
     const t = useTranslations('trail-details');
     const t2 = useTranslations('trail-create');
     const season = trail.seasonVisited?.toLowerCase();
@@ -58,10 +60,11 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
             )}
 
             <div className="trail__pair">
-                <details open>
-                    <summary>{t('from')}: <strong>{trail.startPoint}</strong></summary>
-                    {/* <GrMapLocation />&nbsp; 018293794663487685 */}
-                </details>
+                <TrailDetailsStartPointField 
+                    initialStartPoint={trail.startPoint} 
+                    trailId={trail.id}
+                    isTrailOwner={userId === trail.createdBy?.id}
+                />
                 <details open>
                     <summary>{t('to')}: <strong>{trail.endPoint}</strong></summary>
                     {/* <GrMapLocation />&nbsp; 018293794663487685 */}

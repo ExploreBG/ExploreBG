@@ -10,8 +10,9 @@ import { useRouter } from '@/navigation';
 import { toast } from 'react-toastify';
 
 import { createTrail } from './action';
-import { createTrailSchema, trailPlaceMinLength, trailPlaceMaxLength, trailInfoMaxLength } from './createTrailSchema';
+import { createTrailSchema } from './createTrailSchema';
 import { agent } from '@/api/agent';
+import { trailPlaceMinLength, trailPlaceMaxLength, trailInfoMaxLength } from '@/utils/validations';
 
 import CCommonModal, { requireAuthChildren } from '../common/CCommonModal/CCommonModal';
 import CFormFieldInfo from '../common/CFormFieldInfo/CFormFieldInfo';
@@ -112,7 +113,7 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
 
     return (
         <>
-            {!token && <CCommonModal children={requireAuthChildren(translatePopUp)} />}
+            {!token && <CCommonModal>{requireAuthChildren(translatePopUp)}</CCommonModal>}
 
             <form
                 id={form.id}
@@ -143,7 +144,9 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                             name={fields.endPoint.name}
                             placeholder={t('end-point-placeholder')}
                         />
-                        <div className="error-message">{fields.endPoint.errors && t(fields.endPoint.errors[0])}</div>
+                        <div className="error-message">
+                            {fields.endPoint.errors && t(fields.endPoint.errors[0], { minLength: trailPlaceMinLength, maxLength: trailPlaceMaxLength })}
+                        </div>
                     </div>
                 </div>
 

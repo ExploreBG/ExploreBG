@@ -28,6 +28,51 @@
             gap: 1rem;
         }
 
+        &__field-wrapper {
+            position: relative;
+
+            &__field {
+                @include gs.flex(none, none, center);
+
+                &>.edit {
+                    margin-left: 0.75rem;
+                    color: white;
+                }
+            }
+
+            &__form {
+                position: absolute;
+                top: 0;
+                left: -5rem;
+
+                &>form {
+                    background-color: black;
+                    border-radius: 0.5rem;
+                    padding: 0.05rem;
+                    padding-right: 0.25rem;
+
+                    &>input {
+                        border-radius: 0.5rem;
+                        border: 1px solid black;
+                        margin-right: 0.25rem;
+                    }
+
+                    &>button {
+                        @include gs.glow-on-hover-button();
+
+                        &:first-of-type {
+                            margin-right: 0.25rem;
+                        }
+                    }
+                }
+
+                &>.error-message {
+                    backdrop-filter: blur(0.25rem);
+                    padding: 0 0.25rem 0.25rem 0.25rem;
+                }
+            }
+        }
+
         &__last {
             @include gs.display(L-mobile) {
                 flex-direction: column;
@@ -62,6 +107,10 @@
 
         @include gs.display(display) {
             padding: unset;
+        }
+
+        &>p {
+            word-wrap: break-word;
         }
     }
 

@@ -14,7 +14,7 @@ interface CreateTrailProps {
     params: { locale: string }
 }
 
-export const CreateTrail: React.FC<CreateTrailProps> = async ({ params: { locale } }) => {
+const CreateTrail: React.FC<CreateTrailProps> = async ({ params: { locale } }) => {
     unstable_setRequestLocale(locale);
     const t = await getTranslations('trail-create');
 
