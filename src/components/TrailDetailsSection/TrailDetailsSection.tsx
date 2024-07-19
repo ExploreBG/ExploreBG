@@ -18,7 +18,7 @@ import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
 
 interface TrailDetailsSectionProps {
     trail: ITrail
-    userId: number
+    userId?: number
 }
 
 const seasonIcons = {
@@ -63,7 +63,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                 <TrailDetailsStartPointField 
                     initialStartPoint={trail.startPoint} 
                     trailId={trail.id}
-                    isTrailOwner={userId === trail.createdBy?.id}
+                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
                 />
                 <details open>
                     <summary>{t('to')}: <strong>{trail.endPoint}</strong></summary>
