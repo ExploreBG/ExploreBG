@@ -81,7 +81,21 @@
     "trail-details": {
         "metadata": {
             "tab-name": "Trail details"
-        }
+        },
+        "title": "Trail details",
+        "comments": "comments",
+        "created-by": "created by",
+        "from": "from",
+        "to": "to",
+        "not-available": "not available",
+        "distance": "distance",
+        "elevation": "elevation",
+        "visited-in": "visited in",
+        "suitable-for": "suitable for",
+        "water-sources": "water sources",
+        "difficulty": "difficulty",
+        "lodges-in-the-area": "Lodges in the area",
+        "curious-places": "Curious places"
     },
     "trail-create": {
         "create-trail": "Create trail",

@@ -1,0 +1,8 @@
+.member-link>img {
+    border-radius: 100%;
+    transition: all 1s ease;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}

@@ -1,7 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import { Link } from '@/navigation';
 import { IoLocationOutline } from 'react-icons/io5';
 import { BsCalendar2Date } from 'react-icons/bs';
 
@@ -10,6 +8,7 @@ import { formatDate } from '@/utils/utils';
 
 import './hikeDetails.scss';
 import Layout from '@/components/Layout/Layout';
+import CMemberImage from '@/components/common/CMemberImage/CMemberImage';
 import TrailDetailsSection from '@/components/TrailDetailsSection/TrailDetailsSection';
 import HikeCommentsSection from '@/components/HikeCommentsSection/HikeCommentsSection';
 
@@ -49,19 +48,11 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
                         </p>
 
                         {hike.owner && (
-                            <>
-                                <Link href={{
-                                    pathname: '/users/[userId]/profile',
-                                    params: { userId: hike.owner.id }
-                                }}>
-                                    <Image
-                                        src={hike.owner.imageUrl || '/images/user-profile-pic.png'}
-                                        width={40} height={40} loading="eager"
-                                        alt="User picture" title={hike.owner.username}
-                                        priority={true}
-                                    />
-                                </Link>
-                            </>
+                            <CMemberImage
+                                ownerId={hike.owner.id}
+                                imageUrl={hike.owner.imageUrl}
+                                username={hike.owner.username}
+                            />
                         )}
                     </article>
 

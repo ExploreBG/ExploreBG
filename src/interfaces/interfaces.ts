@@ -56,6 +56,7 @@ export interface IHike extends IHikeCard {
 }
 
 export interface ITrail extends ITrailCard {
+    createdBy: IOwner
     startPoint: string
     endPoint: string
     totalDistance: number

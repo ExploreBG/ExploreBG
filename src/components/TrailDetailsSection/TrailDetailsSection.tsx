@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
-import { GrMapLocation, GrOverview } from 'react-icons/gr';
+import { GrOverview } from 'react-icons/gr';
 import { BsThermometerSun, BsHouseFill } from 'react-icons/bs';
 import { GiPathDistance, GiMountainRoad, GiBeech, GiFallingLeaf, GiHiking } from 'react-icons/gi';
 import { FaSnowflake } from 'react-icons/fa6';
@@ -11,6 +12,7 @@ import { FaHandHoldingWater } from 'react-icons/fa';
 import { ITrail, IHut, IDestination } from '@/interfaces/interfaces';
 
 import './trailDetailsSection.scss';
+import CMemberImage from '../common/CMemberImage/CMemberImage';
 import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
 
 interface TrailDetailsSectionProps {
@@ -25,6 +27,8 @@ const seasonIcons = {
 };
 
 const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
+    const t = useTranslations('trail-details');
+    const t2 = useTranslations('trail-create');
     const season = trail.seasonVisited?.toLowerCase();
     const maxDifficultyLevel = 6;
     const trailInfoTextLength = 155;
@@ -42,42 +46,54 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
 
     return (
         <section className="trail details-page-section">
+            {trail.createdBy && (
+                <div className="trail__created-by">
+                    <p>{t('created-by')}: &nbsp;<b>{trail.createdBy.username}</b></p>
+                    <CMemberImage
+                        ownerId={trail.createdBy.id}
+                        imageUrl={trail.createdBy.imageUrl}
+                        username={trail.createdBy.username}
+                    />
+                </div>
+            )}
+
             <div className="trail__pair">
                 <details open>
-                    <summary>From: <strong>{trail.startPoint}</strong></summary>
-                    <GrMapLocation />&nbsp; 018293794663487685
+                    <summary>{t('from')}: <strong>{trail.startPoint}</strong></summary>
+                    {/* <GrMapLocation />&nbsp; 018293794663487685 */}
                 </details>
                 <details open>
-                    <summary>To: <strong>{trail.endPoint}</strong></summary>
-                    <GrMapLocation />&nbsp; 018293794663487685
+                    <summary>{t('to')}: <strong>{trail.endPoint}</strong></summary>
+                    {/* <GrMapLocation />&nbsp; 018293794663487685 */}
                 </details>
             </div>
 
             <div className="trail__pair">
-                {trail.totalDistance
-                    ? <p><GiPathDistance />&nbsp; distance: {trail.totalDistance} km</p>
-                    : <p>not available</p>
-                }
-                {trail.elevationGained
-                    ? <p><GiMountainRoad />&nbsp; elevation: {trail.elevationGained} m</p>
-                    : <p>not available</p>
-                }
+                <p>
+                    <GiPathDistance />&nbsp; {t('distance')}: &nbsp;
+                    {trail.totalDistance ? `${trail.totalDistance} km` : `${t('not-available')}`}
+                </p>
+
+                <p>
+                    <GiMountainRoad />&nbsp; {t('elevation')}: &nbsp;
+                    {trail.elevationGained ? `${trail.elevationGained} m` : `${t('not-available')}`}
+                </p>
             </div>
 
             <div className="trail__pair">
                 {trail.seasonVisited
                     ? <p>
                         {/* @ts-ignore */}
-                        {seasonIcons[season]}&nbsp; visited in:&nbsp; {trail.seasonVisited}
+                        {seasonIcons[season]}&nbsp; {t('visited-in')}:&nbsp; {t2(trail.seasonVisited)}
                     </p>
-                    : <p>not available</p>
+                    : <p>{t('not-available')}</p>
                 }
-                <ul>suitable for:
+                <ul>{t('suitable-for')}:
                     {trail.activity?.length > 0
                         ? trail.activity.map((a: string, index: number) => (
-                            <li key={index}>{a}</li>
+                            <li key={index}>{t2(a)}</li>
                         ))
-                        : <p>not available</p>
+                        : <p>{t('not-available')}</p>
                     }
                 </ul>
             </div>
@@ -85,10 +101,10 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
             <div className="trail__pair trail__pair__last">
                 <p>
                     <FaHandHoldingWater />&nbsp;
-                    water sources: {trail.waterAvailable}
+                    {t('water-sources')}: &nbsp;{t2(trail.waterAvailable)}
                 </p>
                 <div className="trail__pair__difficulty">
-                    difficulty:&nbsp;
+                    {t('difficulty')}:&nbsp;&nbsp;
                     <div>
                         {repeatIcon(trail.trailDifficulty)}
                     </div>
@@ -106,7 +122,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
             </div>
 
             <aside className="trail__huts">
-                <h4><BsHouseFill />&nbsp; Lodges in the area:</h4>
+                <h4><BsHouseFill />&nbsp; {t('lodges-in-the-area')}:</h4>
 
                 {trail.availableHuts?.length > 0
                     ? trail.availableHuts.map((h: IHut) => (
@@ -117,10 +133,10 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
                             / {h.accommodationName} /
                         </Link>
                     ))
-                    : <p>not available</p>
+                    : <p>{t('not-available')}</p>
                 }
 
-                <h4><GrOverview />&nbsp; Curious places:</h4>
+                <h4><GrOverview />&nbsp; {t('curious-places')}:</h4>
 
                 {trail.destinations?.length > 0
                     ? trail.destinations.map((d: IDestination) => (
@@ -131,7 +147,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail }) => {
                             / {d.destinationName} /
                         </Link>
                     ))
-                    : <p>not available</p>
+                    : <p>{t('not-available')}</p>
                 }
             </aside>
         </section>

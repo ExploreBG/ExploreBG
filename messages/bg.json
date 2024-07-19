@@ -81,7 +81,21 @@
     "trail-details": {
         "metadata": {
             "tab-name": "Маршрут - подробности"
-        }
+        },
+        "title": "Детайли за маршрута",
+        "comments": "коментари",
+        "created-by": "създадено от",
+        "from": "от",
+        "to": "до",
+        "not-available": "не е налично",
+        "distance": "разстояние",
+        "elevation": "денивелация",
+        "visited-in": "посетен през",
+        "suitable-for": "подходящ за",
+        "water-sources": "водни източници",
+        "difficulty": "трудност",
+        "lodges-in-the-area": "Места за настаняване в района",
+        "curious-places": "Любопитни дестинации"
     },
     "trail-create": {
         "create-trail": "Добави маршрут",

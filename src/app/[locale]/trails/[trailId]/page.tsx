@@ -24,19 +24,19 @@ export async function generateMetadata({
 
 const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, trailId } }) => {
     unstable_setRequestLocale(locale);
-    // const t = await getTranslations('trail-details');
+    const t = await getTranslations('trail-details');
 
     const trail = await agent.apiTrails.getTrailById(trailId);
 
     return (
         <Layout>
             <main className="trail-details">
-                <h1>Trail details</h1>
+                <h1>{t('title')}</h1>
 
                 <TrailDetailsSection trail={trail} />
 
                 <section className="comments details-page-section">
-                    <h3>comments:</h3>
+                    <h3>{t('comments')}:</h3>
 
                     {trail.comments.length > 0 && <RenderComments comments={trail.comments} />}
                 </section>
