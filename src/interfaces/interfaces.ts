@@ -88,4 +88,5 @@ export interface IAccommodation extends IAccommodationCard {
 export interface IUserSession {
     token: string
     userId: number
+    userImage?: string
 }

@@ -56,7 +56,7 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } 
                     <h1>{t('title')}</h1>
 
                     <section>
-                        <MyProfilePhotoField imageUrl={imageUrl} />
+                        <MyProfilePhotoField initialImageUrl={imageUrl} userId={userId} username={username} />
 
                         <MyProfileUsernameField initialUsername={username} userId={userId} />
                         <MyProfileEmailField initialEmail={email} userId={userId} />

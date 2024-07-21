@@ -1,26 +1,54 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 
+import { agent } from '@/api/agent';
+import { getToken, setSession } from '@/utils/userSession';
+
 import './myProfilePhotoField.scss';
-import { useTranslations } from 'next-intl';
 
 interface MyProfilePhotoFieldProps {
-    imageUrl: string | null
+    initialImageUrl: string | null
+    userId: string
+    username: string
 }
 
-export const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ imageUrl }) => {
+export const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ initialImageUrl, userId, username }) => {
     const t = useTranslations('my-profile');
+    const [userImage, setUserImage] = useState<string | null>(initialImageUrl);
 
-    const changePhoto = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const changePhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.currentTarget.files && e.currentTarget.files[0];
 
         if (file) {
-            console.log(file);
+            const data = { name: username, folder: "Users" }
 
-            toast.success(t('successful-update-photo'));
+            const formData = new FormData();
+
+            formData.append('data', JSON.stringify(data));
+            formData.append('file', file);
+
+            const token = await getToken();
+            const isUpload = true;
+
+            try {
+                const res = await agent.apiUsers.updateUserPhoto(userId, token, formData, isUpload);
+
+                if (res.url) {
+                    setUserImage(res.url);
+                    await setSession({ token, userId: Number(userId), userImage: res.url })
+                    toast.success(t('successful-update-photo'));
+                } else if (res.message) {
+                    toast.error(res.message);
+                } else if (res.errors) {
+                    toast.error(res.errors[0]);
+                }
+            } catch (err) {
+                console.error(err);
+            }
         }
     };
 
@@ -28,14 +56,14 @@ export const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ imageU
         <form className="image-wrapper">
             <label htmlFor="file-input">
                 <Image
-                    src={imageUrl ?? '/images/user-profile-pic.png'}
+                    src={userImage ?? '/images/user-profile-pic.png'}
                     width={200} height={200} alt="User photo"
                     loading="eager"
                     title="User photo" priority={true}
                 />
             </label>
 
-            <input onChange={changePhoto} type="file" name="img" id="file-input" />
+            <input onChange={changePhoto} type="file" accept="image/*" name="img" id="file-input" />
         </form>
     );
 };

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/navigation';
-import { JWTPayload } from 'jose';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { MdClose } from 'react-icons/md';
 import { toast } from 'react-toastify';
@@ -20,8 +19,9 @@ interface CHeaderLinksAndButtonsProps { }
 const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
     const t = useTranslations('navigation');
     const [isOpenNavbar, setIsOpenNavbar] = useState<boolean>(false);
-    const [userSession, setUserSession] = useState<JWTPayload | null>(null);
+    const [userSession, setUserSession] = useState<boolean>(false);
     const [userId, setUserId] = useState<string>('');
+    const [userImage, setUserImage] = useState<string>('');
     const [isShownUserLinks, setIsShownUserLinks] = useState<boolean>(false);
     const router = useRouter();
 
@@ -30,9 +30,11 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
             const data = await getSession();
 
             if (data) {
-                setUserSession(data);
+                setUserSession(Boolean(data));
                 // @ts-ignore
                 setUserId(data.userData.userId);
+                // @ts-ignore
+                setUserImage(data.userData.userImage);
             }
         }
         session();
@@ -43,6 +45,8 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
 
         toast.success(t('successful-logout'));
         router.push('/');
+        setIsShownUserLinks(false);
+        setUserSession(false);
     };
 
     return (
@@ -52,9 +56,9 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                     <section className="nav-wrapper__links__user">
                         <figure onClick={() => setIsShownUserLinks(state => !state)}>
                             <Image
-                                src={'/images/user-profile-pic.png'}
+                                src={userImage ?? '/images/user-profile-pic.png'}
                                 width={50} height={50} loading="eager"
-                                alt="User profile picture" title="User profile picture"
+                                alt="User profile picture"
                                 priority={true}
                             />
                         </figure>
