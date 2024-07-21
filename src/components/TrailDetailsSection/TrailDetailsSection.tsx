@@ -14,6 +14,7 @@ import { ITrail, IHut, IDestination } from '@/interfaces/interfaces';
 import './trailDetailsSection.scss';
 import CMemberImage from '../common/CMemberImage/CMemberImage';
 import TrailDetailsStartPointField from '../TrailDetailsStartPointField/TrailDetailsStartPointField';
+import TrailDetailsEndPointField from '../TrailDetailsEndPointField/TrailDetailsEndPointField';
 import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
 
 interface TrailDetailsSectionProps {
@@ -60,15 +61,16 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
             )}
 
             <div className="trail__pair">
-                <TrailDetailsStartPointField 
-                    initialStartPoint={trail.startPoint} 
+                <TrailDetailsStartPointField
+                    initialStartPoint={trail.startPoint}
                     trailId={trail.id}
                     isTrailOwner={userId ? userId === trail.createdBy?.id : false}
                 />
-                <details open>
-                    <summary>{t('to')}: <strong>{trail.endPoint}</strong></summary>
-                    {/* <GrMapLocation />&nbsp; 018293794663487685 */}
-                </details>
+                <TrailDetailsEndPointField
+                    initialEndPoint={trail.endPoint}
+                    trailId={trail.id}
+                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                />
             </div>
 
             <div className="trail__pair">
