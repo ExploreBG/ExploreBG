@@ -15,7 +15,7 @@ import './trailDetailsSection.scss';
 import CMemberImage from '../common/CMemberImage/CMemberImage';
 import TrailDetailsStartPointField from '../TrailDetailsStartPointField/TrailDetailsStartPointField';
 import TrailDetailsEndPointField from '../TrailDetailsEndPointField/TrailDetailsEndPointField';
-import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
+import TrailDetailsInfoField from '../TrailDetailsInfoField/TrailDetailsInfoField';
 
 interface TrailDetailsSectionProps {
     trail: ITrail
@@ -34,7 +34,6 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
     const t2 = useTranslations('trail-create');
     const season = trail.seasonVisited?.toLowerCase();
     const maxDifficultyLevel = 6;
-    const trailInfoTextLength = 155;
 
     const repeatIcon = (end: number) => {
         let icons = [];
@@ -119,12 +118,11 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                 </div>
             </div>
 
-            <div
-                className="trail__info"
-                style={{ cursor: trail.trailInfo.length > trailInfoTextLength ? 'pointer' : 'unset' }}
-            >
-                <ExpandTextToggle text={trail.trailInfo} length={trailInfoTextLength} />
-            </div>
+            <TrailDetailsInfoField
+                initialInfo={trail.trailInfo}
+                trailId={trail.id}
+                isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+            />
 
             <aside className="trail__huts">
                 <h4><BsHouseFill />&nbsp; {t('lodges-in-the-area')}:</h4>

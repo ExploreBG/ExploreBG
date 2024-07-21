@@ -105,6 +105,7 @@
     &__info {
         padding: 0 6rem;
         margin-bottom: 3rem;
+        position: relative;
 
         @include gs.display(display) {
             padding: unset;
@@ -112,6 +113,48 @@
 
         &>p {
             word-wrap: break-word;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        &>.edit {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        &__form {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            @include gs.flex(column, center, center);
+            backdrop-filter: blur(0.25rem);
+
+            &>form {
+                @include gs.flex(column, none, none);
+                background-color: black;
+                border-radius: 0.5rem;
+                padding: 0.25rem;
+                width: 70%;
+
+                &>textarea {
+                    border-radius: 0.5rem;
+                    border: 1px solid white;
+                    padding: 0.5rem;
+                    margin-bottom: 0.25rem;
+                    background: transparent;
+                    color: gs.$beige;
+                    scrollbar-width: thin;
+                }
+
+                &>div>button {
+                    @include gs.glow-on-hover-button();
+                    margin-bottom: 0.1rem;
+
+                    &:first-of-type {
+                        margin-right: 0.25rem;
+                    }
+                }
+            }
         }
     }
 
