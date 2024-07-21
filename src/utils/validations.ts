@@ -2,6 +2,10 @@ import { z } from 'zod';
 
 const placeRegex = /^[A-Za-z]+(\s?[A-Za-z]+)*$/;
 
+export const usernameMinLength = 3;
+export const usernameMaxLength = 30;
+export const passMinLength = 5;
+export const passMaxLength = 24;
 export const trailPlaceMinLength = 3;
 export const trailPlaceMaxLength = 30;
 export const trailInfoMaxLength = 3000;
@@ -10,8 +14,8 @@ export const usernameValidation = z
     .string({ required_error: 'err-username-require' })
     .regex(/^[A-Za-z]/, 'err-username-start-with')
     .regex(/^[A-Za-z_\d]+$/, 'err-username-contain')
-    .min(3, 'err-username-min-length')
-    .max(30, 'err-username-max-length');
+    .min(usernameMinLength, 'err-username-min-length')
+    .max(usernameMaxLength, 'err-username-max-length');
 
 export const emailValidation = z
     .string({ required_error: 'err-email-require' })
@@ -24,8 +28,8 @@ export const passwordValidation = z
     .regex(/\d/, 'err-pass-number')
     .regex(/[!@#$%^&*(),.?":{}|<>]/, 'err-pass-special-char')
     .regex(/^\S*$/, 'err-pass-interval')
-    .min(5, 'err-pass-min-length')
-    .max(24, 'err-pass-max-length');
+    .min(passMinLength, 'err-pass-min-length')
+    .max(passMaxLength, 'err-pass-max-length');
 
 export const startPointValidation = z
     .string({ required_error: 'err-start-point-required' })

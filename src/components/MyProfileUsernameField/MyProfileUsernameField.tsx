@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 
 import { changeUsername } from './action';
 import { usernameSchema } from './usernameSchema';
+import { usernameMinLength, usernameMaxLength } from '@/utils/validations';
 import { getToken } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
@@ -86,7 +87,9 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
             </form>
 
             <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
-                {fields.username.errors && t2(fields.username.errors[0])}
+                {fields.username.errors && t2(fields.username.errors[0], {
+                    minLength: usernameMinLength, maxLength: usernameMaxLength
+                })}
             </div>
         </div>
     );

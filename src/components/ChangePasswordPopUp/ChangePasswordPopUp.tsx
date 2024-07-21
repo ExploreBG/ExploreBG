@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 import { changePassword } from './action';
 import { changePasswordSchema } from './changePasswordSchema';
+import { passMinLength, passMaxLength } from '@/utils/validations';
 import { getToken } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
@@ -84,7 +85,11 @@ export const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closeP
                         defaultValue={fields.newPassword.initialValue}
                         placeholder="***************"
                     />
-                    <div className="error-message">{fields.newPassword.errors && t2(fields.newPassword.errors[0])}</div>
+                    <div className="error-message">
+                        {fields.newPassword.errors && t2(fields.newPassword.errors[0], {
+                            minLength: passMinLength, maxLength: passMaxLength
+                        })}
+                    </div>
 
                     <label htmlFor="confirmNewPassword">{t('confirm-new-pass')}</label>
                     <input

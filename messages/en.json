@@ -181,8 +181,7 @@
         "new-pass": "New password",
         "confirm-new-pass": "Confirm new password",
         "change-btn": "Change",
-        "pass-info-begin": "Password must contain at least one uppercase, lowercase, digit, special character",
-        "pass-info-end": "and must be at least 5 characters!"
+        "pass-info": "Password should contain at least one uppercase, lowercase, digit, special character {spChars} and must be at least {minLength} characters!"
     },
     "login-register": {
         "metadata": {
@@ -204,16 +203,16 @@
         "err-username-require": "Username is required!",
         "err-username-start-with": "Username should start with English letter!",
         "err-username-contain": "Username should contain only English letters, numbers and underscore!",
-        "err-username-min-length": "Username must contain at least 3 characters!",
-        "err-username-max-length": "Username can be maximum 30 characters!",
+        "err-username-min-length": "Username must contain at least {minLength} characters!",
+        "err-username-max-length": "Username can be maximum {maxLength} characters!",
         "err-pass-require": "Password is required!",
         "err-pass-lowercase": "Password must contain at least one lowercase letter!",
         "err-pass-uppercase": "Password must contain at least one uppercase letter!",
         "err-pass-number": "Password must contain at least one number!",
         "err-pass-special-char": "Password must contain at least one special character!",
         "err-pass-interval": "Password must not contain spaces!",
-        "err-pass-min-length": "Password must contain at least 5 characters!",
-        "err-pass-max-length": "Password can be maximum 24 characters!",
+        "err-pass-min-length": "Password must contain at least {minLength} characters!",
+        "err-pass-max-length": "Password can be maximum {maxLength} characters!",
         "err-pass-confirm-require": "Confirm password is required!",
         "err-pass-mismatch": "Passwords don't match!",
         "successful-register": "Welcome {name}! Your registration was successful.",
