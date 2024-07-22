@@ -1,15 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 import { GrOverview } from 'react-icons/gr';
 import { BsThermometerSun, BsHouseFill } from 'react-icons/bs';
 import { GiBeech, GiFallingLeaf, GiHiking } from 'react-icons/gi';
 import { FaSnowflake } from 'react-icons/fa6';
-import { FaHandHoldingWater } from 'react-icons/fa';
 
-import { ITrail, IHut, IDestination } from '@/interfaces/interfaces';
+import { ITrail, IFormEnums, IHut, IDestination } from '@/interfaces/interfaces';
+import { agent } from '@/api/agent';
 
 import './trailDetailsSection.scss';
 import CMemberImage from '../common/CMemberImage/CMemberImage';
@@ -17,6 +17,7 @@ import TrailDetailsStartPointField from '../TrailDetailsStartPointField/TrailDet
 import TrailDetailsEndPointField from '../TrailDetailsEndPointField/TrailDetailsEndPointField';
 import TrailDetailsTotalDistanceField from '../TrailDetailsTotalDistanceField/TrailDetailsTotalDistanceField';
 import TrailDetailsElevationField from '../TrailDetailsElevationField/TrailDetailsElevationField';
+import TrailDetailsWaterAvailableField from '../TrailDetailsWaterAvailableField/TrailDetailsWaterAvailableField';
 import TrailDetailsInfoField from '../TrailDetailsInfoField/TrailDetailsInfoField';
 
 interface TrailDetailsSectionProps {
@@ -34,6 +35,16 @@ const seasonIcons = {
 const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId }) => {
     const t = useTranslations('trail-details');
     const t2 = useTranslations('trail-create');
+    const [enums, setEnums] = useState<IFormEnums>({});
+
+    useEffect(() => {
+        const getFormEnums = async () => {
+            const formEnums = await agent.apiTrails.getFormEnums();
+            setEnums(formEnums);
+        }
+        getFormEnums();
+    }, []);
+
     const season = trail.seasonVisited?.toLowerCase();
     const maxDifficultyLevel = 6;
 
@@ -106,10 +117,12 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
             </div>
 
             <div className="trail__pair trail__pair__last">
-                <p>
-                    <FaHandHoldingWater />&nbsp;
-                    {t('water-sources')}: &nbsp;{t2(trail.waterAvailable)}
-                </p>
+                <TrailDetailsWaterAvailableField
+                    initialWaterAvailable={trail.waterAvailable}
+                    trailId={trail.id}
+                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    formEnums={enums}
+                />
                 <div className="trail__pair__difficulty">
                     {t('difficulty')}:&nbsp;&nbsp;
                     <div>

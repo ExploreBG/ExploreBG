@@ -52,7 +52,8 @@
                     padding: 0.05rem;
                     padding-right: 0.25rem;
 
-                    &>input {
+                    &>input,
+                    &>select {
                         border-radius: 0.5rem;
                         border: 1px solid black;
                         margin-right: 0.25rem;
@@ -197,4 +198,8 @@
 
 .winter {
     color: blue !important;
+}
+
+.with-select {
+    left: 0;
 }

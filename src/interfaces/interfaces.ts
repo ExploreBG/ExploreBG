@@ -61,7 +61,7 @@ export interface ITrail extends ITrailCard {
     endPoint: string
     totalDistance: number
     seasonVisited: string
-    waterAvailable: boolean
+    waterAvailable: string
     availableHuts: IHut[]
     trailDifficulty: number
     activity: string[]
@@ -89,4 +89,8 @@ export interface IUserSession {
     token: string
     userId: number
     userImage?: string
+}
+
+export interface IFormEnums {
+    [key: string]: string[] | number[]
 }
