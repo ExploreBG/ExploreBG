@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 import { GrOverview } from 'react-icons/gr';
 import { BsThermometerSun, BsHouseFill } from 'react-icons/bs';
-import { GiPathDistance, GiMountainRoad, GiBeech, GiFallingLeaf, GiHiking } from 'react-icons/gi';
+import { GiMountainRoad, GiBeech, GiFallingLeaf, GiHiking } from 'react-icons/gi';
 import { FaSnowflake } from 'react-icons/fa6';
 import { FaHandHoldingWater } from 'react-icons/fa';
 
@@ -15,6 +15,7 @@ import './trailDetailsSection.scss';
 import CMemberImage from '../common/CMemberImage/CMemberImage';
 import TrailDetailsStartPointField from '../TrailDetailsStartPointField/TrailDetailsStartPointField';
 import TrailDetailsEndPointField from '../TrailDetailsEndPointField/TrailDetailsEndPointField';
+import TrailDetailsTotalDistanceField from '../TrailDetailsTotalDistanceField/TrailDetailsTotalDistanceField';
 import TrailDetailsInfoField from '../TrailDetailsInfoField/TrailDetailsInfoField';
 
 interface TrailDetailsSectionProps {
@@ -73,10 +74,11 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
             </div>
 
             <div className="trail__pair">
-                <p>
-                    <GiPathDistance />&nbsp; {t('distance')}: &nbsp;
-                    {trail.totalDistance ? `${trail.totalDistance} km` : `${t('not-available')}`}
-                </p>
+                <TrailDetailsTotalDistanceField
+                    initialTotalDistance={trail.totalDistance}
+                    trailId={trail.id}
+                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                />
 
                 <p>
                     <GiMountainRoad />&nbsp; {t('elevation')}: &nbsp;

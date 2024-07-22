@@ -5,57 +5,57 @@ import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
+import { GiPathDistance } from 'react-icons/gi';
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-import { updateEndPoint } from './action';
-import { endPointSchema } from './endPointSchema';
-import { trailPlaceMinLength, trailPlaceMaxLength } from '@/utils/validations';
+import { updateTotalDistance } from './action';
+import { totalDistanceSchema } from './totalDistanceSchema';
 import { getToken } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
-interface TrailDetailsEndPointFieldProps {
-    initialEndPoint: string
+interface TrailDetailsTotalDistanceFieldProps {
+    initialTotalDistance: number
     trailId: number
     isTrailOwner: boolean
 }
 
-const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
-    initialEndPoint, trailId, isTrailOwner
+const TrailDetailsTotalDistanceField: React.FC<TrailDetailsTotalDistanceFieldProps> = ({
+    initialTotalDistance, trailId, isTrailOwner
 }) => {
     const t = useTranslations('trail-details');
     const t2 = useTranslations('trail-create');
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [endPoint, setEndPoint] = useState<string>(initialEndPoint);
-    const [lastResult, action] = useFormState(updateEndPoint, undefined);
+    const [totalDistance, setTotalDistance] = useState<number | string>(initialTotalDistance);
+    const [lastResult, action] = useFormState(updateTotalDistance, undefined);
     const [form, fields] = useForm({
         lastResult,
         shouldValidate: 'onBlur',
         shouldRevalidate: 'onInput',
 
         onValidate({ formData }) {
-            return parseWithZod(formData, { schema: endPointSchema });
+            return parseWithZod(formData, { schema: totalDistanceSchema });
         },
 
         async onSubmit(event, context) {
-            const inputData = context.submission?.payload.endPoint;
+            const inputData = context.submission?.payload.totalDistance;
 
-            if (inputData === endPoint) {
+            if (Number(inputData) === totalDistance || inputData === '') {
                 setIsVisible(false);
                 return;
             }
-
+            
             const token = await getToken();
-            const newData = { endPoint: inputData };
+            const newData = { totalDistance: Number(inputData) };
 
             try {
-                const res = await agent.apiTrails.updateEndPoint(trailId, token, newData);
+                const res = await agent.apiTrails.updateTotalDistance(trailId, token, newData);
 
-                if (res.endPoint) {
-                    setEndPoint(res.endPoint);
-                    toast.success(t('successful-update-end-point'));
+                if (res.totalDistance) {
+                    setTotalDistance(res.totalDistance);
+                    toast.success(t('successful-update-total-distance'));
                     setIsVisible(false);
                 } else if (res.message) {
                     toast.error(res.message);
@@ -71,10 +71,10 @@ const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
     return (
         <div className="trail__pair__field-wrapper">
             <div className="trail__pair__field-wrapper__field">
-                <details open>
-                    <summary>{t('to')}: <strong>{endPoint}</strong></summary>
-                    {/* <GrMapLocation />&nbsp; 018293794663487685 */}
-                </details>
+                <p>
+                    <GiPathDistance />&nbsp; {t('distance')}: &nbsp;
+                    {totalDistance ? `${totalDistance} km` : `${t('not-available')}`}
+                </p>
                 {isTrailOwner && <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />}
             </div>
 
@@ -88,9 +88,9 @@ const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
                 >
                     <input
                         type="text"
-                        key={fields.endPoint.key}
-                        name={fields.endPoint.name}
-                        defaultValue={endPoint}
+                        key={fields.totalDistance.key}
+                        name={fields.totalDistance.name}
+                        defaultValue={totalDistance}
                     />
 
                     <CSubmitButton buttonName={t('change-btn')} />
@@ -98,13 +98,11 @@ const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
                 </form>
 
                 <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
-                    {fields.endPoint.errors && t2(fields.endPoint.errors[0], {
-                        minLength: trailPlaceMinLength, maxLength: trailPlaceMaxLength
-                    })}
+                    {fields.totalDistance.errors && t2(fields.totalDistance.errors[0])}
                 </div>
             </div>
         </div>
     );
 };
 
-export default TrailDetailsEndPointField;
+export default TrailDetailsTotalDistanceField;

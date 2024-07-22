@@ -42,7 +42,7 @@ const TrailDetailsStartPointField: React.FC<TrailDetailsStartPointFieldProps> = 
         async onSubmit(event, context) {
             const inputData = context.submission?.payload.startPoint;
 
-            if (inputData === initialStartPoint) {
+            if (inputData === startPoint) {
                 setIsVisible(false);
                 return;
             }
