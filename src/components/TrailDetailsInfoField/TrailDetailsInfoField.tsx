@@ -77,7 +77,7 @@ const TrailDetailsInfoField: React.FC<TrailDetailsInfoFieldProps> = ({
             style={{ cursor: trailInfo.length > trailInfoVisibleTextLength ? 'pointer' : 'unset' }}
         >
             <ExpandTextToggle text={trailInfo} length={trailInfoVisibleTextLength} />
-            {isTrailOwner && <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />}
+            {isTrailOwner && <FaEdit className="trail-edit-icon" onClick={() => setIsVisible(!isVisible)} />}
 
             <div className="trail__info__form">
                 <form

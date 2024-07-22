@@ -33,12 +33,6 @@
 
             &__field {
                 @include gs.flex(none, none, center);
-
-                &>.edit {
-                    margin-left: 0.75rem;
-                    color: white;
-                    cursor: pointer;
-                }
             }
 
             &__form {
@@ -73,6 +67,30 @@
                     backdrop-filter: blur(0.25rem);
                     padding: 0 0.25rem 0.25rem 0.25rem;
                 }
+
+                &__checkbox {
+                    @include gs.flex(column, none, none);
+                    width: max-content;
+                    background-color: black;
+                    border-radius: 0.5rem;
+                    padding: 0.5rem;
+
+                    &>div {
+                        display: flex;
+                    }
+
+                    &__buttons {
+                        @include gs.flex(none, space-around, center);
+
+                        &>button {
+                            @include gs.glow-on-hover-button();
+
+                            &:first-of-type {
+                                margin-right: 0.5rem;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -88,7 +106,6 @@
         }
 
         & ul {
-            list-style: circle;
 
             &>li {
                 text-align: left;
@@ -119,10 +136,9 @@
             text-align: left;
         }
 
-        &>.edit {
-            color: white;
+        &>.trail-edit-icon {
+            margin-left: unset;
             font-size: 1.5rem;
-            cursor: pointer;
         }
 
         &__form {
@@ -182,6 +198,12 @@
             }
         }
     }
+}
+
+.trail-edit-icon {
+    margin-left: 0.75rem;
+    color: white !important;
+    cursor: pointer;
 }
 
 .spring {

@@ -262,7 +262,11 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                     name={fields.nextTo.name}
                     placeholder={t('next-to-placeholder')}
                 />
-                <div className="error-message">{fields.nextTo.errors && t(fields.nextTo.errors[0])}</div>
+                <div className="error-message">
+                    {fields.nextTo.errors && t(fields.nextTo.errors[0], {
+                        minLength: trailPlaceMinLength, maxLength: trailPlaceMaxLength
+                    })}
+                </div>
 
                 <label htmlFor="trailInfo">
                     {t('trail-info')} &nbsp;

@@ -75,7 +75,7 @@ const TrailDetailsTotalDistanceField: React.FC<TrailDetailsTotalDistanceFieldPro
                     <GiPathDistance />&nbsp; {t('distance')}: &nbsp;
                     {totalDistance ? `${totalDistance} km` : `${t('not-available')}`}
                 </p>
-                {isTrailOwner && <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />}
+                {isTrailOwner && <FaEdit className="trail-edit-icon" onClick={() => setIsVisible(!isVisible)} />}
             </div>
 
             <div className="trail__pair__field-wrapper__form">

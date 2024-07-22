@@ -17,6 +17,7 @@ import TrailDetailsStartPointField from '../TrailDetailsStartPointField/TrailDet
 import TrailDetailsEndPointField from '../TrailDetailsEndPointField/TrailDetailsEndPointField';
 import TrailDetailsTotalDistanceField from '../TrailDetailsTotalDistanceField/TrailDetailsTotalDistanceField';
 import TrailDetailsElevationField from '../TrailDetailsElevationField/TrailDetailsElevationField';
+import TrailDetailsActivityField from '../TrailDetailsActivityField/TrailDetailsActivityField';
 import TrailDetailsWaterAvailableField from '../TrailDetailsWaterAvailableField/TrailDetailsWaterAvailableField';
 import TrailDetailsInfoField from '../TrailDetailsInfoField/TrailDetailsInfoField';
 
@@ -46,7 +47,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
     }, []);
 
     const season = trail.seasonVisited?.toLowerCase();
-    const maxDifficultyLevel = 6;
+    const maxDifficultyLevel = enums.trailDifficulty?.length;
 
     const repeatIcon = (end: number) => {
         let icons = [];
@@ -106,14 +107,12 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                     </p>
                     : <p>{t('not-available')}</p>
                 }
-                <ul>{t('suitable-for')}:
-                    {trail.activity?.length > 0
-                        ? trail.activity.map((a: string, index: number) => (
-                            <li key={index}>{t2(a)}</li>
-                        ))
-                        : <p>{t('not-available')}</p>
-                    }
-                </ul>
+                <TrailDetailsActivityField
+                    initialActivity={trail.activity}
+                    trailId={trail.id}
+                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    formEnums={enums}
+                />
             </div>
 
             <div className="trail__pair trail__pair__last">

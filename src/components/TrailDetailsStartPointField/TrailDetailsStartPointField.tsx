@@ -75,7 +75,7 @@ const TrailDetailsStartPointField: React.FC<TrailDetailsStartPointFieldProps> = 
                     <summary>{t('from')}: <strong>{startPoint}</strong></summary>
                     {/* <GrMapLocation />&nbsp; 018293794663487685 */}
                 </details>
-                {isTrailOwner && <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />}
+                {isTrailOwner && <FaEdit className="trail-edit-icon" onClick={() => setIsVisible(!isVisible)} />}
             </div>
 
             <div className="trail__pair__field-wrapper__form">

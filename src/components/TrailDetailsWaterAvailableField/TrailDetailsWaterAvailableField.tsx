@@ -1,16 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
-import { parseWithZod } from '@conform-to/zod';
 import { FaHandHoldingWater, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 import { IFormEnums } from '@/interfaces/interfaces';
-import { updateWaterAvailable } from './action';
-import { waterAvailableSchema } from './waterAvailableSchema';
 import { getToken } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
@@ -30,18 +26,11 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
     const t2 = useTranslations('trail-create');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [waterAvailable, setWaterAvailable] = useState<string>(initialWaterAvailable);
-    const [lastResult, action] = useFormState(updateWaterAvailable, undefined);
     const [form, fields] = useForm({
-        lastResult,
-        shouldValidate: 'onBlur',
-        shouldRevalidate: 'onInput',
 
-        onValidate({ formData }) {
-            return parseWithZod(formData, { schema: waterAvailableSchema });
-        },
-
-        async onSubmit(event, context) {
-            const inputData = context.submission?.payload.waterAvailable;
+        async onSubmit(event) {
+            event.preventDefault();
+            const inputData = event.currentTarget.waterAvailable.value;
 
             if (inputData === waterAvailable) {
                 setIsVisible(false);
@@ -81,7 +70,7 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
                 </p>
                 {isTrailOwner && (
                     <FaEdit
-                        className="edit"
+                        className="trail-edit-icon"
                         style={{ cursor: (isVisible ? 'none' : 'pointer') }}
                         onClick={() => setIsVisible(!isVisible)}
                     />
@@ -92,7 +81,6 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
                 <form
                     id={form.id}
                     onSubmit={form.onSubmit}
-                    action={action}
                     noValidate
                     style={{ display: (isVisible ? 'flex' : 'none') }}
                 >
@@ -101,7 +89,7 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
                         name={fields.waterAvailable.name}
                         defaultValue={waterAvailable}
                     >
-                        {formEnums.waterAvailable.map(v => (
+                        {formEnums.waterAvailable && formEnums.waterAvailable.map(v => (
                             <option key={v} value={v}>{t2(v)}</option>
                         ))}
                     </select>
