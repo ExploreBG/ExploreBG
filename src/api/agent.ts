@@ -90,6 +90,7 @@ const apiTrails = {
     updateStartPoint: (trailId: number, token: string, newData: { startPoint: unknown }) => request(`${baseUrl}/trails/${trailId}/update-start-point`, 'PATCH', headers.appJSON, token, newData),
     updateEndPoint: (trailId: number, token: string, newData: { endPoint: unknown }) => request(`${baseUrl}/trails/${trailId}/update-end-point`, 'PATCH', headers.appJSON, token, newData),
     updateTotalDistance: (trailId: number, token: string, newData: { totalDistance: unknown }) => request(`${baseUrl}/trails/${trailId}/update-total-distance`, 'PATCH', headers.appJSON, token, newData),
+    updateElevationGained: (trailId: number, token: string, newData: { elevationGained: unknown }) => request(`${baseUrl}/trails/${trailId}/update-elevation-gained`, 'PATCH', headers.appJSON, token, newData),
     updateTrailInfo: (trailId: number, token: string, newData: { trailInfo: unknown }) => request(`${baseUrl}/trails/${trailId}/update-trail-info`, 'PATCH', headers.appJSON, token, newData),
 };
 

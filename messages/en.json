@@ -95,6 +95,7 @@
         "distance": "distance",
         "successful-update-total-distance": "Successfully update total distance",
         "elevation": "elevation",
+        "successful-update-elevation": "Successfully update elevation gained",
         "visited-in": "visited in",
         "suitable-for": "suitable for",
         "water-sources": "water sources",
