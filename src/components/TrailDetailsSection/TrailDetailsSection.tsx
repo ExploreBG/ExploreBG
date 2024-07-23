@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 import { GrOverview } from 'react-icons/gr';
-import { BsThermometerSun, BsHouseFill } from 'react-icons/bs';
+import { BsThermometerSun } from 'react-icons/bs';
 import { GiBeech, GiFallingLeaf, GiHiking } from 'react-icons/gi';
 import { FaSnowflake } from 'react-icons/fa6';
 
@@ -20,10 +20,12 @@ import TrailDetailsElevationField from '../TrailDetailsElevationField/TrailDetai
 import TrailDetailsActivityField from '../TrailDetailsActivityField/TrailDetailsActivityField';
 import TrailDetailsWaterAvailableField from '../TrailDetailsWaterAvailableField/TrailDetailsWaterAvailableField';
 import TrailDetailsInfoField from '../TrailDetailsInfoField/TrailDetailsInfoField';
+import TrailDetailsAvailableHutsField from '../TrailDetailsAvailableHutsField/TrailDetailsAvailableHutsField';
 
 interface TrailDetailsSectionProps {
     trail: ITrail
     userId?: number
+    token?: string
 }
 
 const seasonIcons = {
@@ -33,15 +35,21 @@ const seasonIcons = {
     'winter': <FaSnowflake className="winter" />,
 };
 
-const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId }) => {
+const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId, token }) => {
     const t = useTranslations('trail-details');
     const t2 = useTranslations('trail-create');
     const [enums, setEnums] = useState<IFormEnums>({});
+    const [accommodations, setAccommodations] = useState<IHut[]>([]);
 
     useEffect(() => {
         const getFormEnums = async () => {
             const formEnums = await agent.apiTrails.getFormEnums();
             setEnums(formEnums);
+
+            if (token) {
+                const availableAccommodations = await agent.apiTrails.getAvailableAccommodations(token);
+                setAccommodations(availableAccommodations);
+            }
         }
         getFormEnums();
     }, []);
@@ -139,20 +147,14 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                 isTrailOwner={userId ? userId === trail.createdBy?.id : false}
             />
 
-            <aside className="trail__huts">
-                <h4><BsHouseFill />&nbsp; {t('lodges-in-the-area')}:</h4>
-
-                {trail.availableHuts?.length > 0
-                    ? trail.availableHuts.map((h: IHut) => (
-                        <Link key={h.id} href={{
-                            pathname: '/accommodations/[accommodationId]',
-                            params: { accommodationId: h.id }
-                        }}>
-                            / {h.accommodationName} /
-                        </Link>
-                    ))
-                    : <p>{t('not-available')}</p>
-                }
+            <aside className="trail__links">
+                <TrailDetailsAvailableHutsField
+                    initialAvailableHuts={trail.availableHuts}
+                    trailId={trail.id}
+                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    availableAccommodations={accommodations}
+                    token={token}
+                />
 
                 <h4><GrOverview />&nbsp; {t('curious-places')}:</h4>
 

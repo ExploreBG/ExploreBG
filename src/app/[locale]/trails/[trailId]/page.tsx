@@ -2,7 +2,7 @@ import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
 import { agent } from '@/api/agent';
-import { getUserId } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 
 import './trailDetails.scss';
 import Layout from '@/components/Layout/Layout';
@@ -28,14 +28,18 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
     const t = await getTranslations('trail-details');
 
     const trail = await agent.apiTrails.getTrailById(trailId);
-    const userId = await getUserId();
+    const session = await getSession();
+    // @ts-expect-error
+    const token = session?.userData.token;
+    // @ts-expect-error
+    const userId = session?.userData.userId;
 
     return (
         <Layout>
             <main className="trail-details">
                 <h1>{t('title')}</h1>
 
-                <TrailDetailsSection trail={trail} userId={userId} />
+                <TrailDetailsSection trail={trail} userId={userId} token={token} />
 
                 <section className="comments details-page-section">
                     <h3>{t('comments')}:</h3>
