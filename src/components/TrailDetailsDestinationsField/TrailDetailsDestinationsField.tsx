@@ -3,32 +3,32 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
-import { BsHouseFill } from 'react-icons/bs';
+import { GrOverview } from 'react-icons/gr';
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-import { IHut } from '@/interfaces/interfaces';
+import { IPlace } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
 
 import CFormInputSearch from '../common/CFormInputSearch/CFormInputSearch';
 
-interface TrailDetailsAvailableHutsFieldProps {
-    initialAvailableHuts: IHut[]
+interface TrailDetailsDestinationsFieldProps {
+    initialDestinations: IPlace[]
     trailId: number
     isTrailOwner: boolean
-    availableAccommodations: IHut[]
+    availableDestinations: IPlace[]
     token?: string
 }
 
-const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldProps> = ({
-    initialAvailableHuts, trailId, isTrailOwner, availableAccommodations, token
+const TrailDetailsDestinationsField: React.FC<TrailDetailsDestinationsFieldProps> = ({
+    initialDestinations, trailId, isTrailOwner, availableDestinations, token
 }) => {
     const t = useTranslations('trail-details');
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [availableHuts, setAvailableHuts] = useState<IHut[]>(initialAvailableHuts);
-
+    const [destinations, setDestinations] = useState<IPlace[]>(initialDestinations);
+    
     const initialInputData: { id: number; }[] | (() => { id: number; }[]) = [];
-    initialAvailableHuts.map(h => initialInputData.push({ id: h.id }));
+    initialDestinations.map(d => initialInputData.push({ id: d.id }));
     const [inputData, setInputData] = useState<{ id: number }[]>(initialInputData);
 
     const onSubmitChanges = async () => {
@@ -38,18 +38,18 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
             return;
         }
 
-        const newData = { availableHuts: inputData }
+        const newData = { destinations: inputData }
 
         try {
-            const res = await agent.apiTrails.updateAvailableHuts(trailId, token!, newData);
+            const res = await agent.apiTrails.updateDestinations(trailId, token!, newData);
 
             if (res.message) {
                 toast.error(res.message);
             } else if (res.errors) {
                 toast.error(res.errors[0]);
             } else {
-                setAvailableHuts(res);
-                toast.success(t('successful-update-available-huts'));
+                setDestinations(res);
+                toast.success(t('successful-update-destinations'));
                 setIsVisible(false);
             }
         } catch (err) {
@@ -60,34 +60,31 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
     return (
         <div className="trail__links__wrapper">
             <h4>
-                <BsHouseFill />&nbsp; {t('lodges-in-the-area')}:
+                <GrOverview />&nbsp; {t('curious-places')}:
                 {isTrailOwner && (
                     <FaEdit
                         className="trail-edit-icon"
-                        style={{ 
-                            opacity: (isVisible ? '0' : '1'), 
-                            cursor: (isVisible ? 'none' : 'pointer') 
-                        }}
+                        style={{ display: (isVisible ? 'none' : 'inline') }}
                         onClick={() => setIsVisible(!isVisible)}
                     />
                 )}
             </h4>
 
             <div className="trail__links__wrapper__field">
-                {availableHuts?.length > 0
-                    ? availableHuts.map((h) => (
+                {destinations?.length > 0
+                    ? destinations.map((d) => (
                         <Link
-                            key={h.id}
+                            key={d.id}
                             href={{
-                                pathname: '/accommodations/[accommodationId]',
-                                params: { accommodationId: h.id }
+                                pathname: '/destinations/[destinationId]',
+                                params: { destinationId: d.id }
                             }}
                             style={{
                                 opacity: (isVisible ? '0' : '1'),
                                 cursor: (isVisible ? 'none' : 'pointer')
                             }}
                         >
-                            / {h.accommodationName} /
+                            / {d.destinationName} /
                         </Link>
                     ))
                     : <p>{t('not-available')}</p>
@@ -98,11 +95,11 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
                     style={{ display: (isVisible ? 'flex' : 'none') }}
                 >
                     <CFormInputSearch
-                        suggestions={availableAccommodations}
+                        suggestions={availableDestinations}
                         onAddSelection={(selectedValue) => setInputData([...inputData, selectedValue])}
                         onRemoveSelection={(id) => setInputData(inputData.filter(h => h.id !== id))}
-                        getSuggestionLabel={(suggestion) => suggestion.accommodationName}
-                        initialValues={initialAvailableHuts}
+                        getSuggestionLabel={(suggestion) => suggestion.destinationName}
+                        initialValues={initialDestinations}
                     />
 
                     <div>
@@ -117,4 +114,4 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
     );
 };
 
-export default TrailDetailsAvailableHutsField;
+export default TrailDetailsDestinationsField;

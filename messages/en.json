@@ -105,7 +105,8 @@
         "successful-update-trail-info": "Successfully update trail info",
         "lodges-in-the-area": "Lodges in the area",
         "successful-update-available-huts": "Successfully update available huts",
-        "curious-places": "Curious places"
+        "curious-places": "Curious places",
+        "successful-update-destinations": "Successfully update destinations"
     },
     "trail-create": {
         "create-trail": "Create trail",

@@ -2,13 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/navigation';
-import { GrOverview } from 'react-icons/gr';
 import { BsThermometerSun } from 'react-icons/bs';
 import { GiBeech, GiFallingLeaf, GiHiking } from 'react-icons/gi';
 import { FaSnowflake } from 'react-icons/fa6';
 
-import { ITrail, IFormEnums, IHut, IDestination } from '@/interfaces/interfaces';
+import { ITrail, IFormEnums, IHut, IPlace } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
 
 import './trailDetailsSection.scss';
@@ -21,6 +19,7 @@ import TrailDetailsActivityField from '../TrailDetailsActivityField/TrailDetails
 import TrailDetailsWaterAvailableField from '../TrailDetailsWaterAvailableField/TrailDetailsWaterAvailableField';
 import TrailDetailsInfoField from '../TrailDetailsInfoField/TrailDetailsInfoField';
 import TrailDetailsAvailableHutsField from '../TrailDetailsAvailableHutsField/TrailDetailsAvailableHutsField';
+import TrailDetailsDestinationsField from '../TrailDetailsDestinationsField/TrailDetailsDestinationsField';
 
 interface TrailDetailsSectionProps {
     trail: ITrail
@@ -40,6 +39,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
     const t2 = useTranslations('trail-create');
     const [enums, setEnums] = useState<IFormEnums>({});
     const [accommodations, setAccommodations] = useState<IHut[]>([]);
+    const [destinations, setDestinations] = useState<IPlace[]>([]);
 
     useEffect(() => {
         const getFormEnums = async () => {
@@ -48,7 +48,9 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
 
             if (token) {
                 const availableAccommodations = await agent.apiTrails.getAvailableAccommodations(token);
+                const availableDestinations = await agent.apiTrails.getAvailableDestinations(token);
                 setAccommodations(availableAccommodations);
+                setDestinations(availableDestinations);
             }
         }
         getFormEnums();
@@ -155,20 +157,13 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                     availableAccommodations={accommodations}
                     token={token}
                 />
-
-                <h4><GrOverview />&nbsp; {t('curious-places')}:</h4>
-
-                {trail.destinations?.length > 0
-                    ? trail.destinations.map((d: IDestination) => (
-                        <Link key={d.id} href={{
-                            pathname: '/destinations/[destinationId]',
-                            params: { destinationId: d.id }
-                        }}>
-                            / {d.destinationName} /
-                        </Link>
-                    ))
-                    : <p>{t('not-available')}</p>
-                }
+                <TrailDetailsDestinationsField
+                    initialDestinations={trail.destinations}
+                    trailId={trail.id}
+                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    availableDestinations={destinations}
+                    token={token}
+                />
             </aside>
         </section>
     );

@@ -9,7 +9,7 @@ import { parseWithZod } from '@conform-to/zod';
 import { useRouter } from '@/navigation';
 import { toast } from 'react-toastify';
 
-import { IFormEnums, IHut } from '@/interfaces/interfaces';
+import { IFormEnums, IHut, IPlace } from '@/interfaces/interfaces';
 import { createTrail } from './action';
 import { createTrailSchema } from './createTrailSchema';
 import { agent } from '@/api/agent';
@@ -34,7 +34,7 @@ interface CreateTrailFormProps {
     token: string
     formEnums: IFormEnums
     availableAccommodations: IHut[]
-    availableDestinations: { id: number, destinationName: string }[]
+    availableDestinations: IPlace[]
     userId: number
 }
 
