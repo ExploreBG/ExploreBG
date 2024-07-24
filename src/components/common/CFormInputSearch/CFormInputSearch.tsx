@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
+import './CFormInputSearch.scss';
+
 interface ISuggestion {
     id: number
     [key: string]: any
@@ -11,16 +13,17 @@ interface CFormInputSearchProps {
     onAddSelection: (selectedValue: { id: number }) => void;
     onRemoveSelection: (id: number) => void;
     getSuggestionLabel: (suggestion: ISuggestion) => string;
+    initialValues?: ISuggestion[]
 }
 
 export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
-    suggestions, onAddSelection, onRemoveSelection, getSuggestionLabel
+    suggestions, onAddSelection, onRemoveSelection, getSuggestionLabel, initialValues
 }) => {
     const t = useTranslations('common');
     const [search, setSearch] = useState<string>('');
     const [filteredSuggestions, setFilteredSuggestions] = useState<ISuggestion[]>([]);
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState<number>(-1);
-    const [selectedValues, setSelectedValues] = useState<ISuggestion[]>([]);
+    const [selectedValues, setSelectedValues] = useState<ISuggestion[]>(initialValues ?? []);
 
     const onSearch = (e: React.FormEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
@@ -80,7 +83,7 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
     };
 
     return (
-        <>
+        <div className="suggestions">
             <input
                 type="text"
                 value={search}
@@ -90,7 +93,7 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
                 placeholder={t('type-to-search')}
             />
             {filteredSuggestions.length > 0 && (
-                <ul className="form-container__form__pair__search__suggestions">
+                <ul className="suggestions__matches">
                     {filteredSuggestions.map((suggestion, index) => (
                         <li
                             key={suggestion.id}
@@ -102,15 +105,13 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
                     ))}
                 </ul>
             )}
-            <div>
-                {selectedValues.map((value) => (
-                    <span key={value.id}>
-                        {getSuggestionLabel(value)}
-                        <button type="button" onClick={() => removeSelectedValue(value.id)}>X</button>
-                    </span>
-                ))}
-            </div>
-        </>
+            {selectedValues.map((value) => (
+                <p key={value.id} className="suggestions__selected">
+                    {getSuggestionLabel(value)}
+                    <button type="button" onClick={() => removeSelectedValue(value.id)}>X</button>
+                </p>
+            ))}
+        </div>
     );
 };
 

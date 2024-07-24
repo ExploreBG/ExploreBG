@@ -183,7 +183,7 @@
     }
 
     &>input,
-    &__pair>div>input,
+    &__pair>div input,
     &__pair>div>select,
     &>textarea {
         background: transparent;
@@ -235,27 +235,12 @@
 
         &__search {
             position: relative;
+            
+            &>div {
+                @include flex(none, none, center);
 
-            &__suggestions {
-                position: absolute;
-                left: 0;
-                background-color: white;
-                color: black;
-                border: 1px solid white;
-                border-radius: 0.5rem;
-                width: fit-content;
-                max-height: 10rem;
-                overflow-y: auto;
-                scrollbar-width: thin;
-
-                &>li {
-                    padding: 0.5rem;
-                    cursor: pointer;
-
-                    &.active,
-                    &:hover {
-                        background-color: c.$active-option-field;
-                    }
+                &>input {
+                    width: 90%;
                 }
             }
         }
@@ -285,6 +270,30 @@
 
         &:hover {
             color: yellow;
+        }
+    }
+}
+
+@mixin set-details-update-form() {
+    background-color: black;
+    border-radius: 0.5rem;
+    padding: 0.05rem;
+    padding-right: 0.25rem;
+
+    &>input,
+    &>div>input,
+    &>select {
+        border-radius: 0.5rem;
+        border: 1px solid black;
+        margin-right: 0.25rem;
+        padding-left: 0.5rem;
+    }
+
+    &>button {
+        @include glow-on-hover-button();
+
+        &:first-of-type {
+            margin-right: 0.25rem;
         }
     }
 }

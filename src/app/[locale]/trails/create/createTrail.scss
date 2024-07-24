@@ -36,7 +36,7 @@
         }
 
         &>input,
-        &__pair>div>input,
+        &__pair>div input,
         &__pair>div>select,
         &>textarea {
             border: 1px solid black;

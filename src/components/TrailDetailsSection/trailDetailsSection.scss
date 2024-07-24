@@ -39,28 +39,10 @@
                 position: absolute;
                 top: 0;
                 left: -5rem;
+                z-index: 1;
 
                 &>form {
-                    background-color: black;
-                    border-radius: 0.5rem;
-                    padding: 0.05rem;
-                    padding-right: 0.25rem;
-
-                    &>input,
-                    &>select {
-                        border-radius: 0.5rem;
-                        border: 1px solid black;
-                        margin-right: 0.25rem;
-                        padding-left: 0.5rem;
-                    }
-
-                    &>button {
-                        @include gs.glow-on-hover-button();
-
-                        &:first-of-type {
-                            margin-right: 0.25rem;
-                        }
-                    }
+                    @include gs.set-details-update-form();
                 }
 
                 &>.error-message {
@@ -144,6 +126,7 @@
         &__form {
             position: absolute;
             top: 0;
+            z-index: 1;
             width: 100%;
             @include gs.flex(column, center, center);
             backdrop-filter: blur(0.25rem);
@@ -177,24 +160,46 @@
         }
     }
 
-    &__huts {
+    &__links {
         @include gs.display(mobile) {
             @include gs.flex(column, none, none);
         }
 
-        &>h4 {
-            margin-bottom: 0.5rem;
+        &__wrapper {
+            margin-bottom: 2rem;
 
-            &:last-of-type {
-                margin-top: 2.5rem;
+            &>h4 {
+                margin-bottom: 0.5rem;
             }
-        }
 
-        &>a {
-            color: gs.$light-secondary;
+            &__field {
+                position: relative;
+                @include gs.flex(none, center, none);
 
-            &:first-of-type {
-                margin-right: 1.5rem;
+                &>a {
+                    color: gs.$light-secondary;
+                }
+
+                &__form {
+                    position: absolute;
+                    z-index: 1;
+
+                    &>div {
+                        @include gs.set-details-update-form();
+                        
+                        &:first-of-type {
+                            border-top-right-radius: unset;
+                            border-bottom-right-radius: unset;
+                            padding: 0.5rem 0 0.25rem 0.5rem;
+                        }
+
+                        &:last-of-type {
+                            border-top-left-radius: unset;
+                            border-bottom-left-radius: unset;
+                            padding: 0.5rem 0.5rem 0.25rem 0;
+                        }
+                    }
+                }
             }
         }
     }
