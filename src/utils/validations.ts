@@ -9,6 +9,7 @@ export const passMaxLength = 24;
 export const trailPlaceMinLength = 3;
 export const trailPlaceMaxLength = 30;
 export const trailInfoMaxLength = 3000;
+export const commentMaxLength = 250;
 
 export const usernameValidation = z
     .string({ required_error: 'err-username-require' })
@@ -61,5 +62,9 @@ export const nextToValidation = z
 
 export const trailInfoValidation = z
     .string({ required_error: 'err-trail-info-required' })
-    .regex(/^[a-zA-Z0-9\-.,\s\n()'`:;?!]*$/, 'err-trail-info-regex')
+    .regex(/^[a-zA-Z0-9\-.,\s\n()'`:;?!@]*$/, 'err-trail-info-regex')
     .max(trailInfoMaxLength, 'err-trail-info-max-length')
+
+export const commentValidation = z
+    .string({ required_error: 'err-comment-required' })
+    .max(commentMaxLength, 'err-comment-max-length')

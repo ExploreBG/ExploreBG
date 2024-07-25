@@ -7,7 +7,7 @@ import { getSession } from '@/utils/userSession';
 import './trailDetails.scss';
 import Layout from '@/components/Layout/Layout';
 import TrailDetailsSection from '@/components/TrailDetailsSection/TrailDetailsSection';
-import RenderComments from '@/components/RenderComments/RenderComments';
+import TrailComments from '@/components/TrailComments/TrailComments';
 
 interface TrailDetailsProps {
     params: { locale: string, trailId: string }
@@ -41,11 +41,12 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
 
                 <TrailDetailsSection trail={trail} userId={userId} token={token} />
 
-                <section className="comments details-page-section">
-                    <h3>{t('comments')}:</h3>
-
-                    {trail.comments.length > 0 && <RenderComments comments={trail.comments} />}
-                </section>
+                <TrailComments
+                    initialComments={trail.comments}
+                    userId={userId}
+                    trailId={trailId}
+                    token={token}
+                />
             </main>
         </Layout>
     );

@@ -61,7 +61,7 @@ const TrailDetailsInfoField: React.FC<TrailDetailsInfoFieldProps> = ({
                 } else if (res.message) {
                     toast.error(res.message);
                 } else if (res.errors) {
-                    toast.error(res.errors[0]);
+                    toast.error(t2(res.errors[0]));
                 }
             } catch (err) {
                 console.error(err);

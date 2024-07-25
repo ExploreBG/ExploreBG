@@ -87,6 +87,7 @@ const apiTrails = {
     getAvailableAccommodations: (token: string) => request(`${baseUrl}/accommodations/select`, 'GET', {}, token),
     getAvailableDestinations: (token: string) => request(`${baseUrl}/destinations/select`, 'GET', {}, token),
     createTrail: (userId: number, token: string, trailData: ICreateTrail) => request(`${baseUrl}/trails/create/${userId}`, 'POST', headers.appJSON, token, trailData),
+    createTrailComment: (userId: number, trailId: number, token: string, trailComment: { message: unknown }) => request(`${baseUrl}/trails/create/${userId}/comment/${trailId}`, 'POST', headers.appJSON, token, trailComment),
     updateStartPoint: (trailId: number, token: string, newData: { startPoint: unknown }) => request(`${baseUrl}/trails/${trailId}/update-start-point`, 'PATCH', headers.appJSON, token, newData),
     updateEndPoint: (trailId: number, token: string, newData: { endPoint: unknown }) => request(`${baseUrl}/trails/${trailId}/update-end-point`, 'PATCH', headers.appJSON, token, newData),
     updateTotalDistance: (trailId: number, token: string, newData: { totalDistance: unknown }) => request(`${baseUrl}/trails/${trailId}/update-total-distance`, 'PATCH', headers.appJSON, token, newData),
