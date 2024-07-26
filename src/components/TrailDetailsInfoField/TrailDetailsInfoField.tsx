@@ -54,8 +54,8 @@ const TrailDetailsInfoField: React.FC<TrailDetailsInfoFieldProps> = ({
             try {
                 const res = await agent.apiTrails.updateTrailInfo(trailId, token, newData);
 
-                if (res.trailInfo) {
-                    setTrailInfo(res.trailInfo);
+                if (res.data) {
+                    setTrailInfo(res.data.trailInfo);
                     toast.success(t('successful-update-trail-info'));
                     setIsVisible(false);
                 } else if (res.message) {

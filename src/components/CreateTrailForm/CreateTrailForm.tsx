@@ -81,11 +81,11 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
             try {
                 const res = await agent.apiTrails.createTrail(userId, token, data);
 
-                if (res.id) {
+                if (res.data) {
                     toast.success(t('successful-create'));
                     router.push({
                         pathname: '/trails/[trailId]',
-                        params: { trailId: res.id }
+                        params: { trailId: res.data.id }
                     });
                 } else if (res.message) {
                     toast.error(res.message);

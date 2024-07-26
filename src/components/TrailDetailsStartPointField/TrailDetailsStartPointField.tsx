@@ -53,8 +53,8 @@ const TrailDetailsStartPointField: React.FC<TrailDetailsStartPointFieldProps> = 
             try {
                 const res = await agent.apiTrails.updateStartPoint(trailId, token, newData);
 
-                if (res.startPoint) {
-                    setStartPoint(res.startPoint);
+                if (res.data) {
+                    setStartPoint(res.data.startPoint);
                     toast.success(t('successful-update-start-point'));
                     setIsVisible(false);
                 } else if (res.message) {

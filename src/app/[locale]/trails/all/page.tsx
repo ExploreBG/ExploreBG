@@ -32,7 +32,8 @@ const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale }, searchP
     const cardsPerPage = searchParams['pageSize'] ?? '6';
     const query = `?pageNumber=${page}&pageSize=${cardsPerPage}&sortBy=id&sortDir=DESC`;
 
-    const trails = await agent.apiTrails.getAllTrails(query);
+    const res = await agent.apiTrails.getAllTrails(query);
+    const trails = res.data;
 
     return (
         <Layout>

@@ -9,14 +9,14 @@ import IntersectionObserverComponent from '../IntersectionObserverComponent';
 interface HomeTrailsSectionProps { }
 
 const HomeTrailsSection: React.FC<HomeTrailsSectionProps> = async () => {
-    const trails = await agent.apiTrails.get4RandomTrails();
+    const res = await agent.apiTrails.get4RandomTrails();
 
     return (
         <>
             <section className={'home__section-wrapper home__section-cards trails'}>
                 <IntersectionObserverComponent />
 
-                {trails.map((trail: ITrailCard) => (
+                {res.data.map((trail: ITrailCard) => (
                     <article key={trail.id} className="card hidden">
                         <TrailCard card={trail} />
                     </article>

@@ -87,6 +87,8 @@
         "add-comment": "Add comment here...",
         "err-comment-required": "Cannot send an empty message!",
         "err-comment-max-length": "Comment shouldn't exceed {maxLength} characters!",
+        "del-comment-message": "this message",
+        "del-comment-success": "Successful remove this comment",
         "send-btn": "Send",
         "created-by": "created by",
         "from": "from",

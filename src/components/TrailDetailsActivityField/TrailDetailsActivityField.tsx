@@ -56,8 +56,8 @@ const TrailDetailsActivityField: React.FC<TrailDetailsActivityFieldProps> = ({
         try {
             const res = await agent.apiTrails.updateActivity(trailId, token, newData);
 
-            if (res.activity) {
-                setActivity(res.activity);
+            if (res.data) {
+                setActivity(res.data.activity);
                 toast.success(t('successful-update-activity'));
                 setIsVisible(false);
             } else if (res.message) {

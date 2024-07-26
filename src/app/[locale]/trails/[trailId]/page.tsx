@@ -27,7 +27,8 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
     unstable_setRequestLocale(locale);
     const t = await getTranslations('trail-details');
 
-    const trail = await agent.apiTrails.getTrailById(trailId);
+    const res = await agent.apiTrails.getTrailById(trailId);
+    const trail = res.data;
     const session = await getSession();
     // @ts-expect-error
     const token = session?.userData.token;

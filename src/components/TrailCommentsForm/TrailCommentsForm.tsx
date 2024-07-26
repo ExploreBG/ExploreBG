@@ -45,8 +45,8 @@ const TrailCommentsForm: React.FC<TrailCommentsFormProps> = ({
             try {
                 const res = await agent.apiTrails.createTrailComment(userId, Number(trailId), token, comment);
 
-                if (res.id) {
-                    handleNewComment(res);
+                if (res.data) {
+                    handleNewComment(res.data);
 
                     if (inputRef.current) {
                         inputRef.current.value = '';

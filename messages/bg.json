@@ -87,6 +87,8 @@
         "add-comment": "Добавете коментар тук...",
         "err-comment-required": "Не може да изпратите празно съобщение!",
         "err-comment-max-length": "Съобщението не трябва да надвишава {maxLength} символа!",
+        "del-comment-message": "това съобщение",
+        "del-comment-success": "Успешно изтривана на този коментар",
         "send-btn": "Изпрати",
         "created-by": "създадено от",
         "from": "от",

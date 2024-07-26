@@ -43,8 +43,8 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
             try {
                 const res = await agent.apiTrails.updateWaterAvailable(trailId, token, newData);
 
-                if (res.waterAvailable) {
-                    setWaterAvailable(res.waterAvailable);
+                if (res.data) {
+                    setWaterAvailable(res.data.waterAvailable);
                     toast.success(t('successful-update-water-available'));
                     setIsVisible(false);
                 } else if (res.message) {

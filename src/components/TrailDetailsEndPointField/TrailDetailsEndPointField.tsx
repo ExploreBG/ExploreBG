@@ -53,8 +53,8 @@ const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
             try {
                 const res = await agent.apiTrails.updateEndPoint(trailId, token, newData);
 
-                if (res.endPoint) {
-                    setEndPoint(res.endPoint);
+                if (res.data) {
+                    setEndPoint(res.data.endPoint);
                     toast.success(t('successful-update-end-point'));
                     setIsVisible(false);
                 } else if (res.message) {

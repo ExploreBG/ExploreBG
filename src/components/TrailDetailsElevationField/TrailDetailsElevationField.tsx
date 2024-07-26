@@ -53,8 +53,8 @@ const TrailDetailsElevationField: React.FC<TrailDetailsElevationFieldProps> = ({
             try {
                 const res = await agent.apiTrails.updateElevationGained(trailId, token, newData);
 
-                if (res.elevationGained) {
-                    setElevationGained(res.elevationGained);
+                if (res.data) {
+                    setElevationGained(res.data.elevationGained);
                     toast.success(t('successful-update-elevation'));
                     setIsVisible(false);
                 } else if (res.message) {

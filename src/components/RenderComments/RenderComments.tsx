@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import { FaEdit } from 'react-icons/fa';
+import { ImBin } from "react-icons/im";
 import { toast } from 'react-toastify';
 
 import { IComment } from '@/interfaces/interfaces';
@@ -16,10 +17,11 @@ interface RenderCommentsProps {
     userId?: number
     token?: string
     handleNewComment: (comment: IComment) => void
+    setCommentForDelete: (id: number) => void
 }
 
 const RenderComments: React.FC<RenderCommentsProps> = ({
-    comments, userId, token, handleNewComment
+    comments, userId, token, handleNewComment, setCommentForDelete
 }) => {
     const t = useTranslations('trail-details');
     const commentsEndRef = useRef<HTMLDivElement | null>(null);
@@ -107,6 +109,7 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
 
                             <CSubmitButton buttonName={t('send-btn')} />
                             <button type='button' onClick={() => setIsVisible(null)}>{t('cancel-btn')}</button>
+                            <ImBin onClick={() => setCommentForDelete(c.id)} />
                         </form>
 
                         <div ref={commentsEndRef} />

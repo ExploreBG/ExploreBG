@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
-import { BsHouseFill } from 'react-icons/bs';
+import { GiWoodCabin } from "react-icons/gi";
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
@@ -43,14 +43,14 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
         try {
             const res = await agent.apiTrails.updateAvailableHuts(trailId, token!, newData);
 
-            if (res.message) {
+            if (res.data) {
+                setAvailableHuts(res.data);
+                toast.success(t('successful-update-available-huts'));
+                setIsVisible(false);
+            } else if (res.message) {
                 toast.error(res.message);
             } else if (res.errors) {
                 toast.error(res.errors[0]);
-            } else {
-                setAvailableHuts(res);
-                toast.success(t('successful-update-available-huts'));
-                setIsVisible(false);
             }
         } catch (err) {
             console.error(err);
@@ -60,13 +60,13 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
     return (
         <div className="trail__links__wrapper">
             <h4>
-                <BsHouseFill />&nbsp; {t('lodges-in-the-area')}:
+                <GiWoodCabin />&nbsp; {t('lodges-in-the-area')}:
                 {isTrailOwner && (
                     <FaEdit
                         className="trail-edit-icon"
-                        style={{ 
-                            opacity: (isVisible ? '0' : '1'), 
-                            cursor: (isVisible ? 'none' : 'pointer') 
+                        style={{
+                            opacity: (isVisible ? '0' : '1'),
+                            cursor: (isVisible ? 'none' : 'pointer')
                         }}
                         onClick={() => setIsVisible(!isVisible)}
                     />

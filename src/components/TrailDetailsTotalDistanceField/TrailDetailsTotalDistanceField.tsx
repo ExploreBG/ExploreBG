@@ -53,8 +53,8 @@ const TrailDetailsTotalDistanceField: React.FC<TrailDetailsTotalDistanceFieldPro
             try {
                 const res = await agent.apiTrails.updateTotalDistance(trailId, token, newData);
 
-                if (res.totalDistance) {
-                    setTotalDistance(res.totalDistance);
+                if (res.data) {
+                    setTotalDistance(res.data.totalDistance);
                     toast.success(t('successful-update-total-distance'));
                     setIsVisible(false);
                 } else if (res.message) {

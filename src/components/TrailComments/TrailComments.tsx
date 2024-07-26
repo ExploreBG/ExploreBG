@@ -2,11 +2,14 @@
 
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { toast } from 'react-toastify';
 
 import { IComment } from '@/interfaces/interfaces';
+import { agent } from '@/api/agent';
 
 import RenderComments from '../RenderComments/RenderComments';
 import TrailCommentsForm from '../TrailCommentsForm/TrailCommentsForm';
+import CConfirmationModal from '../common/CConfirmationModal/CConfirmationModal';
 
 interface TrailCommentsProps {
     initialComments: IComment[]
@@ -15,12 +18,44 @@ interface TrailCommentsProps {
     token: string
 }
 
-const TrailComments: React.FC<TrailCommentsProps> = ({ initialComments, userId, trailId, token }) => {
+const TrailComments: React.FC<TrailCommentsProps> = ({
+    initialComments, userId, trailId, token
+}) => {
     const t = useTranslations('trail-details');
     const [comments, setComments] = useState<IComment[]>(initialComments);
+    const [commentForDelete, setCommentForDelete] = useState<number | null>(null);
 
     const handleNewComment = (newComment: IComment) => {
-        setComments([...comments, newComment]);
+        const commentIndex = comments.findIndex(c => c.id === newComment.id);
+
+        if (commentIndex !== -1) {
+            const updatedComments = [...comments];
+            updatedComments[commentIndex] = newComment;
+            
+            setComments(updatedComments);
+        } else {
+            setComments([...comments, newComment]);
+        }
+    };
+
+    const onConfirmClick = async () => {
+        try {
+            const res = await agent.apiTrails.removeTrailComment(commentForDelete!, Number(trailId), token);
+
+            if (res.data.deleted) {
+                const updatedComments = comments.filter(c => c.id !== commentForDelete);
+
+                setComments(updatedComments);
+                setCommentForDelete(null);
+                toast.success(t('del-comment-success'));
+            } else if (res.message) {
+                toast.error(res.message);
+            } else if (res.errors) {
+                toast.error(t(res.errors[0]));
+            }
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     return (
@@ -33,6 +68,7 @@ const TrailComments: React.FC<TrailCommentsProps> = ({ initialComments, userId, 
                     userId={userId}
                     token={token}
                     handleNewComment={handleNewComment}
+                    setCommentForDelete={setCommentForDelete}
                 />
             )}
 
@@ -42,6 +78,14 @@ const TrailComments: React.FC<TrailCommentsProps> = ({ initialComments, userId, 
                     trailId={trailId}
                     token={token}
                     handleNewComment={handleNewComment}
+                />
+            )}
+
+            {commentForDelete && (
+                <CConfirmationModal
+                    deletionObj={t('del-comment-message')}
+                    confirm={onConfirmClick}
+                    cancel={() => setCommentForDelete(null)}
                 />
             )}
         </section>

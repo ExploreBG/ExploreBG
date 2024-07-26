@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
-import { GrOverview } from 'react-icons/gr';
+import { FcBinoculars } from "react-icons/fc";
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
@@ -26,7 +26,7 @@ const TrailDetailsDestinationsField: React.FC<TrailDetailsDestinationsFieldProps
     const t = useTranslations('trail-details');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [destinations, setDestinations] = useState<IPlace[]>(initialDestinations);
-    
+
     const initialInputData: { id: number; }[] | (() => { id: number; }[]) = [];
     initialDestinations.map(d => initialInputData.push({ id: d.id }));
     const [inputData, setInputData] = useState<{ id: number }[]>(initialInputData);
@@ -43,14 +43,14 @@ const TrailDetailsDestinationsField: React.FC<TrailDetailsDestinationsFieldProps
         try {
             const res = await agent.apiTrails.updateDestinations(trailId, token!, newData);
 
-            if (res.message) {
+            if (res.data) {
+                setDestinations(res.data);
+                toast.success(t('successful-update-destinations'));
+                setIsVisible(false);
+            } else if (res.message) {
                 toast.error(res.message);
             } else if (res.errors) {
                 toast.error(res.errors[0]);
-            } else {
-                setDestinations(res);
-                toast.success(t('successful-update-destinations'));
-                setIsVisible(false);
             }
         } catch (err) {
             console.error(err);
@@ -60,7 +60,7 @@ const TrailDetailsDestinationsField: React.FC<TrailDetailsDestinationsFieldProps
     return (
         <div className="trail__links__wrapper">
             <h4>
-                <GrOverview />&nbsp; {t('curious-places')}:
+                <FcBinoculars />&nbsp; {t('curious-places')}:
                 {isTrailOwner && (
                     <FaEdit
                         className="trail-edit-icon"
