@@ -1,18 +1,31 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
+import { useTranslations } from 'next-intl';
 import { FaEdit } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 import { IComment } from '@/interfaces/interfaces';
+import { agent } from '@/api/agent';
+import { commentMaxLength } from '@/utils/validations';
+
+import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface RenderCommentsProps {
     comments: IComment[]
     userId?: number
+    token?: string
+    handleNewComment: (comment: IComment) => void
 }
 
-const RenderComments: React.FC<RenderCommentsProps> = ({ comments, userId }) => {
+const RenderComments: React.FC<RenderCommentsProps> = ({
+    comments, userId, token, handleNewComment
+}) => {
+    const t = useTranslations('trail-details');
     const commentsEndRef = useRef<HTMLDivElement | null>(null);
     const [prevCommentsCount, setPrevCommentsCount] = useState<number>(comments.length);
+    const [isVisible, setIsVisible] = useState<number | null>(null);
+    const [inputValue, setInputValue] = useState<string>('');
 
     const scrollToBottom = () => {
         commentsEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,6 +37,30 @@ const RenderComments: React.FC<RenderCommentsProps> = ({ comments, userId }) => 
         }
         setPrevCommentsCount(comments.length);
     }, [comments, prevCommentsCount]);
+
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>, commentId: number) => {
+        e.preventDefault();
+        const input = e.currentTarget.comment.value;
+
+        const comment = { message: input }
+
+        try {
+            const res = await agent.apiTrails.updateTrailComment(commentId, token!, comment);
+
+            if (res.data) {
+                handleNewComment(res.data);
+
+                setInputValue('');
+                setIsVisible(null);
+            } else if (res.message) {
+                toast.error(res.message);
+            } else if (res.errors) {
+                toast.error(t(res.errors[0], { maxLength: commentMaxLength }));
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     return (
         <div className="comments__wrapper">
@@ -43,10 +80,35 @@ const RenderComments: React.FC<RenderCommentsProps> = ({ comments, userId }) => 
                             />
                         </Link>
 
-                        <p>
+                        <p style={{ opacity: (isVisible == c.id ? '0' : '1') }}>
                             {c.message}
-                            {userId == c.owner.id && <FaEdit className="trail-edit-icon" />}
+
+                            {userId == c.owner.id && (
+                                <FaEdit
+                                    className="trail-edit-icon"
+                                    onClick={() => setIsVisible(c.id)}
+                                    style={{ cursor: (isVisible == c.id ? 'none' : 'pointer') }}
+                                />
+                            )}
                         </p>
+
+                        <form
+                            onSubmit={(e) => onSubmit(e, c.id)}
+                            // className="comments__form"
+                            style={{ display: (isVisible == c.id ? 'flex' : 'none') }}
+                        >
+                            <input
+                                type="text"
+                                name="comment"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                placeholder={t('add-comment')}
+                            />
+
+                            <CSubmitButton buttonName={t('send-btn')} />
+                            <button type='button' onClick={() => setIsVisible(null)}>{t('cancel-btn')}</button>
+                        </form>
+
                         <div ref={commentsEndRef} />
                     </div>
                 ))}

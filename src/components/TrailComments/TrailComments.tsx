@@ -27,7 +27,14 @@ const TrailComments: React.FC<TrailCommentsProps> = ({ initialComments, userId, 
         <section className="comments details-page-section">
             <h3>{t('comments')}:</h3>
 
-            {comments.length > 0 && <RenderComments comments={comments} userId={userId} />}
+            {comments.length > 0 && (
+                <RenderComments
+                    comments={comments}
+                    userId={userId}
+                    token={token}
+                    handleNewComment={handleNewComment}
+                />
+            )}
 
             {userId && (
                 <TrailCommentsForm
