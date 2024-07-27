@@ -96,6 +96,7 @@ const apiTrails = {
     updateElevationGained: (trailId: number, token: string, newData: { elevationGained: unknown }) => request(`${baseUrl}/trails/${trailId}/update-elevation-gained`, 'PATCH', headers.appJSON, token, newData),
     updateActivity: (trailId: number, token: string, newData: { activity: unknown }) => request(`${baseUrl}/trails/${trailId}/update-activity`, 'PATCH', headers.appJSON, token, newData),
     updateWaterAvailable: (trailId: number, token: string, newData: { waterAvailable: unknown }) => request(`${baseUrl}/trails/${trailId}/update-water-available`, 'PATCH', headers.appJSON, token, newData),
+    updateTrailDifficulty: (trailId: number, token: string, newData: { trailDifficulty: unknown }) => request(`${baseUrl}/trails/${trailId}/update-trail-difficulty`, 'PATCH', headers.appJSON, token, newData),
     updateTrailInfo: (trailId: number, token: string, newData: { trailInfo: unknown }) => request(`${baseUrl}/trails/${trailId}/update-trail-info`, 'PATCH', headers.appJSON, token, newData),
     updateAvailableHuts: (trailId: number, token: string, newData: { availableHuts: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/update-available-huts`, 'PATCH', headers.appJSON, token, newData),
     updateDestinations: (trailId: number, token: string, newData: { destinations: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/update-destinations`, 'PATCH', headers.appJSON, token, newData),

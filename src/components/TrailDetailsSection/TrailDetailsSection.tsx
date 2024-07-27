@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { BsThermometerSun } from 'react-icons/bs';
-import { GiBeech, GiFallingLeaf, GiHiking } from 'react-icons/gi';
+import { GiBeech, GiFallingLeaf } from 'react-icons/gi';
 import { FaSnowflake } from 'react-icons/fa6';
 
 import { ITrail, IFormEnums, IHut, IPlace } from '@/interfaces/interfaces';
@@ -17,6 +17,7 @@ import TrailDetailsTotalDistanceField from '../TrailDetailsTotalDistanceField/Tr
 import TrailDetailsElevationField from '../TrailDetailsElevationField/TrailDetailsElevationField';
 import TrailDetailsActivityField from '../TrailDetailsActivityField/TrailDetailsActivityField';
 import TrailDetailsWaterAvailableField from '../TrailDetailsWaterAvailableField/TrailDetailsWaterAvailableField';
+import TrailDetailsTrailDifficultyField from '../TrailDetailsTrailDifficultyField/TrailDetailsTrailDifficultyField';
 import TrailDetailsInfoField from '../TrailDetailsInfoField/TrailDetailsInfoField';
 import TrailDetailsAvailableHutsField from '../TrailDetailsAvailableHutsField/TrailDetailsAvailableHutsField';
 import TrailDetailsDestinationsField from '../TrailDetailsDestinationsField/TrailDetailsDestinationsField';
@@ -57,18 +58,6 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
     }, []);
 
     const season = trail.seasonVisited?.toLowerCase();
-    const maxDifficultyLevel = enums.trailDifficulty?.length;
-
-    const repeatIcon = (end: number) => {
-        let icons = [];
-        for (let i = 1; i <= end; i++) {
-            icons.push(
-                <span key={i}><GiHiking /></span>
-            );
-        }
-
-        return icons;
-    };
 
     return (
         <section className="trail details-page-section">
@@ -132,15 +121,12 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                     isTrailOwner={userId ? userId === trail.createdBy?.id : false}
                     formEnums={enums}
                 />
-                <div className="trail__pair__difficulty">
-                    {t('difficulty')}:&nbsp;&nbsp;
-                    <div>
-                        {repeatIcon(trail.trailDifficulty)}
-                    </div>
-                    <div className="trail__pair__difficulty__empty">
-                        {repeatIcon(maxDifficultyLevel - trail.trailDifficulty)}
-                    </div>
-                </div>
+                <TrailDetailsTrailDifficultyField
+                    initialTrailDifficulty={String(trail.trailDifficulty)}
+                    trailId={trail.id}
+                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    formEnums={enums}
+                />
             </div>
 
             <TrailDetailsInfoField

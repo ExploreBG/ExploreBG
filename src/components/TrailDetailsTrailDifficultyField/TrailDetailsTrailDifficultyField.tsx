@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { FaHandHoldingWater, FaEdit } from 'react-icons/fa';
+import { GiHiking } from 'react-icons/gi';
+import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 import { IFormEnums } from '@/interfaces/interfaces';
@@ -11,39 +12,51 @@ import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
-interface TrailDetailsWaterAvailableFieldProps {
-    initialWaterAvailable: string
+interface TrailDetailsTrailDifficultyFieldProps {
+    initialTrailDifficulty: string
     trailId: number
     isTrailOwner: boolean
     formEnums: IFormEnums
 }
 
-const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldProps> = ({
-    initialWaterAvailable, trailId, isTrailOwner, formEnums
+const TrailDetailsTrailDifficultyField: React.FC<TrailDetailsTrailDifficultyFieldProps> = ({
+    initialTrailDifficulty, trailId, isTrailOwner, formEnums
 }) => {
     const t = useTranslations('trail-details');
-    const t2 = useTranslations('trail-create');
     const [isVisible, setIsVisible] = useState<boolean>(false);
-    const [waterAvailable, setWaterAvailable] = useState<string>(initialWaterAvailable);
-    const [inputData, setInputData] = useState<string>(initialWaterAvailable);
+    const [trailDifficulty, setTrailDifficulty] = useState<string>(initialTrailDifficulty);
+    const [inputData, setInputData] = useState<string>(initialTrailDifficulty);
 
-    const onSubmitForm = async (e: React.FormEvent) => {
+    const maxDifficultyLevel = formEnums.trailDifficulty?.length;
+
+    const repeatIcon = (end: number) => {
+        let icons = [];
+        for (let i = 1; i <= end; i++) {
+            icons.push(
+                <span key={i}><GiHiking /></span>
+            );
+        }
+
+        return icons;
+    };
+
+    const onSubmitDifficulty = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (inputData === waterAvailable) {
+        if (inputData == trailDifficulty) {
             setIsVisible(false);
             return;
         }
 
         const token = await getToken();
-        const newData = { waterAvailable: inputData };
+        const newData = { trailDifficulty: Number(inputData) };
 
         try {
-            const res = await agent.apiTrails.updateWaterAvailable(trailId, token, newData);
+            const res = await agent.apiTrails.updateTrailDifficulty(trailId, token, newData);
 
             if (res.data) {
-                setWaterAvailable(res.data.waterAvailable);
-                toast.success(t('successful-update-water-available'));
+                setTrailDifficulty(res.data.trailDifficulty);
+                toast.success(t('successful-update-trail-difficulty'));
                 setIsVisible(false);
             } else if (res.message) {
                 toast.error(res.message);
@@ -61,10 +74,15 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
                 style={{ opacity: (isVisible ? '0' : '1') }}
                 className="trail__pair__field-wrapper__field"
             >
-                <p>
-                    <FaHandHoldingWater />&nbsp;
-                    {t('water-sources')}: &nbsp;{t2(waterAvailable)}
-                </p>
+                <div className="trail__pair__difficulty">
+                    {t('difficulty')}:&nbsp;&nbsp;
+                    <div>
+                        {repeatIcon(Number(trailDifficulty))}
+                    </div>
+                    <div className="trail__pair__difficulty__empty">
+                        {repeatIcon(maxDifficultyLevel - Number(trailDifficulty))}
+                    </div>
+                </div>
                 {isTrailOwner && (
                     <FaEdit
                         className="trail-edit-icon"
@@ -76,16 +94,16 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
 
             <div className="trail__pair__field-wrapper__form with-select">
                 <form
-                    onSubmit={onSubmitForm}
+                    onSubmit={onSubmitDifficulty}
                     style={{ display: (isVisible ? 'flex' : 'none') }}
                 >
                     <select
-                        name="waterAvailable"
+                        name="trailDifficulty"
                         value={inputData}
                         onChange={(e) => setInputData(e.target.value)}
                     >
-                        {formEnums.waterAvailable && formEnums.waterAvailable.map(v => (
-                            <option key={v} value={v}>{t2(v)}</option>
+                        {formEnums.trailDifficulty && formEnums.trailDifficulty.map(v => (
+                            <option key={v} value={v}>{v}</option>
                         ))}
                     </select>
 
@@ -97,4 +115,4 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
     );
 };
 
-export default TrailDetailsWaterAvailableField;
+export default TrailDetailsTrailDifficultyField;
