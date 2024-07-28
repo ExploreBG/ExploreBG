@@ -37,7 +37,7 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params: { locale, userI
 
     const res = await agent.apiUsers.getUserProfile(userId);
 
-    const { username, email, gender, birthdate, userInfo, imageUrl, createdHikes } = res;
+    const { username, email, gender, birthdate, userInfo, imageUrl, createdHikes } = res.data;
 
     const isAsideHide = !email && !gender && !birthdate && !userInfo;
 

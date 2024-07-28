@@ -39,14 +39,19 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
         async onSubmit(event, context) {
             const inputData = context.submission?.payload.username;
 
+            if (inputData == username) {
+                setIsVisible(false);
+                return;
+            }
+
             const token = await getToken();
             const newUsername = { username: inputData };
 
             try {
                 const res = await agent.apiUsers.updateUsername(userId, token, newUsername);
 
-                if (res.username) {
-                    setUsername(res.username);
+                if (res.data) {
+                    setUsername(res.data.username);
                     toast.success(t('successful-update-username'));
                     setIsVisible(false);
                 } else if (res.message) {
@@ -62,9 +67,13 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
 
     return (
         <div>
-            <p style={{ display: (isVisible ? 'none' : 'block') }}>
+            <p style={{ opacity: (isVisible ? '0' : '1') }}>
                 <FaUserNinja />&nbsp;<strong>{username}</strong>&nbsp;
-                <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
+                <FaEdit 
+                    className="edit" 
+                    onClick={() => setIsVisible(!isVisible)}
+                    style={{ cursor: (isVisible ? 'none' : 'pointer') }}
+                />
             </p>
 
             <form
@@ -72,7 +81,7 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
                 onSubmit={form.onSubmit}
                 action={action}
                 noValidate
-                style={{ display: (isVisible ? 'flex' : 'none') }}
+                style={{ display: (isVisible ? 'block' : 'none') }}
             >
                 <input
                     type="text"
@@ -84,13 +93,15 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
 
                 <CSubmitButton buttonName={t('change-btn')} />
                 <button type='button' onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}</button>
-            </form>
 
-            <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
-                {fields.username.errors && t2(fields.username.errors[0], {
-                    minLength: usernameMinLength, maxLength: usernameMaxLength
-                })}
-            </div>
+                {fields.username.errors && (
+                    <div className="error-message">
+                        {t2(fields.username.errors[0], {
+                            minLength: usernameMinLength, maxLength: usernameMaxLength
+                        })}
+                    </div>
+                )}
+            </form>
         </div>
     );
 };

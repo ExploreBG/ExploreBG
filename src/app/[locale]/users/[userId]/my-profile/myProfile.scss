@@ -51,28 +51,14 @@
 
             &>div {
                 margin-bottom: 2rem;
+                position: relative;
+                @include gs.flex(none, center, none);
 
                 &>form {
-                    justify-content: center;
-                    gap: 0.25rem;
-
-                    &>.username-field,
-                    &>.email-field,
-                    &>.gender-field,
-                    &>.birthday-field,
-                    &>.info-field {
-                        border-radius: 0.75rem;
-                        padding: 0 0.5rem 0 1rem;
-                    }
-
-                    &>button,
-                    &>div>button {
-                        @include gs.glow-on-hover-button();
-
-                        &:first-of-type {
-                            margin-right: 0.5rem;
-                        }
-                    }
+                    position: absolute;
+                    top: 0;
+                    z-index: 1;
+                    @include gs.set-details-update-form();
                 }
 
                 &>.info-text {

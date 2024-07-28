@@ -26,15 +26,20 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gend
         async onSubmit(e) {
             e.preventDefault();
 
+            if (tempGenderValue == genderValue) {
+                setIsVisible(false);
+                return;
+            }
+
             const newData = { gender: e.currentTarget.gender.value }
             const token = await getToken();
 
             try {
                 const res = await agent.apiUsers.updateGender(userId, token, newData);
 
-                if (res.gender) {
-                    setGenderValue(res.gender);
-                    setTempGenderValue(res.gender);
+                if (res.data) {
+                    setGenderValue(res.data.gender);
+                    setTempGenderValue(res.data.gender);
                     toast.success(t('successful-update-gender'));
                     setIsVisible(!isVisible);
                 } else if (res.errors) {
@@ -57,7 +62,7 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gend
 
     return (
         <div>
-            <p style={{ display: (isVisible ? 'none' : 'block') }}>
+            <p style={{ opacity: (isVisible ? '0' : '1') }}>
                 {genderValue == 'Male' && <FaMale /> || genderValue == 'Female' && <FaFemale />}
                 {t('gender')}: <strong>{genderValue ?? '.....'}</strong> &nbsp;
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
@@ -67,7 +72,7 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gend
                 id={form.id}
                 onSubmit={form.onSubmit}
                 noValidate
-                style={{ display: (isVisible ? 'flex' : 'none') }}
+                style={{ display: (isVisible ? 'block' : 'none') }}
             >
                 <select
                     key={fields.gender.key}

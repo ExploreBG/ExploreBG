@@ -39,14 +39,19 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
         async onSubmit(event, context) {
             const inputData = context.submission?.payload.birthday;
 
+            if (inputData == birthDateValue) {
+                setIsVisible(false);
+                return;
+            }
+
             const token = await getToken();
             const newData = { birthdate: inputData };
 
             try {
                 const res = await agent.apiUsers.updateBirthDate(userId, token, newData);
 
-                if (res.birthDate) {
-                    setBirthDateValue(res.birthDate);
+                if (res.data) {
+                    setBirthDateValue(res.data.birthDate);
                     toast.success(t('successful-update-birthday'));
                     setIsVisible(!isVisible);
                 } else if (res.message) {
@@ -62,7 +67,7 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
 
     return (
         <div>
-            <p style={{ display: (isVisible ? 'none' : 'block') }}>
+            <p style={{ opacity: (isVisible ? '0' : '1') }}>
                 <LiaBirthdayCakeSolid /> {t('birthday')}: 
                 <strong>{birthDateValue ? formatDate(birthDateValue) : '.....'}</strong> &nbsp;
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
@@ -73,7 +78,7 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
                 onSubmit={form.onSubmit}
                 action={action}
                 noValidate
-                style={{ display: (isVisible ? 'flex' : 'none') }}
+                style={{ display: (isVisible ? 'block' : 'none') }}
             >
                 <input
                     type="date"
@@ -86,10 +91,6 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
                 <CSubmitButton buttonName={t('change-btn')} />
                 <button type='button' onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}</button>
             </form>
-
-            <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
-                {fields.birthday.errors && t(fields.birthday.errors[0])}
-            </div>
         </div>
     );
 };

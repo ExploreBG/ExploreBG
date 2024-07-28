@@ -47,7 +47,7 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } 
         redirect('/');
     }
 
-    const { username, email, gender, birthdate, imageUrl, userInfo, createdHikes } = res;
+    const { username, email, gender, birthdate, imageUrl, userInfo, createdHikes } = res.data;
 
     return (
         <Layout>

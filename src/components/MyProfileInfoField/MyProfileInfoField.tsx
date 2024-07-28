@@ -37,14 +37,19 @@ export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo
         async onSubmit(event, context) {
             const inputData = context.submission?.payload.userInfo;
 
+            if (inputData == infoValue) {
+                setIsVisible(false);
+                return;
+            }
+
             const token = await getToken();
             const newData = { userInfo: inputData };
 
             try {
                 const res = await agent.apiUsers.updateUserInfo(userId, token, newData);
 
-                if (res.userInfo) {
-                    setInfoValue(res.userInfo);
+                if (res.data) {
+                    setInfoValue(res.data.userInfo);
                     toast.success(t('successful-update-info'));
                     setIsVisible(!isVisible);
                 } else if (res.message) {
@@ -61,11 +66,15 @@ export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo
     return (
         <div>
             <p
-                style={{ display: (isVisible ? 'none' : 'block') }}
+                style={{ opacity: (isVisible ? '0' : '1') }}
                 className="info-text"
             >
                 {infoValue ?? <><span>{t('my-info')}: </span><strong>.........</strong></>} &nbsp;
-                <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
+                <FaEdit
+                    className="edit"
+                    onClick={() => setIsVisible(!isVisible)}
+                    style={{ cursor: (isVisible ? 'none' : 'pointer') }}
+                />
             </p>
 
             <form
@@ -73,7 +82,7 @@ export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo
                 onSubmit={form.onSubmit}
                 action={action}
                 noValidate
-                style={{ display: (isVisible ? 'flex' : 'none') }}
+                style={{ display: (isVisible ? 'block' : 'none') }}
                 className="form-info"
             >
                 <textarea
@@ -85,15 +94,17 @@ export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo
                     placeholder=' ........'
                 ></textarea>
 
+                {fields.userInfo.errors && (
+                    <div className="error-message">
+                        {t(fields.userInfo.errors[0], { maxLength: userInfoMaxLength })}
+                    </div>
+                )}
+
                 <div>
                     <CSubmitButton buttonName={t('change-btn')} />
                     <button type='button' onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}</button>
                 </div>
             </form>
-
-            <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
-                {fields.userInfo.errors && t(fields.userInfo.errors[0], { maxLength: userInfoMaxLength })}
-            </div>
         </div>
     );
 };

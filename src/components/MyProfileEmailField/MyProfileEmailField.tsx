@@ -38,13 +38,18 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initia
         async onSubmit(event, context) {
             const inputData = context.submission?.payload.email;
 
+            if (inputData == email) {
+                setIsVisible(false);
+                return;
+            }
+
             const token = await getToken();
             const newEmail = { email: inputData };
 
             const res = await agent.apiUsers.updateEmail(userId, token, newEmail);
 
-            if (res.email) {
-                setEmail(res.email);
+            if (res.data) {
+                setEmail(res.data.email);
                 toast.success(t('successful-update-email'));
                 setIsVisible(false);
             } else if (res.message) {
@@ -57,9 +62,13 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initia
 
     return (
         <div>
-            <p style={{ display: (isVisible ? 'none' : 'block') }}>
+            <p style={{ opacity: (isVisible ? '0' : '1') }}>
                 <HiOutlineMail /> <strong>{email}</strong>
-                <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
+                <FaEdit 
+                    className="edit" 
+                    onClick={() => setIsVisible(!isVisible)}
+                    style={{ cursor: (isVisible ? 'none' : 'pointer') }}
+                />
             </p>
 
             <form
@@ -67,7 +76,7 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initia
                 onSubmit={form.onSubmit}
                 action={action}
                 noValidate
-                style={{ display: (isVisible ? 'flex' : 'none') }}
+                style={{ display: (isVisible ? 'block' : 'none') }}
             >
                 <input
                     type="email"
@@ -79,11 +88,9 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initia
 
                 <CSubmitButton buttonName={t('change-btn')} />
                 <button type='button' onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}</button>
-            </form>
 
-            <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
-                {fields.email.errors && t(fields.email.errors[0])}
-            </div>
+                {fields.email.errors && <div className="error-message">{t(fields.email.errors[0])}</div>}
+            </form>
         </div>
     );
 };

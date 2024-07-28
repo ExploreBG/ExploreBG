@@ -39,10 +39,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
                 const session = await getSession();
 
                 if (session) {
-                    toast.success(t('successful-register', { name: res.username }));
+                    toast.success(t('successful-register', { name: res.data.username }));
                     router.push({
                         pathname: '/users/[userId]/my-profile',
-                        params: { userId: res.id }
+                        params: { userId: res.data.id }
                     });
                 } else {
                     res.errors.slice(0, 4).map((err: string) => toast.error(err, { autoClose: 10000 }));
