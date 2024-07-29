@@ -39,10 +39,10 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
                 const session = await getSession();
 
                 if (session) {
-                    toast.success(t('successful-register', { name: res.data.username }));
+                    toast.success(t('successful-register', { name: res.username }));
                     router.push({
                         pathname: '/users/[userId]/my-profile',
-                        params: { userId: res.data.id }
+                        params: { userId: res.id }
                     });
                 } else {
                     res.errors.slice(0, 4).map((err: string) => toast.error(err, { autoClose: 10000 }));
@@ -61,47 +61,63 @@ export const RegisterForm: React.FC<RegisterFormProps> = () => {
                 action={action}
                 noValidate
             >
-                <label htmlFor="email">{t('email')}</label>
-                <input
-                    type="email"
-                    key={fields.email.key}
-                    name={fields.email.name}
-                    defaultValue={fields.email.initialValue}
-                    placeholder='john.doe@gmail.com'
-                />
-                <div className="error-message">{fields.email.errors && t(fields.email.errors[0])}</div>
+                <div>
+                    <label htmlFor="email">{t('email')}</label>
+                    <input
+                        type="email"
+                        key={fields.email.key}
+                        name={fields.email.name}
+                        defaultValue={fields.email.initialValue}
+                        placeholder='john.doe@gmail.com'
+                    />
+                    {fields.email.errors && (
+                        <div className="error-message">{t(fields.email.errors[0])}</div>
+                    )}
+                </div>
 
-                <label htmlFor="username">{t('username')}</label>
-                <input
-                    type="text"
-                    key={fields.username.key}
-                    name={fields.username.name}
-                    defaultValue={fields.username.initialValue}
-                    placeholder='John Doe'
-                />
-                <div className="error-message">{fields.username.errors && t(fields.username.errors[0])}</div>
+                <div>
+                    <label htmlFor="username">{t('username')}</label>
+                    <input
+                        type="text"
+                        key={fields.username.key}
+                        name={fields.username.name}
+                        defaultValue={fields.username.initialValue}
+                        placeholder='John Doe'
+                    />
+                    {fields.username.errors && (
+                        <div className="error-message">{t(fields.username.errors[0])}</div>
+                    )}
+                </div>
 
-                <label htmlFor="password">{t('password')} &nbsp;
-                    <CPasswordInfo />
-                </label>
-                <input
-                    type="password"
-                    key={fields.password.key}
-                    name={fields.password.name}
-                    defaultValue={fields.password.initialValue}
-                    placeholder='*********'
-                />
-                <div className="error-message">{fields.password.errors && t(fields.password.errors[0])}</div>
+                <div>
+                    <label htmlFor="password">{t('password')} &nbsp;
+                        <CPasswordInfo />
+                    </label>
+                    <input
+                        type="password"
+                        key={fields.password.key}
+                        name={fields.password.name}
+                        defaultValue={fields.password.initialValue}
+                        placeholder='*********'
+                    />
+                    {fields.password.errors && (
+                        <div className="error-message">{t(fields.password.errors[0])}</div>
+                    )}
+                </div>
 
-                <label htmlFor="confirmPassword">{t('confirm-pass')}</label>
-                <input
-                    type="password"
-                    key={fields.confirmPassword.key}
-                    name={fields.confirmPassword.name}
-                    defaultValue={fields.confirmPassword.initialValue}
-                    placeholder='*********'
-                />
-                <div className="error-message">{fields.confirmPassword.errors && t(fields.confirmPassword.errors[0])}</div>
+                <div>
+                    <label htmlFor="confirmPassword">{t('confirm-pass')}</label>
+                    <input
+                        type="password"
+                        key={fields.confirmPassword.key}
+                        name={fields.confirmPassword.name}
+                        defaultValue={fields.confirmPassword.initialValue}
+                        placeholder='*********'
+                    />
+                    {fields.confirmPassword.errors && (
+                        <div className="error-message">{t(fields.confirmPassword.errors[0])}</div>
+                    )}
+                </div>
 
                 <CSubmitButton buttonName={t('register-btn')} />
             </form>

@@ -38,10 +38,10 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
                 const session = await getSession();
 
                 if (session) {
-                    toast.success(t('successful-login', { name: res.data.username }));
+                    toast.success(t('successful-login', { name: res.username }));
                     router.push({
                         pathname: '/users/[userId]/my-profile',
-                        params: { userId: res.data.id }
+                        params: { userId: res.id }
                     });
                 } else {
                     toast.error(res.message);
@@ -60,27 +60,35 @@ export const LoginForm: React.FC<LoginFormProps> = () => {
                 action={action}
                 noValidate
             >
-                <label htmlFor="email">{t('email')}</label>
-                <input
-                    type="email"
-                    key={fields.email.key}
-                    name={fields.email.name}
-                    defaultValue={fields.email.initialValue}
-                    placeholder='John Doe'
-                />
-                <div className="error-message">{fields.email.errors && t(fields.email.errors[0])}</div>
-
-                <label htmlFor="password">{t('password')}</label>
-                <input
-                    type="password"
-                    key={fields.password.key}
-                    name={fields.password.name}
-                    defaultValue={fields.password.initialValue}
-                    placeholder='*********'
-                />
-                <div className="error-message">{fields.password.errors && t(fields.password.errors[0])}</div>
+                <div>
+                    <label htmlFor="email">{t('email')}</label>
+                    <input
+                        type="email"
+                        key={fields.email.key}
+                        name={fields.email.name}
+                        defaultValue={fields.email.initialValue}
+                        placeholder='John Doe'
+                    />
+                    {fields.email.errors && (
+                        <div className="error-message">{t(fields.email.errors[0])}</div>
+                    )}
+                </div>
 
                 <div>
+                    <label htmlFor="password">{t('password')}</label>
+                    <input
+                        type="password"
+                        key={fields.password.key}
+                        name={fields.password.name}
+                        defaultValue={fields.password.initialValue}
+                        placeholder='*********'
+                    />
+                    {fields.password.errors && (
+                        <div className="error-message">{t(fields.password.errors[0])}</div>
+                    )}
+                </div>
+
+                <div className="remember-me">
                     <label htmlFor="remember">{t('remember-me')}</label>
                     <input
                         type="checkbox"

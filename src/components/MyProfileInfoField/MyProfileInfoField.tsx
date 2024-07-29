@@ -94,16 +94,16 @@ export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo
                     placeholder=' ........'
                 ></textarea>
 
+                <div>
+                    <CSubmitButton buttonName={t('change-btn')} />
+                    <button type='button' onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}</button>
+                </div>
+
                 {fields.userInfo.errors && (
                     <div className="error-message">
                         {t(fields.userInfo.errors[0], { maxLength: userInfoMaxLength })}
                     </div>
                 )}
-
-                <div>
-                    <CSubmitButton buttonName={t('change-btn')} />
-                    <button type='button' onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}</button>
-                </div>
             </form>
         </div>
     );

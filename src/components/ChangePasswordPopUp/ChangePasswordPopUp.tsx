@@ -64,41 +64,54 @@ export const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closeP
                     noValidate
                     className="change-pass-form"
                 >
-                    <label htmlFor="currentPassword">{t('current-pass')}</label>
-                    <input
-                        type="password"
-                        key={fields.currentPassword.key}
-                        name={fields.currentPassword.name}
-                        defaultValue={fields.currentPassword.initialValue}
-                        placeholder="***************"
-                    />
-                    <div className="error-message">{fields.currentPassword.errors && t2(fields.currentPassword.errors[0])}</div>
-
-                    <label htmlFor="newPassword">
-                        {t('new-pass')} &nbsp;
-                        <CPasswordInfo />
-                    </label>
-                    <input
-                        type="password"
-                        key={fields.newPassword.key}
-                        name={fields.newPassword.name}
-                        defaultValue={fields.newPassword.initialValue}
-                        placeholder="***************"
-                    />
-                    <div className="error-message">
-                        {fields.newPassword.errors && t2(fields.newPassword.errors[0], {
-                            minLength: passMinLength, maxLength: passMaxLength
-                        })}
+                    <div>
+                        <label htmlFor="currentPassword">{t('current-pass')}</label>
+                        <input
+                            type="password"
+                            key={fields.currentPassword.key}
+                            name={fields.currentPassword.name}
+                            defaultValue={fields.currentPassword.initialValue}
+                            placeholder="***************"
+                        />
+                        {fields.currentPassword.errors && (
+                            <div className="error-message">{t2(fields.currentPassword.errors[0])}</div>
+                        )}
                     </div>
 
-                    <label htmlFor="confirmNewPassword">{t('confirm-new-pass')}</label>
-                    <input
-                        type="password"
-                        key={fields.confirmNewPassword.key}
-                        name={fields.confirmNewPassword.name}
-                        defaultValue={fields.confirmNewPassword.initialValue}
-                        placeholder="***************" />
-                    <div className="error-message">{fields.confirmNewPassword.errors && t2(fields.confirmNewPassword.errors[0])}</div>
+                    <div>
+                        <label htmlFor="newPassword">
+                            {t('new-pass')} &nbsp;
+                            <CPasswordInfo />
+                        </label>
+                        <input
+                            type="password"
+                            key={fields.newPassword.key}
+                            name={fields.newPassword.name}
+                            defaultValue={fields.newPassword.initialValue}
+                            placeholder="***************"
+                        />
+                        {fields.newPassword.errors && (
+                            <div className="error-message">
+                                {t2(fields.newPassword.errors[0], {
+                                    minLength: passMinLength, maxLength: passMaxLength
+                                })}
+                            </div>
+                        )}
+                    </div>
+
+                    <div>
+                        <label htmlFor="confirmNewPassword">{t('confirm-new-pass')}</label>
+                        <input
+                            type="password"
+                            key={fields.confirmNewPassword.key}
+                            name={fields.confirmNewPassword.name}
+                            defaultValue={fields.confirmNewPassword.initialValue}
+                            placeholder="***************"
+                        />
+                        {fields.confirmNewPassword.errors && (
+                            <div className="error-message">{t2(fields.confirmNewPassword.errors[0])}</div>
+                        )}
+                    </div>
 
                     <button type="submit">{t('change-btn')}</button>
                 </form>

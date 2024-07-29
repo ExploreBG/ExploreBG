@@ -132,9 +132,13 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                             name={fields.startPoint.name}
                             placeholder={t('start-point-placeholder')}
                         />
-                        <div className="error-message">
-                            {fields.startPoint.errors && t(fields.startPoint.errors[0], { minLength: trailPlaceMinLength, maxLength: trailPlaceMaxLength })}
-                        </div>
+                        {fields.startPoint.errors && (
+                            <div className="error-message">
+                                {t(fields.startPoint.errors[0], {
+                                    minLength: trailPlaceMinLength, maxLength: trailPlaceMaxLength
+                                })}
+                            </div>
+                        )}
                     </div>
 
                     <div>
@@ -145,9 +149,13 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                             name={fields.endPoint.name}
                             placeholder={t('end-point-placeholder')}
                         />
-                        <div className="error-message">
-                            {fields.endPoint.errors && t(fields.endPoint.errors[0], { minLength: trailPlaceMinLength, maxLength: trailPlaceMaxLength })}
-                        </div>
+                        {fields.endPoint.errors && (
+                            <div className="error-message">
+                                {t(fields.endPoint.errors[0], {
+                                    minLength: trailPlaceMinLength, maxLength: trailPlaceMaxLength
+                                })}
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -160,7 +168,9 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                             name={fields.totalDistance.name}
                             placeholder="17.25"
                         />
-                        <div className="error-message">{fields.totalDistance.errors && t(fields.totalDistance.errors[0])}</div>
+                        {fields.totalDistance.errors && (
+                            <div className="error-message">{t(fields.totalDistance.errors[0])}</div>
+                        )}
                     </div>
 
                     <div>
@@ -171,7 +181,9 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                             name={fields.elevationGained.name}
                             placeholder="1867"
                         />
-                        <div className="error-message">{fields.elevationGained.errors && t(fields.elevationGained.errors[0])}</div>
+                        {fields.elevationGained.errors && (
+                            <div className="error-message">{t(fields.elevationGained.errors[0])}</div>
+                        )}
                     </div>
                 </div>
 
@@ -203,7 +215,7 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                                 </div>
                             )
                         ))}
-                        <div className="error-message">{activity.length === 0 && t('err-activity')}</div>
+                        {activity.length === 0 && <div className="error-message">{t('err-activity')}</div>}
                     </div>
                 </div>
 
@@ -255,31 +267,39 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                     </div>
                 </div>
 
-                <label htmlFor="nextTo">{t('next-to')}</label>
-                <input
-                    type="text"
-                    key={fields.nextTo.key}
-                    name={fields.nextTo.name}
-                    placeholder={t('next-to-placeholder')}
-                />
-                <div className="error-message">
-                    {fields.nextTo.errors && t(fields.nextTo.errors[0], {
-                        minLength: trailPlaceMinLength, maxLength: trailPlaceMaxLength
-                    })}
+                <div className="form-container__form__single">
+                    <label htmlFor="nextTo">{t('next-to')}</label>
+                    <input
+                        type="text"
+                        key={fields.nextTo.key}
+                        name={fields.nextTo.name}
+                        placeholder={t('next-to-placeholder')}
+                    />
+                    {fields.nextTo.errors && (
+                        <div className="error-message">
+                            {t(fields.nextTo.errors[0], {
+                                minLength: trailPlaceMinLength, maxLength: trailPlaceMaxLength
+                            })}
+                        </div>
+                    )}
                 </div>
 
-                <label htmlFor="trailInfo">
-                    {t('trail-info')} &nbsp;
-                    <CFormFieldInfo infoText={t('trail-info-info')} />
-                </label>
-                <textarea
-                    key={fields.trailInfo.key}
-                    name={fields.trailInfo.name}
-                    // cols={30} rows={10}
-                    placeholder="........."
-                />
-                <div className="error-message">
-                    {fields.trailInfo.errors && t(fields.trailInfo.errors[0], { maxLength: trailInfoMaxLength })}
+                <div className="form-container__form__single">
+                    <label htmlFor="trailInfo">
+                        {t('trail-info')} &nbsp;
+                        <CFormFieldInfo infoText={t('trail-info-info')} />
+                    </label>
+                    <textarea
+                        key={fields.trailInfo.key}
+                        name={fields.trailInfo.name}
+                        // cols={30} rows={10}
+                        placeholder="........."
+                    />
+                    {fields.trailInfo.errors && (
+                        <div className="error-message">
+                            {t(fields.trailInfo.errors[0], { maxLength: trailInfoMaxLength })}
+                        </div>
+                    )}
                 </div>
 
                 <p style={{ color: 'black' }}>* {t('photos-message')}</p>

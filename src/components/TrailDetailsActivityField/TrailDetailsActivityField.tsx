@@ -62,8 +62,6 @@ const TrailDetailsActivityField: React.FC<TrailDetailsActivityFieldProps> = ({
                 setIsVisible(false);
             } else if (res.message) {
                 toast.error(res.message);
-            } else if (res.errors) {
-                toast.error(res.errors[0]);
             }
         } catch (err) {
             console.error(err);

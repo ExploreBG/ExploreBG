@@ -28,17 +28,14 @@
             padding: 0.5rem;
         }
 
-        &>div,
-        &>input,
-        &>select,
-        &>textarea {
+        &>div {
             margin-bottom: 0.75rem;
         }
 
-        &>input,
+        &>div>input,
         &__pair>div input,
         &__pair>div>select,
-        &>textarea {
+        &>div>textarea {
             border: 1px solid black;
             color: black;
 

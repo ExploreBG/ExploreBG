@@ -42,6 +42,8 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gend
                     setTempGenderValue(res.data.gender);
                     toast.success(t('successful-update-gender'));
                     setIsVisible(!isVisible);
+                } else if (res.message) {
+                    toast.error(res.message);
                 } else if (res.errors) {
                     toast.error(t(res.errors[0]));
                 }

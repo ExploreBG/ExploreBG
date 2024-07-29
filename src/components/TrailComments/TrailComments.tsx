@@ -50,8 +50,6 @@ const TrailComments: React.FC<TrailCommentsProps> = ({
                 toast.success(t('del-comment-success'));
             } else if (res.message) {
                 toast.error(res.message);
-            } else if (res.errors) {
-                toast.error(t(res.errors[0]));
             }
         } catch (err) {
             console.error(err);

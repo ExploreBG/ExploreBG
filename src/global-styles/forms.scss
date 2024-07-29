@@ -18,15 +18,23 @@
         @include m.set-form();
 
         &>div {
-            display: flex;
-            justify-content: center;
+            position: relative;
 
             &>label {
-                color: c.$beige;
-                margin-right: 0.5rem;
+                margin-top: 0.5rem;
             }
 
             &>input {
+                width: 100%;
+            }
+        }
+
+        &>.remember-me {
+            @include m.flex(row, center, none);
+
+            &>input {
+                width: unset;
+                margin-left: 1rem;
                 cursor: pointer;
             }
         }
@@ -35,5 +43,10 @@
 
 .error-message {
     color: red;
-    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 1px black;
+    position: absolute;
+    z-index: 1;
+    min-width: 100%;
+    border-radius: 0.5rem;
+    padding: 0 0.15rem;
 }
