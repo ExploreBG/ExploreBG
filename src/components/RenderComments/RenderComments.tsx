@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
@@ -16,8 +18,8 @@ interface RenderCommentsProps {
     comments: IComment[]
     userId?: number
     token?: string
-    handleNewComment: (comment: IComment) => void
-    setCommentForDelete: (id: number) => void
+    handleNewComment?: (comment: IComment) => void
+    setCommentForDelete?: (id: number) => void
 }
 
 const RenderComments: React.FC<RenderCommentsProps> = ({
@@ -49,7 +51,7 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
         try {
             const res = await agent.apiTrails.updateTrailComment(commentId, token!, comment);
 
-            if (res.data) {
+            if (res.data && handleNewComment) {
                 handleNewComment(res.data);
 
                 setInputValue('');
@@ -109,7 +111,7 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
 
                             <CSubmitButton buttonName={t('send-btn')} />
                             <button type='button' onClick={() => setIsVisible(null)}>{t('cancel-btn')}</button>
-                            <ImBin onClick={() => setCommentForDelete(c.id)} />
+                            {setCommentForDelete && <ImBin onClick={() => setCommentForDelete(c.id)} />}
                         </form>
 
                         <div ref={commentsEndRef} />

@@ -21,6 +21,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
     const [isOpenNavbar, setIsOpenNavbar] = useState<boolean>(false);
     const [userSession, setUserSession] = useState<boolean>(false);
     const [userId, setUserId] = useState<string>('');
+    const [userRoles, setUserRoles] = useState<string[]>([]);
     const [userImage, setUserImage] = useState<string>('');
     const [isShownUserLinks, setIsShownUserLinks] = useState<boolean>(false);
     const router = useRouter();
@@ -35,6 +36,8 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                 setUserId(data.userData.userId);
                 // @ts-ignore
                 setUserImage(data.userData.userImage);
+                // @ts-ignore
+                setUserRoles(data.userData.roles);
             }
         }
         session();
@@ -66,7 +69,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                         {isShownUserLinks && (
                             <aside className="nav-wrapper__links__user__links">
                                 <ul>
-                                    <UserNavLinks id={userId} />
+                                    <UserNavLinks id={userId} userRoles={userRoles} />
                                     <li>
                                         {userSession && <button onClick={onLogoutClick}>{t('logout')}</button>}
                                     </li>
@@ -104,7 +107,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
 
                     <ul>
                         {userSession && (
-                            <UserNavLinks id={userId} />
+                            <UserNavLinks id={userId} userRoles={userRoles} />
                         )}
 
                         <NavigationLinks />

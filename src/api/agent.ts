@@ -1,9 +1,12 @@
 import { RequestInit } from 'next/dist/server/web/spec-extension/request';
+import { decodeJwt } from 'jose';
+
 import { setSession, getUserId } from '@/utils/userSession';
 
 import { ICreateTrail } from '@/components/CreateTrailForm/CreateTrailForm';
 
 interface IHeader { [key: string]: string }
+interface IDecodedToken { exp: number; iat: number; iss: string; roles: string[] }
 
 const baseUrl = process.env.NODE_ENV == 'production' ? `${process.env.API_URL}/api` : 'http://localhost:8080/api';
 
@@ -45,11 +48,16 @@ const request = async (url: string, method: string = 'GET', headers?: IHeader, s
         const userId = data.id;
 
         if (token && userId) {
-            setSession({ token, userId });
+            const decodedToken = decodeJwt<IDecodedToken>(token);
+            const roles = decodedToken.roles;
+
+            setSession({ token, userId, roles });
         } else if (token) {
             const id = await getUserId();
+            const decodedToken = decodeJwt<IDecodedToken>(token);
+            const roles = decodedToken.roles;
 
-            setSession({ token, userId: id });
+            setSession({ token, userId: id, roles });
         }
 
         return data;
@@ -114,10 +122,15 @@ const apiAccommodations = {
     getAccommodationById: (accommodationId: string) => request(`${baseUrl}/accommodations/${accommodationId}`)
 };
 
+const apiAdmin = {
+    getAllUsers: (query: string, token: string) => request(`${baseUrl}/super-users/users${query}`, 'GET', {}, token),
+};
+
 export const agent = {
     apiUsers,
     apiDestinations,
     apiTrails,
     apiHikes,
-    apiAccommodations
+    apiAccommodations,
+    apiAdmin
 };

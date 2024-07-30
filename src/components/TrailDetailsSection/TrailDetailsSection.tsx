@@ -55,7 +55,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
             }
         }
         getFormEnums();
-    }, []);
+    }, [token]);
 
     const season = trail.seasonVisited?.toLowerCase();
 

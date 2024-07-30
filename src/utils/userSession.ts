@@ -70,6 +70,18 @@ export const getToken = async () => {
     return res.userData.token;
 };
 
+export const getUserRoles = async () => {
+    const session = cookies().get('user-session')?.value;
+
+    if (!session) {
+        return null;
+    }
+
+    const res = await decrypt(session);
+    // @ts-ignore
+    return res.userData.roles;
+};
+
 export const clearSession = async () => {
     cookies().set('user-session', '', { expires: new Date(0) });
 };

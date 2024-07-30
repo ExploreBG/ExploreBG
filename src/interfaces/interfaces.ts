@@ -91,7 +91,16 @@ export interface IAccommodation extends IAccommodationCard {
 export interface IUserSession {
     token: string
     userId: number
+    roles: string[]
     userImage?: string
+}
+
+export interface IUser {
+    id: number
+    username: string
+    roles: string[]
+    imageUrl: string | null
+    creationDate: string
 }
 
 export interface IFormEnums {

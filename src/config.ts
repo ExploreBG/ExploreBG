@@ -71,6 +71,10 @@ export const pathnames = {
     '/user/[userId]/hikes': {
         en: '/user/[userId]/hikes',
         bg: '/potrebitel/[userId]/prehodi'
+    },
+    '/admin/users': {
+        en: '/admin/users',
+        bg: '/admin/potrebiteli'
     }
 } satisfies Pathnames<typeof locales>;
 
