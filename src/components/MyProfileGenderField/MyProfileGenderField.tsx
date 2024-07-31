@@ -66,7 +66,7 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gend
         <div>
             <p style={{ opacity: (isVisible ? '0' : '1') }}>
                 {genderValue == 'Male' && <FaMale /> || genderValue == 'Female' && <FaFemale />}
-                {t('gender')}: <strong>{genderValue ?? '.....'}</strong> &nbsp;
+                {t('gender')}:&nbsp; <strong>{genderValue ?? '.....'}</strong>
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
 

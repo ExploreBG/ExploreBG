@@ -13,6 +13,7 @@ import { infoSchema, userInfoMaxLength } from './infoSchema';
 import { getToken } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
+import CCommonModal from '../common/CCommonModal/CCommonModal';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileInfoFieldProps {
@@ -65,46 +66,45 @@ export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo
 
     return (
         <div>
-            <p
-                style={{ opacity: (isVisible ? '0' : '1') }}
-                className="info-text"
-            >
-                {infoValue ?? <><span>{t('my-info')}: </span><strong>.........</strong></>} &nbsp;
-                <FaEdit
-                    className="edit"
-                    onClick={() => setIsVisible(!isVisible)}
-                    style={{ cursor: (isVisible ? 'none' : 'pointer') }}
-                />
+            <p className="info-text">
+                {infoValue ?? <><span>{t('my-info')}: </span><strong>.........</strong></>}
+                <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
 
-            <form
-                id={form.id}
-                onSubmit={form.onSubmit}
-                action={action}
-                noValidate
-                style={{ display: (isVisible ? 'block' : 'none') }}
-                className="form-info"
-            >
-                <textarea
-                    key={fields.userInfo.key}
-                    name={fields.userInfo.name}
-                    defaultValue={infoValue ?? ''}
-                    // cols={30} rows={10}
-                    className='info-field'
-                    placeholder=' ........'
-                ></textarea>
+            {isVisible && (
+                <CCommonModal>
+                    <form
+                        id={form.id}
+                        onSubmit={form.onSubmit}
+                        action={action}
+                        noValidate
+                        className="textarea-form"
+                    >
+                        <textarea
+                            key={fields.userInfo.key}
+                            name={fields.userInfo.name}
+                            defaultValue={infoValue ?? ''}
+                            // cols={30} rows={10}
+                            className='info-field'
+                            placeholder=' ........'
+                        ></textarea>
 
-                <div>
-                    <CSubmitButton buttonName={t('change-btn')} />
-                    <button type='button' onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}</button>
-                </div>
+                        <div>
+                            <CSubmitButton buttonName={t('change-btn')} />
+                            <button
+                                type='button'
+                                onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}
+                            </button>
+                        </div>
+                    </form>
 
-                {fields.userInfo.errors && (
-                    <div className="error-message">
-                        {t(fields.userInfo.errors[0], { maxLength: userInfoMaxLength })}
-                    </div>
-                )}
-            </form>
+                    {fields.userInfo.errors && (
+                        <div className="error-message">
+                            {t(fields.userInfo.errors[0], { maxLength: userInfoMaxLength })}
+                        </div>
+                    )}
+                </CCommonModal>
+            )}
         </div>
     );
 };

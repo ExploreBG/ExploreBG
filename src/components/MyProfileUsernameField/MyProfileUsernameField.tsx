@@ -68,7 +68,7 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
     return (
         <div>
             <p style={{ opacity: (isVisible ? '0' : '1') }}>
-                <FaUserNinja />&nbsp;<strong>{username}</strong>&nbsp;
+                <FaUserNinja />&nbsp;<strong>{username}</strong>
                 <FaEdit 
                     className="edit" 
                     onClick={() => setIsVisible(!isVisible)}

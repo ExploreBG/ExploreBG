@@ -68,8 +68,8 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
     return (
         <div>
             <p style={{ opacity: (isVisible ? '0' : '1') }}>
-                <LiaBirthdayCakeSolid /> {t('birthday')}: 
-                <strong>{birthDateValue ? formatDate(birthDateValue) : '.....'}</strong> &nbsp;
+                <LiaBirthdayCakeSolid /> {t('birthday')}:&nbsp;&nbsp;
+                <strong>{birthDateValue ? formatDate(birthDateValue) : '.....'}</strong>
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
 

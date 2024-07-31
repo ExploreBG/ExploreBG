@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const userInfoMaxLength = 800;
+export const userInfoMaxLength = 1500;
 
 export const infoSchema = z.object({
     userInfo: z

@@ -3,37 +3,82 @@
 .pop-up-wrapper {
     @include gs.set-pop-up-modal();
 
-    &__modal>.children {
-        padding: 1.5rem;
-
-        @include gs.display(mobile) {
-            @include gs.flex(column, none, center);
-        }
-
-        &>p {
-            margin-bottom: 1.5rem;
-        }
-
-        [data-theme="dark"] &>p {
-            color: black;
-        }
-
-        &>button,
-        &>a {
-            @include gs.glow-on-hover-button();
-        }
-
-        &>button {
-            margin-right: 1rem;
+    &__modal {
+        &>.children {
+            padding: 1.5rem;
 
             @include gs.display(mobile) {
-                margin-right: unset;
-                margin-bottom: 1rem;
+                @include gs.flex(column, none, center);
             }
+
+            &>p {
+                margin-bottom: 1.5rem;
+            }
+
+            [data-theme="dark"] &>p {
+                color: black;
+            }
+
+            &>button,
+            &>a {
+                @include gs.glow-on-hover-button();
+            }
+
+            &>button {
+                margin-right: 1rem;
+
+                @include gs.display(mobile) {
+                    margin-right: unset;
+                    margin-bottom: 1rem;
+                }
+            }
+
+            &>a {
+                padding: 0.5rem 1rem;
+            }
+
         }
 
-        &>a {
-            padding: 0.5rem 1rem;
+        //    textarea pop-up
+        &>.textarea-form {
+            width: 60vw;
+            height: 60vh;
+            padding: 0.5rem;
+            @include gs.flex(column, center, center);
+            gap: 0.5rem;
+
+            @include gs.display(L-mobile) {
+                width: 85vw;
+            }
+
+            @include gs.display(mobile) {
+                height: 85vh;
+            }
+
+            @media (max-height: 35rem) and (orientation: landscape) {
+                width: 85vw;
+                height: 85vh;
+            }
+
+            &>textarea {
+                width: 100%;
+                height: 100%;
+                border-radius: 1.5rem;
+                background: rgb(73, 73, 73);
+                color: white;
+                text-shadow: 1px 1px 1px black;
+                padding: 0.5rem 1rem;
+                resize: none;
+                scrollbar-width: none;
+            }
+
+            &>div>button {
+                @include gs.glow-on-hover-button();
+
+                &:first-of-type {
+                    margin-right: 0.5rem;
+                }
+            }
         }
     }
 }
