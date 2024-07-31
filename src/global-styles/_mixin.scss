@@ -235,12 +235,13 @@
         }
 
         &__search {
-            position: relative;
-
-            &>div {
-                @include flex(none, none, center);
+            &>.suggestions {
 
                 &>input {
+                    width: 90%;
+                }
+
+                &>div>ul {
                     width: 90%;
                 }
             }

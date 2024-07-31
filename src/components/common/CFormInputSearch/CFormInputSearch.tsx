@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 
 import './CFormInputSearch.scss';
+import useCloseOnEscapeAndClickOutside from '@/hooks/useCloseOnEscapeAndClickOutside';
 
 interface ISuggestion {
     id: number
@@ -24,6 +25,7 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
     const [filteredSuggestions, setFilteredSuggestions] = useState<ISuggestion[]>([]);
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState<number>(-1);
     const [selectedValues, setSelectedValues] = useState<ISuggestion[]>(initialValues ?? []);
+    const suggestionsRef = useRef(null);
 
     const onSearch = (e: React.FormEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
@@ -82,6 +84,13 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
         onRemoveSelection(id);
     };
 
+    useCloseOnEscapeAndClickOutside(suggestionsRef, () => {
+        if (filteredSuggestions.length > 0) {
+            setFilteredSuggestions([]);
+            setSearch('');
+        }
+    });
+
     return (
         <div className="suggestions">
             <input
@@ -93,17 +102,19 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
                 placeholder={t('type-to-search')}
             />
             {filteredSuggestions.length > 0 && (
-                <ul className="suggestions__matches">
-                    {filteredSuggestions.map((suggestion, index) => (
-                        <li
-                            key={suggestion.id}
-                            onClick={() => onSuggestionClick(suggestion)}
-                            className={index === activeSuggestionIndex ? 'active' : ''}
-                        >
-                            {getSuggestionLabel(suggestion)}
-                        </li>
-                    ))}
-                </ul>
+                <div ref={suggestionsRef} className="suggestions__wrapper">
+                    <ul className="suggestions__wrapper__matches">
+                        {filteredSuggestions.map((suggestion, index) => (
+                            <li
+                                key={suggestion.id}
+                                onClick={() => onSuggestionClick(suggestion)}
+                                className={index === activeSuggestionIndex ? 'active' : ''}
+                            >
+                                {getSuggestionLabel(suggestion)}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             )}
             {selectedValues.map((value) => (
                 <p key={value.id} className="suggestions__selected">

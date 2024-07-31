@@ -1,28 +1,36 @@
 @use '@/global-styles/main' as gs;
 
 .suggestions {
-    @include gs.flex(column, none, none);
 
-    &__matches {
-        position: absolute;
-        left: 0;
-        z-index: 1;
-        background-color: white;
-        color: black;
-        border: 1px solid white;
-        border-radius: 0.5rem;
-        width: fit-content;
-        max-height: 10rem;
-        overflow-y: auto;
-        scrollbar-width: thin;
+    &>input {
+        width: 100%;
+    }
 
-        &>li {
-            padding: 0.5rem;
-            cursor: pointer;
+    &__wrapper {
+        position: relative;
 
-            &.active,
-            &:hover {
-                background-color: gs.$active-option-field;
+        &__matches {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            background-color: white;
+            color: black;
+            border: 1px solid white;
+            border-radius: 0.5rem;
+            width: 100%;
+            max-height: 10rem;
+            overflow-y: auto;
+            scrollbar-width: thin;
+
+            &>li {
+                padding: 0.5rem;
+                cursor: pointer;
+
+                &.active,
+                &:hover {
+                    background-color: gs.$active-option-field;
+                }
             }
         }
     }
