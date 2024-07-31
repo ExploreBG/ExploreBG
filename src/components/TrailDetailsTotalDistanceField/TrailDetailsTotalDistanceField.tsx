@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 
 import { updateTotalDistance } from './action';
 import { totalDistanceSchema } from './totalDistanceSchema';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -46,12 +46,13 @@ const TrailDetailsTotalDistanceField: React.FC<TrailDetailsTotalDistanceFieldPro
                 setIsVisible(false);
                 return;
             }
-            
-            const token = await getToken();
+
+            const session = await getSession();
+            const token = session?.token;
             const newData = { totalDistance: Number(inputData) };
 
             try {
-                const res = await agent.apiTrails.updateTotalDistance(trailId, token, newData);
+                const res = await agent.apiTrails.updateTotalDistance(trailId, token!, newData);
 
                 if (res.data) {
                     setTotalDistance(res.data.totalDistance);

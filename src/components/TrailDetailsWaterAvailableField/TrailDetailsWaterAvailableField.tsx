@@ -6,7 +6,7 @@ import { FaHandHoldingWater, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 import { IFormEnums } from '@/interfaces/interfaces';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -35,11 +35,12 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
             return;
         }
 
-        const token = await getToken();
+        const session = await getSession();
+        const token = session?.token;
         const newData = { waterAvailable: inputData };
 
         try {
-            const res = await agent.apiTrails.updateWaterAvailable(trailId, token, newData);
+            const res = await agent.apiTrails.updateWaterAvailable(trailId, token!, newData);
 
             if (res.data) {
                 setWaterAvailable(res.data.waterAvailable);

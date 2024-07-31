@@ -85,6 +85,7 @@
         "title": "Trail details",
         "comments": "comments",
         "add-comment": "Add comment here...",
+        "warn-login-to-comment": "Please login to add comment!",
         "err-comment-required": "Cannot send an empty message!",
         "err-comment-max-length": "Comment shouldn't exceed {maxLength} characters!",
         "del-comment-message": "this message",
@@ -188,6 +189,7 @@
     },
     "pop-up": {
         "require-auth-message": "Only logged in users can open this page!",
+        "require-role-message": "You haven't permission for this page!",
         "login-btn": "Login / Sign up",
         "del-question": "Are you sure you want to delete",
         "del-btn": "Yes, delete",

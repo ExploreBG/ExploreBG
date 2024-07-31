@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { updateEndPoint } from './action';
 import { endPointSchema } from './endPointSchema';
 import { trailPlaceMinLength, trailPlaceMaxLength } from '@/utils/validations';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -47,11 +47,12 @@ const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
                 return;
             }
 
-            const token = await getToken();
+            const session = await getSession();
+            const token = session?.token;
             const newData = { endPoint: inputData };
 
             try {
-                const res = await agent.apiTrails.updateEndPoint(trailId, token, newData);
+                const res = await agent.apiTrails.updateEndPoint(trailId, token!, newData);
 
                 if (res.data) {
                     setEndPoint(res.data.endPoint);

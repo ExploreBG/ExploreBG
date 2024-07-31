@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { updateTrailInfo } from './action';
 import { trailInfoSchema } from './trailInfoSchema';
 import { trailInfoMaxLength } from '@/utils/validations';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
@@ -48,11 +48,12 @@ const TrailDetailsInfoField: React.FC<TrailDetailsInfoFieldProps> = ({
                 return;
             }
 
-            const token = await getToken();
+            const session = await getSession();
+            const token = session?.token;
             const newData = { trailInfo: inputData };
 
             try {
-                const res = await agent.apiTrails.updateTrailInfo(trailId, token, newData);
+                const res = await agent.apiTrails.updateTrailInfo(trailId, token!, newData);
 
                 if (res.data) {
                     setTrailInfo(res.data.trailInfo);

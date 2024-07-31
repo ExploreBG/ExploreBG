@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 
 import { updateElevation } from './action';
 import { elevationSchema } from './elevationSchema';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -47,11 +47,12 @@ const TrailDetailsElevationField: React.FC<TrailDetailsElevationFieldProps> = ({
                 return;
             }
 
-            const token = await getToken();
+            const session = await getSession();
+            const token = session?.token;
             const newData = { elevationGained: Number(inputData) };
 
             try {
-                const res = await agent.apiTrails.updateElevationGained(trailId, token, newData);
+                const res = await agent.apiTrails.updateElevationGained(trailId, token!, newData);
 
                 if (res.data) {
                     setElevationGained(res.data.elevationGained);

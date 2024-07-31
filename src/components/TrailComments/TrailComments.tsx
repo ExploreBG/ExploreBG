@@ -13,9 +13,9 @@ import CConfirmationModal from '../common/CConfirmationModal/CConfirmationModal'
 
 interface TrailCommentsProps {
     initialComments: IComment[]
-    userId: number
+    userId?: number
     trailId: string
-    token: string
+    token?: string
 }
 
 const TrailComments: React.FC<TrailCommentsProps> = ({
@@ -31,7 +31,7 @@ const TrailComments: React.FC<TrailCommentsProps> = ({
         if (commentIndex !== -1) {
             const updatedComments = [...comments];
             updatedComments[commentIndex] = newComment;
-            
+
             setComments(updatedComments);
         } else {
             setComments([...comments, newComment]);
@@ -40,7 +40,7 @@ const TrailComments: React.FC<TrailCommentsProps> = ({
 
     const onConfirmClick = async () => {
         try {
-            const res = await agent.apiTrails.removeTrailComment(commentForDelete!, Number(trailId), token);
+            const res = await agent.apiTrails.removeTrailComment(commentForDelete!, Number(trailId), token!);
 
             if (res.data.deleted) {
                 const updatedComments = comments.filter(c => c.id !== commentForDelete);
@@ -70,14 +70,12 @@ const TrailComments: React.FC<TrailCommentsProps> = ({
                 />
             )}
 
-            {userId && (
-                <TrailCommentsForm
-                    userId={userId}
-                    trailId={trailId}
-                    token={token}
-                    handleNewComment={handleNewComment}
-                />
-            )}
+            <TrailCommentsForm
+                userId={userId}
+                trailId={trailId}
+                token={token}
+                handleNewComment={handleNewComment}
+            />
 
             {commentForDelete && (
                 <CConfirmationModal

@@ -62,20 +62,24 @@
                 }
 
                 &:last-of-type {
-                    &>p>svg {
-                        position: absolute;
-                        top: -1.5rem;
-                        right: -1.5rem;
-                        font-size: 1.5rem;
+                    &>p {
+                        width: 100%;
 
-                        @include gs.display(L-mobile) {
-                            top: -1.75rem;
-                            right: -0.5rem;
-                        }
-
-                        @include gs.display(mobile) {
-                            font-size: 1.15rem;
+                        &>svg {
+                            position: absolute;
                             top: -1.5rem;
+                            right: -1.5rem;
+                            font-size: 1.5rem;
+
+                            @include gs.display(L-mobile) {
+                                top: -1.75rem;
+                                right: -0.5rem;
+                            }
+
+                            @include gs.display(mobile) {
+                                font-size: 1.15rem;
+                                top: -1.5rem;
+                            }
                         }
                     }
                 }

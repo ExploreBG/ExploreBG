@@ -1,7 +1,7 @@
 import { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import { decodeJwt } from 'jose';
 
-import { setSession, getUserId } from '@/utils/userSession';
+import { setSession, getSession } from '@/utils/userSession';
 
 import { ICreateTrail } from '@/components/CreateTrailForm/CreateTrailForm';
 
@@ -49,15 +49,16 @@ const request = async (url: string, method: string = 'GET', headers?: IHeader, s
 
         if (token && userId) {
             const decodedToken = decodeJwt<IDecodedToken>(token);
-            const roles = decodedToken.roles;
+            const userRoles = decodedToken.roles;
 
-            setSession({ token, userId, roles });
+            setSession({ token, userId, userRoles });
         } else if (token) {
-            const id = await getUserId();
+            const session = await getSession();
+            const userId = session?.userId;
             const decodedToken = decodeJwt<IDecodedToken>(token);
-            const roles = decodedToken.roles;
+            const userRoles = decodedToken.roles;
 
-            setSession({ token, userId: id, roles });
+            userId && setSession({ token, userId, userRoles });
         }
 
         return data;

@@ -29,11 +29,10 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
 
     const res = await agent.apiTrails.getTrailById(trailId);
     const trail = res.data;
+    
     const session = await getSession();
-    // @ts-expect-error
-    const token = session?.userData.token;
-    // @ts-expect-error
-    const userId = session?.userData.userId;
+    const token = session?.token;
+    const userId = session?.userId;
 
     return (
         <Layout>

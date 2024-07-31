@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { updateStartPoint } from './action';
 import { startPointSchema } from './startPointSchema';
 import { trailPlaceMinLength, trailPlaceMaxLength } from '@/utils/validations';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -47,11 +47,12 @@ const TrailDetailsStartPointField: React.FC<TrailDetailsStartPointFieldProps> = 
                 return;
             }
 
-            const token = await getToken();
+            const session = await getSession();
+            const token = session?.token;
             const newData = { startPoint: inputData };
 
             try {
-                const res = await agent.apiTrails.updateStartPoint(trailId, token, newData);
+                const res = await agent.apiTrails.updateStartPoint(trailId, token!, newData);
 
                 if (res.data) {
                     setStartPoint(res.data.startPoint);

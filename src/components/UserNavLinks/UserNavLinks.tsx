@@ -4,15 +4,15 @@ import { useTranslations } from 'next-intl';
 import CLink from '../common/CLink/CLink';
 
 interface UserNavLinksProps {
-    id: string
+    id: number
     userRoles: string[]
 }
 
 const UserNavLinks: React.FC<UserNavLinksProps> = ({ id, userRoles }) => {
     const t = useTranslations('navigation');
 
-    const isAdmin = userRoles.includes('ADMIN');
-    
+    const isAdmin = userRoles?.includes('ADMIN');
+
     return (
         <>
             <li>

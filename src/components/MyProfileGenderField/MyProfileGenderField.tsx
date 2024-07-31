@@ -7,7 +7,7 @@ import { FaEdit, FaMale, FaFemale } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 import { agent } from '@/api/agent';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -32,10 +32,12 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gend
             }
 
             const newData = { gender: e.currentTarget.gender.value }
-            const token = await getToken();
+
+            const session = await getSession();
+            const token = session?.token;
 
             try {
-                const res = await agent.apiUsers.updateGender(userId, token, newData);
+                const res = await agent.apiUsers.updateGender(userId, token!, newData);
 
                 if (res.data) {
                     setGenderValue(res.data.gender);

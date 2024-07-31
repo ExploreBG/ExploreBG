@@ -7,7 +7,7 @@ import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
 import { IFormEnums } from '@/interfaces/interfaces';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -48,11 +48,12 @@ const TrailDetailsTrailDifficultyField: React.FC<TrailDetailsTrailDifficultyFiel
             return;
         }
 
-        const token = await getToken();
+        const session = await getSession();
+        const token = session?.token;
         const newData = { trailDifficulty: Number(inputData) };
 
         try {
-            const res = await agent.apiTrails.updateTrailDifficulty(trailId, token, newData);
+            const res = await agent.apiTrails.updateTrailDifficulty(trailId, token!, newData);
 
             if (res.data) {
                 setTrailDifficulty(res.data.trailDifficulty);

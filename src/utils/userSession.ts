@@ -5,10 +5,15 @@ import { cookies } from 'next/headers';
 
 import { IUserSession } from '@/interfaces/interfaces';
 
+interface SessionPayload extends JWTPayload {
+    userData: IUserSession;
+    expires: Date;
+}
+
 const key = new TextEncoder().encode(process.env.USER_SESSION_SECRET_KEY);
 const expireTime = Date.now() + 3 * 24 * 60 * 60 * 1000;
 
-const encrypt = async (payload: JWTPayload) => {
+const encrypt = async (payload: SessionPayload) => {
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: 'HS256' })
         .setIssuedAt()
@@ -16,11 +21,11 @@ const encrypt = async (payload: JWTPayload) => {
         .sign(key);
 };
 
-const decrypt = async (input: string) => {
+const decrypt = async (input: string): Promise<SessionPayload> => {
     const { payload } = await jwtVerify(input, key, {
         algorithms: ['HS256']
     });
-    return payload;
+    return payload as SessionPayload;
 };
 
 export const setSession = async (userData: IUserSession) => {
@@ -36,17 +41,7 @@ export const setSession = async (userData: IUserSession) => {
     });
 };
 
-export const getSession = async () => {
-    const session = cookies().get('user-session')?.value;
-
-    if (!session) {
-        return null;
-    }
-
-    return await decrypt(session);
-};
-
-export const getUserId = async () => {
+export const getSession = async (): Promise<IUserSession | null> => {
     const session = cookies().get('user-session')?.value;
 
     if (!session) {
@@ -54,32 +49,8 @@ export const getUserId = async () => {
     }
 
     const res = await decrypt(session);
-    // @ts-ignore
-    return res.userData.userId;
-};
 
-export const getToken = async () => {
-    const session = cookies().get('user-session')?.value;
-
-    if (!session) {
-        return null;
-    }
-
-    const res = await decrypt(session);
-    // @ts-ignore
-    return res.userData.token;
-};
-
-export const getUserRoles = async () => {
-    const session = cookies().get('user-session')?.value;
-
-    if (!session) {
-        return null;
-    }
-
-    const res = await decrypt(session);
-    // @ts-ignore
-    return res.userData.roles;
+    return res?.userData;
 };
 
 export const clearSession = async () => {

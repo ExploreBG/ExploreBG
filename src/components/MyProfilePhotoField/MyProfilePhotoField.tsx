@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 
 import { agent } from '@/api/agent';
-import { getToken, setSession } from '@/utils/userSession';
+import { getSession, setSession } from '@/utils/userSession';
 
 import './myProfilePhotoField.scss';
 
@@ -31,15 +31,17 @@ export const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ initia
             formData.append('data', JSON.stringify(data));
             formData.append('file', file);
 
-            const token = await getToken();
+            const session = await getSession();
+            const token = session?.token;
+            const userRoles = session?.userRoles ?? [];
             const isUpload = true;
 
             try {
-                const res = await agent.apiUsers.updateUserPhoto(userId, token, formData, isUpload);
+                const res = await agent.apiUsers.updateUserPhoto(userId, token!, formData, isUpload);
 
-                if (res.url) {
+                if (res.url && token) {
                     setUserImage(res.url);
-                    await setSession({ token, userId: Number(userId), userImage: res.url })
+                    await setSession({ token, userId: Number(userId), userRoles, userImage: res.url });
                     toast.success(t('successful-update-photo'));
                 } else if (res.message) {
                     toast.error(res.message);

@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 import { changeUserInfo } from './action';
 import { infoSchema, userInfoMaxLength } from './infoSchema';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CCommonModal from '../common/CCommonModal/CCommonModal';
@@ -43,11 +43,12 @@ export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo
                 return;
             }
 
-            const token = await getToken();
+            const session = await getSession();
+            const token = session?.token;
             const newData = { userInfo: inputData };
 
             try {
-                const res = await agent.apiUsers.updateUserInfo(userId, token, newData);
+                const res = await agent.apiUsers.updateUserInfo(userId, token!, newData);
 
                 if (res.data) {
                     setInfoValue(res.data.userInfo);

@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { changeUsername } from './action';
 import { usernameSchema } from './usernameSchema';
 import { usernameMinLength, usernameMaxLength } from '@/utils/validations';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -44,11 +44,12 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
                 return;
             }
 
-            const token = await getToken();
+            const session = await getSession();
+            const token = session?.token;
             const newUsername = { username: inputData };
 
             try {
-                const res = await agent.apiUsers.updateUsername(userId, token, newUsername);
+                const res = await agent.apiUsers.updateUsername(userId, token!, newUsername);
 
                 if (res.data) {
                     setUsername(res.data.username);
@@ -69,8 +70,8 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
         <div>
             <p style={{ opacity: (isVisible ? '0' : '1') }}>
                 <FaUserNinja />&nbsp;<strong>{username}</strong>
-                <FaEdit 
-                    className="edit" 
+                <FaEdit
+                    className="edit"
                     onClick={() => setIsVisible(!isVisible)}
                     style={{ cursor: (isVisible ? 'none' : 'pointer') }}
                 />

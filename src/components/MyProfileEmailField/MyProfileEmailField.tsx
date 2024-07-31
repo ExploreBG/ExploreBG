@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 
 import { changeEmail } from './action';
 import { emailSchema } from './emailSchema';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -43,10 +43,11 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initia
                 return;
             }
 
-            const token = await getToken();
+            const session = await getSession();
+            const token = session?.token;
             const newEmail = { email: inputData };
 
-            const res = await agent.apiUsers.updateEmail(userId, token, newEmail);
+            const res = await agent.apiUsers.updateEmail(userId, token!, newEmail);
 
             if (res.data) {
                 setEmail(res.data.email);
@@ -64,8 +65,8 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initia
         <div>
             <p style={{ opacity: (isVisible ? '0' : '1') }}>
                 <HiOutlineMail /> <strong>{email}</strong>
-                <FaEdit 
-                    className="edit" 
+                <FaEdit
+                    className="edit"
                     onClick={() => setIsVisible(!isVisible)}
                     style={{ cursor: (isVisible ? 'none' : 'pointer') }}
                 />

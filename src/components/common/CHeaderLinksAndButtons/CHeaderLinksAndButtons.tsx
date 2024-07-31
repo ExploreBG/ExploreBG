@@ -8,6 +8,7 @@ import { FaBarsStaggered } from 'react-icons/fa6';
 import { MdClose } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
+import { IUserSession } from '@/interfaces/interfaces';
 import { getSession, clearSession } from '@/utils/userSession';
 
 import './CHeaderLinksAndButtons.scss';
@@ -19,10 +20,7 @@ interface CHeaderLinksAndButtonsProps { }
 const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
     const t = useTranslations('navigation');
     const [isOpenNavbar, setIsOpenNavbar] = useState<boolean>(false);
-    const [userSession, setUserSession] = useState<boolean>(false);
-    const [userId, setUserId] = useState<string>('');
-    const [userRoles, setUserRoles] = useState<string[]>([]);
-    const [userImage, setUserImage] = useState<string>('');
+    const [userSession, setUserSession] = useState<IUserSession | null>(null);
     const [isShownUserLinks, setIsShownUserLinks] = useState<boolean>(false);
     const router = useRouter();
 
@@ -31,13 +29,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
             const data = await getSession();
 
             if (data) {
-                setUserSession(Boolean(data));
-                // @ts-ignore
-                setUserId(data.userData.userId);
-                // @ts-ignore
-                setUserImage(data.userData.userImage);
-                // @ts-ignore
-                setUserRoles(data.userData.roles);
+                setUserSession(data);
             }
         }
         session();
@@ -49,7 +41,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
         toast.success(t('successful-logout'));
         router.push('/');
         setIsShownUserLinks(false);
-        setUserSession(false);
+        setUserSession(null);
     };
 
     return (
@@ -59,7 +51,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                     <section className="nav-wrapper__links__user">
                         <figure onClick={() => setIsShownUserLinks(state => !state)}>
                             <Image
-                                src={userImage ?? '/images/user-profile-pic.png'}
+                                src={userSession.userImage ?? '/images/user-profile-pic.png'}
                                 width={50} height={50} loading="eager"
                                 alt="User profile picture"
                                 priority={true}
@@ -69,7 +61,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                         {isShownUserLinks && (
                             <aside className="nav-wrapper__links__user__links">
                                 <ul>
-                                    <UserNavLinks id={userId} userRoles={userRoles} />
+                                    <UserNavLinks id={userSession.userId} userRoles={userSession.userRoles} />
                                     <li>
                                         {userSession && <button onClick={onLogoutClick}>{t('logout')}</button>}
                                     </li>
@@ -107,7 +99,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
 
                     <ul>
                         {userSession && (
-                            <UserNavLinks id={userId} userRoles={userRoles} />
+                            <UserNavLinks id={userSession.userId} userRoles={userSession.userRoles} />
                         )}
 
                         <NavigationLinks />

@@ -8,7 +8,7 @@ import { TbRun } from 'react-icons/tb';
 import { toast } from 'react-toastify';
 
 import { IFormEnums } from '@/interfaces/interfaces';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 interface TrailDetailsActivityFieldProps {
@@ -50,11 +50,12 @@ const TrailDetailsActivityField: React.FC<TrailDetailsActivityFieldProps> = ({
             return;
         }
 
-        const token = await getToken();
+        const session = await getSession();
+        const token = session?.token;
         const newData = { activity };
 
         try {
-            const res = await agent.apiTrails.updateActivity(trailId, token, newData);
+            const res = await agent.apiTrails.updateActivity(trailId, token!, newData);
 
             if (res.data) {
                 setActivity(res.data.activity);

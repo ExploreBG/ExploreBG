@@ -25,7 +25,7 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
     const [filteredSuggestions, setFilteredSuggestions] = useState<ISuggestion[]>([]);
     const [activeSuggestionIndex, setActiveSuggestionIndex] = useState<number>(-1);
     const [selectedValues, setSelectedValues] = useState<ISuggestion[]>(initialValues ?? []);
-    const suggestionsRef = useRef(null);
+    const suggestionsRef = useRef<HTMLDivElement>(null);
 
     const onSearch = (e: React.FormEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;

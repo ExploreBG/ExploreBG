@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import { formatDate } from '@/utils/utils';
 import { changeBirthDate } from './action';
 import { birthDateSchema } from './birthDateSchema';
-import { getToken } from '@/utils/userSession';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -44,11 +44,12 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
                 return;
             }
 
-            const token = await getToken();
+            const session = await getSession();
+            const token = session?.token;
             const newData = { birthdate: inputData };
 
             try {
-                const res = await agent.apiUsers.updateBirthDate(userId, token, newData);
+                const res = await agent.apiUsers.updateBirthDate(userId, token!, newData);
 
                 if (res.data) {
                     setBirthDateValue(res.data.birthDate);
