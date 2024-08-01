@@ -16,6 +16,7 @@ import { agent } from '@/api/agent';
 import { trailPlaceMinLength, trailPlaceMaxLength, trailInfoMaxLength } from '@/utils/validations';
 
 import CCommonModal, { requireAuthChildren } from '../common/CCommonModal/CCommonModal';
+import CCustomSelect from '../common/CCustomSelect/CCustomSelect';
 import CFormFieldInfo from '../common/CFormFieldInfo/CFormFieldInfo';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -31,11 +32,11 @@ export interface ICreateTrail {
 }
 
 interface CreateTrailFormProps {
-    token: string
+    token?: string
     formEnums: IFormEnums
     availableAccommodations: IHut[]
     availableDestinations: IPlace[]
-    userId: number
+    userId?: number
 }
 
 export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
@@ -44,7 +45,10 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
     const t = useTranslations('trail-create');
     const tPopUp = useTranslations('pop-up');
     const router = useRouter();
+    const [seasonVisited, setSeasonVisited] = useState<string>('spring');
     const [activity, setActivity] = useState<string[]>(['hiking']);
+    const [waterAvailable, setWaterAvailable] = useState<string>('no-information');
+    const [trailDifficulty, setTrailDifficulty] = useState<number>(1);
     const [availableHuts, setAvailableHuts] = useState<{ id: number }[]>([]);
     const [destinations, setDestinations] = useState<{ id: number }[]>([]);
     const [lastResult, action] = useFormState(createTrail, undefined);
@@ -66,20 +70,21 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
 
             const totalDistance = formData?.totalDistance && Number(formData?.totalDistance);
             const elevationGained = formData?.elevationGained && Number(formData?.elevationGained);
-            const trailDifficulty = Number(formData?.trailDifficulty);
 
             const data = {
                 ...formData,
                 totalDistance,
                 trailDifficulty,
                 elevationGained,
+                seasonVisited,
                 activity,
+                waterAvailable,
                 availableHuts,
                 destinations
             }
 
             try {
-                const res = await agent.apiTrails.createTrail(userId, token, data);
+                const res = await agent.apiTrails.createTrail(userId!, token!, data);
 
                 if (res.data) {
                     toast.success(t('successful-create'));
@@ -190,18 +195,15 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                 <div className="form-container__form__pair">
                     <div>
                         <label htmlFor="seasonVisited">{t('visited-in')}</label>
-                        <select
-                            key={fields.seasonVisited.key}
-                            name={fields.seasonVisited.name}
-                        >
-                            {formEnums && formEnums.seasonVisited.map(s => (
-                                <option key={s} value={s}>{t(s)}</option>
-                            ))}
-                        </select>
+                        <CCustomSelect
+                            options={formEnums.seasonVisited}
+                            translateKey='trail-create'
+                            onChange={(value) => setSeasonVisited(String(value))}
+                        />
                     </div>
 
                     <div className="form-container__form__pair__checkbox">
-                        <p>{t('suitable-for')}</p>
+                        <p>{t('suitable-for')} :</p>
                         {formEnums && formEnums.activity.map((a) => (
                             typeof a === 'string' && (
                                 <div key={a}>
@@ -222,26 +224,20 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                 <div className="form-container__form__pair">
                     <div>
                         <label htmlFor="waterAvailable">{t('water-sources')}</label>
-                        <select
-                            key={fields.waterAvailable.key}
-                            name={fields.waterAvailable.name}
-                        >
-                            {formEnums && formEnums.waterAvailable.map(v => (
-                                <option key={v} value={v}>{t(v)}</option>
-                            ))}
-                        </select>
+                        <CCustomSelect
+                            options={formEnums.waterAvailable}
+                            translateKey='trail-create'
+                            onChange={(value) => setWaterAvailable(String(value))}
+                        />
                     </div>
 
                     <div>
                         <label htmlFor="trailDifficulty">{t('trail-difficulty')}</label>
-                        <select
-                            key={fields.trailDifficulty.key}
-                            name={fields.trailDifficulty.name}
-                        >
-                            {formEnums && formEnums.trailDifficulty.map(v => (
-                                <option key={v} value={v}>{v}</option>
-                            ))}
-                        </select>
+                        <CCustomSelect
+                            options={formEnums.trailDifficulty}
+                            translateKey='trail-create'
+                            onChange={(value) => setTrailDifficulty(Number(value))}
+                        />
                     </div>
                 </div>
 

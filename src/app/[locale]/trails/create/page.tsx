@@ -19,14 +19,12 @@ const CreateTrail: React.FC<CreateTrailProps> = async ({ params: { locale } }) =
     const t = await getTranslations('trail-create');
 
     const session = await getSession();
-    // @ts-expect-error
-    const token = session?.userData.token;
-    // @ts-expect-error
-    const userId = session?.userData.userId;
+    const token = session?.token;
+    const userId = session?.userId;
 
     const formEnums = await agent.apiTrails.getFormEnums();
-    const availableAccommodations = await agent.apiTrails.getAvailableAccommodations(token);
-    const availableDestinations = await agent.apiTrails.getAvailableDestinations(token);
+    const availableAccommodations = token ? await agent.apiTrails.getAvailableAccommodations(token) : [];
+    const availableDestinations = token ? await agent.apiTrails.getAvailableDestinations(token) : [];
 
     return (
         <main className="form-container">

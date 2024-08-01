@@ -1,0 +1,68 @@
+@use '@/global-styles/main' as gs;
+
+.custom-select {
+    @include gs.flex(column, none, center);
+    user-select: none;
+
+    &__field {
+        @include gs.flex(none, space-between, center);
+        border: 1px solid black;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        width: 60%;
+        color: rgb(87, 87, 87);
+        cursor: pointer;
+
+        &>span {
+            margin-left: auto;
+        }
+
+        &>svg {
+            margin-left: auto;
+            transition: all 0.7s ease;
+        }
+
+        &>.rotate {
+            transform: rotate(180deg);
+        }
+    }
+
+    &>.open {
+        box-shadow: 0 0 0.25rem white;
+    }
+
+    &__dropdown {
+        position: relative;
+        width: 60%;
+
+        &__options {
+            position: absolute;
+            width: 100%;
+            background: white;
+            border: 1px solid #bfbfbf;
+            border-radius: 0.5rem;
+            z-index: 2;
+            max-height: 12.5rem;
+            overflow-y: auto;
+            scrollbar-width: thin;
+
+            &__option {
+                padding: 0.25rem;
+                cursor: pointer;
+
+                &:hover {
+                    background: #f0f0f0;
+                }
+            }
+
+            &>.active {
+                background: #f0f0f0;
+            }
+
+            &>.selected {
+                background: #007bff;
+                color: white;
+            }
+        }
+    }
+}

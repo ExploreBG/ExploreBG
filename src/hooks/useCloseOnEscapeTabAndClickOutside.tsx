@@ -2,7 +2,7 @@ import { useEffect, RefObject } from "react";
 
 type OnCloseType = (event: MouseEvent | KeyboardEvent) => void;
 
-const useCloseOnEscapeAndClickOutside = (ref: RefObject<HTMLElement>, onClose: OnCloseType) => {
+const useCloseOnEscapeTabAndClickOutside = (ref: RefObject<HTMLElement>, onClose: OnCloseType) => {
 
     useEffect(() => {
         const handleOutsideClick = (event: MouseEvent) => {
@@ -11,20 +11,20 @@ const useCloseOnEscapeAndClickOutside = (ref: RefObject<HTMLElement>, onClose: O
             }
         };
 
-        const handleEscapeKey = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
+        const handleEscapeAndTabKey = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' || event.key === 'Tab') {
                 onClose(event);
             }
         };
 
         document.addEventListener('mousedown', handleOutsideClick);
-        document.addEventListener('keydown', handleEscapeKey);
+        document.addEventListener('keydown', handleEscapeAndTabKey);
 
         return () => {
             document.removeEventListener('mousedown', handleOutsideClick);
-            document.removeEventListener('keydown', handleEscapeKey);
+            document.removeEventListener('keydown', handleEscapeAndTabKey);
         };
     }, [ref, onClose]);
 };
 
-export default useCloseOnEscapeAndClickOutside;
+export default useCloseOnEscapeTabAndClickOutside;

@@ -37,7 +37,7 @@ const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchPar
     return (
         <>
             {!isAdmin && (
-                <CCommonModal>{requireAuthChildren(translatePopUp)}</CCommonModal>
+                <CCommonModal>{requireAuthChildren(translatePopUp, token)}</CCommonModal>
             )}
 
             {isAdmin && (

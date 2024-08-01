@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 
 import './CFormInputSearch.scss';
-import useCloseOnEscapeAndClickOutside from '@/hooks/useCloseOnEscapeAndClickOutside';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 interface ISuggestion {
     id: number
@@ -84,7 +84,7 @@ export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
         onRemoveSelection(id);
     };
 
-    useCloseOnEscapeAndClickOutside(suggestionsRef, () => {
+    useCloseOnEscapeTabAndClickOutside(suggestionsRef, () => {
         if (filteredSuggestions.length > 0) {
             setFilteredSuggestions([]);
             setSearch('');
