@@ -1,3 +1,5 @@
+@use '@/global-styles/main' as gs;
+
 .form-field-info {
     font-size: 1.15rem;
     cursor: pointer;
@@ -11,16 +13,20 @@
         left: 2rem;
         font-size: 1rem;
         width: 20rem;
-        border: 2px solid greenyellow;
-        background-color: rgba(255, 255, 255, 0.8);
+        border: 2px solid gs.$menu-border;
+        background-color: gs.$menu-background;
         backdrop-filter: blur(0.25rem);
         color: black;
         padding: 0.5rem;
         border-radius: 0.5rem;
 
-        @media (max-width: 34.375rem) {
-            top: -10.5rem;
-            left: -6rem;
+        @include gs.display(tablet) {
+            top: -18rem;
+            left: -15.25rem;
+        }
+
+        @include gs.display(mobile) {
+            width: 18rem;
         }
     }
 

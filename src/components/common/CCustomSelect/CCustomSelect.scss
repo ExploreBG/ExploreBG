@@ -10,7 +10,7 @@
         border-radius: 0.25rem;
         font-size: 1rem;
         width: 60%;
-        color: rgb(87, 87, 87);
+        color: black;
         cursor: pointer;
 
         &>span {
@@ -39,6 +39,7 @@
             position: absolute;
             width: 100%;
             background: white;
+            color: black;
             border: 1px solid #bfbfbf;
             border-radius: 0.5rem;
             z-index: 2;
@@ -51,17 +52,17 @@
                 cursor: pointer;
 
                 &:hover {
-                    background: #f0f0f0;
+                    background: gs.$active-option-field;
                 }
             }
 
             &>.active {
-                background: #f0f0f0;
+                background: gs.$active-option-field;
+                color: black;
             }
 
             &>.selected {
-                background: #007bff;
-                color: white;
+                background: gs.$selected-option-field;
             }
         }
     }

@@ -168,14 +168,7 @@
 
     &>.img-info-icon {
         bottom: 0.5rem;
-        color: black;
         backdrop-filter: unset;
-
-        &:hover .info,
-        &>.active {
-            top: 0;
-            right: -14rem;
-        }
     }
 }
 
@@ -193,13 +186,6 @@
     &>.img-info-icon {
         bottom: 0.5rem;
         backdrop-filter: unset;
-
-        &:hover .info,
-        &>.active {
-            top: 0;
-            right: -14rem;
-            color: gs.$middle-primary;
-        }
     }
 }
 

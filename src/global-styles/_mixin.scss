@@ -1,4 +1,5 @@
 @use './colors' as c;
+@use './breakpoints' as b;
 
 @mixin flex($direction, $content, $items) {
     display: flex;
@@ -200,6 +201,11 @@
     &__pair {
         display: flex;
         justify-content: space-evenly;
+        gap: 0.25rem;
+
+        @include b.display(mobile) {
+            flex-direction: column;
+        }
 
         &>div {
             width: 100%;
@@ -207,6 +213,10 @@
 
             &>input {
                 width: 90%;
+
+                @include b.display(mobile) {
+                    width: 100%;
+                }
             }
 
             &>select {
@@ -232,6 +242,10 @@
                     cursor: pointer;
                 }
             }
+
+            &>.error-message {
+                justify-content: center;
+            }
         }
 
         &__search {
@@ -239,17 +253,26 @@
 
                 &>input {
                     width: 90%;
+
+                    @include b.display(mobile) {
+                        width: 100%;
+                    }
                 }
 
                 &>div>ul {
                     width: 90%;
+
+                    @include b.display(mobile) {
+                        width: 100%;
+                    }
                 }
             }
         }
     }
 
     & .error-message {
-        background-color: rgb(73, 73, 73);
+        background-color: rgba(105, 105, 105, 0.7);
+        backdrop-filter: blur(1rem);
     }
 
     &__single {
@@ -263,6 +286,8 @@
         &>textarea {
             width: 100%;
             height: 25vh;
+            resize: none;
+            scrollbar-width: thin;
         }
     }
 

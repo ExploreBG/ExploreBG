@@ -17,7 +17,7 @@ interface CFormInputSearchProps {
     initialValues?: ISuggestion[]
 }
 
-export const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
+const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
     suggestions, onAddSelection, onRemoveSelection, getSuggestionLabel, initialValues
 }) => {
     const t = useTranslations('common');

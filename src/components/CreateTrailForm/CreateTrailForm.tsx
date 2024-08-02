@@ -39,7 +39,7 @@ interface CreateTrailFormProps {
     userId?: number
 }
 
-export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
+const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
     token, formEnums, availableAccommodations, availableDestinations, userId
 }) => {
     const t = useTranslations('trail-create');
@@ -222,7 +222,7 @@ export const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                 </div>
 
                 <div className="form-container__form__pair">
-                    <div>
+                    <div className="water-available">
                         <label htmlFor="waterAvailable">{t('water-sources')}</label>
                         <CCustomSelect
                             options={formEnums.waterAvailable}

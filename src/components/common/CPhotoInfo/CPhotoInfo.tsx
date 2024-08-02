@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { GiPhotoCamera } from 'react-icons/gi';
+
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import './CPhotoInfo.scss';
 
@@ -9,15 +11,22 @@ interface CPhotoInfoProps {
     imgInfo: string
 }
 
-export const CPhotoInfo: React.FC<CPhotoInfoProps> = ({ imgInfo }) => {
+const CPhotoInfo: React.FC<CPhotoInfoProps> = ({ imgInfo }) => {
     const [isShowImgInfo, setIsShowImgInfo] = useState<boolean>(false);
+    const photoInfoRef = useRef(null);
+
+    useCloseOnEscapeTabAndClickOutside(photoInfoRef, () => setIsShowImgInfo(false));
 
     return (
-        <figure onClick={() => setIsShowImgInfo(!isShowImgInfo)} className="img-info-icon">
+        <figure
+            ref={photoInfoRef}
+            onClick={() => setIsShowImgInfo(!isShowImgInfo)}
+            className="img-info-icon"
+        >
             <figcaption
                 className={`info ${isShowImgInfo ? 'active' : ''}`}
             >
-                {imgInfo}
+                <span>{imgInfo}</span>
             </figcaption>
             <GiPhotoCamera />
         </figure>

@@ -5,7 +5,7 @@ import './CSmallFooter.scss';
 
 interface CSmallFooterProps { }
 
-export const CSmallFooter: React.FC<CSmallFooterProps> = () => {
+const CSmallFooter: React.FC<CSmallFooterProps> = () => {
     return (
         <footer className="small-footer">
             <FaRegCopyright /> {new Date().getFullYear()} Explore BG

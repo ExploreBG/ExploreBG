@@ -3,12 +3,25 @@
 .form-container {
     position: relative;
     padding: 5rem 0;
-    background-image: url('/images/pirin.avif');
+    background-image: url('/images/vitosha-create-trail-backgr.jpg');
+    background-attachment: fixed;
     background-size: cover;
     background-position: center;
 
+    @include gs.display(tablet) {
+        background-image: url('/images/vitosha-create-trail-backgr-org.avif');
+    }
+
+    @media (max-height: 35rem) and (orientation: landscape) {
+        background-image: url('/images/vitosha-create-trail-backgr.jpg');
+    }
+
     &>h1 {
         margin-bottom: 3rem;
+
+        @include gs.display(L-mobile) {
+            margin-top: 1.5rem;
+        }
     }
 
     [data-theme="dark"] &>h1 {
@@ -23,8 +36,18 @@
         padding: 2rem;
         border-radius: 1.5rem;
         box-shadow: 0 0 4px aquamarine;
+        margin-bottom: 3rem;
 
-        @include gs.display(mobile) {
+        @include gs.display(L-display) {
+            width: 60vw;
+        }
+
+        @include gs.display(tablet) {
+            width: 80vw;
+        }
+
+        @include gs.display(L-mobile) {
+            width: 90vw;
             padding: 0.5rem;
         }
 
@@ -45,7 +68,27 @@
         }
     }
 
-    &>.img-info-icon>.info {
-        right: -12rem;
+    & .water-available {
+        & .custom-select__field {
+            @include gs.display(L-mobile) {
+                width: 90%;
+            }
+
+            @include gs.display(mobile) {
+                width: 60%;
+            }
+        }
+    }
+
+    &>.img-info-icon {
+
+        &:hover .info,
+        &>.active {
+            color: white;
+        }
+    }
+
+    &>.small-footer {
+        color: white;
     }
 }

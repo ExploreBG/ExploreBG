@@ -16,10 +16,10 @@
             z-index: 2;
             background-color: white;
             color: black;
-            border: 1px solid white;
+            border: 1px solid #bfbfbf;
             border-radius: 0.5rem;
             width: 100%;
-            max-height: 10rem;
+            max-height: 12.5rem;
             overflow-y: auto;
             scrollbar-width: thin;
 
@@ -30,6 +30,7 @@
                 &.active,
                 &:hover {
                     background-color: gs.$active-option-field;
+                    color: black !important;
                 }
             }
         }

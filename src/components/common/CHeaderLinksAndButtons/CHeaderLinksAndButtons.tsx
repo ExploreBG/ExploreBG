@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link, useRouter } from '@/navigation';
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 
 import { IUserSession } from '@/interfaces/interfaces';
 import { getSession, clearSession } from '@/utils/userSession';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import './CHeaderLinksAndButtons.scss';
 import NavigationLinks from '@/components/NavigationLinks/NavigationLinks';
@@ -23,6 +24,8 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
     const [userSession, setUserSession] = useState<IUserSession | null>(null);
     const [isShownUserLinks, setIsShownUserLinks] = useState<boolean>(false);
     const router = useRouter();
+    const userNavLinksRef = useRef<HTMLElement>(null);
+    const navBarRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         async function session() {
@@ -44,6 +47,9 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
         setUserSession(null);
     };
 
+    useCloseOnEscapeTabAndClickOutside(userNavLinksRef, () => setIsShownUserLinks(false));
+    useCloseOnEscapeTabAndClickOutside(navBarRef, () => setIsOpenNavbar(false));
+
     return (
         <div className="nav-wrapper">
             <nav className="nav-wrapper__links" aria-label="primary-navigation">
@@ -59,7 +65,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                         </figure>
 
                         {isShownUserLinks && (
-                            <aside className="nav-wrapper__links__user__links">
+                            <aside ref={userNavLinksRef} className="nav-wrapper__links__user__links">
                                 <ul>
                                     <UserNavLinks id={userSession.userId} userRoles={userSession.userRoles} />
                                     <li>
@@ -85,7 +91,11 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
             </div>
 
             {isOpenNavbar && (
-                <nav className="nav-wrapper__mobile-links" aria-label="small-screen-navigation">
+                <nav
+                    ref={navBarRef}
+                    className="nav-wrapper__mobile-links"
+                    aria-label="small-screen-navigation"
+                >
                     {userSession && (
                         <figure>
                             <Image

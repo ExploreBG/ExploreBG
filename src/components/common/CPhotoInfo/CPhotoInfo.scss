@@ -11,13 +11,23 @@
 
     &:hover .info,
     &>.active {
-        display: block;
+        @include gs.flex(column, flex-end, none);
         position: absolute;
-        top: -1em;
-        right: -15rem;
-        font-size: 1.25rem;
-        backdrop-filter: blur(0.15rem);
-        color: black;
+        top: -10rem;
+        width: 18rem;
+        height: 9.5rem;
+
+        &>span {
+            font-size: 1.25rem;
+            border: 1px solid gs.$middle-primary;
+            padding: 0.25rem 1rem;
+            border-radius: 0.5rem;
+            background: rgb(0, 0, 0);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 1) 16%, rgba(74, 32, 93, 1) 55%, rgba(138, 59, 173, 1) 82%, rgba(177, 76, 222, 1) 100%);
+            display: block;
+            width: fit-content;
+            color: white;
+        }
     }
 
     &>figcaption {
