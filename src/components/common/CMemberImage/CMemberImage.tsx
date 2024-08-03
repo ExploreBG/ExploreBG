@@ -6,11 +6,11 @@ import './CMemberImage.scss';
 
 interface CMemberImageProps {
     ownerId: number
-    imageUrl: string
+    imageUrl: string | null
     username: string
 }
 
-export const CMemberImage: React.FC<CMemberImageProps> = ({ ownerId, imageUrl, username }) => {
+const CMemberImage: React.FC<CMemberImageProps> = ({ ownerId, imageUrl, username }) => {
     return (
         <>
             <Link

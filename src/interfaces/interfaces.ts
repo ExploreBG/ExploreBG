@@ -98,7 +98,7 @@ export interface IUserSession {
 export interface IUser {
     id: number
     username: string
-    roles: string[]
+    roles: { role: string }[]
     imageUrl: string | null
     creationDate: string
 }

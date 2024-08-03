@@ -19,7 +19,7 @@ interface ChangePasswordPopUpProps {
     userId: string
 }
 
-export const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closePopUp, userId }) => {
+const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closePopUp, userId }) => {
     const t = useTranslations('pop-up');
     const t2 = useTranslations('login-register');
     const [lastResult, action] = useFormState(changePassword, undefined);

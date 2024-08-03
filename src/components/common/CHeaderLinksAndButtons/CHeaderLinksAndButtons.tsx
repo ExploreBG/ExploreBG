@@ -54,18 +54,20 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
         <div className="nav-wrapper">
             <nav className="nav-wrapper__links" aria-label="primary-navigation">
                 {userSession && (
-                    <section className="nav-wrapper__links__user">
-                        <figure onClick={() => setIsShownUserLinks(state => !state)}>
-                            <Image
-                                src={userSession.userImage ?? '/images/user-profile-pic.png'}
-                                width={50} height={50} loading="eager"
-                                alt="User profile picture"
-                                priority={true}
-                            />
-                        </figure>
+                    <section
+                        ref={userNavLinksRef}
+                        onClick={() => setIsShownUserLinks(state => !state)}
+                        className="nav-wrapper__links__user"
+                    >
+                        <Image
+                            src={userSession.userImage ?? '/images/user-profile-pic.png'}
+                            width={50} height={50} loading="eager"
+                            alt="User profile picture"
+                            priority={true}
+                        />
 
                         {isShownUserLinks && (
-                            <aside ref={userNavLinksRef} className="nav-wrapper__links__user__links">
+                            <aside className="nav-wrapper__links__user__links">
                                 <ul>
                                     <UserNavLinks id={userSession.userId} userRoles={userSession.userRoles} />
                                     <li>

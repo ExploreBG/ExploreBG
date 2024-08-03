@@ -17,8 +17,8 @@
 
         &__user {
             margin-left: 2rem;
-            
-            &>figure>img {
+
+            &>img {
                 border-radius: 100%;
                 cursor: pointer;
             }
@@ -27,9 +27,10 @@
                 position: absolute;
                 top: 5rem;
                 z-index: 1;
-                background-color: transparent;
-                backdrop-filter: blur(0.25rem);
-                border: 2px solid black;
+                background: rgb(0, 0, 0);
+                background: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(149, 149, 149, 1) 57%, rgba(255, 255, 255, 1) 91%);
+                box-shadow: 0 0 0.25rem white;
+                color: black;
                 border-radius: 0.5rem;
                 animation: opacityShow 1.5s ease;
 
@@ -93,15 +94,15 @@
             right: 0;
             width: 50%;
             height: calc(100vh - 6.25rem);
-            background: rgb(0, 255, 255);
-            background: linear-gradient(180deg, rgba(75, 195, 195, 0.3) 31%, rgba(70, 252, 181, 0.6) 97%);
-            backdrop-filter: blur(0.5rem);
+            background: rgb(0, 0, 0);
+            background: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(149, 149, 149, 1) 57%, rgba(255, 255, 255, 1) 91%);
+            color: black;
             clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 85%);
             @include gs.flex(column, center, center);
             gap: 1.5rem;
             animation: opacityShow 1.5s forwards;
         }
-        
+
         @include gs.display(mobile) {
             width: 70%;
         }
