@@ -125,6 +125,7 @@ const apiAccommodations = {
 
 const apiAdmin = {
     getAllUsers: (query: string, token: string) => request(`${baseUrl}/super-users/users${query}`, 'GET', {}, token),
+    updateUserRole: (memberId: number, token: string, body: { moderator: boolean }) => request(`${baseUrl}/super-users/${memberId}/update-role`, 'PATCH', headers.appJSON, token, body),
 };
 
 export const agent = {

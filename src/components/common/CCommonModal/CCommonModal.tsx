@@ -10,11 +10,11 @@ interface CCommonModalProps {
 
 export const requireAuthChildren = (translate: { [key: string]: string }, token?: string) => {
     return (
-        <div className="children">
+        <>
             <p>{translate.requireAuthMessage}</p>
             <CBackBtn />
             {!token && <Link href='/login-register'>{translate.loginBtn}</Link>}
-        </div>
+        </>
     );
 };
 

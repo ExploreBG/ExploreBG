@@ -4,39 +4,40 @@
     @include gs.set-pop-up-modal();
 
     &__modal {
-        &>.children {
-            padding: 1.5rem;
+        padding: 1.5rem;
+
+        @include gs.display(mobile) {
+            @include gs.flex(column, none, center);
+        }
+
+        &>p {
+            margin-bottom: 1.5rem;
 
             @include gs.display(mobile) {
-                @include gs.flex(column, none, center);
+                font-size: 1.25rem;
             }
+        }
 
-            &>p {
-                margin-bottom: 1.5rem;
+        [data-theme="dark"] &>p {
+            color: black;
+        }
+
+        &>button,
+        &>a {
+            @include gs.glow-on-hover-button();
+        }
+
+        &>button {
+            margin-right: 1rem;
+
+            @include gs.display(mobile) {
+                margin-right: unset;
+                margin-bottom: 1rem;
             }
+        }
 
-            [data-theme="dark"] &>p {
-                color: black;
-            }
-
-            &>button,
-            &>a {
-                @include gs.glow-on-hover-button();
-            }
-
-            &>button {
-                margin-right: 1rem;
-
-                @include gs.display(mobile) {
-                    margin-right: unset;
-                    margin-bottom: 1rem;
-                }
-            }
-
-            &>a {
-                padding: 0.5rem 1rem;
-            }
-
+        &>a {
+            padding: 0.5rem 1rem;
         }
 
         //    textarea pop-up

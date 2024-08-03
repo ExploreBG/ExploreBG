@@ -1,3 +1,5 @@
+@use '@/global-styles/main' as gs;
+
 .admin-wrapper {
     background-color: chocolate;
     justify-content: space-between;
@@ -39,6 +41,19 @@
             max-width: 3rem;
             height: auto;
             margin: 0 auto;
+        }
+
+        & td>div {
+            @include gs.flex(none, space-evenly, center);
+
+            &>ul {
+                @include gs.flex(column, space-evenly, center);
+            }
+
+            &>svg {
+                color: white;
+                cursor: pointer;
+            }
         }
     }
 }
