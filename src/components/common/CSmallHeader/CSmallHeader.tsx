@@ -6,7 +6,7 @@ import CBackBtn from '../CBackBtn/CBackBtn';
 
 interface CSmallHeaderProps { }
 
-export const CSmallHeader: React.FC<CSmallHeaderProps> = () => {
+const CSmallHeader: React.FC<CSmallHeaderProps> = () => {
     return (
         <header>
             <CLogo />

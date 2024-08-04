@@ -18,7 +18,7 @@ export const requireAuthChildren = (translate: { [key: string]: string }, token?
     );
 };
 
-export const CCommonModal: React.FC<CCommonModalProps> = ({ children }) => {
+const CCommonModal: React.FC<CCommonModalProps> = ({ children }) => {
     return (
         <section className="pop-up-wrapper">
             <article className="pop-up-wrapper__modal">

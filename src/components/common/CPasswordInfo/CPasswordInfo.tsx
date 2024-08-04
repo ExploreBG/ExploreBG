@@ -8,7 +8,7 @@ import './CPasswordInfo.scss';
 
 interface CPasswordInfoProps { }
 
-export const CPasswordInfo: React.FC<CPasswordInfoProps> = () => {
+const CPasswordInfo: React.FC<CPasswordInfoProps> = () => {
     const [isShowInfoPass, setIsShowInfoPass] = useState<boolean>(false);
     const t = useTranslations('pop-up');
 

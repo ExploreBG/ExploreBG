@@ -66,12 +66,17 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
         }
     };
 
+    const handleEditClick = (comment: IComment) => {
+        setIsVisible(comment.id);
+        setInputValue(comment.message);
+    }
+
     return (
         <div className="comments__wrapper">
             {comments
                 .sort((a: { id: number }, b: { id: number }) => a.id - b.id)
                 .map((c: IComment) => (
-                    <div key={c.id}>
+                    <div key={c.id} className="comments__wrapper__comment">
                         <Link href={{
                             pathname: '/users/[userId]/profile',
                             params: { userId: c.owner.id }
@@ -84,35 +89,39 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
                             />
                         </Link>
 
-                        <p style={{ opacity: (isVisible == c.id ? '0' : '1') }}>
-                            {c.message}
+                        <div className="comments__wrapper__comment__message">
+                            <p style={{ opacity: (isVisible == c.id ? '0' : '1') }}>
+                                {c.message}
 
+                            </p>
                             {userId == c.owner.id && (
                                 <FaEdit
                                     className="trail-edit-icon"
-                                    onClick={() => setIsVisible(c.id)}
-                                    style={{ cursor: (isVisible == c.id ? 'none' : 'pointer') }}
+                                    onClick={() => handleEditClick(c)}
+                                    style={{
+                                        opacity: (isVisible == c.id ? '0' : '1'),
+                                        cursor: (isVisible == c.id ? 'none' : 'pointer')
+                                    }}
                                 />
                             )}
-                        </p>
 
-                        <form
-                            onSubmit={(e) => onSubmit(e, c.id)}
-                            // className="comments__form"
-                            style={{ display: (isVisible == c.id ? 'flex' : 'none') }}
-                        >
-                            <input
-                                type="text"
-                                name="comment"
-                                value={inputValue}
-                                onChange={(e) => setInputValue(e.target.value)}
-                                placeholder={t('add-comment')}
-                            />
+                            <form
+                                onSubmit={(e) => onSubmit(e, c.id)}
+                                className="comments__wrapper__comment__message__edit-form"
+                                style={{ display: (isVisible == c.id ? 'flex' : 'none'), alignItems: 'center' }}
+                            >
+                                <input
+                                    type="text"
+                                    name="comment"
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                />
 
-                            <CSubmitButton buttonName={t('send-btn')} />
-                            <button type='button' onClick={() => setIsVisible(null)}>{t('cancel-btn')}</button>
-                            {setCommentForDelete && <ImBin onClick={() => setCommentForDelete(c.id)} />}
-                        </form>
+                                <CSubmitButton buttonName={t('send-btn')} />
+                                <button type='button' onClick={() => setIsVisible(null)}>{t('cancel-btn')}</button>
+                                {setCommentForDelete && <ImBin onClick={() => setCommentForDelete(c.id)} />}
+                            </form>
+                        </div>
 
                         <div ref={commentsEndRef} />
                     </div>

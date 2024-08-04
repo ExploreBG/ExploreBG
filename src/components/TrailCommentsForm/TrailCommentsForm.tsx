@@ -3,6 +3,7 @@ import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
+import { GrSend } from "react-icons/gr";
 import { toast } from 'react-toastify';
 
 import { IComment } from '@/interfaces/interfaces';
@@ -69,7 +70,7 @@ const TrailCommentsForm: React.FC<TrailCommentsFormProps> = ({
             onSubmit={form.onSubmit}
             action={action}
             noValidate
-            className="comments__form"
+            className="comments__add-comment-form"
         >
             <input
                 type="text"
@@ -79,7 +80,7 @@ const TrailCommentsForm: React.FC<TrailCommentsFormProps> = ({
                 placeholder={t('add-comment')}
             />
 
-            <button type="submit">{t('send-btn')}</button>
+            <button type="submit">{t('send-btn')} <GrSend /></button>
 
             <div className="error-message">
                 {fields.comment.errors && t(fields.comment.errors[0], {

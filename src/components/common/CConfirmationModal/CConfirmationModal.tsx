@@ -9,7 +9,7 @@ interface CConfirmationModalProps {
     cancel: () => void
 }
 
-export const CConfirmationModal: React.FC<CConfirmationModalProps> = ({ deletionObj, confirm, cancel }) => {
+const CConfirmationModal: React.FC<CConfirmationModalProps> = ({ deletionObj, confirm, cancel }) => {
     const t = useTranslations('pop-up');
 
     return (
