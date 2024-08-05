@@ -17,7 +17,7 @@ import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface LoginFormProps { }
 
-export const LoginForm: React.FC<LoginFormProps> = () => {
+const LoginForm: React.FC<LoginFormProps> = () => {
     const t = useTranslations('login-register');
     const router = useRouter();
     const [lastResult, action] = useFormState(login, undefined);

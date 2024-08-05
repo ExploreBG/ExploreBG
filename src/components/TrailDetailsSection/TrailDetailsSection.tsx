@@ -72,18 +72,16 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                 </div>
             )}
 
-            <div className="trail__pair">
-                <TrailDetailsStartPointField
-                    initialStartPoint={trail.startPoint}
-                    trailId={trail.id}
-                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
-                />
-                <TrailDetailsEndPointField
-                    initialEndPoint={trail.endPoint}
-                    trailId={trail.id}
-                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
-                />
-            </div>
+            <TrailDetailsStartPointField
+                initialStartPoint={trail.startPoint}
+                trailId={trail.id}
+                isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+            />
+            <TrailDetailsEndPointField
+                initialEndPoint={trail.endPoint}
+                trailId={trail.id}
+                isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+            />
 
             <div className="trail__pair">
                 <TrailDetailsTotalDistanceField
@@ -100,7 +98,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
 
             <div className="trail__pair">
                 {trail.seasonVisited
-                    ? <p>
+                    ? <p className="trail__pair__season">
                         {/* @ts-ignore */}
                         {seasonIcons[season]}&nbsp; {t('visited-in')}:&nbsp; {t2(trail.seasonVisited)}
                     </p>
@@ -114,7 +112,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                 />
             </div>
 
-            <div className="trail__pair trail__pair__last">
+            <div className="trail__pair">
                 <TrailDetailsWaterAvailableField
                     initialWaterAvailable={trail.waterAvailable}
                     trailId={trail.id}

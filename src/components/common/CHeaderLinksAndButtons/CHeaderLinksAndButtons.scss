@@ -27,8 +27,8 @@
                 position: absolute;
                 top: 5rem;
                 z-index: 1;
-                background: rgb(0, 0, 0);
-                background: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(149, 149, 149, 1) 57%, rgba(255, 255, 255, 1) 91%);
+                background: gs.$bw-backgr;
+                background: gs.$bw-backgr-gradient;
                 box-shadow: 0 0 0.25rem white;
                 color: black;
                 border-radius: 0.5rem;
@@ -45,7 +45,8 @@
                         }
 
                         [data-theme="dark"] &>button {
-                            border: 1px solid white;
+                            border: 1px solid gs.$bright-turquoise;
+                            color: gs.$bright-purple;
                         }
                     }
                 }
@@ -94,8 +95,8 @@
             right: 0;
             width: 50%;
             height: calc(100vh - 6.25rem);
-            background: rgb(0, 0, 0);
-            background: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(149, 149, 149, 1) 57%, rgba(255, 255, 255, 1) 91%);
+            background: gs.$bw-backgr;
+            background: gs.$bw-backgr-gradient;
             color: black;
             clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 85%);
             @include gs.flex(column, center, center);
@@ -124,7 +125,8 @@
 }
 
 [data-theme="dark"] .glow-on-hover {
-    border: 1px solid white;
+    border: 1px solid gs.$bright-turquoise;
+    color: gs.$bright-purple;
 }
 
 @keyframes opacityShow {

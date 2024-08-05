@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 import { GiWoodCabin } from "react-icons/gi";
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 import { IHut } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CFormInputSearch from '../common/CFormInputSearch/CFormInputSearch';
 
@@ -30,6 +31,9 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
     const initialInputData: { id: number; }[] | (() => { id: number; }[]) = [];
     initialAvailableHuts.map(h => initialInputData.push({ id: h.id }));
     const [inputData, setInputData] = useState<{ id: number }[]>(initialInputData);
+    const formRef = useRef<HTMLDivElement>(null);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
 
     const onSubmitChanges = async () => {
 
@@ -92,6 +96,7 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
                 }
 
                 <div
+                    ref={formRef}
                     className="trail__links__wrapper__field__form"
                     style={{ display: (isVisible ? 'flex' : 'none') }}
                 >

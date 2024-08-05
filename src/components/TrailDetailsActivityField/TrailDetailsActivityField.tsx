@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { GiHiking } from 'react-icons/gi';
 import { FaBiking, FaEdit } from 'react-icons/fa';
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { IFormEnums } from '@/interfaces/interfaces';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 interface TrailDetailsActivityFieldProps {
     initialActivity: string[]
@@ -32,6 +33,9 @@ const TrailDetailsActivityField: React.FC<TrailDetailsActivityFieldProps> = ({
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [activity, setActivity] = useState<string[]>(initialActivity);
     const [inputData, setInputData] = useState<string[]>(initialActivity);
+    const formRef = useRef<HTMLDivElement>(null);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
 
     const onActivityClick = (choice: string) => {
 
@@ -93,7 +97,7 @@ const TrailDetailsActivityField: React.FC<TrailDetailsActivityFieldProps> = ({
                 </ul>
             </div>
 
-            <div className="trail__pair__field-wrapper__form">
+            <div ref={formRef} className="trail__pair__field-wrapper__form">
                 <div
                     className="trail__pair__field-wrapper__form__checkbox"
                     style={{ display: (isVisible ? 'flex' : 'none') }}

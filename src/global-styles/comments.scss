@@ -1,5 +1,6 @@
 @use './mixin' as mx;
 @use './breakpoints' as br;
+@use './colors' as co;
 
 .comments {
     position: relative;
@@ -72,13 +73,15 @@
 
                 &>p {
                     margin-top: 2rem;
-                    background-color: darkgray;
+                    background: co.$bw-backgr;
+                    background: co.$bw-backgr-gradient;
+                    color: black;
+                    text-shadow: 1px 1px 2px white;
                     border-bottom-left-radius: 2.5rem;
                     border-top-right-radius: 2rem;
                     border-bottom-right-radius: 2rem;
                     padding: 0.15rem 1rem 0.15rem 1.25rem;
                     box-shadow: 0 0 6px plum;
-                   
                     width: fit-content;
                     max-width: 90%;
                     word-wrap: break-word;
@@ -124,6 +127,10 @@
                         font-size: 1.25rem;
                         color: red;
                         cursor: pointer;
+
+                        @include br.display(mobile) {
+                            margin-bottom: 0.25rem;
+                        }
                     }
                 }
             }
@@ -137,6 +144,7 @@
         width: 100%;
         backdrop-filter: blur(0.25rem);
         padding: 0.5rem 0;
+        border-radius: 0.5rem;
 
         &>input {
             width: 60%;
@@ -144,13 +152,22 @@
             border: 3px solid black;
             margin-right: 0.5rem;
             padding-left: 0.5rem;
+
+            @include br.display(L-mobile) {
+                width: 80%;
+            }
         }
 
         &>button {
-            width: 15%;
+            width: 10%;
             @include mx.glow-on-hover-button();
 
+            @include br.display(L-mobile) {
+                width: 20%;
+            }
+
             &>svg {
+                font-size: 1.25rem;
                 margin-left: 0.5rem;
                 vertical-align: middle;
             }

@@ -12,24 +12,15 @@
 
     &__pair {
         @include gs.flex(none, space-around, center);
-        margin-bottom: 1.5rem;
 
         @include gs.display(L-mobile) {
-            justify-content: space-between;
-
-            &:first-of-type {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-
-        @include gs.display(mobile) {
             flex-direction: column;
-            gap: 1rem;
         }
 
         &__field-wrapper {
             position: relative;
+            @include gs.flex(none, center, none);
+            margin-bottom: 2rem;
 
             &__field {
                 @include gs.flex(none, none, center);
@@ -38,8 +29,8 @@
             &__form {
                 position: absolute;
                 top: 0;
-                left: -5rem;
-                z-index: 1;
+                z-index: 2;
+                min-width: 50%;
 
                 &>form {
                     @include gs.set-details-update-form();
@@ -76,11 +67,8 @@
             }
         }
 
-        &__last {
-            @include gs.display(L-mobile) {
-                flex-direction: column;
-                gap: 1rem;
-            }
+        &__season {
+            margin-bottom: 2rem;
         }
 
         & strong {
@@ -104,58 +92,57 @@
     }
 
     &__info {
-        padding: 0 6rem;
-        margin-bottom: 3rem;
+        min-height: 14rem;
         position: relative;
 
-        @include gs.display(display) {
-            padding: unset;
+        @include gs.display(mobile) {
+            min-height: 17rem;
         }
 
-        &>p {
-            word-wrap: break-word;
-            white-space: pre-wrap;
-            text-align: left;
+        &>div {
+            position: absolute;
+            top: 1rem;
+            z-index: 1;
+            box-shadow: 0 0 0.5rem gs.$electric-blue;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            backdrop-filter: blur(0.5rem);
+            background-color: rgba(128, 128, 128, 0.4);
+            width: 100%;
+            max-height: 50vh;
+            overflow: scroll;
+            scrollbar-width: thin;
+
+            @media (max-height: 35rem) and (orientation: landscape) {
+                max-height: 100vh;
+            }
+
+            &>p {
+                word-wrap: break-word;
+                white-space: pre-wrap;
+                text-align: left;
+                margin-bottom: 1rem;
+            }
+
+            &>span {
+                &>svg {
+                    margin-left: 0.5rem;
+                    font-size: 1.15rem;
+                    animation: press 0.8s ease-in-out infinite; 
+                }
+            }
         }
 
         &>.trail-edit-icon {
+            position: absolute;
+            top: -0.5rem;
+            right: -1.5rem;
             margin-left: unset;
             font-size: 1.5rem;
-        }
 
-        &__form {
-            position: absolute;
-            top: 0;
-            z-index: 1;
-            width: 100%;
-            @include gs.flex(column, center, center);
-            backdrop-filter: blur(0.25rem);
-
-            &>form {
-                @include gs.flex(column, none, none);
-                background-color: black;
-                border-radius: 0.5rem;
-                padding: 0.25rem;
-                width: 70%;
-
-                &>textarea {
-                    border-radius: 0.5rem;
-                    border: 1px solid white;
-                    padding: 0.5rem;
-                    margin-bottom: 0.25rem;
-                    background: transparent;
-                    color: gs.$beige;
-                    scrollbar-width: thin;
-                }
-
-                &>div>button {
-                    @include gs.glow-on-hover-button();
-                    margin-bottom: 0.1rem;
-
-                    &:first-of-type {
-                        margin-right: 0.25rem;
-                    }
-                }
+            @include gs.display(tablet) {
+                top: -0.75rem;
+                right: -0.25rem;
             }
         }
     }
@@ -186,7 +173,7 @@
 
                     &>div {
                         @include gs.set-details-update-form();
-                        
+
                         &:first-of-type {
                             border-top-right-radius: unset;
                             border-bottom-right-radius: unset;
@@ -227,6 +214,16 @@
     color: blue !important;
 }
 
-.with-select {
-    left: 0;
+@keyframes press {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.9);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

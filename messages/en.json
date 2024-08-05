@@ -1,6 +1,9 @@
 {
     "common": {
-        "type-to-search": "Type to search..."
+        "type-to-search": "Type to search...",
+        "click-to": "click to",
+        "close": "close",
+        "expand": "expand"
     },
     "navigation": {
         "about": "About",

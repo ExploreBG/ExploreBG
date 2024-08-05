@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 import { GiClick } from 'react-icons/gi';
+
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 interface ExpandTextToggleProps {
     text: string
@@ -7,17 +10,22 @@ interface ExpandTextToggleProps {
 }
 
 const ExpandTextToggle: React.FC<ExpandTextToggleProps> = ({ text, length }) => {
+    const t = useTranslations('common');
     const [isExpand, setIsExpand] = useState<boolean>(false);
+    const textRef = useRef<HTMLDivElement>(null);
 
-    const slice = text.length > length
-        ? text.slice(0, length) + ' ..... click to expand '
-        : text;
+    useCloseOnEscapeTabAndClickOutside(textRef, () => setIsExpand(false));
 
     return (
-        <p onClick={() => setIsExpand(!isExpand)}>
-            {isExpand ? text : slice}
-            &nbsp;&nbsp;{text.length > length && <GiClick />}
-        </p>
+        <div ref={textRef} onClick={() => setIsExpand(!isExpand)}>
+            <p>
+                {isExpand ? text : `${text.slice(0, length)}  .....`}
+            </p>
+            <span>
+                {t('click-to')}  {isExpand ? `${t('close')}` : `${t('expand')}`}
+                <GiClick />
+            </span>
+        </div>
     );
 };
 

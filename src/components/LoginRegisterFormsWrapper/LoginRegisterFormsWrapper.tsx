@@ -8,7 +8,7 @@ import RegisterForm from '@/components/RegisterForm/RegisterForm';
 
 interface LoginRegisterFormsWrapperProps { }
 
-export const LoginRegisterFormsWrapper: React.FC<LoginRegisterFormsWrapperProps> = () => {
+const LoginRegisterFormsWrapper: React.FC<LoginRegisterFormsWrapperProps> = () => {
     const t = useTranslations('login-register');
     const [isLogin, setIsLogin] = useState<boolean>(true);
 

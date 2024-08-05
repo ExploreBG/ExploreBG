@@ -3,7 +3,7 @@ import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
-import { GrSend } from "react-icons/gr";
+import { MdOutlineSend } from "react-icons/md";
 import { toast } from 'react-toastify';
 
 import { IComment } from '@/interfaces/interfaces';
@@ -80,7 +80,7 @@ const TrailCommentsForm: React.FC<TrailCommentsFormProps> = ({
                 placeholder={t('add-comment')}
             />
 
-            <button type="submit">{t('send-btn')} <GrSend /></button>
+            <button type="submit"><MdOutlineSend /></button>
 
             <div className="error-message">
                 {fields.comment.errors && t(fields.comment.errors[0], {

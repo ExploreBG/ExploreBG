@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { FaHandHoldingWater, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { IFormEnums } from '@/interfaces/interfaces';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside'
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -26,6 +27,9 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [waterAvailable, setWaterAvailable] = useState<string>(initialWaterAvailable);
     const [inputData, setInputData] = useState<string>(initialWaterAvailable);
+    const formRef = useRef<HTMLFormElement>(null);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
 
     const onSubmitForm = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -61,7 +65,7 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
                 className="trail__pair__field-wrapper__field"
             >
                 <p>
-                    <FaHandHoldingWater />&nbsp;
+                    <FaHandHoldingWater />&nbsp;&nbsp;
                     {t('water-sources')}: &nbsp;{t2(waterAvailable)}
                 </p>
                 {isTrailOwner && (
@@ -73,8 +77,9 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
                 )}
             </div>
 
-            <div className="trail__pair__field-wrapper__form with-select">
+            <div className="trail__pair__field-wrapper__form">
                 <form
+                    ref={formRef}
                     onSubmit={onSubmitForm}
                     style={{ display: (isVisible ? 'flex' : 'none') }}
                 >

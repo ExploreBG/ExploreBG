@@ -41,3 +41,7 @@ $bright-red: #FF4500;
 $bright-orange: #FFA500;
 $bright-yellow: #FFD700;
 $bright-purple: #DDA0DD;
+
+// gradients
+$bw-backgr: rgb(0, 0, 0);
+$bw-backgr-gradient: linear-gradient(311deg, rgba(0, 0, 0, 1) 0%, rgba(149, 149, 149, 1) 57%, rgba(255, 255, 255, 1) 91%);

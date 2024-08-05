@@ -15,6 +15,7 @@ import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
+import CCommonModal from '../common/CCommonModal/CCommonModal';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface TrailDetailsInfoFieldProps {
@@ -80,36 +81,41 @@ const TrailDetailsInfoField: React.FC<TrailDetailsInfoFieldProps> = ({
             <ExpandTextToggle text={trailInfo} length={trailInfoVisibleTextLength} />
             {isTrailOwner && <FaEdit className="trail-edit-icon" onClick={() => setIsVisible(!isVisible)} />}
 
-            <div className="trail__info__form">
-                <form
-                    id={form.id}
-                    onSubmit={form.onSubmit}
-                    action={action}
-                    noValidate
-                    style={{ display: (isVisible ? 'flex' : 'none') }}
-                >
-                    <textarea
-                        key={fields.trailInfo.key}
-                        name={fields.trailInfo.name}
-                        defaultValue={trailInfo}
-                        cols={30} rows={10}
-                    />
+            {isVisible && (
+                <CCommonModal>
+                    <form
+                        id={form.id}
+                        onSubmit={form.onSubmit}
+                        action={action}
+                        noValidate
+                        className="textarea-form"
+                        style={{ display: (isVisible ? 'flex' : 'none') }}
+                    >
+                        <textarea
+                            key={fields.trailInfo.key}
+                            name={fields.trailInfo.name}
+                            defaultValue={trailInfo}
+                            cols={30} rows={10}
+                        />
 
-                    <div style={{ display: (isVisible ? 'block' : 'none') }} className="error-message">
-                        {fields.trailInfo.errors && t2(fields.trailInfo.errors[0], {
-                            maxLength: trailInfoMaxLength
-                        })}
-                    </div>
+                        <div>
+                            <CSubmitButton buttonName={t('change-btn')} />
+                            <button
+                                type='button'
+                                onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}
+                            </button>
+                        </div>
+                    </form>
 
-                    <div>
-                        <CSubmitButton buttonName={t('change-btn')} />
-                        <button
-                            type='button'
-                            onClick={() => setIsVisible(!isVisible)}>{t('cancel-btn')}
-                        </button>
-                    </div>
-                </form>
-            </div>
+                    {fields.trailInfo.errors && (
+                        <div className="error-message">
+                            {t2(fields.trailInfo.errors[0], {
+                                maxLength: trailInfoMaxLength
+                            })}
+                        </div>
+                    )}
+                </CCommonModal>
+            )}
         </div>
     );
 };

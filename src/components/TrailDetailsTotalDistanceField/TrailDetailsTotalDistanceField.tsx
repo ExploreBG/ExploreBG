@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
@@ -13,6 +13,7 @@ import { updateTotalDistance } from './action';
 import { totalDistanceSchema } from './totalDistanceSchema';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside'
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -69,6 +70,10 @@ const TrailDetailsTotalDistanceField: React.FC<TrailDetailsTotalDistanceFieldPro
         }
     });
 
+    const formRef = useRef<HTMLFormElement>(null);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
+
     return (
         <div className="trail__pair__field-wrapper">
             <div className="trail__pair__field-wrapper__field">
@@ -85,6 +90,7 @@ const TrailDetailsTotalDistanceField: React.FC<TrailDetailsTotalDistanceFieldPro
                     onSubmit={form.onSubmit}
                     action={action}
                     noValidate
+                    ref={formRef}
                     style={{ display: (isVisible ? 'flex' : 'none') }}
                 >
                     <input

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 import { FcBinoculars } from "react-icons/fc";
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 import { IPlace } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CFormInputSearch from '../common/CFormInputSearch/CFormInputSearch';
 
@@ -30,6 +31,9 @@ const TrailDetailsDestinationsField: React.FC<TrailDetailsDestinationsFieldProps
     const initialInputData: { id: number; }[] | (() => { id: number; }[]) = [];
     initialDestinations.map(d => initialInputData.push({ id: d.id }));
     const [inputData, setInputData] = useState<{ id: number }[]>(initialInputData);
+    const formRef = useRef<HTMLDivElement>(null);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
 
     const onSubmitChanges = async () => {
 
@@ -89,6 +93,7 @@ const TrailDetailsDestinationsField: React.FC<TrailDetailsDestinationsFieldProps
                 }
 
                 <div
+                    ref={formRef}
                     className="trail__links__wrapper__field__form"
                     style={{ display: (isVisible ? 'flex' : 'none') }}
                 >

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
@@ -13,6 +13,7 @@ import { endPointSchema } from './endPointSchema';
 import { trailPlaceMinLength, trailPlaceMaxLength } from '@/utils/validations';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside'
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -69,14 +70,27 @@ const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
         }
     });
 
+    const formRef = useRef<HTMLFormElement>(null);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
+
     return (
         <div className="trail__pair__field-wrapper">
-            <div className="trail__pair__field-wrapper__field">
+            <div
+                className="trail__pair__field-wrapper__field"
+                style={{ opacity: (isVisible ? '0' : '1') }}
+            >
                 <details open>
                     <summary>{t('to')}: <strong>{endPoint}</strong></summary>
                     {/* <GrMapLocation />&nbsp; 018293794663487685 */}
                 </details>
-                {isTrailOwner && <FaEdit className="trail-edit-icon" onClick={() => setIsVisible(!isVisible)} />}
+                {isTrailOwner && (
+                    <FaEdit
+                        onClick={() => setIsVisible(!isVisible)}
+                        className="trail-edit-icon"
+                        style={{ cursor: (isVisible ? 'none' : 'pointer') }}
+                    />
+                )}
             </div>
 
             <div className="trail__pair__field-wrapper__form">
@@ -85,6 +99,7 @@ const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
                     onSubmit={form.onSubmit}
                     action={action}
                     noValidate
+                    ref={formRef}
                     style={{ display: (isVisible ? 'flex' : 'none') }}
                 >
                     <input

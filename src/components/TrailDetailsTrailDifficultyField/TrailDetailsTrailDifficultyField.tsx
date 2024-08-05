@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { GiHiking } from 'react-icons/gi';
 import { FaEdit } from 'react-icons/fa';
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { IFormEnums } from '@/interfaces/interfaces';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside'
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -26,8 +27,11 @@ const TrailDetailsTrailDifficultyField: React.FC<TrailDetailsTrailDifficultyFiel
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [trailDifficulty, setTrailDifficulty] = useState<string>(initialTrailDifficulty);
     const [inputData, setInputData] = useState<string>(initialTrailDifficulty);
+    const formRef = useRef<HTMLFormElement>(null);
 
     const maxDifficultyLevel = formEnums.trailDifficulty?.length;
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
 
     const repeatIcon = (end: number) => {
         let icons = [];
@@ -74,7 +78,7 @@ const TrailDetailsTrailDifficultyField: React.FC<TrailDetailsTrailDifficultyFiel
                 className="trail__pair__field-wrapper__field"
             >
                 <div className="trail__pair__difficulty">
-                    {t('difficulty')}:&nbsp;&nbsp;
+                    <p>{t('difficulty')}</p>:&nbsp;&nbsp;
                     <div>
                         {repeatIcon(Number(trailDifficulty))}
                     </div>
@@ -91,8 +95,9 @@ const TrailDetailsTrailDifficultyField: React.FC<TrailDetailsTrailDifficultyFiel
                 )}
             </div>
 
-            <div className="trail__pair__field-wrapper__form with-select">
+            <div className="trail__pair__field-wrapper__form">
                 <form
+                    ref={formRef}
                     onSubmit={onSubmitDifficulty}
                     style={{ display: (isVisible ? 'flex' : 'none') }}
                 >

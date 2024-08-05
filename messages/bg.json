@@ -1,6 +1,9 @@
 {
     "common": {
-        "type-to-search": "Търси тук ..."
+        "type-to-search": "Търси тук ...",
+        "click-to": "щракнете, за да",
+        "close": "затворите",
+        "expand": "разширите"
     },
     "navigation": {
         "about": "3а нас",
