@@ -10,7 +10,7 @@ interface MyProfileButtonsProps {
     userId: string
 }
 
-export const MyProfileButtons: React.FC<MyProfileButtonsProps> = ({ userId }) => {
+const MyProfileButtons: React.FC<MyProfileButtonsProps> = ({ userId }) => {
     const [isClickDelAccountBtn, setIsClickDelAccountBtn] = useState<boolean>(false);
     const [isClickChangePassBtn, setIsClickChangePassBtn] = useState<boolean>(false);
     const t = useTranslations('my-profile');

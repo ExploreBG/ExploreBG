@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
@@ -14,6 +14,7 @@ import { changeBirthDate } from './action';
 import { birthDateSchema } from './birthDateSchema';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -22,7 +23,7 @@ interface MyProfileBirthdayFieldProps {
     userId: string
 }
 
-export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ birthday, userId }) => {
+const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ birthday, userId }) => {
     const t = useTranslations('my-profile');
     const [birthDateValue, setBirthDateValue] = useState<string | null>(birthday);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -66,6 +67,10 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
         }
     });
 
+    const formRef = useRef<HTMLFormElement>(null);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
+
     return (
         <div>
             <p style={{ opacity: (isVisible ? '0' : '1') }}>
@@ -79,7 +84,8 @@ export const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ 
                 onSubmit={form.onSubmit}
                 action={action}
                 noValidate
-                style={{ display: (isVisible ? 'block' : 'none') }}
+                ref={formRef}
+                style={{ display: (isVisible ? 'flex' : 'none') }}
             >
                 <input
                     type="date"

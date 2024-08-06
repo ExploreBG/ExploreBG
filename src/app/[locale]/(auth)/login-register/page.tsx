@@ -1,6 +1,8 @@
 import React from 'react';
-import { useTranslations } from 'next-intl';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { redirect } from '@/navigation';
+
+import { getSession } from '@/utils/userSession';
 
 import './login-register.scss';
 import CSmallHeader from '@/components/common/CSmallHeader/CSmallHeader';
@@ -22,9 +24,21 @@ export async function generateMetadata({
     };
 }
 
-const LoginRegister: React.FC<LoginRegisterProps> = ({ params: { locale } }) => {
+const LoginRegister: React.FC<LoginRegisterProps> = async ({ params: { locale } }) => {
     unstable_setRequestLocale(locale);
-    const t = useTranslations('login-register');
+    const t = await getTranslations('login-register');
+
+    const session = await getSession();
+
+    if (session) {
+        const userId = session.userId;
+
+        redirect({
+            pathname: '/users/[userId]/my-profile',
+            params: { userId }
+        });
+        return;
+    }
 
     return (
         <main className="login-register">

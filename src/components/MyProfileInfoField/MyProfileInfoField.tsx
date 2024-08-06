@@ -21,7 +21,7 @@ interface MyProfileInfoFieldProps {
     userId: string
 }
 
-export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo, userId }) => {
+const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo, userId }) => {
     const t = useTranslations('my-profile');
     const [infoValue, setInfoValue] = useState<string | null>(userInfo);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -86,7 +86,6 @@ export const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo
                             name={fields.userInfo.name}
                             defaultValue={infoValue ?? ''}
                             // cols={30} rows={10}
-                            className='info-field'
                             placeholder=' ........'
                         ></textarea>
 

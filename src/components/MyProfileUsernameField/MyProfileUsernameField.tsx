@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
@@ -13,6 +13,7 @@ import { usernameSchema } from './usernameSchema';
 import { usernameMinLength, usernameMaxLength } from '@/utils/validations';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -21,7 +22,7 @@ interface MyProfileUsernameFieldProps {
     userId: string
 }
 
-export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ initialUsername, userId }) => {
+const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ initialUsername, userId }) => {
     const t = useTranslations('my-profile');
     const t2 = useTranslations('login-register');
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -66,6 +67,10 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
         }
     });
 
+    const formRef = useRef<HTMLFormElement>(null);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
+
     return (
         <div>
             <p style={{ opacity: (isVisible ? '0' : '1') }}>
@@ -82,7 +87,8 @@ export const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ 
                 onSubmit={form.onSubmit}
                 action={action}
                 noValidate
-                style={{ display: (isVisible ? 'block' : 'none') }}
+                ref={formRef}
+                style={{ display: (isVisible ? 'flex' : 'none') }}
             >
                 <input
                     type="text"

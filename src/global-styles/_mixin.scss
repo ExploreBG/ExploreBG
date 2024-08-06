@@ -325,6 +325,7 @@
         @include flex(column, none, none);
         gap: 0.5rem;
         padding-right: unset;
+        min-width: 50%;
     }
 
     &>input,

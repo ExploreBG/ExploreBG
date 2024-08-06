@@ -12,7 +12,7 @@ interface UserCreatedHikesProps {
     hikes: IHikeCard[]
 }
 
-export const UserCreatedHikes: React.FC<UserCreatedHikesProps> = ({ hikes }) => {
+const UserCreatedHikes: React.FC<UserCreatedHikesProps> = ({ hikes }) => {
     const t = useTranslations('my-profile');
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const itemsPerPage = 3;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
@@ -13,6 +13,7 @@ import { changeEmail } from './action';
 import { emailSchema } from './emailSchema';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -21,7 +22,7 @@ interface MyProfileEmailFieldProps {
     userId: string
 }
 
-export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initialEmail, userId }) => {
+const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initialEmail, userId }) => {
     const t = useTranslations('my-profile');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [email, setEmail] = useState<string>(initialEmail);
@@ -61,6 +62,10 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initia
         }
     });
 
+    const formRef = useRef<HTMLFormElement>(null);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
+
     return (
         <div>
             <p style={{ opacity: (isVisible ? '0' : '1') }}>
@@ -77,7 +82,8 @@ export const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initia
                 onSubmit={form.onSubmit}
                 action={action}
                 noValidate
-                style={{ display: (isVisible ? 'block' : 'none') }}
+                ref={formRef}
+                style={{ display: (isVisible ? 'flex' : 'none') }}
             >
                 <input
                     type="email"

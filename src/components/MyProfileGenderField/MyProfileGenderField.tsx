@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
 import { FaEdit, FaMale, FaFemale } from 'react-icons/fa';
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 import { agent } from '@/api/agent';
 import { getSession } from '@/utils/userSession';
+import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -16,7 +17,7 @@ interface MyProfileGenderFieldProps {
     userId: string
 }
 
-export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gender, userId }) => {
+const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gender, userId }) => {
     const t = useTranslations('my-profile');
     const [genderFields, setGenderFields] = useState<string[]>([]);
     const [genderValue, setGenderValue] = useState<string | null>(gender);
@@ -55,6 +56,8 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gend
         }
     });
 
+    const formRef = useRef<HTMLFormElement>(null);
+
     useEffect(() => {
         const getGenderFields = async () => {
             const res = await agent.apiUsers.getGenderEnum();
@@ -63,6 +66,8 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gend
         }
         getGenderFields();
     }, []);
+
+    useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
 
     return (
         <div>
@@ -76,7 +81,8 @@ export const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gend
                 id={form.id}
                 onSubmit={form.onSubmit}
                 noValidate
-                style={{ display: (isVisible ? 'block' : 'none') }}
+                ref={formRef}
+                style={{ display: (isVisible ? 'flex' : 'none') }}
             >
                 <select
                     key={fields.gender.key}

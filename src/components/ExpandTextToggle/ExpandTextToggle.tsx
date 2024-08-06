@@ -19,12 +19,14 @@ const ExpandTextToggle: React.FC<ExpandTextToggleProps> = ({ text, length }) => 
     return (
         <div ref={textRef} onClick={() => setIsExpand(!isExpand)}>
             <p>
-                {isExpand ? text : `${text.slice(0, length)}  .....`}
+                {isExpand ? text : `${text.slice(0, length)}  ${text.length > length ? '.....' : ''}`}
             </p>
-            <span>
-                {t('click-to')}  {isExpand ? `${t('close')}` : `${t('expand')}`}
-                <GiClick />
-            </span>
+            {text.length > length && (
+                <span>
+                    {t('click-to')}  {isExpand ? `${t('close')}` : `${t('expand')}`}
+                    <GiClick />
+                </span>
+            )}
         </div>
     );
 };
