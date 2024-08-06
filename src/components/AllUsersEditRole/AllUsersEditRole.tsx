@@ -20,8 +20,11 @@ const AllUsersEditRole: React.FC<AllUsersEditRoleProps> = ({
 }) => {
     const [isClickEdit, setIsClickEdit] = useState<boolean>(false);
 
+    const isAdmin = userRoles.some(obj => obj.role === 'Admin');
+    const isModerator = userRoles.some(obj => obj.role === 'Moderator');
+
     const onClickEdit = () => {
-        userRoles.some(obj => obj.role === 'Moderator')
+        isModerator
             ? toast.info(`${user} is already a "Moderator"`)
             : setIsClickEdit(true);
     };
@@ -54,13 +57,16 @@ const AllUsersEditRole: React.FC<AllUsersEditRoleProps> = ({
                     {userRoles.map((r, index) => (
                         <li
                             key={index}
-                            style={{ listStyle: (userRoles.length > 1 ? 'disc' : 'none') }}
+                            style={{
+                                listStyle: (userRoles.length > 1 ? 'disc' : 'none'),
+                                color: (isAdmin || isModerator ? 'yellow' : '')
+                            }}
                         >
                             {r.role}
                         </li>
                     ))}
                 </ul>
-                <FaEdit onClick={onClickEdit} />
+                {!isAdmin && <FaEdit onClick={onClickEdit} />}
             </div>
 
             {isClickEdit && (

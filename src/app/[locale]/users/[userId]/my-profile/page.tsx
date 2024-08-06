@@ -6,7 +6,7 @@ import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import './myProfile.scss';
-import CCommonModal, { requireAuthChildren } from '@/components/common/CCommonModal/CCommonModal';
+import AccessDenied from '@/components/AccessDenied/AccessDenied';
 import Layout from '@/components/Layout/Layout';
 import MyProfilePhotoField from '@/components/MyProfilePhotoField/MyProfilePhotoField';
 import MyProfileUsernameField from '@/components/MyProfileUsernameField/MyProfileUsernameField';
@@ -38,7 +38,6 @@ export async function generateMetadata({
 const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } }) => {
     unstable_setRequestLocale(locale);
     const t = await getTranslations('my-profile');
-    const tPopUp = await getTranslations('pop-up');
 
     const session = await getSession();
     const token = session?.token ?? '';
@@ -47,16 +46,9 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } 
 
     const { username, email, gender, birthdate, imageUrl, userInfo, createdHikes } = !res.message && res.data;
 
-    const translatePopUp = {
-        requireAuthMessage: tPopUp('require-role-message'),
-        loginBtn: tPopUp('login-btn')
-    };
-
     return (
         <>
-            {res.message && (
-                <CCommonModal>{requireAuthChildren(translatePopUp)}</CCommonModal>
-            )}
+            {res.message && <AccessDenied />}
 
             {!res.message && (
                 <Layout>

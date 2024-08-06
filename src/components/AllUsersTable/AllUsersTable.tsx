@@ -12,9 +12,10 @@ import AllUsersEditRole from '../AllUsersEditRole/AllUsersEditRole';
 interface AllUsersTableProps {
     data: IUser[]
     adminToken: string
+    userCountFrom: number
 }
 
-const AllUsersTable: React.FC<AllUsersTableProps> = ({ data, adminToken }) => {
+const AllUsersTable: React.FC<AllUsersTableProps> = ({ data, adminToken, userCountFrom }) => {
     const [users, setUsers] = useState<IUser[]>(data);
 
     useEffect(() => {
@@ -35,9 +36,9 @@ const AllUsersTable: React.FC<AllUsersTableProps> = ({ data, adminToken }) => {
                 </tr>
             </thead>
             <tbody>
-                {users.map((u) => (
+                {users.map((u, index) => (
                     <tr key={u.id}>
-                        <td>{u.id}</td>
+                        <td>{userCountFrom - index}</td>
                         <td>
                             <CMemberImage
                                 ownerId={u.id}

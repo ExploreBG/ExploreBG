@@ -14,7 +14,7 @@ interface PaginationControlsProps {
     sortDir: string
 }
 
-const PaginationControls: React.FC<PaginationControlsProps> = ({ 
+const PaginationControls: React.FC<PaginationControlsProps> = ({
     totalElements, cardsPerPage, pathname, sortBy, sortDir
 }) => {
     const router = useRouter();
@@ -61,37 +61,41 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
     };
 
     return (
-        <aside className="pagination-buttons">
-            <button
-                onClick={() => onChangePage(1)}
-                disabled={page == 1}
-            >
-                &lt;&lt;&lt;
-            </button>
-            <button
-                onClick={() => onChangePage(page - 1)}
-                className="pagination-buttons__prev-next"
-                disabled={page == 1}
-            >
-                Prev
-            </button>
+        <>
+            {totalElements && (
+                <aside className="pagination-buttons">
+                    <button
+                        onClick={() => onChangePage(1)}
+                        disabled={page == 1}
+                    >
+                        &lt;&lt;&lt;
+                    </button>
+                    <button
+                        onClick={() => onChangePage(page - 1)}
+                        className="pagination-buttons__prev-next"
+                        disabled={page == 1}
+                    >
+                        Prev
+                    </button>
 
-            {buttons}
+                    {buttons}
 
-            <button
-                onClick={() => onChangePage(page + 1)}
-                className="pagination-buttons__prev-next"
-                disabled={page == totalPages}
-            >
-                Next
-            </button>
-            <button
-                onClick={() => onChangePage(totalPages)}
-                disabled={page == totalPages}
-            >
-                &gt;&gt;&gt;
-            </button>
-        </aside>
+                    <button
+                        onClick={() => onChangePage(page + 1)}
+                        className="pagination-buttons__prev-next"
+                        disabled={page == totalPages}
+                    >
+                        Next
+                    </button>
+                    <button
+                        onClick={() => onChangePage(totalPages)}
+                        disabled={page == totalPages}
+                    >
+                        &gt;&gt;&gt;
+                    </button>
+                </aside>
+            )}
+        </>
     );
 };
 

@@ -1,0 +1,21 @@
+.access-denied {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/images/emoji-kid.jpg');
+    background-size: cover;
+    background-position: center;
+    // background-position-x: left;
+
+    &>a {
+        position: absolute;
+        top: 1.5rem;
+        left: 3rem;
+        z-index: 100;
+    }
+
+    &>.small-footer {
+        left: 0;
+        right: 0;
+        z-index: 100;
+    }
+}
