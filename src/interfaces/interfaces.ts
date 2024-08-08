@@ -103,6 +103,14 @@ export interface IUser {
     creationDate: string
 }
 
+export interface IWaitingApproval {
+    id: number;
+    name: string;
+    status: string;
+    reviewedBy: string | null;
+    creationDate: string;
+}
+
 export interface IFormEnums {
     [key: string]: string[] | number[]
 }

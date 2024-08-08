@@ -43,16 +43,46 @@
             margin: 0 auto;
         }
 
-        & td>div {
-            @include gs.flex(none, space-evenly, center);
+        & td {
+            &>a {
+                color: gs.$bright-turquoise;
 
-            &>ul {
-                @include gs.flex(column, space-evenly, center);
+                &:hover {
+                    text-decoration: underline;
+                }
             }
 
-            &>svg {
-                color: white;
-                cursor: pointer;
+            &>div {
+                @include gs.flex(none, space-evenly, center);
+
+                &>ul {
+                    @include gs.flex(column, space-evenly, center);
+                }
+
+                &>svg {
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    &__pending-menu {
+        width: 100%;
+        @include gs.flex(none, space-evenly, center);
+        flex-wrap: wrap;
+        border: 1px solid gs.$bright-turquoise;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        
+        &>li {
+            margin: 0 1rem;
+            cursor: pointer;
+            transition: all 1s ease;
+
+            &:hover,
+            .active {
+                color: gs.$middle-primary;
             }
         }
     }

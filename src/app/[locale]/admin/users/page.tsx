@@ -8,7 +8,7 @@ import '@/app/[locale]/admin/admin.scss';
 import AccessDenied from '@/components/AccessDenied/AccessDenied';
 import AdminLayout from '@/components/AdminLayout/AdminLayout';
 import AllUsersTable from '@/components/AllUsersTable/AllUsersTable';
-import PaginationControls from '@/components/PaginationControls/PaginationControls';
+// import PaginationControls from '@/components/PaginationControls/PaginationControls';
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';
 
 interface AllUsersProps {
@@ -29,7 +29,7 @@ const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchPar
 
     const data = token && await agent.apiAdmin.getAllUsers(query, token);
 
-    const userCountFrom = data?.totalElements - (Number(page) - 1) * Number(resultsPerPage);
+    // const userCountFrom = data?.totalElements - (Number(page) - 1) * Number(resultsPerPage);
 
     return (
         <>
@@ -39,18 +39,19 @@ const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchPar
                 <AdminLayout>
                     <main className="admin-wrapper">
                         <AllUsersTable
-                            data={data.content}
+                            // data={data.content}
+                            data={data.reverse()}
                             adminToken={token!}
-                            userCountFrom={userCountFrom}
+                            // userCountFrom={userCountFrom}
                         />
 
-                        <PaginationControls
+                        {/* <PaginationControls
                             totalElements={data.totalElements}
                             cardsPerPage={Number(resultsPerPage)}
                             pathname={'/admin/users'}
                             sortBy={'id'}
                             sortDir={'DESC'}
-                        />
+                        /> */}
                         <CSmallFooter />
                     </main>
                 </AdminLayout>

@@ -75,7 +75,11 @@ export const pathnames = {
     '/admin/users': {
         en: '/admin/users',
         bg: '/admin/potrebiteli'
-    }
+    },
+    '/admin/waiting-approval': {
+        en: '/admin/waiting-approval',
+        bg: '/admin/chakashti-odobrenie'
+    },
 } satisfies Pathnames<typeof locales>;
 
 // Use the default: `always`
