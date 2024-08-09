@@ -10,12 +10,15 @@ interface CCustomSelectProps {
     options: string[] | number[];
     translateKey: string;
     onChange: (value: string | number) => void;
+    initialValue?: string | number;
 }
 
-const CCustomSelect: React.FC<CCustomSelectProps> = ({ options, onChange, translateKey }) => {
+const CCustomSelect: React.FC<CCustomSelectProps> = ({
+    options, onChange, translateKey, initialValue
+}) => {
     const t = useTranslations(translateKey);
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [selected, setSelected] = useState<string | number>(options[0]);
+    const [selected, setSelected] = useState<string | number>(initialValue ?? options[0]);
     const [currentIndex, setCurrentIndex] = useState<number>(-1);
     const selectRef = useRef<HTMLDivElement>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);

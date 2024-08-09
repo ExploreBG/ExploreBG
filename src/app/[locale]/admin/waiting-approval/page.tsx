@@ -33,7 +33,7 @@ const AllWaitingApproval: React.FC<AllWaitingApprovalProps> = async ({ params: {
                     <main className="admin-wrapper">
                         <AllWaitingApprovalTable
                             waitingApproval={res}
-                            token={token!}
+                            userSession={session!}
                             searchParams={searchParams}
                         />
 

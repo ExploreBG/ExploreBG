@@ -93,6 +93,7 @@ export interface IUserSession {
     userId: number
     userRoles: string[]
     userImage?: string
+    itemForReviewId?: number
 }
 
 export interface IUser {

@@ -1,28 +1,30 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { AiOutlineFieldNumber } from 'react-icons/ai';
 
-import { IWaitingApproval } from '@/interfaces/interfaces';
+import { IUserSession, IWaitingApproval } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
 import { formatFullDate } from '@/utils/utils';
+import { setSession } from '@/utils/userSession';
 
 import PaginationControls from '../PaginationControls/PaginationControls';
 
 interface AllWaitingApprovalTableProps {
     waitingApproval: { destinations: number, trails: number, accommodations: number };
-    token: string;
+    userSession: IUserSession;
     searchParams: { [key: string]: string | string[] | undefined };
 }
 
 const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
-    waitingApproval, token, searchParams
+    waitingApproval, userSession, searchParams
 }) => {
     const [activeCollection, setActiveCollection] = useState<string>('');
     const [data, setData] = useState<IWaitingApproval[]>([]);
     const [totalElements, setTotalElements] = useState<number>(0);
     const [countFrom, setCountFrom] = useState<number>(0);
+    const router = useRouter();
 
     const page = searchParams['pageNumber'] ?? '1';
     const resultsPerPage = searchParams['pageSize'] ?? '1';
@@ -36,7 +38,7 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
 
     const getCollection = async (collection: string) => {
         try {
-            const res = await agent.apiAdmin.getWaitingApprovalCollection(collection, query, token);
+            const res = await agent.apiAdmin.getWaitingApprovalCollection(collection, query, userSession.token);
 
             setData(res.content);
             setTotalElements(res.totalElements);
@@ -48,10 +50,16 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
         }
     }
 
-    const handlePendingClick = (collection: string) => {
+    const handleCollectionClick = (collection: string) => {
         setActiveCollection(collection);
 
         getCollection(collection);
+    };
+
+    const onViewItemClick = async (id: number) => {
+        await setSession({ ...userSession, itemForReviewId: id });
+
+        router.push(`/${activeCollection}/create`);
     };
 
     return (
@@ -60,7 +68,7 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
                 {Object.entries(waitingApproval).map(([collection, count]) => (
                     <li
                         key={collection}
-                        onClick={() => handlePendingClick(collection)}
+                        onClick={() => handleCollectionClick(collection)}
                         className={activeCollection === collection ? 'active' : ''}
                     >
                         {`${collection}: ${count}`}
@@ -85,7 +93,7 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
                             <td>{countFrom - index}</td>
                             <td>{p.name}</td>
                             <td>{p.status}</td>
-                            <td><Link href={`/${activeCollection}/create`}>View</Link></td>
+                            <td onClick={() => onViewItemClick(p.id)} className="td-link">View</td>
                             <td>{formatFullDate(p.creationDate)}</td>
                             <td>{p.reviewedBy}</td>
                         </tr>

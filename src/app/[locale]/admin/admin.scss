@@ -44,13 +44,6 @@
         }
 
         & td {
-            &>a {
-                color: gs.$bright-turquoise;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
 
             &>div {
                 @include gs.flex(none, space-evenly, center);
@@ -63,6 +56,15 @@
                     color: white;
                     cursor: pointer;
                 }
+            }
+        }
+
+        & .td-link {
+            color: gs.$bright-turquoise;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
             }
         }
     }

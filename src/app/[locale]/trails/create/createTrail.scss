@@ -22,6 +22,10 @@
         @include gs.display(L-mobile) {
             margin-top: 1.5rem;
         }
+
+        &>button {
+            @include gs.glow-on-hover-button();
+        }
     }
 
     [data-theme="dark"] &>h1 {

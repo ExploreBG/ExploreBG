@@ -20,8 +20,10 @@ const CreateTrail: React.FC<CreateTrailProps> = async ({ params: { locale } }) =
 
     const session = await getSession();
     const token = session?.token;
-    const userId = session?.userId;
+    const isAdminOrModerator = (session?.userRoles.includes('ADMIN') || session?.userRoles.includes('MODERATOR')) ?? false;
+    const itemForReviewId = session?.itemForReviewId;
 
+    const trailDataForReview = (itemForReviewId && token) && await agent.apiAdmin.getCreatedTrailDataForReview(itemForReviewId, token);
     const formEnums = await agent.apiTrails.getFormEnums();
     const availableAccommodations = token ? await agent.apiTrails.getAvailableAccommodations(token) : [];
     const availableDestinations = token ? await agent.apiTrails.getAvailableDestinations(token) : [];
@@ -30,14 +32,13 @@ const CreateTrail: React.FC<CreateTrailProps> = async ({ params: { locale } }) =
         <main className="form-container">
             <CSmallHeader />
 
-            <h1>{t('create-trail')}</h1>
-
             <CreateTrailForm
-                token={token}
+                userSession={session}
                 formEnums={formEnums}
                 availableAccommodations={availableAccommodations}
                 availableDestinations={availableDestinations}
-                userId={userId}
+                isAdminOrModerator={isAdminOrModerator}
+                trailDataForReview={trailDataForReview}
             />
 
             <CPhotoInfo imgInfo={t('photo-info')} />
