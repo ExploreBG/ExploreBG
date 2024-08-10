@@ -24,7 +24,7 @@ const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchPar
     const query = `?pageNumber=${page}&pageSize=${resultsPerPage}&sortBy=id&sortDir=DESC`;
 
     const session = await getSession();
-    const isAdmin = session?.userRoles.includes('ADMIN') ?? false;
+    const isAdmin = session?.isAdmin;
     const token = session?.token;
 
     const data = token && await agent.apiAdmin.getAllUsers(query, token);

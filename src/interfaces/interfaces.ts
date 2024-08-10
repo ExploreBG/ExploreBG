@@ -93,7 +93,8 @@ export interface IUserSession {
     userId: number
     userRoles: string[]
     userImage?: string
-    itemForReviewId?: number
+    isAdmin?: boolean
+    isAdminOrModerator?: boolean
 }
 
 export interface IUser {

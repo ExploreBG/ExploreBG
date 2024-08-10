@@ -44,6 +44,13 @@
         }
 
         & td {
+            &>a {
+                color: gs.$bright-turquoise;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
 
             &>div {
                 @include gs.flex(none, space-evenly, center);
@@ -58,15 +65,6 @@
                 }
             }
         }
-
-        & .td-link {
-            color: gs.$bright-turquoise;
-            cursor: pointer;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
     }
 
     &__pending-menu {
@@ -76,7 +74,7 @@
         border: 1px solid gs.$bright-turquoise;
         padding: 0.5rem;
         border-radius: 0.5rem;
-        
+
         &>li {
             margin: 0 1rem;
             cursor: pointer;
@@ -87,6 +85,18 @@
                 color: gs.$middle-primary;
             }
         }
+    }
+}
+
+.admin-forms {
+    background: gs.$bw-backgr;
+    background: gs.$bw-backgr-gradient;
+
+    &>.review-btn {
+        @include gs.glow-on-hover-button();
+        margin: 3rem 0;
+        font-size: 1.5rem;
+        padding: 0.15rem 1.5rem;
     }
 }
 

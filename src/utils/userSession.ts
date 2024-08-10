@@ -50,7 +50,14 @@ export const getSession = async (): Promise<IUserSession | null> => {
 
     const res = await decrypt(session);
 
-    return res?.userData;
+    const isAdmin = (res?.userData?.userRoles.includes('ADMIN')) ?? false;
+    const isAdminOrModerator = (res?.userData?.userRoles.includes('ADMIN') || res?.userData?.userRoles.includes('MODERATOR')) ?? false;
+
+    return {
+        ...res?.userData,
+        isAdmin,
+        isAdminOrModerator
+    };
 };
 
 export const clearSession = async () => {

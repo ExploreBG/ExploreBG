@@ -90,8 +90,7 @@ const TrailDetailsActivityField: React.FC<TrailDetailsActivityFieldProps> = ({
                 <ul>
                     {inputData?.length > 0 && (
                         inputData.map((a: string, index: number) => (
-                            // @ts-ignore
-                            <li key={index}>{activityIconsEnum[a]} &nbsp; {t2(a)}</li>
+                            <li key={index}>{activityIconsEnum[a as keyof typeof activityIconsEnum]} &nbsp; {t2(a)}</li>
                         ))
                     )}
                 </ul>

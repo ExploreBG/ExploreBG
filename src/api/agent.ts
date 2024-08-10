@@ -128,7 +128,8 @@ const apiAdmin = {
     updateUserRole: (memberId: number, token: string, body: { moderator: boolean }) => request(`${baseUrl}/super-users/${memberId}/update-role`, 'PATCH', headers.appJSON, token, body),
     getWaitingApprovalCount: (token: string) => request(`${baseUrl}/super-users/waiting-approval/count`, 'GET', {}, token),
     getWaitingApprovalCollection: (collection: string, query: string, token: string) => request(`${baseUrl}/super-users/waiting-approval/${collection}${query}`, 'GET', {}, token),
-    getCreatedTrailDataForReview: (trailId: number, token: string) => request(`${baseUrl}/super-users/review/trail/${trailId}`, 'GET', {}, token),
+    getCreatedTrailDataForReview: (trailId: string, token: string) => request(`${baseUrl}/super-users/review/trail/${trailId}`, 'GET', {}, token),
+    claimForReviewCreatedTrail: (trailId: number, token: string, body: { review: boolean }) => request(`${baseUrl}/super-users/review/trail/${trailId}/claim`, 'PATCH', headers.appJSON, token, body),
 };
 
 export const agent = {

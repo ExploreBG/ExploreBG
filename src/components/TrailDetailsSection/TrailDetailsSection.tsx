@@ -99,8 +99,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
             <div className="trail__pair">
                 {trail.seasonVisited
                     ? <p className="trail__pair__season">
-                        {/* @ts-ignore */}
-                        {seasonIcons[season]}&nbsp; {t('visited-in')}:&nbsp; {t2(trail.seasonVisited)}
+                        {seasonIcons[season as keyof typeof seasonIcons]}&nbsp; {t('visited-in')}:&nbsp; {t2(trail.seasonVisited)}
                     </p>
                     : <p>{t('not-available')}</p>
                 }

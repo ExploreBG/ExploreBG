@@ -19,7 +19,7 @@ const AllWaitingApproval: React.FC<AllWaitingApprovalProps> = async ({ params: {
     unstable_setRequestLocale(locale);
 
     const session = await getSession();
-    const isAdminOrModerator = (session?.userRoles.includes('ADMIN') || session?.userRoles.includes('MODERATOR')) ?? false;
+    const isAdminOrModerator = session?.isAdminOrModerator;
     const token = session?.token;
 
     const res = token && await agent.apiAdmin.getWaitingApprovalCount(token);

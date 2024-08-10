@@ -80,6 +80,10 @@ export const pathnames = {
         en: '/admin/waiting-approval',
         bg: '/admin/chakashti-odobrenie'
     },
+    '/admin/trail-review/[trailId]': {
+        en: '/admin/trail-review/[trailId]',
+        bg: '/admin/marshrut-pregled/[trailId]'
+    },
 } satisfies Pathnames<typeof locales>;
 
 // Use the default: `always`

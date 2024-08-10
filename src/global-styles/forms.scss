@@ -2,6 +2,83 @@
 @use './breakpoints' as b;
 @use './mixin' as m;
 
+.form-container {
+    position: relative;
+    padding: 5rem 0;
+
+    &>h1 {
+        margin-bottom: 3rem;
+
+        @include b.display(L-mobile) {
+            margin-top: 1.5rem;
+        }
+    }
+
+    [data-theme="dark"] &>h1 {
+        color: black;
+    }
+
+    &__form {
+        width: 40vw;
+        @include m.set-form();
+        background-color: rgba(149, 146, 146, 0.544);
+        backdrop-filter: blur(0.1rem);
+        padding: 2rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 0 4px aquamarine;
+        margin-bottom: 3rem;
+
+        @include b.display(L-display) {
+            width: 60vw;
+        }
+
+        @include b.display(tablet) {
+            width: 80vw;
+        }
+
+        @include b.display(L-mobile) {
+            width: 90vw;
+            padding: 0.5rem;
+        }
+
+        &>div {
+            margin-bottom: 0.75rem;
+        }
+
+        &>div>input,
+        &__pair>div input,
+        &__pair>div>select,
+        &>div>textarea {
+            border: 1px solid black;
+            color: black;
+
+            &::placeholder {
+                color: rgb(87, 87, 87);
+            }
+        }
+    }
+
+    & .water-available {
+        & .custom-select__field {
+            @include b.display(L-mobile) {
+                width: 90%;
+            }
+
+            @include b.display(mobile) {
+                width: 60%;
+            }
+        }
+    }
+
+    &>.img-info-icon {
+
+        &:hover .info,
+        &>.active {
+            color: white;
+        }
+    }
+}
+
 .login-register-form {
     width: 30rem;
     min-height: 30vh;

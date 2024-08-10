@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormState } from 'react-dom';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
@@ -13,7 +13,6 @@ import { IFormEnums, IHut, IPlace, ITrail, IUserSession } from '@/interfaces/int
 import { createTrail } from './action';
 import { createTrailSchema } from './createTrailSchema';
 import { agent } from '@/api/agent';
-import { setSession } from '@/utils/userSession';
 import { trailPlaceMinLength, trailPlaceMaxLength, trailInfoMaxLength } from '@/utils/validations';
 
 import CCommonModal, { requireAuthChildren } from '../common/CCommonModal/CCommonModal';
@@ -37,22 +36,15 @@ interface CreateTrailFormProps {
     formEnums: IFormEnums
     availableAccommodations: IHut[]
     availableDestinations: IPlace[]
-    isAdminOrModerator: boolean
-    trailDataForReview: ITrail
+    dataForReview?: ITrail
 }
 
 const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
-    userSession,
-    formEnums,
-    availableAccommodations,
-    availableDestinations,
-    isAdminOrModerator,
-    trailDataForReview,
+    userSession, formEnums, availableAccommodations, availableDestinations, dataForReview,
 }) => {
     const t = useTranslations('trail-create');
     const tPopUp = useTranslations('pop-up');
     const router = useRouter();
-    const [dataForReview] = useState<ITrail>(trailDataForReview);
     const [forReview, setForReview] = useState<boolean>(true);
     const [seasonVisited, setSeasonVisited] = useState<string>('spring');
     const [activity, setActivity] = useState<string[]>(dataForReview?.activity ?? ['hiking']);
@@ -93,7 +85,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
             }
 
             try {
-                if (isAdminOrModerator && dataForReview) {
+                if (dataForReview) {
                     console.log('adm or modr');
                 } else {
                     const res = await agent.apiTrails.createTrail(userSession?.userId!, userSession?.token!, data);
@@ -116,14 +108,6 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
         }
     });
 
-    useEffect(() => {
-        if (userSession) {
-            (async () => {
-                await setSession({ ...userSession, itemForReviewId: undefined });
-            })();
-        }
-    }, []);
-
     const translatePopUp = {
         requireAuthMessage: tPopUp('require-auth-message'),
         loginBtn: tPopUp('login-btn')
@@ -139,21 +123,28 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
     };
 
     const handleReviewClick = async () => {
-        const request = { review: forReview };
+        const body = { review: forReview };
 
-        console.log(request);
+        const res = dataForReview && await agent.apiAdmin.claimForReviewCreatedTrail(dataForReview.id, userSession?.token!, body);
 
-        setForReview(!forReview);
+        if (res.success) {
+            setForReview(!forReview);
+        } else if (res.message) {
+            toast.error(res.message);
+        } else if (res.errors) {
+            toast.error(t(res.errors[0]));
+        }
     };
 
     return (
         <>
             {!userSession && <CCommonModal>{requireAuthChildren(translatePopUp)}</CCommonModal>}
 
-            <h1>{!dataForReview
-                ? t('create-trail')
-                : <button onClick={handleReviewClick}>{forReview ? 'review' : 'cancel'}</button>}
-            </h1>
+            {dataForReview && (
+                <button onClick={handleReviewClick} className="review-btn">
+                    {forReview ? 'review' : 'cancel'}
+                </button>
+            )}
 
             <form
                 id={form.id}
@@ -343,10 +334,10 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                     )}
                 </div>
 
-                {!isAdminOrModerator && <p style={{ color: 'black' }}>* {t('photos-message')}</p>}
+                {!dataForReview && <p style={{ color: 'black' }}>* {t('photos-message')}</p>}
 
-                {(!isAdminOrModerator || (isAdminOrModerator && !forReview) || (isAdminOrModerator && !dataForReview)) && (
-                    <CSubmitButton buttonName={(isAdminOrModerator && !forReview) ? 'Approve' : t('btn-create')} />
+                {(!dataForReview || (dataForReview && !forReview)) && (
+                    <CSubmitButton buttonName={(dataForReview && !forReview) ? 'Approve' : t('btn-create')} />
                 )}
             </form>
         </>
