@@ -7,15 +7,17 @@ import { IUser } from '@/interfaces/interfaces';
 import { formatFullDate } from '@/utils/utils';
 
 import CMemberImage from '../common/CMemberImage/CMemberImage';
+import AllUsersLockUnlockAccount from '../AllUsersLockUnlockAccount/AllUsersLockUnlockAccount';
 import AllUsersEditRole from '../AllUsersEditRole/AllUsersEditRole';
 
 interface AllUsersTableProps {
-    data: IUser[]
-    adminToken: string
+    data: IUser[];
+    adminOrModeratorToken: string;
+    isAdmin: boolean;
     // userCountFrom: number
 }
 
-const AllUsersTable: React.FC<AllUsersTableProps> = ({ data, adminToken }) => {
+const AllUsersTable: React.FC<AllUsersTableProps> = ({ data, adminOrModeratorToken, isAdmin }) => {
     const [users, setUsers] = useState<IUser[]>(data);
 
     useEffect(() => {
@@ -37,7 +39,7 @@ const AllUsersTable: React.FC<AllUsersTableProps> = ({ data, adminToken }) => {
             </thead>
             <tbody>
                 {users.map((u, index) => (
-                    <tr key={u.id}>
+                    <tr key={u.id} className={u.accountNonLocked ? '' : 'locked-account'}>
                         <td>{users.length - index}</td>
                         <td>
                             <CMemberImage
@@ -46,13 +48,19 @@ const AllUsersTable: React.FC<AllUsersTableProps> = ({ data, adminToken }) => {
                                 username={u.username}
                             />
                         </td>
-                        <td>{u.username}</td>
+                        <td>
+                            <AllUsersLockUnlockAccount
+                                user={u}
+                                adminOrModeratorToken={adminOrModeratorToken}
+                                isAdmin={isAdmin}
+                                setUsers={setUsers}
+                            />
+                        </td>
                         <td>
                             <AllUsersEditRole
-                                user={u.username}
-                                userId={u.id}
-                                userRoles={u.roles}
-                                adminToken={adminToken}
+                                user={u}
+                                adminOrModeratorToken={adminOrModeratorToken}
+                                isAdmin={isAdmin}
                                 setUsers={setUsers}
                             />
                         </td>

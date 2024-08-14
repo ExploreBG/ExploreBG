@@ -50,8 +50,8 @@ export const getSession = async (): Promise<IUserSession | null> => {
 
     const res = await decrypt(session);
 
-    const isAdmin = (res?.userData?.userRoles.includes('ADMIN')) ?? false;
-    const isAdminOrModerator = (res?.userData?.userRoles.includes('ADMIN') || res?.userData?.userRoles.includes('MODERATOR')) ?? false;
+    const isAdmin = res?.userData?.userRoles.includes('ADMIN') ?? false;
+    const isAdminOrModerator = (isAdmin || res?.userData?.userRoles.includes('MODERATOR')) ?? false;
 
     return {
         ...res?.userData,

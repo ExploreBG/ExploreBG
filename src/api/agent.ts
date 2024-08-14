@@ -126,6 +126,7 @@ const apiAccommodations = {
 const apiAdmin = {
     getAllUsers: (query: string, token: string) => request(`${baseUrl}/super-users/users${query}`, 'GET', {}, token),
     updateUserRole: (memberId: number, token: string, body: { moderator: boolean }) => request(`${baseUrl}/super-users/${memberId}/update-role`, 'PATCH', headers.appJSON, token, body),
+    lockAccount: (memberId: number, token: string, body: { lockAccount: boolean }) => request(`${baseUrl}/super-users/${memberId}/lock-account`, 'PATCH', headers.appJSON, token, body),
     getWaitingApprovalCount: (token: string) => request(`${baseUrl}/super-users/waiting-approval/count`, 'GET', {}, token),
     getWaitingApprovalCollection: (collection: string, query: string, token: string) => request(`${baseUrl}/super-users/waiting-approval/${collection}${query}`, 'GET', {}, token),
     getCreatedTrailDataForReview: (trailId: string, token: string) => request(`${baseUrl}/super-users/review/trail/${trailId}`, 'GET', {}, token),

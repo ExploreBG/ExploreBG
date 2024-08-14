@@ -29,14 +29,9 @@ const UserNavLinks: React.FC<UserNavLinksProps> = ({ id, userRoles }) => {
 
             <span>--------------------</span>
 
-            {isAdmin && (
-                <>
-                    <li><CLink href={'/admin/users'}>Users</CLink></li>
-                </>
-            )}
-
             {(isAdmin || isModerator) && (
                 <>
+                    <li><CLink href={'/admin/users'}>Users</CLink></li>
                     <li><CLink href={'/admin/waiting-approval'}>Waiting approval</CLink></li>
                 </>
             )}

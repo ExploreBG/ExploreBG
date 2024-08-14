@@ -24,6 +24,7 @@ const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchPar
     const query = `?pageNumber=${page}&pageSize=${resultsPerPage}&sortBy=id&sortDir=DESC`;
 
     const session = await getSession();
+    const isAdminOrModerator = session?.isAdminOrModerator;
     const isAdmin = session?.isAdmin;
     const token = session?.token;
 
@@ -33,15 +34,16 @@ const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchPar
 
     return (
         <>
-            {!isAdmin && <AccessDenied token={token} />}
+            {!isAdminOrModerator && <AccessDenied token={token} />}
 
-            {isAdmin && (
+            {isAdminOrModerator && (
                 <AdminLayout>
                     <main className="admin-wrapper">
                         <AllUsersTable
                             // data={data.content}
                             data={data.reverse()}
-                            adminToken={token!}
+                            adminOrModeratorToken={token!}
+                            isAdmin={isAdmin!}
                             // userCountFrom={userCountFrom}
                         />
 

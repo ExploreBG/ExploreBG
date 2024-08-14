@@ -8,38 +8,32 @@ import { agent } from '@/api/agent';
 import CCommonModal from '../common/CCommonModal/CCommonModal';
 
 interface AllUsersEditRoleProps {
-    user: string
-    userId: number
-    userRoles: { role: string }[]
-    adminToken: string
-    setUsers: Dispatch<SetStateAction<IUser[]>>
+    user: IUser;
+    adminOrModeratorToken: string;
+    isAdmin: boolean;
+    setUsers: Dispatch<SetStateAction<IUser[]>>;
 }
 
 const AllUsersEditRole: React.FC<AllUsersEditRoleProps> = ({
-    user, userRoles, userId, adminToken, setUsers
+    user, adminOrModeratorToken, isAdmin, setUsers
 }) => {
     const [isClickEdit, setIsClickEdit] = useState<boolean>(false);
+    const [isModerator, setIsModerator] = useState<boolean>(user.roles.some(obj => obj.role === 'Moderator'));
 
-    const isAdmin = userRoles.some(obj => obj.role === 'Admin');
-    const isModerator = userRoles.some(obj => obj.role === 'Moderator');
-
-    const onClickEdit = () => {
-        isModerator
-            ? toast.info(`${user} is already a "Moderator"`)
-            : setIsClickEdit(true);
-    };
+    const currentUserFromTableIsAdmin = user.roles.some(obj => obj.role === 'Admin');
 
     const onConfirm = async () => {
         try {
-            const body = { moderator: true }
+            const body = { moderator: (isModerator ? false : true) }
 
-            const res = await agent.apiAdmin.updateUserRole(userId, adminToken, body);
+            const res = await agent.apiAdmin.updateUserRole(user.id, adminOrModeratorToken, body);
 
-            setIsClickEdit(false);
+            setIsClickEdit(!isClickEdit);
 
             if (res.data) {
                 setUsers(state => state.map((user) => user.id === res.data.id ? res.data : user));
                 toast.success('Successful update');
+                setIsModerator(!isModerator);
             } else if (res.message) {
                 toast.error(res.message);
             } else if (res.errors) {
@@ -54,24 +48,26 @@ const AllUsersEditRole: React.FC<AllUsersEditRoleProps> = ({
         <>
             <div>
                 <ul>
-                    {userRoles.map((r, index) => (
+                    {user.roles.map((r, index) => (
                         <li
                             key={index}
                             style={{
-                                listStyle: (userRoles.length > 1 ? 'disc' : 'none'),
-                                color: (isAdmin || isModerator ? 'yellow' : '')
+                                listStyle: (user.roles.length > 1 ? 'disc' : 'none'),
+                                color: (currentUserFromTableIsAdmin || isModerator ? 'yellow' : '')
                             }}
                         >
                             {r.role}
                         </li>
                     ))}
                 </ul>
-                {!isAdmin && <FaEdit onClick={onClickEdit} />}
+                {(isAdmin && !currentUserFromTableIsAdmin && user.accountNonLocked) && (
+                    <FaEdit onClick={() => setIsClickEdit(!isClickEdit)} />
+                )}
             </div>
 
             {isClickEdit && (
                 <CCommonModal>
-                    <p>Are you sure you want to make <b>{user}</b> a moderator?</p>
+                    <p>Are you sure you want to make <b>{user.username}</b> {isModerator ? 'just member' : 'a Moderator'}?</p>
 
                     <button onClick={onConfirm}>Yes, please</button>
                     <button onClick={() => setIsClickEdit(false)}>Cancel</button>

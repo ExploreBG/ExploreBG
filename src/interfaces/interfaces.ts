@@ -103,6 +103,7 @@ export interface IUser {
     roles: { role: string }[]
     imageUrl: string | null
     creationDate: string
+    accountNonLocked: boolean
 }
 
 export interface IWaitingApproval {

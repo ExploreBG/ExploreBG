@@ -103,3 +103,13 @@
 [data-theme="dark"] .admin-wrapper {
     background-color: black;
 }
+
+.locked-account {
+    background-color: rgba(217, 53, 53, 0.807) !important;
+}
+
+.lock-unlock-icon {
+    color: red;
+    font-size: 1.15rem;
+    cursor: pointer;
+}
