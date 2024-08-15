@@ -110,7 +110,7 @@ export interface IWaitingApproval {
     id: number;
     name: string;
     status: string;
-    reviewedBy: string | null;
+    reviewedBy: { id: number, username: string };
     creationDate: string;
 }
 

@@ -16,8 +16,20 @@ const pathnames = {
     accommodations: 'accommodation-review',
 };
 
+const statusFields = {
+    trails: 'trailStatus',
+    destinations: 'destinationStatus',
+    accommodations: 'accommodationStatus',
+};
+
+interface WaitingApprovalCount {
+    accommodations: { pending: number, review: number },
+    destinations: { pending: number, review: number },
+    trails: { pending: number, review: number }
+}
+
 interface AllWaitingApprovalTableProps {
-    waitingApproval: { destinations: number, trails: number, accommodations: number };
+    waitingApproval: WaitingApprovalCount;
     userSession: IUserSession;
     searchParams: { [key: string]: string | string[] | undefined };
 }
@@ -30,47 +42,42 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
     const [totalElements, setTotalElements] = useState<number>(0);
     const [countFrom, setCountFrom] = useState<number>(0);
 
+    const itemStatus = statusFields[activeCollection as keyof typeof statusFields];
     const page = searchParams['pageNumber'] ?? '1';
     const resultsPerPage = searchParams['pageSize'] ?? '1';
-    const query = `?pageNumber=${page}&pageSize=${resultsPerPage}&sortBy=id&sortDir=DESC`;
+    const query = `?pageNumber=${page}&pageSize=${resultsPerPage}&sortBy=${itemStatus}`;
 
     useEffect(() => {
         if (activeCollection) {
             getCollection(activeCollection);
         }
-    }, [page]);
+    }, [activeCollection, page, resultsPerPage, itemStatus]);
 
     const getCollection = async (collection: string) => {
         try {
             const res = await agent.apiAdmin.getWaitingApprovalCollection(collection, query, userSession.token);
 
-            setData(res.content);
-            setTotalElements(res.totalElements);
+            setData(res?.content ?? []);
+            setTotalElements(res?.totalElements ?? 0);
 
-            const countFrom = res?.totalElements - (Number(page) - 1) * Number(resultsPerPage);
+            const countFrom = (res?.totalElements ?? 0) - (Number(page) - 1) * Number(resultsPerPage);
             setCountFrom(countFrom);
         } catch (err) {
-            console.error(err);
+            console.error('Error fetching collection:', err);
         }
-    }
-
-    const handleCollectionClick = (collection: string) => {
-        setActiveCollection(collection);
-
-        getCollection(collection);
     };
 
     return (
         <>
             <ul className="admin-wrapper__pending-menu">
-                {Object.entries(waitingApproval).map(([collection, count]) => (
+                {Object.entries(waitingApproval).map(([collection, status]) => (
                     <li
                         key={collection}
-                        onClick={() => handleCollectionClick(collection)}
+                        onClick={() => setActiveCollection(collection)}
                         className={activeCollection === collection ? 'active' : ''}
-                        style={{ display: (count == 0 ? 'none' : 'inline-block') }}
+                        style={{ display: ((status.pending == 0 && status.review == 0) ? 'none' : 'inline-block') }}
                     >
-                        {`${collection}: ${count}`}
+                        {`${collection} - p: ${status.pending} / r: ${status.review}`}
                     </li>
                 ))}
             </ul>
@@ -93,12 +100,14 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
                             <td>{p.name}</td>
                             <td>{p.status}</td>
                             <td>
-                                <Link href={`/admin/${pathnames[activeCollection as keyof typeof pathnames]}/${p.id}`}>
-                                    View
-                                </Link>
+                                {(userSession.userId == p.reviewedBy?.id || p.status != 'review') && (
+                                    <Link href={`/admin/${pathnames[activeCollection as keyof typeof pathnames]}/${p.id}`}>
+                                        View
+                                    </Link>
+                                )}
                             </td>
                             <td>{formatFullDate(p.creationDate)}</td>
-                            <td>{p.reviewedBy}</td>
+                            <td>{p.reviewedBy?.username}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -108,7 +117,7 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
                 totalElements={totalElements}
                 cardsPerPage={Number(resultsPerPage)}
                 pathname={`/admin/waiting-approval`}
-                sortBy={'id'}
+                sortBy={itemStatus}
                 sortDir={'DESC'}
             />
         </>
