@@ -28,8 +28,6 @@
         }
 
         &>button {
-            margin-right: 1rem;
-
             @include gs.display(mobile) {
                 margin-right: unset;
                 margin-bottom: 1rem;
@@ -38,6 +36,7 @@
 
         &>a {
             padding: 0.5rem 1rem;
+            margin-left: 1rem;
         }
 
         //    textarea pop-up

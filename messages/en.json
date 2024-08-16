@@ -117,7 +117,8 @@
         "lodges-in-the-area": "Lodges in the area",
         "successful-update-available-huts": "Successfully update available huts",
         "curious-places": "Curious places",
-        "successful-update-destinations": "Successfully update destinations"
+        "successful-update-destinations": "Successfully update destinations",
+        "in-review": "Your trail submission is currently under review."
     },
     "trail-create": {
         "create-trail": "Create trail",

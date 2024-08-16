@@ -69,7 +69,7 @@ const AllUsersEditRole: React.FC<AllUsersEditRoleProps> = ({
                 <CCommonModal>
                     <p>Are you sure you want to make <b>{user.username}</b> {isModerator ? 'just member' : 'a Moderator'}?</p>
 
-                    <button onClick={onConfirm}>Yes, please</button>
+                    <button onClick={onConfirm} className="confirm-btn">Yes, please</button>
                     <button onClick={() => setIsClickEdit(false)}>Cancel</button>
                 </CCommonModal>
             )}

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 
-import { IComment } from '@/interfaces/interfaces';
+import { IComment, ITrail } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
 
 import RenderComments from '../RenderComments/RenderComments';
@@ -12,17 +12,17 @@ import TrailCommentsForm from '../TrailCommentsForm/TrailCommentsForm';
 import CConfirmationModal from '../common/CConfirmationModal/CConfirmationModal';
 
 interface TrailCommentsProps {
-    initialComments: IComment[]
+    trail: ITrail
     userId?: number
     trailId: string
     token?: string
 }
 
 const TrailComments: React.FC<TrailCommentsProps> = ({
-    initialComments, userId, trailId, token
+    trail, userId, trailId, token
 }) => {
     const t = useTranslations('trail-details');
-    const [comments, setComments] = useState<IComment[]>(initialComments);
+    const [comments, setComments] = useState<IComment[]>(trail.comments != undefined ? trail.comments : []);
     const [commentForDelete, setCommentForDelete] = useState<number | null>(null);
 
     const handleNewComment = (newComment: IComment) => {

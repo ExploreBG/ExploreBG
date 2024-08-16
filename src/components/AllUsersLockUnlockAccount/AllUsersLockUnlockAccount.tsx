@@ -66,7 +66,7 @@ const AllUsersLockUnlockAccount: React.FC<AllUsersLockUnlockAccountProps> = ({
                 <CCommonModal>
                     <p>Are you sure you want to {account.accountNonLocked ? 'lock' : 'unlock'} <b>{account?.username}</b>&apos;s account?</p>
 
-                    <button onClick={onConfirm}>Yes, please</button>
+                    <button onClick={onConfirm} className="confirm-btn">Yes, please</button>
                     <button onClick={() => setIsClickLockUnlockAccount(false)}>Cancel</button>
                 </CCommonModal>
             )}

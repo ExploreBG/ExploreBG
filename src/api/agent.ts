@@ -92,6 +92,7 @@ const apiTrails = {
     get4RandomTrails: () => request(`${baseUrl}/trails/random`),
     getAllTrails: (query: string) => request(`${baseUrl}/trails/all${query}`),
     getTrailById: (trailId: string) => request(`${baseUrl}/trails/${trailId}`),
+    getTrailByIdFromAuthUser: (trailId: string, token: string) => request(`${baseUrl}/trails/${trailId}/auth`, 'GET', {}, token),
     getFormEnums: () => request(`${baseUrl}/utility/create/trail-enums`),
     getAvailableAccommodations: (token: string) => request(`${baseUrl}/accommodations/select`, 'GET', {}, token),
     getAvailableDestinations: (token: string) => request(`${baseUrl}/destinations/select`, 'GET', {}, token),

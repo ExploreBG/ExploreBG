@@ -117,7 +117,8 @@
         "lodges-in-the-area": "Места за настаняване в района",
         "successful-update-available-huts": "Успешно актуализиране на полето",
         "curious-places": "Любопитни дестинации",
-        "successful-update-destinations": "Успешно актуализиране на дестинациите"
+        "successful-update-destinations": "Успешно актуализиране на дестинациите",
+        "in-review": "Изпратената от вас следа в момента се преглежда."
     },
     "trail-create": {
         "create-trail": "Добави маршрут",
