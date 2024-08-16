@@ -128,7 +128,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
             (async () => {
                 const res = await agent.apiAdmin.getReviewer(dataForReview.id, userSession?.token!);
 
-                if (res.data && userSession?.userId == res.data.reviewerId) {
+                if (res.reviewerId && userSession?.userId == res.reviewerId) {
                     setForReview(false);
                 } else if (res.message) {
                     toast.error(res.message);

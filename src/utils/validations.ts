@@ -62,7 +62,7 @@ export const nextToValidation = z
 
 export const trailInfoValidation = z
     .string({ required_error: 'err-trail-info-required' })
-    .regex(/^[a-zA-Z0-9\-.,\s\n()'`:;?!@]*$/, 'err-trail-info-regex')
+    .regex(/^[a-zA-Z0-9\-.,\s\n()'`":;?!@]*$/, 'err-trail-info-regex')
     .max(trailInfoMaxLength, 'err-trail-info-max-length')
 
 export const commentValidation = z

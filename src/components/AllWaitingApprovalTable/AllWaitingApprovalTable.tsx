@@ -109,9 +109,9 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
                         <tr key={p.id}>
                             <td>{countFrom - index}</td>
                             <td>{p.name}</td>
-                            <td>{p.status}</td>
+                            <td>{`${p[itemStatus as keyof IWaitingApproval]}`}</td>
                             <td>
-                                {(userSession.userId == p.reviewedBy?.id || p.status != 'review') && (
+                                {(userSession.userId == p.reviewedBy?.id || p[itemStatus as keyof IWaitingApproval] != 'review') && (
                                     <Link href={`/admin/${pathnames[activeCollection as keyof typeof pathnames]}/${p.id}`}>
                                         View
                                     </Link>

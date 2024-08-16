@@ -10,6 +10,7 @@ import { agent } from '@/api/agent';
 import { formatDate } from '@/utils/utils';
 
 import './profile.scss';
+import NotFound from '@/app/[locale]/not-found';
 import Layout from '@/components/Layout/Layout';
 
 const UserCreatedHikes = dynamic(() => import('@/components/UserCreatedHikes/UserCreatedHikes'), {
@@ -37,54 +38,70 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params: { locale, userI
 
     const res = await agent.apiUsers.getUserProfile(userId);
 
-    const { username, email, gender, birthdate, userInfo, imageUrl, createdHikes } = res.data;
+    const {
+        username, email, gender, birthdate, userInfo, imageUrl, createdHikes
+    } = res.data != undefined && res.data;
 
     const isAsideHide = !email && !gender && !birthdate && !userInfo;
 
     return (
-        <Layout>
-            <main className="profile-container">
-                <article>
-                    {locale === 'en'
-                        ? <h1>{res.message ? `${res.message}` : `${username}${t('title')}`}</h1>
-                        : <h1>{res.message ? `${res.message}` : `${t('title')} ${username}`}</h1>
-                    }
+        <>
+            {res.message && (
+                <NotFound />
+            )}
 
-                    <section>
-                        <aside style={{ display: `${isAsideHide ? 'none' : 'block'}` }}>
-                            <p><HiOutlineMail /> <strong>{email}</strong></p>
-                            <p>
-                                {gender == 'Male' && <FaMale /> || gender == 'Female' && <FaFemale />}
-                                {t('gender')}: {gender ? <strong>{gender}</strong> : <span>{t('not-available')}</span>}
-                            </p>
+            {res.data && (
+                <Layout>
+                    <main className="profile-container">
+                        <article>
+                            {locale === 'en'
+                                ? <h1>{res.message ? `${res.message}` : `${username}${t('title')}`}</h1>
+                                : <h1>{res.message ? `${res.message}` : `${t('title')} ${username}`}</h1>
+                            }
 
-                            <p>
-                                <LiaBirthdayCakeSolid />
-                                {t('birthday')}: {birthdate ? <strong>{formatDate(birthdate)}</strong> : <span>{t('not-available')}</span>}
-                            </p>
+                            <section>
+                                <aside style={{ display: `${isAsideHide ? 'none' : 'block'}` }}>
+                                    <p><HiOutlineMail /> <strong>{email}</strong></p>
+                                    <p>
+                                        {gender == 'Male' && <FaMale /> || gender == 'Female' && <FaFemale />}
+                                        {t('gender')}: {gender
+                                            ? <strong>{gender}</strong>
+                                            : <span>{t('not-available')}</span>
+                                        }
+                                    </p>
 
-                            <p>{userInfo}</p>
-                        </aside>
+                                    <p>
+                                        <LiaBirthdayCakeSolid />
+                                        {t('birthday')}: {birthdate
+                                            ? <strong>{formatDate(birthdate)}</strong>
+                                            : <span>{t('not-available')}</span>
+                                        }
+                                    </p>
 
-                        <figure>
-                            <Image
-                                src={imageUrl ?? '/images/user-profile-pic.png'}
-                                width={300} height={300}
-                                alt={imageUrl ? `${username}'s photo` : 'Default user image'}
-                                loading="eager"
-                                title={imageUrl ? `${username}'s photo` : 'Default user image'}
-                                priority={true}
-                            />
-                            {username && <><FaUserNinja />&nbsp;<figcaption>{username}</figcaption></>}
-                        </figure>
-                    </section>
-                </article>
+                                    <p>{userInfo}</p>
+                                </aside>
 
-                {createdHikes?.length > 0 && (
-                    <UserCreatedHikes hikes={createdHikes} />
-                )}
-            </main>
-        </Layout>
+                                <figure>
+                                    <Image
+                                        src={imageUrl ?? '/images/user-profile-pic.png'}
+                                        width={300} height={300}
+                                        alt={imageUrl ? `${username}'s photo` : 'Default user image'}
+                                        loading="eager"
+                                        title={imageUrl ? `${username}'s photo` : 'Default user image'}
+                                        priority={true}
+                                    />
+                                    {username && <><FaUserNinja />&nbsp;<figcaption>{username}</figcaption></>}
+                                </figure>
+                            </section>
+                        </article>
+
+                        {createdHikes?.length > 0 && (
+                            <UserCreatedHikes hikes={createdHikes} />
+                        )}
+                    </main>
+                </Layout>
+            )}
+        </>
     );
 };
 

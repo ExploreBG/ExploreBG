@@ -160,7 +160,7 @@
         "err-activity": "Please enter at least one activity!",
         "err-next-to-required": "Please enter town or city name that is close to the trail!",
         "err-trail-info-required": "Please enter a short description of the trail!",
-        "err-trail-info-regex": "Valid characters include A-z 0-9 ( ) : ; ' ` ? ! - . , space and new line",
+        "err-trail-info-regex": "Valid characters include A-z 0-9 ( ) : ; ' \" ` ? ! - . , space and new line",
         "err-trail-info-max-length": "The trail info text shouldn't exceed {maxLength} characters!",
         "successful-create": "Successful create"
     },

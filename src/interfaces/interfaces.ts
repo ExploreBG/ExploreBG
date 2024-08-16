@@ -109,8 +109,10 @@ export interface IUser {
 export interface IWaitingApproval {
     id: number;
     name: string;
-    status: string;
-    reviewedBy: { id: number, username: string };
+    trailStatus?: string;
+    destinationStatus?: string;
+    accommodationStatus?: string;
+    reviewedBy?: { id: number, username: string };
     creationDate: string;
 }
 
