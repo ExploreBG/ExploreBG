@@ -99,9 +99,9 @@ const TrailDetailsDestinationsField: React.FC<TrailDetailsDestinationsFieldProps
                 >
                     <CFormInputSearch
                         suggestions={availableDestinations}
-                        onAddSelection={(selectedValue) => setInputData([...inputData, selectedValue])}
-                        onRemoveSelection={(id) => setInputData(inputData.filter(h => h.id !== id))}
-                        getSuggestionLabel={(suggestion) => suggestion.destinationName}
+                        onAddSelection={setInputData}
+                        onRemoveSelection={setInputData}
+                        suggestionName={'destinationName'}
                         initialValues={initialDestinations}
                     />
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { Dispatch, useRef } from 'react';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
@@ -16,7 +16,7 @@ interface TrailCommentsFormProps {
     userId?: number
     trailId: string
     token?: string
-    handleNewComment: (comment: IComment) => void
+    handleNewComment: Dispatch<IComment>
 }
 
 const TrailCommentsForm: React.FC<TrailCommentsFormProps> = ({

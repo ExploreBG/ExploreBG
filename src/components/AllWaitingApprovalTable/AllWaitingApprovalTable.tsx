@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AiOutlineFieldNumber } from 'react-icons/ai';
 
@@ -34,6 +34,29 @@ interface AllWaitingApprovalTableProps {
     searchParams: { [key: string]: string | string[] | undefined };
 }
 
+const getCollection = async (
+    collection: string,
+    query: string,
+    token: string,
+    setData: Dispatch<SetStateAction<IWaitingApproval[]>>,
+    setTotalElements: Dispatch<SetStateAction<number>>,
+    page: string | string[],
+    resultsPerPage: string | string[],
+    setCountFrom: Dispatch<SetStateAction<number>>
+) => {
+    try {
+        const res = await agent.apiAdmin.getWaitingApprovalCollection(collection, query, token);
+
+        setData(res?.content ?? []);
+        setTotalElements(res?.totalElements ?? 0);
+
+        const countFrom = (res?.totalElements ?? 0) - (Number(page) - 1) * Number(resultsPerPage);
+        setCountFrom(countFrom);
+    } catch (err) {
+        console.error('Error fetching collection:', err);
+    }
+};
+
 const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
     waitingApproval, userSession, searchParams
 }) => {
@@ -49,23 +72,11 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
 
     useEffect(() => {
         if (activeCollection) {
-            getCollection(activeCollection);
+            getCollection(
+                activeCollection, query, userSession.token, setData, setTotalElements, page, resultsPerPage, setCountFrom
+            );
         }
-    }, [activeCollection, page, resultsPerPage, itemStatus]);
-
-    const getCollection = async (collection: string) => {
-        try {
-            const res = await agent.apiAdmin.getWaitingApprovalCollection(collection, query, userSession.token);
-
-            setData(res?.content ?? []);
-            setTotalElements(res?.totalElements ?? 0);
-
-            const countFrom = (res?.totalElements ?? 0) - (Number(page) - 1) * Number(resultsPerPage);
-            setCountFrom(countFrom);
-        } catch (err) {
-            console.error('Error fetching collection:', err);
-        }
-    };
+    }, [activeCollection, query, userSession.token, page, resultsPerPage]);
 
     return (
         <>

@@ -102,9 +102,9 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
                 >
                     <CFormInputSearch
                         suggestions={availableAccommodations}
-                        onAddSelection={(selectedValue) => setInputData([...inputData, selectedValue])}
-                        onRemoveSelection={(id) => setInputData(inputData.filter(h => h.id !== id))}
-                        getSuggestionLabel={(suggestion) => suggestion.accommodationName}
+                        onAddSelection={setInputData}
+                        onRemoveSelection={setInputData}
+                        suggestionName={'accommodationName'}
                         initialValues={initialAvailableHuts}
                     />
 

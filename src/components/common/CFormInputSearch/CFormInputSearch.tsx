@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 
 import './CFormInputSearch.scss';
@@ -11,14 +11,14 @@ interface ISuggestion {
 
 interface CFormInputSearchProps {
     suggestions: ISuggestion[]
-    onAddSelection: (selectedValue: { id: number }) => void;
-    onRemoveSelection: (id: number) => void;
-    getSuggestionLabel: (suggestion: ISuggestion) => string;
+    onAddSelection: Dispatch<SetStateAction<{ id: number }[]>>;
+    onRemoveSelection: Dispatch<SetStateAction<{ id: number }[]>>;
+    suggestionName: string;
     initialValues?: ISuggestion[]
 }
 
 const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
-    suggestions, onAddSelection, onRemoveSelection, getSuggestionLabel, initialValues
+    suggestions, onAddSelection, onRemoveSelection, suggestionName, initialValues
 }) => {
     const t = useTranslations('common');
     const [search, setSearch] = useState<string>('');
@@ -33,7 +33,7 @@ const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
         setSearch(value);
 
         if (value) {
-            const filtered = suggestions.filter(s => getSuggestionLabel(s).toLowerCase().includes(value.toLowerCase()));
+            const filtered = suggestions.filter(s => s[suggestionName].toLowerCase().includes(value.toLowerCase()));
 
             setFilteredSuggestions(filtered);
             setActiveSuggestionIndex(-1);
@@ -45,7 +45,7 @@ const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
     const onSuggestionClick = (suggestion: ISuggestion) => {
         if (!selectedValues.find(selected => selected.id === suggestion.id)) {
             setSelectedValues([...selectedValues, suggestion]);
-            onAddSelection({ id: suggestion.id });
+            onAddSelection(state => [...state, { id: suggestion.id }]);
         }
 
         setSearch('');
@@ -68,7 +68,7 @@ const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
 
                 if (!selectedValues.find(selected => selected.id === selectedSuggestion.id)) {
                     setSelectedValues([...selectedValues, selectedSuggestion]);
-                    onAddSelection({ id: selectedSuggestion.id });
+                    onAddSelection(state => [...state, { id: selectedSuggestion.id }]);
                 }
 
                 setSearch('');
@@ -81,7 +81,7 @@ const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
     const removeSelectedValue = (id: number) => {
         const newSelectedValues = selectedValues.filter(selectedValue => selectedValue.id !== id);
         setSelectedValues(newSelectedValues);
-        onRemoveSelection(id);
+        onRemoveSelection(state => state.filter(s => s.id !== id));
     };
 
     useCloseOnEscapeTabAndClickOutside(suggestionsRef, () => {
@@ -110,7 +110,7 @@ const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
                                 onClick={() => onSuggestionClick(suggestion)}
                                 className={index === activeSuggestionIndex ? 'active' : ''}
                             >
-                                {getSuggestionLabel(suggestion)}
+                                {suggestion[suggestionName]}
                             </li>
                         ))}
                     </ul>
@@ -118,7 +118,7 @@ const CFormInputSearch: React.FC<CFormInputSearchProps> = ({
             )}
             {selectedValues.map((value) => (
                 <p key={value.id} className="suggestions__selected">
-                    {getSuggestionLabel(value)}
+                    {value[suggestionName]}
                     <button type="button" onClick={() => removeSelectedValue(value.id)}>X</button>
                 </p>
             ))}

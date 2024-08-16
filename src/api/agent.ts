@@ -131,6 +131,8 @@ const apiAdmin = {
     getWaitingApprovalCollection: (collection: string, query: string, token: string) => request(`${baseUrl}/super-users/waiting-approval/${collection}${query}`, 'GET', {}, token),
     getCreatedTrailDataForReview: (trailId: string, token: string) => request(`${baseUrl}/super-users/review/trail/${trailId}`, 'GET', {}, token),
     claimForReviewCreatedTrail: (trailId: number, token: string, body: { review: boolean }) => request(`${baseUrl}/super-users/review/trail/${trailId}/claim`, 'PATCH', headers.appJSON, token, body),
+    getReviewer: (trailId: number, token: string) => request(`${baseUrl}/trails/${trailId}/reviewer`, 'GET', {}, token),
+    approveTrail: (trailId: number, token: string, trailData: ICreateTrail) => request(`${baseUrl}/super-users/approve/trail/${trailId}`, 'PATCH', headers.appJSON, token, trailData),
 };
 
 export const agent = {

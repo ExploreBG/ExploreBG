@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
@@ -9,12 +9,13 @@ import './CCustomSelect.scss';
 interface CCustomSelectProps {
     options: string[] | number[];
     translateKey: string;
-    onChange: (value: string | number) => void;
+    onChangeForStrValue?: Dispatch<SetStateAction<string>>;
+    onChangeForNumValue?: Dispatch<SetStateAction<number>>;
     initialValue?: string | number;
 }
 
 const CCustomSelect: React.FC<CCustomSelectProps> = ({
-    options, onChange, translateKey, initialValue
+    options, onChangeForStrValue, onChangeForNumValue, translateKey, initialValue
 }) => {
     const t = useTranslations(translateKey);
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -31,7 +32,12 @@ const CCustomSelect: React.FC<CCustomSelectProps> = ({
 
     const handleSelect = (value: string | number) => {
         setSelected(value);
-        onChange(value);
+
+        if (onChangeForStrValue) {
+            onChangeForStrValue(String(value));
+        } else if (onChangeForNumValue) {
+            onChangeForNumValue(Number(value));
+        }
         setIsOpen(false);
     };
 

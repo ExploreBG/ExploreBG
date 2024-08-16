@@ -39,6 +39,7 @@ const TrailReview: React.FC<TrailReviewProps> = async ({ params: { locale, trail
                             availableAccommodations={availableAccommodations}
                             availableDestinations={availableDestinations}
                             dataForReview={trailDataForReview.data}
+                            errMessage={trailDataForReview.message}
                         />
 
                         <CSmallFooter />

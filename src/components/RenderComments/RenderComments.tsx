@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
@@ -18,8 +18,8 @@ interface RenderCommentsProps {
     comments: IComment[]
     userId?: number
     token?: string
-    handleNewComment?: (comment: IComment) => void
-    setCommentForDelete?: (id: number) => void
+    handleNewComment?: Dispatch<IComment>
+    setCommentForDelete?: Dispatch<SetStateAction<number | null>>
 }
 
 const RenderComments: React.FC<RenderCommentsProps> = ({

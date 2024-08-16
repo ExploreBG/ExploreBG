@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
@@ -16,6 +16,7 @@ import { agent } from '@/api/agent';
 import { trailPlaceMinLength, trailPlaceMaxLength, trailInfoMaxLength } from '@/utils/validations';
 
 import CCommonModal, { requireAuthChildren } from '../common/CCommonModal/CCommonModal';
+import CBackBtn from '../common/CBackBtn/CBackBtn';
 import CCustomSelect from '../common/CCustomSelect/CCustomSelect';
 import CFormFieldInfo from '../common/CFormFieldInfo/CFormFieldInfo';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -37,10 +38,11 @@ interface CreateTrailFormProps {
     availableAccommodations: IHut[]
     availableDestinations: IPlace[]
     dataForReview?: ITrail
+    errMessage?: string;
 }
 
 const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
-    userSession, formEnums, availableAccommodations, availableDestinations, dataForReview,
+    userSession, formEnums, availableAccommodations, availableDestinations, dataForReview, errMessage
 }) => {
     const t = useTranslations('trail-create');
     const tPopUp = useTranslations('pop-up');
@@ -86,7 +88,16 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
 
             try {
                 if (dataForReview) {
-                    console.log('adm or modr');
+                    const res = await agent.apiAdmin.approveTrail(dataForReview.id, userSession?.token!, data);
+
+                    if (res.data) {
+                        toast.success('successful approve');
+                        router.push('/admin/waiting-approval');
+                    } else if (res.message) {
+                        toast.error(res.message);
+                    } else if (res.errors) {
+                        toast.error(t(res.errors[0]));
+                    }
                 } else {
                     const res = await agent.apiTrails.createTrail(userSession?.userId!, userSession?.token!, data);
 
@@ -108,6 +119,24 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
         }
     });
 
+    useEffect(() => {
+        if (errMessage) {
+            toast.error(errMessage);
+        }
+
+        if (dataForReview) {
+            (async () => {
+                const res = await agent.apiAdmin.getReviewer(dataForReview.id, userSession?.token!);
+
+                if (res.data && userSession?.userId == res.data.reviewerId) {
+                    setForReview(false);
+                } else if (res.message) {
+                    toast.error(res.message);
+                }
+            })();
+        }
+    }, [errMessage, dataForReview, userSession?.userId, userSession?.token]);
+
     const translatePopUp = {
         requireAuthMessage: tPopUp('require-auth-message'),
         loginBtn: tPopUp('login-btn')
@@ -127,7 +156,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
 
         const res = dataForReview && await agent.apiAdmin.claimForReviewCreatedTrail(dataForReview.id, userSession?.token!, body);
 
-        if (res.success) {
+        if (res.data) {
             setForReview(!forReview);
         } else if (res.message) {
             toast.error(res.message);
@@ -139,6 +168,13 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
     return (
         <>
             {!userSession && <CCommonModal>{requireAuthChildren(translatePopUp)}</CCommonModal>}
+
+            {errMessage && (
+                <CCommonModal>
+                    <p>{errMessage}</p>
+                    <CBackBtn />
+                </CCommonModal>
+            )}
 
             {dataForReview && (
                 <button onClick={handleReviewClick} className="review-btn">
@@ -227,7 +263,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                         <CCustomSelect
                             options={formEnums.seasonVisited}
                             translateKey='trail-create'
-                            onChange={(value) => setSeasonVisited(String(value))}
+                            onChangeForStrValue={setSeasonVisited}
                             initialValue={dataForReview?.seasonVisited ?? undefined}
                         />
                     </div>
@@ -257,7 +293,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                         <CCustomSelect
                             options={formEnums.waterAvailable}
                             translateKey='trail-create'
-                            onChange={(value) => setWaterAvailable(String(value))}
+                            onChangeForStrValue={setWaterAvailable}
                             initialValue={dataForReview?.waterAvailable ?? undefined}
                         />
                     </div>
@@ -267,7 +303,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                         <CCustomSelect
                             options={formEnums.trailDifficulty}
                             translateKey='trail-create'
-                            onChange={(value) => setTrailDifficulty(Number(value))}
+                            onChangeForNumValue={setTrailDifficulty}
                             initialValue={dataForReview?.trailDifficulty ?? undefined}
                         />
                     </div>
@@ -278,9 +314,9 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                         <label htmlFor="availableHuts">{t('lodges-in-the-area')}</label>
                         <CFormInputSearch
                             suggestions={availableAccommodations}
-                            onAddSelection={(selectedValue) => setAvailableHuts([...availableHuts, selectedValue])}
-                            onRemoveSelection={(id) => setAvailableHuts(availableHuts.filter(h => h.id !== id))}
-                            getSuggestionLabel={(suggestion) => suggestion.accommodationName}
+                            onAddSelection={setAvailableHuts}
+                            onRemoveSelection={setAvailableHuts}
+                            suggestionName={'accommodationName'}
                             initialValues={dataForReview?.availableHuts}
                         />
                     </div>
@@ -289,9 +325,9 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                         <label htmlFor="destinations">{t('destinations-in-the-area')}</label>
                         <CFormInputSearch
                             suggestions={availableDestinations}
-                            onAddSelection={(selectedValue) => setDestinations([...destinations, selectedValue])}
-                            onRemoveSelection={(id) => setDestinations(destinations.filter(d => d.id !== id))}
-                            getSuggestionLabel={(suggestion) => suggestion.destinationName}
+                            onAddSelection={setDestinations}
+                            onRemoveSelection={setDestinations}
+                            suggestionName={'destinationName'}
                             initialValues={dataForReview?.destinations}
                         />
                     </div>
