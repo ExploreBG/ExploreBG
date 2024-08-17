@@ -128,7 +128,7 @@
     background-color: rgb(122, 120, 120, 0.6);
     backdrop-filter: blur(0.15rem);
     @include flex(none, center, center);
-    z-index: 99;
+    z-index: 1002;
 
     &__modal {
         border: 0.15rem solid black;
