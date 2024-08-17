@@ -2,17 +2,28 @@
 
 # ![Screenshot](./public/images/screenshot-logo.png)
 
+#### You love nature, traveling and discovering new exciting places - Explore BG will guide you on  your journey into the unknown.
+
 <br>
 
-![Screenshot](./public/images/screenshot.png)
+https://github.com/user-attachments/assets/59254316-6d54-4198-8947-264cfd194eef
 
-You love nature, traveling and discovering new exciting places - Explore BG will guide you on  your journey into the unknown.
+<br>
+
+### Longer (55 sec) video can be found [here](https://res.cloudinary.com/dutypcgui/video/upload/v1723892179/x-bg_nhrlfr.mp4). 👀
+
+<br>
 
 ## Tech Stack
 
-![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js) ![TS](https://img.shields.io/badge/TypeScript-blue?logo=TypeScript&logoColor=white) ![SCSS](https://img.shields.io/badge/SCSS-pink?logo=SASS)
+![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js) 
+![TS](https://img.shields.io/badge/TypeScript-blue?logo=TypeScript&logoColor=white) 
+![SCSS](https://img.shields.io/badge/SCSS-pink?logo=SASS) 
+![next-intl](https://img.shields.io/badge/next-intl-blue) 
+![Leaflet](https://img.shields.io/badge/Leaflet-green?logo=Leaflet&logoColor=darkgreen) 
+![Sharp](https://img.shields.io/badge/Sharp-white?logo=Sharp) 
 
-More about the back-end of this app can be found [here](https://github.com/ExploreBG/ExploreBG--API).
+More about the back-end of this app can be found [here](https://github.com/ExploreBG/ExploreBG-API).
 
 ## Demo
 
@@ -31,9 +42,11 @@ The application consists of a public part (accessible without authentication) an
 
 TO DO...
 
+<!--
+
 ## Run Locally
 
-<!-- - First run [this server](https://github.com/ExploreBG/ExploreBG--API) -->
+- First run [this server](https://github.com/ExploreBG/ExploreBG--API) 
 
 - Clone the project
 
@@ -52,6 +65,8 @@ TO DO...
 ```bash
   npm run dev
 ```
+
+-->
 
 ## Author
 
