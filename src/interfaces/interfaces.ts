@@ -72,6 +72,7 @@ export interface ITrail extends ITrailCard {
     elevationGained: number
     nextTo: string
     destinations: IDestination[]
+    gpxUrl: string | null
 }
 
 export interface IAccommodation extends IAccommodationCard {

@@ -10,17 +10,19 @@ import { FullscreenProvider } from '@/contexts/FullscreenContext/FullscreenConte
 import { BG_GPS_COORDINATES, DEFAULT_MAP_ZOOM } from '@/utils/constants';
 
 import FullscreenMap from '../FullscreenMap/FullscreenMap';
+import GpxLayer from '../GpxLayer/GpxLayer';
 
 interface MapProps {
     width?: string;
     height?: string;
     initialMapPosition?: [number, number];
     initialMapZoom?: number;
-    location: { name: string, position: [number, number] };
+    location?: { name: string, position: [number, number] };
+    gpxUrl?: string | null;
 }
 
 const Map: React.FC<MapProps> = ({
-    width, height, initialMapPosition, initialMapZoom, location
+    width, height, initialMapPosition, initialMapZoom, location, gpxUrl
 }) => {
 
     return (
@@ -57,6 +59,8 @@ const Map: React.FC<MapProps> = ({
                             <Popup>{location.name}</Popup>
                         </Marker>
                     )}
+
+                    {gpxUrl && <GpxLayer url={gpxUrl} />}
                 </MapContainer>
             </FullscreenMap>
         </FullscreenProvider>

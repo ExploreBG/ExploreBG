@@ -118,6 +118,10 @@
         "successful-update-available-huts": "Успешно актуализиране на полето",
         "curious-places": "Любопитни дестинации",
         "successful-update-destinations": "Успешно актуализиране на дестинациите",
+        "upload-gpx": "Добавете Gpx файл",
+        "remove-gpx": "Премахнете Gpx файла",
+        "successful-upload": "Успешно добавен файл",
+        "successful-remove-gpx": "Успешно премахнат файл",
         "in-review": "Изпратената от вас следа в момента се преглежда."
     },
     "trail-create": {

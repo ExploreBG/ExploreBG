@@ -118,6 +118,10 @@
         "successful-update-available-huts": "Successfully update available huts",
         "curious-places": "Curious places",
         "successful-update-destinations": "Successfully update destinations",
+        "upload-gpx": "Upload Gpx",
+        "remove-gpx": "Remove Gpx",
+        "successful-upload": "Successful upload",
+        "successful-remove-gpx": "Gpx file is removed",
         "in-review": "Your trail submission is currently under review."
     },
     "trail-create": {

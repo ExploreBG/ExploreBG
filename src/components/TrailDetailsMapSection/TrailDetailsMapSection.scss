@@ -1,0 +1,31 @@
+@use '@/global-styles/main' as gs;
+
+.map {
+    position: relative;
+
+    &__gpx {
+        position: absolute;
+        top: 0.75rem;
+        right: 1.25rem;
+
+        &>label {
+            @include gs.flex(none, none, center);
+            cursor: pointer;
+
+            &>span {
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            &>svg {
+                margin-left: 0.5rem;
+                font-size: 1.5rem;
+            }
+        }
+
+        &>input {
+            display: none;
+        }
+    }
+}

@@ -10,6 +10,7 @@ import CCommonModal from '@/components/common/CCommonModal/CCommonModal';
 import CBackBtn from '@/components/common/CBackBtn/CBackBtn';
 import Layout from '@/components/Layout/Layout';
 import TrailDetailsSection from '@/components/TrailDetailsSection/TrailDetailsSection';
+import TrailDetailsMapSection from '@/components/TrailDetailsMapSection/TrailDetailsMapSection';
 import TrailComments from '@/components/TrailComments/TrailComments';
 
 interface TrailDetailsProps {
@@ -40,10 +41,6 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
 
     const trail = res.data;
 
-    if (res.message) {
-        console.log(res.message);
-    }
-
     return (
         <>
             {!trail && (
@@ -67,6 +64,14 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
                             userId={userId}
                             token={token}
                         />
+
+                        {(trail.gpxUrl || (token && trail.createdBy?.id == userId)) && (
+                            <TrailDetailsMapSection
+                                trail={trail}
+                                userId={userId}
+                                token={token}
+                            />
+                        )}
 
                         <TrailComments
                             trail={trail}
