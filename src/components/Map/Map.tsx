@@ -6,11 +6,13 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 
-import { FullscreenProvider } from '@/contexts/FullscreenContext/FullscreenContext';
+import { FullscreenProvider } from '@/contexts/FullscreenContext';
 import { BG_GPS_COORDINATES, DEFAULT_MAP_ZOOM } from '@/utils/constants';
 
 import FullscreenMap from '../FullscreenMap/FullscreenMap';
 import GpxLayer from '../GpxLayer/GpxLayer';
+import CtrlScrollOnMap from '../CtrlScrollOnMap/CtrlScrollOnMap';
+import MouseCoordinatesOnMap from '../MouseCoordinatesOnMap/MouseCoordinatesOnMap';
 
 interface MapProps {
     width?: string;
@@ -61,6 +63,11 @@ const Map: React.FC<MapProps> = ({
                     )}
 
                     {gpxUrl && <GpxLayer url={gpxUrl} />}
+
+                    <CtrlScrollOnMap />
+
+                    <MouseCoordinatesOnMap />
+
                 </MapContainer>
             </FullscreenMap>
         </FullscreenProvider>

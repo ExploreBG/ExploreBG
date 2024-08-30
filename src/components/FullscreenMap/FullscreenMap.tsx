@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 
-import { useFullscreenCtx } from '@/contexts/FullscreenContext/FullscreenContext';
+import { useFullscreenCtx } from '@/contexts/FullscreenContext';
+import { MAP_FUNCTIONALITIES_BACKGR_COLOR } from '@/utils/constants';
 
 interface FullscreenMapProps {
     children: ReactNode;
@@ -54,7 +55,7 @@ const FullscreenMap: React.FC<FullscreenMapProps> = ({ children, width, height }
                     right: '0',
                     zIndex: 1000,
                     padding: '0.5rem',
-                    backgroundColor: '#d3d3d3ba',
+                    backgroundColor: MAP_FUNCTIONALITIES_BACKGR_COLOR,
                     border: 'none',
                     cursor: 'pointer',
                     borderRadius: '0.25rem'
