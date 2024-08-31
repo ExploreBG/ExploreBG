@@ -1,4 +1,7 @@
+import { EventEmitter } from 'events';
 import { MONTH_NAMES } from "./constants";
+
+export const eventEmitter = new EventEmitter();
 
 export const homeTopImages = [
     '/images/5.avif',

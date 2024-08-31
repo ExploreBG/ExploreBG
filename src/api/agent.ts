@@ -32,7 +32,7 @@ const request = async (url: string, method: string = 'GET', headers?: IHeader, s
     if (body && !isUpload) {
         options.body = JSON.stringify(body);
     } else if (body && isUpload) {
-        options.body = body
+        options.body = body;
     }
 
     try {
@@ -72,7 +72,8 @@ const apiUsers = {
     register: (data: Record<string, unknown>) => request(`${baseUrl}/users/register`, 'POST', headers.appJSON, undefined, data),
     login: (data: Record<string, unknown>) => request(`${baseUrl}/users/login`, 'POST', headers.appJSON, undefined, data),
     getMyProfile: (userId: string, token: string) => request(`${baseUrl}/users/${userId}/my-profile`, 'GET', {}, token),
-    updateUserPhoto: (userId: string, token: string, newData: FormData, isUpload: boolean) => request(`${baseUrl}/images/upload/${userId}`, 'POST', {}, token, newData, isUpload),
+    getUserPhoto: (token: string) => request(`${baseUrl}/images/user`, 'GET', {}, token),
+    updateUserPhoto: (token: string, newData: FormData, isUpload: boolean) => request(`${baseUrl}/images/user`, 'PATCH', {}, token, newData, isUpload),
     updateUsername: (userId: string, token: string, newUsername: unknown) => request(`${baseUrl}/users/${userId}/update-username`, 'PATCH', headers.appJSON, token, newUsername),
     updateEmail: (userId: string, token: string, newEmail: unknown) => request(`${baseUrl}/users/${userId}/update-email`, 'PATCH', headers.appJSON, token, newEmail),
     getGenderEnum: () => request(`${baseUrl}/utility/register-enums`),

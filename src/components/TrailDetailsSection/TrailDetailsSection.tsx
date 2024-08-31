@@ -57,6 +57,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
         getFormEnums();
     }, [token]);
 
+    const isOwner = userId === trail.createdBy?.id;
     const season = trail.seasonVisited?.toLowerCase();
 
     return (
@@ -75,24 +76,24 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
             <TrailDetailsStartPointField
                 initialStartPoint={trail.startPoint}
                 trailId={trail.id}
-                isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                isTrailOwner={isOwner}
             />
             <TrailDetailsEndPointField
                 initialEndPoint={trail.endPoint}
                 trailId={trail.id}
-                isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                isTrailOwner={isOwner}
             />
 
             <div className="trail__pair">
                 <TrailDetailsTotalDistanceField
                     initialTotalDistance={trail.totalDistance}
                     trailId={trail.id}
-                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    isTrailOwner={isOwner}
                 />
                 <TrailDetailsElevationField
                     initialElevation={trail.elevationGained}
                     trailId={trail.id}
-                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    isTrailOwner={isOwner}
                 />
             </div>
 
@@ -106,7 +107,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                 <TrailDetailsActivityField
                     initialActivity={trail.activity}
                     trailId={trail.id}
-                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    isTrailOwner={isOwner}
                     formEnums={enums}
                 />
             </div>
@@ -115,13 +116,13 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
                 <TrailDetailsWaterAvailableField
                     initialWaterAvailable={trail.waterAvailable}
                     trailId={trail.id}
-                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    isTrailOwner={isOwner}
                     formEnums={enums}
                 />
                 <TrailDetailsTrailDifficultyField
                     initialTrailDifficulty={String(trail.trailDifficulty)}
                     trailId={trail.id}
-                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    isTrailOwner={isOwner}
                     formEnums={enums}
                 />
             </div>
@@ -129,21 +130,21 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
             <TrailDetailsInfoField
                 initialInfo={trail.trailInfo}
                 trailId={trail.id}
-                isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                isTrailOwner={isOwner}
             />
 
             <aside className="trail__links">
                 <TrailDetailsAvailableHutsField
                     initialAvailableHuts={trail.availableHuts}
                     trailId={trail.id}
-                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    isTrailOwner={isOwner}
                     availableAccommodations={accommodations}
                     token={token}
                 />
                 <TrailDetailsDestinationsField
                     initialDestinations={trail.destinations}
                     trailId={trail.id}
-                    isTrailOwner={userId ? userId === trail.createdBy?.id : false}
+                    isTrailOwner={isOwner}
                     availableDestinations={destinations}
                     token={token}
                 />

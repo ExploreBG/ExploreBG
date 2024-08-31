@@ -10,6 +10,8 @@ import { toast } from 'react-toastify';
 
 import { IUserSession } from '@/interfaces/interfaces';
 import { getSession, clearSession } from '@/utils/userSession';
+import { agent } from '@/api/agent';
+import { eventEmitter } from '@/utils/utils';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import './CHeaderLinksAndButtons.scss';
@@ -32,10 +34,25 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
             const data = await getSession();
 
             if (data) {
-                setUserSession(data);
+                const res = await agent.apiUsers.getUserPhoto(data.token);
+
+                setUserSession({ ...data, userImage: res.url });
             }
         }
         session();
+
+        const handleUserImageUpdated = (newImage: string) => {
+            setUserSession(state => state
+                ? { ...state, userImage: newImage }
+                : null
+            );
+        };
+
+        eventEmitter.on('userImageUpdated', handleUserImageUpdated);
+
+        return () => {
+            eventEmitter.off('userImageUpdated', handleUserImageUpdated);
+        };
     }, []);
 
     const onLogoutClick = async () => {
@@ -101,7 +118,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                     {userSession && (
                         <figure>
                             <Image
-                                src={'/images/user-profile-pic.png'}
+                                src={userSession.userImage ?? '/images/user-profile-pic.png'}
                                 width={50} height={50} loading="eager"
                                 alt="User profile picture" title="User profile picture"
                                 priority={true}

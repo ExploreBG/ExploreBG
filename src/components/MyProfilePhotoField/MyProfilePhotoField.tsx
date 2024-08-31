@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 import { agent } from '@/api/agent';
 import { getSession, setSession } from '@/utils/userSession';
+import { eventEmitter } from '@/utils/utils';
 
 import './myProfilePhotoField.scss';
 
@@ -16,7 +17,7 @@ interface MyProfilePhotoFieldProps {
     username: string
 }
 
-export const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ initialImageUrl, userId, username }) => {
+const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ initialImageUrl, userId, username }) => {
     const t = useTranslations('my-profile');
     const [userImage, setUserImage] = useState<string | null>(initialImageUrl);
 
@@ -37,11 +38,14 @@ export const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ initia
             const isUpload = true;
 
             try {
-                const res = await agent.apiUsers.updateUserPhoto(userId, token!, formData, isUpload);
+                const res = await agent.apiUsers.updateUserPhoto(token!, formData, isUpload);
 
-                if (res.url && token) {
-                    setUserImage(res.url);
-                    await setSession({ token, userId: Number(userId), userRoles, userImage: res.url });
+                if (res.data.url && token) {
+                    setUserImage(res.data.url);
+                    eventEmitter.emit('userImageUpdated', res.data.url);
+
+                    await setSession({ token, userId: Number(userId), userRoles, userImage: res.data.url });
+
                     toast.success(t('successful-update-photo'));
                 } else if (res.message) {
                     toast.error(res.message);

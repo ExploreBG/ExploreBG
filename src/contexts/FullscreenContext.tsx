@@ -11,7 +11,7 @@ export const useFullscreenCtx = () => {
     const context = useContext(FullscreenContext);
 
     if (!context) {
-        throw new Error('useFullscreen must be used within a FullscreenProvider');
+        throw new Error('useFullscreenCtx must be used within a FullscreenProvider');
     }
 
     return context;

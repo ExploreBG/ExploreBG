@@ -20,6 +20,9 @@
 
             &>img {
                 border-radius: 100%;
+                border: 1px solid white;
+                box-shadow: 1px 2px 6px black;
+                object-fit: cover;
                 cursor: pointer;
             }
 
@@ -55,6 +58,10 @@
 
         &>ul {
             display: flex;
+
+            &>li>a {
+                text-shadow: 1px 6px 6px gray;
+            }
         }
     }
 
@@ -110,6 +117,9 @@
 
         &>figure>img {
             border-radius: 100%;
+            border: 1px solid white;
+            box-shadow: 1px 2px 6px black;
+            object-fit: cover;
             cursor: pointer;
         }
 
