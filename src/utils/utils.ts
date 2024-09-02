@@ -39,3 +39,10 @@ export const formatFullDate = (input: string) => {
         ${seconds.toString().padStart(2, '0')}
     `
 };
+
+export const convertMetersToKmM = (meters: number) => {
+    const km = Math.floor(meters / 1000);
+    const remainingMeters = Math.floor(meters % 1000);
+
+    return `${km} km ${remainingMeters} m`;
+};

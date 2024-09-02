@@ -1,17 +1,19 @@
 'use client';
 
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { MapContainer, LayersControl, TileLayer, Marker, Tooltip, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 
+import { ITrackInfo } from '@/interfaces/interfaces';
 import { FullscreenProvider } from '@/contexts/FullscreenContext';
 import { BG_GPS_COORDINATES, DEFAULT_MAP_ZOOM } from '@/utils/constants';
 
 import FullscreenMap from '../FullscreenMap/FullscreenMap';
 import GpxLayer from '../GpxLayer/GpxLayer';
 import CtrlScrollOnMap from '../CtrlScrollOnMap/CtrlScrollOnMap';
+import LocateUserOnMap from '../LocateUserOnMap/LocateUserOnMap';
 import MouseCoordinatesOnMap from '../MouseCoordinatesOnMap/MouseCoordinatesOnMap';
 
 interface MapProps {
@@ -21,10 +23,11 @@ interface MapProps {
     initialMapZoom?: number;
     location?: { name: string, position: [number, number] };
     gpxUrl?: string | null;
+    setTrackInfo?: Dispatch<SetStateAction<ITrackInfo | null>>
 }
 
 const Map: React.FC<MapProps> = ({
-    width, height, initialMapPosition, initialMapZoom, location, gpxUrl
+    width, height, initialMapPosition, initialMapZoom, location, gpxUrl, setTrackInfo
 }) => {
 
     return (
@@ -62,9 +65,11 @@ const Map: React.FC<MapProps> = ({
                         </Marker>
                     )}
 
-                    {gpxUrl && <GpxLayer url={gpxUrl} />}
+                    {gpxUrl && <GpxLayer url={gpxUrl} setTrackInfo={setTrackInfo!} />}
 
                     <CtrlScrollOnMap />
+
+                    <LocateUserOnMap location={location} />
 
                     <MouseCoordinatesOnMap />
 

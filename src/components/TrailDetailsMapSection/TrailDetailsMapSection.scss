@@ -3,29 +3,16 @@
 .map {
     position: relative;
 
-    &__gpx {
-        position: absolute;
-        top: 0.75rem;
-        right: 1.25rem;
+    &__track-info {
+        margin-top: 2rem;
+        @include gs.flex(row, space-between, none);
+        gap: 1rem;
+        flex-wrap: wrap;
+        backdrop-filter: blur(0.25rem);
+        padding: 0.5rem;
 
-        &>label {
-            @include gs.flex(none, none, center);
-            cursor: pointer;
-
-            &>span {
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-
-            &>svg {
-                margin-left: 0.5rem;
-                font-size: 1.5rem;
-            }
-        }
-
-        &>input {
-            display: none;
+        & strong {
+            color: green;
         }
     }
 }

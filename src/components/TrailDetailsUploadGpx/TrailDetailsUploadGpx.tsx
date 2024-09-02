@@ -56,7 +56,7 @@ const TrailDetailsUploadGpx: React.FC<TrailDetailsUploadGpxProps> = ({ trailId, 
     return (
         <>
             {!track && (
-                <form className="map__gpx">
+                <form className="upload-file">
                     <label htmlFor="file-input">
                         <span>{t('upload-gpx')}</span> <FaFileUpload />
                     </label>
@@ -65,7 +65,7 @@ const TrailDetailsUploadGpx: React.FC<TrailDetailsUploadGpxProps> = ({ trailId, 
             )}
 
             {track && (
-                <div onClick={onRemoveGpx} className="map__gpx">
+                <div onClick={onRemoveGpx} className="upload-file">
                     <label>
                         <span >{t('remove-gpx')}</span> <ImBin style={{ color: 'red' }} />
                     </label>
