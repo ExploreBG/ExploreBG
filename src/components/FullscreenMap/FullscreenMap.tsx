@@ -56,6 +56,7 @@ const FullscreenMap: React.FC<FullscreenMapProps> = ({ children, width, height }
                     zIndex: 1000,
                     padding: '0.5rem',
                     backgroundColor: MAP_FUNCTIONALITIES_BACKGR_COLOR,
+                    color: 'black',
                     border: 'none',
                     cursor: 'pointer',
                     borderRadius: '0.25rem'

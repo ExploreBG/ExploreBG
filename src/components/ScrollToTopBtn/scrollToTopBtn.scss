@@ -1,0 +1,17 @@
+@use '@/global-styles/main' as gs;
+
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    border-radius: 50%;
+    color: gs.$bright-purple;
+    font-size: 3rem;
+    backdrop-filter: blur(0.25rem);
+    cursor: pointer;
+    transition: all 1s ease;
+
+    &:hover {
+        color: gs.$middle-primary;
+    }
+}

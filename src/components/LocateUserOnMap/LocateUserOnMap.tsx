@@ -41,7 +41,7 @@ const LocateUserOnMap: React.FC<LocateUserOnMapProps> = ({ location }) => {
         return () => {
             map.off('locationfound', onLocationFound);
         };
-    }, [map, location?.name, location?.position]);
+    }, [map, location]);
 
     return (
         <button

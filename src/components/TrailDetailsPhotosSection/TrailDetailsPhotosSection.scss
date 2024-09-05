@@ -1,0 +1,8 @@
+@use '@/global-styles/main' as gs;
+
+.photos {
+    position: relative;
+    @include gs.flex(row, space-around, none);
+    flex-wrap: wrap;
+    gap: 1rem;
+}

@@ -24,8 +24,8 @@ import TrailDetailsDestinationsField from '../TrailDetailsDestinationsField/Trai
 
 interface TrailDetailsSectionProps {
     trail: ITrail
-    userId?: number
     token?: string
+    isOwner: boolean
 }
 
 const seasonIcons = {
@@ -35,7 +35,7 @@ const seasonIcons = {
     'winter': <FaSnowflake className="winter" />,
 };
 
-const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId, token }) => {
+const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, token, isOwner }) => {
     const t = useTranslations('trail-details');
     const t2 = useTranslations('trail-create');
     const [enums, setEnums] = useState<IFormEnums>({});
@@ -57,7 +57,6 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, userId
         getFormEnums();
     }, [token]);
 
-    const isOwner = userId === trail.createdBy?.id;
     const season = trail.seasonVisited?.toLowerCase();
 
     return (

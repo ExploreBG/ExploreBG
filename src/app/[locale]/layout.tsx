@@ -10,6 +10,7 @@ import { locales } from '@/config';
 
 import '@/global-styles/main.scss';
 import { mainFont, headingFont } from '@/global-styles/fonts';
+import ScrollToTopBtn from '@/components/ScrollToTopBtn/ScrollToTopBtn';
 
 interface RootLayoutProps {
     children: React.ReactNode;
@@ -105,6 +106,7 @@ export default function RootLayout({
                     <ProvideTheme>
                         <NextIntlClientProvider locale={locale} messages={messages}>
                             {children}
+                            <ScrollToTopBtn />
                         </NextIntlClientProvider>
                         <ToastContainer
                             position='top-right'

@@ -60,7 +60,7 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
                 </section>
 
                 {hike.hikingTrail && (
-                    <TrailDetailsSection trail={hike.hikingTrail} />
+                    <TrailDetailsSection trail={hike.hikingTrail} isOwner={false} />
                 )}
 
                 {(hike.comments.length > 0 || hike.hikingTrail?.comments.length > 0) && (

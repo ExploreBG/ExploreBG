@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
 import { agent } from '@/api/agent';
@@ -10,6 +11,7 @@ import CCommonModal from '@/components/common/CCommonModal/CCommonModal';
 import CBackBtn from '@/components/common/CBackBtn/CBackBtn';
 import Layout from '@/components/Layout/Layout';
 import TrailDetailsSection from '@/components/TrailDetailsSection/TrailDetailsSection';
+import TrailDetailsPhotosSection from '@/components/TrailDetailsPhotosSection/TrailDetailsPhotosSection';
 import TrailDetailsMapSection from '@/components/TrailDetailsMapSection/TrailDetailsMapSection';
 import TrailComments from '@/components/TrailComments/TrailComments';
 
@@ -40,6 +42,7 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
         : await agent.apiTrails.getTrailById(trailId);
 
     const trail = res.data;
+    const isOwner = token ? trail?.createdBy?.id == userId : false;
 
     return (
         <>
@@ -59,20 +62,38 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
                     <main className="trail-details">
                         <h1>{t('title')}</h1>
 
+                        <nav className="trail-details__nav" aria-label="details-page-navigation">
+                            <ul>
+                                {trail.images.length > 0 && <li><Link href="#photos">photos</Link></li>}
+                                {trail.gpxUrl && <li><Link href="#map">map</Link></li>}
+                                <li><Link href="#comments">comments</Link></li>
+                            </ul>
+                        </nav>
                         <TrailDetailsSection
                             trail={trail}
-                            userId={userId}
                             token={token}
+                            isOwner={isOwner}
                         />
 
-                        {(trail.gpxUrl || (token && trail.createdBy?.id == userId)) && (
-                            <TrailDetailsMapSection
+                        <span id="photos" />
+                        {(trail.images.length > 0 || isOwner) && (
+                            <TrailDetailsPhotosSection
                                 trail={trail}
-                                userId={userId}
                                 token={token}
+                                isOwner={isOwner}
                             />
                         )}
 
+                        <span id="map" />
+                        {(trail.gpxUrl || isOwner) && (
+                            <TrailDetailsMapSection
+                                trail={trail}
+                                token={token}
+                                isOwner={isOwner}
+                            />
+                        )}
+
+                        <span id="comments" />
                         <TrailComments
                             trail={trail}
                             userId={userId}

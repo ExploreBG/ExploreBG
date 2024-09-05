@@ -76,7 +76,7 @@ const GpxLayer: React.FC<GpxLayerProps> = ({ url, setTrackInfo }) => {
         return () => {
             map.removeLayer(gpxLayer);
         };
-    }, [map, url]);
+    }, [map, url, setTrackInfo]);
 
     return null;
 };

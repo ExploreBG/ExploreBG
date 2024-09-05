@@ -5,19 +5,19 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
 
+import { IUserSession } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
-import { getSession, setSession } from '@/utils/userSession';
+import { setSession } from '@/utils/userSession';
 import { eventEmitter } from '@/utils/utils';
 
 import './myProfilePhotoField.scss';
 
 interface MyProfilePhotoFieldProps {
-    initialImageUrl: string | null
-    userId: string
-    username: string
+    initialImageUrl: string | null;
+    session: IUserSession;
 }
 
-const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ initialImageUrl, userId, username }) => {
+const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ initialImageUrl, session }) => {
     const t = useTranslations('my-profile');
     const [userImage, setUserImage] = useState<string | null>(initialImageUrl);
 
@@ -25,26 +25,26 @@ const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ initialImageU
         const file = e.currentTarget.files && e.currentTarget.files[0];
 
         if (file) {
-            const data = { name: username, folder: "Users" }
+            const data = { folder: "Users" }
 
             const formData = new FormData();
 
             formData.append('data', JSON.stringify(data));
             formData.append('file', file);
 
-            const session = await getSession();
-            const token = session?.token;
-            const userRoles = session?.userRoles ?? [];
+            const userId = session.userId;
+            const token = session.token;
+            const userRoles = session.userRoles;
             const isUpload = true;
 
             try {
-                const res = await agent.apiUsers.updateUserPhoto(token!, formData, isUpload);
+                const res = await agent.apiUsers.updateUserPhoto(token, formData, isUpload);
 
-                if (res.data.url && token) {
-                    setUserImage(res.data.url);
-                    eventEmitter.emit('userImageUpdated', res.data.url);
+                if (res.data.imageUrl && token) {
+                    setUserImage(res.data.imageUrl);
+                    eventEmitter.emit('userImageUpdated', res.data.imageUrl);
 
-                    await setSession({ token, userId: Number(userId), userRoles, userImage: res.data.url });
+                    await setSession({ token, userId, userRoles, userImage: res.data.imageUrl });
 
                     toast.success(t('successful-update-photo'));
                 } else if (res.message) {

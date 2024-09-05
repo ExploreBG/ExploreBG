@@ -68,10 +68,10 @@ const request = async (url: string, method: string = 'GET', headers?: IHeader, s
 };
 
 const apiUsers = {
-    getUserProfile: (userId: string) => request(`${baseUrl}/users/${userId}/profile`),
+    getUserProfile: (userId: string) => request(`${baseUrl}/users/${userId}`),
     register: (data: Record<string, unknown>) => request(`${baseUrl}/users/register`, 'POST', headers.appJSON, undefined, data),
     login: (data: Record<string, unknown>) => request(`${baseUrl}/users/login`, 'POST', headers.appJSON, undefined, data),
-    getMyProfile: (userId: string, token: string) => request(`${baseUrl}/users/${userId}/my-profile`, 'GET', {}, token),
+    getMyProfile: (token: string) => request(`${baseUrl}/users/my-profile`, 'GET', {}, token),
     getUserPhoto: (token: string) => request(`${baseUrl}/images/user`, 'GET', {}, token),
     updateUserPhoto: (token: string, newData: FormData, isUpload: boolean) => request(`${baseUrl}/images/user`, 'PATCH', {}, token, newData, isUpload),
     updateUsername: (userId: string, token: string, newUsername: unknown) => request(`${baseUrl}/users/${userId}/update-username`, 'PATCH', headers.appJSON, token, newUsername),
@@ -98,6 +98,7 @@ const apiTrails = {
     getAvailableAccommodations: (token: string) => request(`${baseUrl}/accommodations/select`, 'GET', {}, token),
     getAvailableDestinations: (token: string) => request(`${baseUrl}/destinations/select`, 'GET', {}, token),
     createTrail: (userId: number, token: string, trailData: ICreateTrail) => request(`${baseUrl}/trails/create/${userId}`, 'POST', headers.appJSON, token, trailData),
+    uploadPhotos: (trailId: number, token: string, photos: FormData, isUpload: boolean) => request(`${baseUrl}/images/entity/${trailId}`, 'PATCH', {}, token, photos, isUpload),
     uploadGpxFile: (trailId: number, token: string, data: FormData, isUpload: boolean) => request(`${baseUrl}/gpx/trail/${trailId}`, 'PATCH', {}, token, data, isUpload),
     removeGpxFile: (trailId: number, token: string) => request(`${baseUrl}/gpx/trail/${trailId}`, 'DELETE', {}, token),
     createTrailComment: (userId: number, trailId: number, token: string, trailComment: { message: unknown }) => request(`${baseUrl}/trails/create/${userId}/comment/${trailId}`, 'POST', headers.appJSON, token, trailComment),

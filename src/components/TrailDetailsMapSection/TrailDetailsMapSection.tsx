@@ -15,11 +15,11 @@ const Map = dynamic(() => import('@/components/Map/Map'), {
 
 interface TrailDetailsMapSectionProps {
     trail: ITrail;
-    userId?: number;
     token?: string;
+    isOwner: boolean;
 }
 
-const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, userId, token }) => {
+const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, token, isOwner }) => {
     const [track, setTrack] = useState<string | null>(trail.gpxUrl);
     const [trackInfo, setTrackInfo] = useState<ITrackInfo | null>(null);
 
@@ -30,10 +30,10 @@ const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, 
 
     return (
         <section className="map details-page-section">
-            {(token && trail.createdBy?.id == userId) && (
+            {isOwner && (
                 <TrailDetailsUploadGpx
                     trailId={trail.id}
-                    token={token}
+                    token={token!}
                     track={track}
                     setGpx={setTrack}
                 />

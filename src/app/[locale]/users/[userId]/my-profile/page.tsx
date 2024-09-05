@@ -42,7 +42,7 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } 
     const session = await getSession();
     const token = session?.token ?? '';
 
-    const res = await agent.apiUsers.getMyProfile(userId, token);
+    const res = await agent.apiUsers.getMyProfile(token);
 
     const { username, email, gender, birthdate, imageUrl, userInfo, createdHikes } = !res.message && res.data;
 
@@ -57,7 +57,7 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } 
                             <h1>{t('title')}</h1>
 
                             <section>
-                                <MyProfilePhotoField initialImageUrl={imageUrl} userId={userId} username={username} />
+                                <MyProfilePhotoField initialImageUrl={imageUrl} session={session!} />
 
                                 <MyProfileUsernameField initialUsername={username} userId={userId} />
                                 <MyProfileEmailField initialEmail={email} userId={userId} />
