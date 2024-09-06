@@ -176,6 +176,11 @@ main {
         margin: 2rem 0;
     }
 
+    & .spinner {
+        margin: 0 auto;
+        animation: spinner-black-text-fade 2s ease-in-out infinite;
+    }
+
     &>button {
         margin-bottom: 2rem;
         font-size: 2rem;
@@ -349,5 +354,22 @@ main {
     40%,
     60% {
         transform: translate3d(4px, 0, 0);
+    }
+}
+
+@keyframes spinner-black-text-fade {
+
+    0%,
+    100% {
+        color: rgba(0, 0, 0, 1);
+    }
+
+    25%,
+    75% {
+        color: rgba(0, 0, 0, .5);
+    }
+
+    50% {
+        color: rgba(0, 0, 0, .1);
     }
 }

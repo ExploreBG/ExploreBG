@@ -15,9 +15,10 @@ import MyProfileGenderField from '@/components/MyProfileGenderField/MyProfileGen
 import MyProfileBirthdayField from '@/components/MyProfileBirthdayField/MyProfileBirthdayField';
 import MyProfileInfoField from '@/components/MyProfileInfoField/MyProfileInfoField';
 import MyProfileButtons from '@/components/MyProfileButtons/MyProfileButtons';
+import CLoadingSpinner from '@/components/common/CLoadingSpinner/CLoadingSpinner';
 
 const UserCreatedHikes = dynamic(() => import('@/components/UserCreatedHikes/UserCreatedHikes'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => <CLoadingSpinner />,
     ssr: false
 });
 
@@ -71,7 +72,13 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } 
                         </article>
 
                         {createdHikes.length > 0 && (
-                            <UserCreatedHikes hikes={createdHikes} />
+                            <section className="user-profile-section">
+                                <hr />
+
+                                <h2>{t('created-hikes')}</h2>
+
+                                <UserCreatedHikes hikes={createdHikes} />
+                            </section>
                         )}
                     </main>
                 </Layout>

@@ -7,10 +7,11 @@ import { ITrail, ITrackInfo } from '@/interfaces/interfaces';
 import { formatFullDate, convertMetersToKmM } from '@/utils/utils';
 
 import './TrailDetailsMapSection.scss';
+import CLoadingSpinner from '../common/CLoadingSpinner/CLoadingSpinner';
 import TrailDetailsUploadGpx from '../TrailDetailsUploadGpx/TrailDetailsUploadGpx';
 
 const Map = dynamic(() => import('@/components/Map/Map'), {
-    loading: () => <p>A map is loading...</p>, ssr: false
+    loading: () => <CLoadingSpinner />, ssr: false
 });
 
 interface TrailDetailsMapSectionProps {

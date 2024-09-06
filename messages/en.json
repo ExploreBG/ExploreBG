@@ -3,7 +3,8 @@
         "type-to-search": "Type to search...",
         "click-to": "click to",
         "close": "close",
-        "expand": "expand"
+        "expand": "expand",
+        "loading": "Loading"
     },
     "navigation": {
         "about": "About",
@@ -120,7 +121,17 @@
         "successful-update-destinations": "Successfully update destinations",
         "upload-photos": "Upload Photos",
         "missing-token": "Authentication token is missing!",
+        "limit-photos-message": "You can upload up to {max} photos!",
+        "uploaded-photos-info": "The first {count} photos were uploaded because you have reached the maximum upload limit.",
         "success-upload-photos": "Photos uploaded successfully",
+        "delete-photos": "Delete photos",
+        "delete-marked": "Delete marked",
+        "delete-all": "Delete all",
+        "marked-photos": "marked photos",
+        "all-photos": "all photos",
+        "change-main": "Change main",
+        "main": "Main",
+        "set-main": "Set main",
         "upload-gpx": "Upload Gpx",
         "remove-gpx": "Remove Gpx",
         "successful-upload": "Successful upload",

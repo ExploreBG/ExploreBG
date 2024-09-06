@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useTranslations } from 'next-intl';
 
 import { IHikeCard } from '@/interfaces/interfaces';
 
-import IntersectionObserverComponent from '../IntersectionObserverComponent';
 import HikeCard from '../HikeCard/HikeCard';
 
 interface UserCreatedHikesProps {
@@ -13,7 +11,6 @@ interface UserCreatedHikesProps {
 }
 
 const UserCreatedHikes: React.FC<UserCreatedHikesProps> = ({ hikes }) => {
-    const t = useTranslations('my-profile');
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const itemsPerPage = 3;
 
@@ -34,13 +31,7 @@ const UserCreatedHikes: React.FC<UserCreatedHikesProps> = ({ hikes }) => {
     const hikesForDisplay = hikes.slice(currentIndex, endIndex);
 
     return (
-        <section className="user-profile-section">
-            <IntersectionObserverComponent />
-
-            <hr />
-
-            <h2>{t('created-hikes')}</h2>
-
+        <>
             {hikes.length > itemsPerPage && (
                 <>
                     <button
@@ -67,7 +58,7 @@ const UserCreatedHikes: React.FC<UserCreatedHikesProps> = ({ hikes }) => {
                     </article>
                 ))}
             </div>
-        </section>
+        </>
     );
 };
 

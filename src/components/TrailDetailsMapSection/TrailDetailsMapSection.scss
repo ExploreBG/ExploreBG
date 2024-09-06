@@ -3,6 +3,10 @@
 .map {
     position: relative;
 
+    & .spinner {
+        margin: 0 auto;
+    }
+
     &__track-info {
         margin-top: 2rem;
         @include gs.flex(row, space-between, none);

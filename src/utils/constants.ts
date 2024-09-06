@@ -2,6 +2,8 @@ export const BG_GPS_COORDINATES: [number, number] = [42.7249925, 25.4833039];
 export const DEFAULT_MAP_ZOOM = 7;
 export const MAP_FUNCTIONALITIES_BACKGR_COLOR = '#d3d3d3ba';
 
+export const MAX_PHOTO_COUNT_FOR_UPLOAD = 10;
+
 export const MONTH_NAMES = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"

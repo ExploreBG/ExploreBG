@@ -1,8 +1,151 @@
 @use '@/global-styles/main' as gs;
 
-.photos {
+.photos-wrapper {
     position: relative;
-    @include gs.flex(row, space-around, none);
-    flex-wrap: wrap;
-    gap: 1rem;
+
+    &__buttons {
+        position: absolute;
+        top: 0.75rem;
+        right: 1.25rem;
+
+        &>button {
+            background: transparent;
+            border: none;
+            color: gs.$beige;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+            &>span {
+                font-size: 1.15rem;
+                margin-right: 0.25rem;
+            }
+        }
+
+        &__form {
+            display: inline-block;
+
+            &>label {
+                cursor: pointer;
+
+                &>span {
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            &>input {
+                display: none;
+            }
+        }
+    }
+
+    &__photos {
+        @include gs.flex(row, space-around, none);
+        flex-wrap: wrap;
+        gap: 2rem;
+
+        &__img {
+            position: relative;
+            cursor: pointer;
+
+            &__span-main,
+            &__span-set-main {
+                position: absolute;
+                top: -1.1rem;
+                left: -0.75rem;
+                padding: 0 0.25rem;
+                border-radius: 0.25rem;
+                background-color: black;
+                font-size: 0.9rem;
+            }
+
+            &__span-main {
+                background-color: gs.$middle-primary;
+            }
+
+            &__checkbox {
+                position: absolute;
+                top: -0.65rem;
+                right: -0.65rem;
+                transform: scale(1.75);
+            }
+
+            &__main {
+                border: 3px solid gs.$middle-primary;
+            }
+
+            &>figure {
+                position: relative;
+                border-radius: 0.5rem;
+                overflow: hidden;
+
+                &>img {
+                    border-radius: 0.5rem;
+                    aspect-ratio: 1/1;
+                    object-fit: cover;
+                    object-position: center;
+                    transition: all 1s ease;
+
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+
+        &__zoom-img {
+            position: relative;
+
+            &>span {
+                position: absolute;
+                top: -2rem;
+                right: -2rem;
+                z-index: 1;
+                border: 1px solid white;
+                padding: 0.25rem 0.5rem;
+                border-radius: 50%;
+                background-color: black;
+                cursor: pointer;
+                transition: all 1s ease;
+
+                &:hover {
+                    background-color: gs.$dark-background;
+                }
+            }
+
+            &__img {
+                width: 70vw;
+                height: 70vh;
+                border-radius: 0.5rem;
+                object-fit: cover;
+            }
+        }
+
+        &__arrows {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            @include gs.flex(none, space-between, center);
+            padding: 0 1rem;
+
+            &>svg {
+                transform: scale(2.5);
+                backdrop-filter: blur(0.25rem);
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        }
+
+        &__limit-message {
+            position: absolute;
+            bottom: 0.25rem;
+            right: 3rem;
+        }
+    }
 }

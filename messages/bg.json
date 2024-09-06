@@ -3,7 +3,8 @@
         "type-to-search": "Търси тук ...",
         "click-to": "щракнете, за да",
         "close": "затворите",
-        "expand": "разширите"
+        "expand": "разширите",
+        "loading": "Зареждане"
     },
     "navigation": {
         "about": "3а нас",
@@ -120,7 +121,17 @@
         "successful-update-destinations": "Успешно актуализиране на дестинациите",
         "upload-photos": "Качи снимки",
         "missing-token": "Липсва токен за удостоверяване!",
+        "limit-photos-message": "Можете да качите до {max} снимки!",
+        "uploaded-photos-info": "Първите {count} снимки бяха качени, защото сте достигнали максималното ограничение за качване.",
         "success-upload-photos": "Снимките са качени успешно",
+        "delete-photos": "Изтрий снимки",
+        "delete-marked": "Изтрий маркираните",
+        "delete-all": "Изтрий всички",
+        "marked-photos": "маркираните снимки",
+        "all-photos": "всички снимки",
+        "change-main": "Промени главната снимка",
+        "main": "Главна",
+        "set-main": "Направи главна",
         "upload-gpx": "Добавете Gpx файл",
         "remove-gpx": "Премахнете Gpx файла",
         "successful-upload": "Успешно добавен файл",
