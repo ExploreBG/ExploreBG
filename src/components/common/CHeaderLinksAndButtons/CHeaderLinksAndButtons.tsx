@@ -36,7 +36,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
             if (data) {
                 const res = await agent.apiUsers.getUserPhoto(data.token);
 
-                setUserSession({ ...data, userImage: res.url });
+                setUserSession({ ...data, userImage: res.imageUrl });
             }
         }
         session();
@@ -86,7 +86,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
                         {isShownUserLinks && (
                             <aside className="nav-wrapper__links__user__links">
                                 <ul>
-                                    <UserNavLinks id={userSession.userId} userRoles={userSession.userRoles} />
+                                    <UserNavLinks userRoles={userSession.userRoles} />
                                     <li>
                                         {userSession && <button onClick={onLogoutClick}>{t('logout')}</button>}
                                     </li>
@@ -128,7 +128,7 @@ const CHeaderLinksAndButtons: React.FC<CHeaderLinksAndButtonsProps> = () => {
 
                     <ul>
                         {userSession && (
-                            <UserNavLinks id={userSession.userId} userRoles={userSession.userRoles} />
+                            <UserNavLinks userRoles={userSession.userRoles} />
                         )}
 
                         <NavigationLinks />

@@ -9,21 +9,21 @@ import { LiaBirthdayCakeSolid } from 'react-icons/lia';
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
+import { IUserSession } from '@/interfaces/interfaces';
 import { formatDate } from '@/utils/utils';
 import { changeBirthDate } from './action';
 import { birthDateSchema } from './birthDateSchema';
-import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileBirthdayFieldProps {
-    birthday: string | null
-    userId: string
+    birthday: string | null;
+    session: IUserSession;
 }
 
-const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ birthday, userId }) => {
+const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ birthday, session }) => {
     const t = useTranslations('my-profile');
     const [birthDateValue, setBirthDateValue] = useState<string | null>(birthday);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -45,12 +45,12 @@ const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ birthda
                 return;
             }
 
-            const session = await getSession();
-            const token = session?.token;
+            const userId = session.userId;
+            const token = session.token;
             const newData = { birthdate: inputData };
 
             try {
-                const res = await agent.apiUsers.updateBirthDate(userId, token!, newData);
+                const res = await agent.apiUsers.updateBirthDate(userId, token, newData);
 
                 if (res.data) {
                     setBirthDateValue(res.data.birthDate);

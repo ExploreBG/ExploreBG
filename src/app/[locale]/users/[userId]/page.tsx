@@ -10,11 +10,13 @@ import { agent } from '@/api/agent';
 import { formatDate } from '@/utils/utils';
 
 import './profile.scss';
+import '@/app/[locale]/users/users.scss';
 import NotFound from '@/app/[locale]/not-found';
 import Layout from '@/components/Layout/Layout';
+import CLoadingSpinner from '@/components/common/CLoadingSpinner/CLoadingSpinner';
 
 const UserCreatedHikes = dynamic(() => import('@/components/UserCreatedHikes/UserCreatedHikes'), {
-    loading: () => <p>Loading...</p>,
+    loading: () => <CLoadingSpinner />,
     ssr: false
 });
 
@@ -42,8 +44,6 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params: { locale, userI
         username, email, gender, birthdate, userInfo, imageUrl, createdHikes
     } = res.data != undefined && res.data;
 
-    const isAsideHide = !email && !gender && !birthdate && !userInfo;
-
     return (
         <>
             {res.message && (
@@ -60,7 +60,7 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params: { locale, userI
                             }
 
                             <section>
-                                <aside style={{ display: `${isAsideHide ? 'none' : 'block'}` }}>
+                                <aside>
                                     <p><HiOutlineMail /> <strong>{email}</strong></p>
                                     <p>
                                         {gender == 'Male' && <FaMale /> || gender == 'Female' && <FaFemale />}
@@ -96,7 +96,13 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params: { locale, userI
                         </article>
 
                         {createdHikes?.length > 0 && (
-                            <UserCreatedHikes hikes={createdHikes} />
+                            <section className="user-profile-section">
+                                <hr />
+
+                                <h2>{t('created-hikes')}</h2>
+
+                                <UserCreatedHikes hikes={createdHikes} />
+                            </section>
                         )}
                     </main>
                 </Layout>

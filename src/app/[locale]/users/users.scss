@@ -1,0 +1,67 @@
+@use '@/global-styles/main' as gs;
+
+.user-profile-section {
+    margin-bottom: 4rem;
+
+    &>hr {
+        width: 80vw;
+        height: 0.5rem;
+        border-radius: 50%;
+    }
+
+    &>h2 {
+        margin: 2rem 0;
+    }
+
+    & .spinner {
+        margin: 0 auto;
+        animation: spinner-black-text-fade 2s ease-in-out infinite;
+    }
+
+    &>button {
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        font-weight: bold;
+        border-radius: 50%;
+        border: 1px solid black;
+        padding: 0 1rem;
+        background-color: transparent;
+        cursor: pointer;
+        transition: all 1s ease;
+
+        &:first-of-type {
+            margin-right: 2rem;
+        }
+    }
+
+    &__active-btn:hover {
+        background-color: ivory;
+    }
+
+    [data-theme="dark"] &__active-btn {
+        color: black;
+    }
+
+    &__created-hikes {
+        @include gs.flex(none, space-evenly, none);
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+}
+
+@keyframes spinner-black-text-fade {
+
+    0%,
+    100% {
+        color: rgba(0, 0, 0, 1);
+    }
+
+    25%,
+    75% {
+        color: rgba(0, 0, 0, .5);
+    }
+
+    50% {
+        color: rgba(0, 0, 0, .1);
+    }
+}

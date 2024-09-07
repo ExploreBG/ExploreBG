@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 
+import './not-found.scss';
 import CLogo from '@/components/common/CLogo/CLogo';
 import CBackBtn from '@/components/common/CBackBtn/CBackBtn';
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';

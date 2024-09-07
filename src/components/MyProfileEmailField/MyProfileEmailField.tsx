@@ -9,20 +9,20 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
+import { IUserSession } from '@/interfaces/interfaces';
 import { changeEmail } from './action';
 import { emailSchema } from './emailSchema';
-import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileEmailFieldProps {
-    initialEmail: string
-    userId: string
+    initialEmail: string;
+    session: IUserSession;
 }
 
-const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initialEmail, userId }) => {
+const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initialEmail, session }) => {
     const t = useTranslations('my-profile');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [email, setEmail] = useState<string>(initialEmail);
@@ -44,11 +44,11 @@ const MyProfileEmailField: React.FC<MyProfileEmailFieldProps> = ({ initialEmail,
                 return;
             }
 
-            const session = await getSession();
-            const token = session?.token;
+            const userId = session.userId;
+            const token = session.token;
             const newEmail = { email: inputData };
 
-            const res = await agent.apiUsers.updateEmail(userId, token!, newEmail);
+            const res = await agent.apiUsers.updateEmail(userId, token, newEmail);
 
             if (res.data) {
                 setEmail(res.data.email);

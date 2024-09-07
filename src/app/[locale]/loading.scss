@@ -1,0 +1,75 @@
+.loading {
+    height: 100vh;
+    letter-spacing: 0.5rem;
+    background-image: url('/images/backgr.png');
+    background-position: center;
+    background-size: cover;
+
+    &>h1>span {
+        display: inline-block;
+        animation: bounce 1.2s ease infinite;
+
+        &:nth-child(1) {
+            margin-left: 0.25rem;
+        }
+
+        &:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        &:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        &:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        &:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        &:nth-child(8) {
+            animation-delay: 0.7s;
+        }
+
+        &:nth-child(9) {
+            animation-delay: 0.8s;
+        }
+
+        &:nth-child(10) {
+            animation-delay: 0.9s;
+        }
+
+        &:nth-child(11) {
+            animation-delay: 1s;
+        }
+    }
+}
+
+[data-theme="dark"] .loading {
+    background-image: url('/images/dark-backgr.png');
+    color: aqua;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translate(0);
+    }
+
+    50% {
+        transform: translateY(-0.625rem);
+    }
+
+    100% {
+        transform: translate(0);
+    }
+}

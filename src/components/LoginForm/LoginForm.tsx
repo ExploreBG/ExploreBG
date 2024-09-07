@@ -39,10 +39,7 @@ const LoginForm: React.FC<LoginFormProps> = () => {
 
                 if (session) {
                     toast.success(t('successful-login', { name: res.username }));
-                    router.push({
-                        pathname: '/users/[userId]/my-profile',
-                        params: { userId: res.id }
-                    });
+                    router.push('/users/my-profile');
                 } else {
                     toast.error(res.message);
                 }

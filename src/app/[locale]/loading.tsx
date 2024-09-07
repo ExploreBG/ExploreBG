@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 
+import './loading.scss';
+
 interface LoadingProps { }
 
 const Loading: React.FC<LoadingProps> = () => {

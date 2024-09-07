@@ -6,6 +6,7 @@ import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import './myProfile.scss';
+import '@/app/[locale]/users/users.scss';
 import AccessDenied from '@/components/AccessDenied/AccessDenied';
 import Layout from '@/components/Layout/Layout';
 import MyProfilePhotoField from '@/components/MyProfilePhotoField/MyProfilePhotoField';
@@ -23,7 +24,7 @@ const UserCreatedHikes = dynamic(() => import('@/components/UserCreatedHikes/Use
 });
 
 interface MyProfileProps {
-    params: { locale: string, userId: string }
+    params: { locale: string }
 }
 
 export async function generateMetadata({
@@ -36,11 +37,12 @@ export async function generateMetadata({
     };
 }
 
-const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } }) => {
+const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale } }) => {
     unstable_setRequestLocale(locale);
     const t = await getTranslations('my-profile');
 
     const session = await getSession();
+    const userId = session?.userId;
     const token = session?.token ?? '';
 
     const res = await agent.apiUsers.getMyProfile(token);
@@ -60,14 +62,14 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale, userId } 
                             <section>
                                 <MyProfilePhotoField initialImageUrl={imageUrl} session={session!} />
 
-                                <MyProfileUsernameField initialUsername={username} userId={userId} />
-                                <MyProfileEmailField initialEmail={email} userId={userId} />
-                                <MyProfileGenderField gender={gender} userId={userId} />
-                                <MyProfileBirthdayField birthday={birthdate} userId={userId} />
+                                <MyProfileUsernameField initialUsername={username} session={session!} />
+                                <MyProfileEmailField initialEmail={email} session={session!} />
+                                <MyProfileGenderField gender={gender} session={session!} />
+                                <MyProfileBirthdayField birthday={birthdate} session={session!} />
 
-                                <MyProfileInfoField userInfo={userInfo} userId={userId} />
+                                <MyProfileInfoField userInfo={userInfo} session={session!} />
 
-                                <MyProfileButtons userId={userId} />
+                                <MyProfileButtons userId={userId!} />
                             </section>
                         </article>
 

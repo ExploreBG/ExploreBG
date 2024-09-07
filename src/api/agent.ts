@@ -74,13 +74,13 @@ const apiUsers = {
     getMyProfile: (token: string) => request(`${baseUrl}/users/my-profile`, 'GET', {}, token),
     getUserPhoto: (token: string) => request(`${baseUrl}/images/user`, 'GET', {}, token),
     updateUserPhoto: (token: string, newData: FormData, isUpload: boolean) => request(`${baseUrl}/images/user`, 'PATCH', {}, token, newData, isUpload),
-    updateUsername: (userId: string, token: string, newUsername: unknown) => request(`${baseUrl}/users/${userId}/update-username`, 'PATCH', headers.appJSON, token, newUsername),
-    updateEmail: (userId: string, token: string, newEmail: unknown) => request(`${baseUrl}/users/${userId}/update-email`, 'PATCH', headers.appJSON, token, newEmail),
+    updateUsername: (userId: number, token: string, newUsername: unknown) => request(`${baseUrl}/users/${userId}/update-username`, 'PATCH', headers.appJSON, token, newUsername),
+    updateEmail: (userId: number, token: string, newEmail: unknown) => request(`${baseUrl}/users/${userId}/update-email`, 'PATCH', headers.appJSON, token, newEmail),
     getGenderEnum: () => request(`${baseUrl}/utility/register-enums`),
-    updateGender: (userId: string, token: string, newData: unknown) => request(`${baseUrl}/users/${userId}/update-gender`, 'PATCH', headers.appJSON, token, newData),
-    updateBirthDate: (userId: string, token: string, newData: unknown) => request(`${baseUrl}/users/${userId}/update-birthdate`, 'PATCH', headers.appJSON, token, newData),
-    updateUserInfo: (userId: string, token: string, newData: unknown) => request(`${baseUrl}/users/${userId}/update-user-info`, 'PATCH', headers.appJSON, token, newData),
-    changePassword: (userId: string, token: string, passData: unknown) => request(`${baseUrl}/users/${userId}/update-password`, 'PATCH', headers.appJSON, token, passData)
+    updateGender: (userId: number, token: string, newData: unknown) => request(`${baseUrl}/users/${userId}/update-gender`, 'PATCH', headers.appJSON, token, newData),
+    updateBirthDate: (userId: number, token: string, newData: unknown) => request(`${baseUrl}/users/${userId}/update-birthdate`, 'PATCH', headers.appJSON, token, newData),
+    updateUserInfo: (userId: number, token: string, newData: unknown) => request(`${baseUrl}/users/${userId}/update-user-info`, 'PATCH', headers.appJSON, token, newData),
+    changePassword: (userId: number, token: string, passData: unknown) => request(`${baseUrl}/users/${userId}/update-password`, 'PATCH', headers.appJSON, token, passData)
 };
 
 const apiDestinations = {

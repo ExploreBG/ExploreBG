@@ -6,18 +6,18 @@ import { useForm } from '@conform-to/react';
 import { FaEdit, FaMale, FaFemale } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
+import { IUserSession } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
-import { getSession } from '@/utils/userSession';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileGenderFieldProps {
-    gender: string | null
-    userId: string
+    gender: string | null;
+    session: IUserSession;
 }
 
-const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gender, userId }) => {
+const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gender, session }) => {
     const t = useTranslations('my-profile');
     const [genderFields, setGenderFields] = useState<string[]>([]);
     const [genderValue, setGenderValue] = useState<string | null>(gender);
@@ -34,11 +34,11 @@ const MyProfileGenderField: React.FC<MyProfileGenderFieldProps> = ({ gender, use
 
             const newData = { gender: e.currentTarget.gender.value }
 
-            const session = await getSession();
-            const token = session?.token;
+            const userId = session.userId;
+            const token = session.token;
 
             try {
-                const res = await agent.apiUsers.updateGender(userId, token!, newData);
+                const res = await agent.apiUsers.updateGender(userId, token, newData);
 
                 if (res.data) {
                     setGenderValue(res.data.gender);

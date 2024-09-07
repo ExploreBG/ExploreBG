@@ -78,7 +78,7 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
                 .map((c: IComment) => (
                     <div key={c.id} className="comments__wrapper__comment">
                         <Link href={{
-                            pathname: '/users/[userId]/profile',
+                            pathname: '/users/[userId]',
                             params: { userId: c.owner.id }
                         }}>
                             <span><em>{c.owner.username}</em></span>

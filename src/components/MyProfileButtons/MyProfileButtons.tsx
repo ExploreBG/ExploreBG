@@ -7,7 +7,7 @@ import CConfirmationModal from '../common/CConfirmationModal/CConfirmationModal'
 import ChangePasswordPopUp from '../ChangePasswordPopUp/ChangePasswordPopUp';
 
 interface MyProfileButtonsProps {
-    userId: string
+    userId: number;
 }
 
 const MyProfileButtons: React.FC<MyProfileButtonsProps> = ({ userId }) => {

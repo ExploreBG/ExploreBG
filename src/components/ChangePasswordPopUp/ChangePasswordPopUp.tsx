@@ -15,8 +15,8 @@ import './changePasswordPopUp.scss';
 import CPasswordInfo from '../common/CPasswordInfo/CPasswordInfo';
 
 interface ChangePasswordPopUpProps {
-    closePopUp: () => void
-    userId: string
+    closePopUp: () => void;
+    userId: number;
 }
 
 const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closePopUp, userId }) => {

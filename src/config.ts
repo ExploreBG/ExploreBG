@@ -56,13 +56,13 @@ export const pathnames = {
         en: '/login-register',
         bg: '/vhod-registratsia'
     },
-    '/users/[userId]/my-profile': {
-        en: '/users/[userId]/my-profile',
-        bg: '/potrebiteli/[userId]/moia-profil'
+    '/users/my-profile': {
+        en: '/users/my-profile',
+        bg: '/potrebiteli/moia-profil'
     },
-    '/users/[userId]/profile': {
-        en: '/users/[userId]/profile',
-        bg: '/potrebiteli/[userId]/profil'
+    '/users/[userId]': {
+        en: '/users/[userId]',
+        bg: '/potrebiteli/[userId]'
     },
     '/user/[userId]/favorite': {
         en: '/user/[userId]/favorite',

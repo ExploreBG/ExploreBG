@@ -8,20 +8,20 @@ import { parseWithZod } from '@conform-to/zod';
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
+import { IUserSession } from '@/interfaces/interfaces';
 import { changeUserInfo } from './action';
 import { infoSchema, userInfoMaxLength } from './infoSchema';
-import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import CCommonModal from '../common/CCommonModal/CCommonModal';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileInfoFieldProps {
-    userInfo: string | null
-    userId: string
+    userInfo: string | null;
+    session: IUserSession;
 }
 
-const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo, userId }) => {
+const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo, session }) => {
     const t = useTranslations('my-profile');
     const [infoValue, setInfoValue] = useState<string | null>(userInfo);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -43,12 +43,12 @@ const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo, userI
                 return;
             }
 
-            const session = await getSession();
-            const token = session?.token;
+            const userId = session.userId;
+            const token = session.token;
             const newData = { userInfo: inputData };
 
             try {
-                const res = await agent.apiUsers.updateUserInfo(userId, token!, newData);
+                const res = await agent.apiUsers.updateUserInfo(userId, token, newData);
 
                 if (res.data) {
                     setInfoValue(res.data.userInfo);

@@ -294,6 +294,7 @@
         "title": "'s Profile",
         "gender": "gender",
         "birthday": "birthday",
+        "created-hikes": "Created hikes",
         "not-available": "not available"
     },
     "loading": {

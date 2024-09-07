@@ -1,0 +1,47 @@
+@use '@/global-styles/main' as gs;
+
+.not-found {
+    height: 100vh;
+    background-image: url('/images/1.avif');
+    background-position: center;
+    background-size: cover;
+    padding: 0.5rem 0;
+    @include gs.flex(none, space-between, none);
+    filter: grayscale(75%);
+
+    &>header {
+        margin-right: auto;
+        padding: 0.5rem 0 0 4rem;
+    }
+
+    &>section {
+        border: 1px solid gs.$light-primary;
+        width: 40vw;
+        height: 40vh;
+        background-color: #f5f5f563;
+        color: black;
+        @include gs.flex(column, space-evenly, center);
+        padding: 1rem;
+
+        @include gs.display(tablet) {
+            width: 60%
+        }
+
+        @include gs.display(mobile) {
+            width: 80%
+        }
+
+        @media (max-height: 34rem) and (orientation: landscape) {
+            height: 60vh;
+        }
+
+        &>button {
+            @include gs.glow-on-hover-button();
+        }
+    }
+
+    &>footer {
+        all: unset;
+        color: white;
+    }
+}

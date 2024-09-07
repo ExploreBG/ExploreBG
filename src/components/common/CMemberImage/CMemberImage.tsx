@@ -16,7 +16,7 @@ const CMemberImage: React.FC<CMemberImageProps> = ({ ownerId, imageUrl, username
             <Link
                 className="member-link"
                 href={{
-                    pathname: '/users/[userId]/profile',
+                    pathname: '/users/[userId]',
                     params: { userId: ownerId }
                 }}
             >

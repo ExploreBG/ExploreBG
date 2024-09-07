@@ -31,12 +31,7 @@ const LoginRegister: React.FC<LoginRegisterProps> = async ({ params: { locale } 
     const session = await getSession();
 
     if (session) {
-        const userId = session.userId;
-
-        redirect({
-            pathname: '/users/[userId]/my-profile',
-            params: { userId }
-        });
+        redirect('/users/my-profile');
         return;
     }
 
