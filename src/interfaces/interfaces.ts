@@ -72,9 +72,11 @@ export interface ITrail extends ITrailCard {
     elevationGained: number
     nextTo: string
     destinations: IDestination[]
-    images: { id: number, imageUrl: string }[]
+    images: TPhoto[]
     gpxUrl: string | null
 }
+
+export type TPhoto = { id: number, imageUrl: string, isMain: boolean }
 
 export interface ITrackInfo {
     name: string;

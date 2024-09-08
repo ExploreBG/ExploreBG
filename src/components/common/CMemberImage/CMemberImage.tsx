@@ -24,7 +24,6 @@ const CMemberImage: React.FC<CMemberImageProps> = ({ ownerId, imageUrl, username
                     src={imageUrl || '/images/user-profile-pic.png'}
                     width={40} height={40} loading="eager"
                     alt="User picture" title={username}
-                    priority={true}
                 />
             </Link>
         </>
