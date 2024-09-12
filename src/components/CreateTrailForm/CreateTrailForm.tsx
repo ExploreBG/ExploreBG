@@ -99,7 +99,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                         toast.error(t(res.errors[0]));
                     }
                 } else {
-                    const res = await agent.apiTrails.createTrail(userSession?.userId!, userSession?.token!, data);
+                    const res = await agent.apiTrails.createTrail(userSession?.token!, data);
 
                     if (res.data) {
                         toast.success(t('successful-create'));

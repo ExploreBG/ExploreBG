@@ -1,9 +1,6 @@
 .loading {
     height: 100vh;
     letter-spacing: 0.5rem;
-    background-image: url('/images/backgr.png');
-    background-position: center;
-    background-size: cover;
 
     &>h1>span {
         display: inline-block;
@@ -56,7 +53,6 @@
 }
 
 [data-theme="dark"] .loading {
-    background-image: url('/images/dark-backgr.png');
     color: aqua;
 }
 

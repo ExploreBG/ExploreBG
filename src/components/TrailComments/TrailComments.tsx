@@ -40,7 +40,7 @@ const TrailComments: React.FC<TrailCommentsProps> = ({
 
     const onConfirmClick = async () => {
         try {
-            const res = await agent.apiTrails.removeTrailComment(commentForDelete!, Number(trailId), token!);
+            const res = await agent.apiTrails.removeTrailComment(Number(trailId), commentForDelete!, token!);
 
             if (res.data.deleted) {
                 const updatedComments = comments.filter(c => c.id !== commentForDelete);
@@ -71,7 +71,6 @@ const TrailComments: React.FC<TrailCommentsProps> = ({
             )}
 
             <TrailCommentsForm
-                userId={userId}
                 trailId={trailId}
                 token={token}
                 handleNewComment={handleNewComment}

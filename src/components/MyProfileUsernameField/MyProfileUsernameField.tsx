@@ -8,7 +8,6 @@ import { parseWithZod } from '@conform-to/zod';
 import { FaUserNinja, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-import { IUserSession } from '@/interfaces/interfaces';
 import { changeUsername } from './action';
 import { usernameSchema } from './usernameSchema';
 import { usernameMinLength, usernameMaxLength } from '@/utils/validations';
@@ -19,10 +18,10 @@ import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileUsernameFieldProps {
     initialUsername: string;
-    session: IUserSession;
+    token: string;
 }
 
-const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ initialUsername, session }) => {
+const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ initialUsername, token }) => {
     const t = useTranslations('my-profile');
     const t2 = useTranslations('login-register');
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -45,12 +44,10 @@ const MyProfileUsernameField: React.FC<MyProfileUsernameFieldProps> = ({ initial
                 return;
             }
 
-            const userId = session.userId;
-            const token = session.token;
             const newUsername = { username: inputData };
 
             try {
-                const res = await agent.apiUsers.updateUsername(userId, token, newUsername);
+                const res = await agent.apiUsers.updateUsername(token, newUsername);
 
                 if (res.data) {
                     setUsername(res.data.username);

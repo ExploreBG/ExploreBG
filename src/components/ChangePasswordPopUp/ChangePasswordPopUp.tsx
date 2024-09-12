@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import { changePassword } from './action';
 import { changePasswordSchema } from './changePasswordSchema';
 import { passMinLength, passMaxLength } from '@/utils/validations';
-import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
 import './changePasswordPopUp.scss';
@@ -16,10 +15,10 @@ import CPasswordInfo from '../common/CPasswordInfo/CPasswordInfo';
 
 interface ChangePasswordPopUpProps {
     closePopUp: () => void;
-    userId: number;
+    token: string;
 }
 
-const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closePopUp, userId }) => {
+const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closePopUp, token }) => {
     const t = useTranslations('pop-up');
     const t2 = useTranslations('login-register');
     const [lastResult, action] = useFormState(changePassword, undefined);
@@ -35,11 +34,8 @@ const ChangePasswordPopUp: React.FC<ChangePasswordPopUpProps> = ({ closePopUp, u
         async onSubmit(event, context) {
             const inputData = context.submission?.payload;
 
-            const session = await getSession();
-            const token = session?.token;
-
             try {
-                const res = await agent.apiUsers.changePassword(userId, token!, inputData);
+                const res = await agent.apiUsers.changePassword(token, inputData);
 
                 if (res.data) {
                     toast.success(res.data.success);

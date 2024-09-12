@@ -74,59 +74,59 @@ const apiUsers = {
     getMyProfile: (token: string) => request(`${baseUrl}/users/my-profile`, 'GET', {}, token),
     getUserPhoto: (token: string) => request(`${baseUrl}/images/user`, 'GET', {}, token),
     updateUserPhoto: (token: string, newData: FormData, isUpload: boolean) => request(`${baseUrl}/images/user`, 'PATCH', {}, token, newData, isUpload),
-    updateUsername: (userId: number, token: string, newUsername: unknown) => request(`${baseUrl}/users/${userId}/update-username`, 'PATCH', headers.appJSON, token, newUsername),
-    updateEmail: (userId: number, token: string, newEmail: unknown) => request(`${baseUrl}/users/${userId}/update-email`, 'PATCH', headers.appJSON, token, newEmail),
+    updateUsername: (token: string, newUsername: unknown) => request(`${baseUrl}/users/username`, 'PATCH', headers.appJSON, token, newUsername),
+    updateEmail: (token: string, newEmail: unknown) => request(`${baseUrl}/users/email`, 'PATCH', headers.appJSON, token, newEmail),
     getGenderEnum: () => request(`${baseUrl}/utility/register-enums`),
-    updateGender: (userId: number, token: string, newData: unknown) => request(`${baseUrl}/users/${userId}/update-gender`, 'PATCH', headers.appJSON, token, newData),
-    updateBirthDate: (userId: number, token: string, newData: unknown) => request(`${baseUrl}/users/${userId}/update-birthdate`, 'PATCH', headers.appJSON, token, newData),
-    updateUserInfo: (userId: number, token: string, newData: unknown) => request(`${baseUrl}/users/${userId}/update-user-info`, 'PATCH', headers.appJSON, token, newData),
-    changePassword: (userId: number, token: string, passData: unknown) => request(`${baseUrl}/users/${userId}/update-password`, 'PATCH', headers.appJSON, token, passData)
+    updateGender: (token: string, newData: unknown) => request(`${baseUrl}/users/gender`, 'PATCH', headers.appJSON, token, newData),
+    updateBirthDate: (token: string, newData: unknown) => request(`${baseUrl}/users/birthdate`, 'PATCH', headers.appJSON, token, newData),
+    updateUserInfo: (token: string, newData: unknown) => request(`${baseUrl}/users/user-info`, 'PATCH', headers.appJSON, token, newData),
+    changePassword: (token: string, passData: unknown) => request(`${baseUrl}/users/password`, 'PATCH', headers.appJSON, token, passData)
 };
 
 const apiDestinations = {
     get4RandomDestinations: () => request(`${baseUrl}/destinations/random`),
-    getAllDestinations: (query: string) => request(`${baseUrl}/destinations/all${query}`),
+    getAllDestinations: (query: string) => request(`${baseUrl}/destinations${query}`),
     getDestinationById: (destinationId: string) => request(`${baseUrl}/destinations/${destinationId}`)
 };
 
 const apiTrails = {
     get4RandomTrails: () => request(`${baseUrl}/trails/random`),
-    getAllTrails: (query: string) => request(`${baseUrl}/trails/all${query}`),
+    getAllTrails: (query: string) => request(`${baseUrl}/trails${query}`),
     getTrailById: (trailId: string) => request(`${baseUrl}/trails/${trailId}`),
     getTrailByIdFromAuthUser: (trailId: string, token: string) => request(`${baseUrl}/trails/${trailId}/auth`, 'GET', {}, token),
     getFormEnums: () => request(`${baseUrl}/utility/create/trail-enums`),
     getAvailableAccommodations: (token: string) => request(`${baseUrl}/accommodations/select`, 'GET', {}, token),
     getAvailableDestinations: (token: string) => request(`${baseUrl}/destinations/select`, 'GET', {}, token),
-    createTrail: (userId: number, token: string, trailData: ICreateTrail) => request(`${baseUrl}/trails/create/${userId}`, 'POST', headers.appJSON, token, trailData),
+    createTrail: (token: string, trailData: ICreateTrail) => request(`${baseUrl}/trails`, 'POST', headers.appJSON, token, trailData),
     uploadPhotos: (trailId: number, token: string, photos: FormData, isUpload: boolean) => request(`${baseUrl}/images/entity/${trailId}`, 'PATCH', {}, token, photos, isUpload),
-    changeMainPhoto: (trailId: number, token: string, newMainPhotoId: { imageId: number }) => request(`${baseUrl}/trails/${trailId}/update-main-image`, 'PATCH', headers.appJSON, token, newMainPhotoId),
+    changeMainPhoto: (trailId: number, token: string, newMainPhotoId: { imageId: number }) => request(`${baseUrl}/trails/${trailId}/main-image`, 'PATCH', headers.appJSON, token, newMainPhotoId),
     deletePhotos: (trailId: number, token: string, photos: { folder: string, ids: number[] }) => request(`${baseUrl}/images/entity/${trailId}`, 'DELETE', headers.appJSON, token, photos),
     uploadGpxFile: (trailId: number, token: string, data: FormData, isUpload: boolean) => request(`${baseUrl}/gpx/trail/${trailId}`, 'PATCH', {}, token, data, isUpload),
     removeGpxFile: (trailId: number, token: string) => request(`${baseUrl}/gpx/trail/${trailId}`, 'DELETE', {}, token),
-    createTrailComment: (userId: number, trailId: number, token: string, trailComment: { message: unknown }) => request(`${baseUrl}/trails/create/${userId}/comment/${trailId}`, 'POST', headers.appJSON, token, trailComment),
-    updateTrailComment: (commentId: number, token: string, trailComment: { message: unknown }) => request(`${baseUrl}/comments/update/${commentId}`, 'PUT', headers.appJSON, token, trailComment),
-    removeTrailComment: (commentId: number, trailId: number, token: string) => request(`${baseUrl}/trails/delete/${commentId}/comment/${trailId}`, 'DELETE', headers.appJSON, token),
-    updateStartPoint: (trailId: number, token: string, newData: { startPoint: unknown }) => request(`${baseUrl}/trails/${trailId}/update-start-point`, 'PATCH', headers.appJSON, token, newData),
-    updateEndPoint: (trailId: number, token: string, newData: { endPoint: unknown }) => request(`${baseUrl}/trails/${trailId}/update-end-point`, 'PATCH', headers.appJSON, token, newData),
-    updateTotalDistance: (trailId: number, token: string, newData: { totalDistance: unknown }) => request(`${baseUrl}/trails/${trailId}/update-total-distance`, 'PATCH', headers.appJSON, token, newData),
-    updateElevationGained: (trailId: number, token: string, newData: { elevationGained: unknown }) => request(`${baseUrl}/trails/${trailId}/update-elevation-gained`, 'PATCH', headers.appJSON, token, newData),
-    updateActivity: (trailId: number, token: string, newData: { activity: unknown }) => request(`${baseUrl}/trails/${trailId}/update-activity`, 'PATCH', headers.appJSON, token, newData),
-    updateWaterAvailable: (trailId: number, token: string, newData: { waterAvailable: unknown }) => request(`${baseUrl}/trails/${trailId}/update-water-available`, 'PATCH', headers.appJSON, token, newData),
-    updateTrailDifficulty: (trailId: number, token: string, newData: { trailDifficulty: unknown }) => request(`${baseUrl}/trails/${trailId}/update-trail-difficulty`, 'PATCH', headers.appJSON, token, newData),
-    updateTrailInfo: (trailId: number, token: string, newData: { trailInfo: unknown }) => request(`${baseUrl}/trails/${trailId}/update-trail-info`, 'PATCH', headers.appJSON, token, newData),
-    updateAvailableHuts: (trailId: number, token: string, newData: { availableHuts: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/update-available-huts`, 'PATCH', headers.appJSON, token, newData),
-    updateDestinations: (trailId: number, token: string, newData: { destinations: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/update-destinations`, 'PATCH', headers.appJSON, token, newData),
+    createTrailComment: (trailId: number, token: string, trailComment: { message: unknown }) => request(`${baseUrl}/trails/${trailId}/comments`, 'POST', headers.appJSON, token, trailComment),
+    updateTrailComment: (commentId: number, token: string, trailComment: { message: unknown }) => request(`${baseUrl}/comments/${commentId}`, 'PUT', headers.appJSON, token, trailComment),
+    removeTrailComment: (trailId: number, commentId: number, token: string) => request(`${baseUrl}/trails/${trailId}/comments/${commentId}`, 'DELETE', headers.appJSON, token),
+    updateStartPoint: (trailId: number, token: string, newData: { startPoint: unknown }) => request(`${baseUrl}/trails/${trailId}/start-point`, 'PATCH', headers.appJSON, token, newData),
+    updateEndPoint: (trailId: number, token: string, newData: { endPoint: unknown }) => request(`${baseUrl}/trails/${trailId}/end-point`, 'PATCH', headers.appJSON, token, newData),
+    updateTotalDistance: (trailId: number, token: string, newData: { totalDistance: unknown }) => request(`${baseUrl}/trails/${trailId}/total-distance`, 'PATCH', headers.appJSON, token, newData),
+    updateElevationGained: (trailId: number, token: string, newData: { elevationGained: unknown }) => request(`${baseUrl}/trails/${trailId}/elevation-gained`, 'PATCH', headers.appJSON, token, newData),
+    updateActivity: (trailId: number, token: string, newData: { activity: unknown }) => request(`${baseUrl}/trails/${trailId}/activity`, 'PATCH', headers.appJSON, token, newData),
+    updateWaterAvailable: (trailId: number, token: string, newData: { waterAvailable: unknown }) => request(`${baseUrl}/trails/${trailId}/water-available`, 'PATCH', headers.appJSON, token, newData),
+    updateTrailDifficulty: (trailId: number, token: string, newData: { trailDifficulty: unknown }) => request(`${baseUrl}/trails/${trailId}/trail-difficulty`, 'PATCH', headers.appJSON, token, newData),
+    updateTrailInfo: (trailId: number, token: string, newData: { trailInfo: unknown }) => request(`${baseUrl}/trails/${trailId}/trail-info`, 'PATCH', headers.appJSON, token, newData),
+    updateAvailableHuts: (trailId: number, token: string, newData: { availableHuts: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/available-huts`, 'PATCH', headers.appJSON, token, newData),
+    updateDestinations: (trailId: number, token: string, newData: { destinations: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/destinations`, 'PATCH', headers.appJSON, token, newData),
 };
 
 const apiHikes = {
     get4RandomHikes: () => request(`${baseUrl}/hikes/random`),
-    getAllHikes: (query: string) => request(`${baseUrl}/hikes/all${query}`),
+    getAllHikes: (query: string) => request(`${baseUrl}/hikes${query}`),
     getHikeById: (hikeId: string) => request(`${baseUrl}/hikes/${hikeId}`)
 };
 
 const apiAccommodations = {
     get4RandomAccommodations: () => request(`${baseUrl}/accommodations/random`),
-    getAllAccommodations: (query: string) => request(`${baseUrl}/accommodations/all${query}`),
+    getAllAccommodations: (query: string) => request(`${baseUrl}/accommodations${query}`),
     getAccommodationById: (accommodationId: string) => request(`${baseUrl}/accommodations/${accommodationId}`)
 };
 

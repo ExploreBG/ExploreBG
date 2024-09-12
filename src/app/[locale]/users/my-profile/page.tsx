@@ -42,7 +42,6 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale } }) => {
     const t = await getTranslations('my-profile');
 
     const session = await getSession();
-    const userId = session?.userId;
     const token = session?.token ?? '';
 
     const res = await agent.apiUsers.getMyProfile(token);
@@ -62,14 +61,14 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale } }) => {
                             <section>
                                 <MyProfilePhotoField initialImageUrl={imageUrl} session={session!} />
 
-                                <MyProfileUsernameField initialUsername={username} session={session!} />
-                                <MyProfileEmailField initialEmail={email} session={session!} />
-                                <MyProfileGenderField gender={gender} session={session!} />
-                                <MyProfileBirthdayField birthday={birthdate} session={session!} />
+                                <MyProfileUsernameField initialUsername={username} token={token} />
+                                <MyProfileEmailField initialEmail={email} token={token} />
+                                <MyProfileGenderField gender={gender} token={token} />
+                                <MyProfileBirthdayField birthday={birthdate} token={token} />
 
-                                <MyProfileInfoField userInfo={userInfo} session={session!} />
+                                <MyProfileInfoField userInfo={userInfo} token={token} />
 
-                                <MyProfileButtons userId={userId!} />
+                                <MyProfileButtons token={token} />
                             </section>
                         </article>
 

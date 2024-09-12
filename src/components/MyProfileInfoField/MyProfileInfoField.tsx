@@ -8,7 +8,6 @@ import { parseWithZod } from '@conform-to/zod';
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-import { IUserSession } from '@/interfaces/interfaces';
 import { changeUserInfo } from './action';
 import { infoSchema, userInfoMaxLength } from './infoSchema';
 import { agent } from '@/api/agent';
@@ -18,10 +17,10 @@ import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
 interface MyProfileInfoFieldProps {
     userInfo: string | null;
-    session: IUserSession;
+    token: string;
 }
 
-const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo, session }) => {
+const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo, token }) => {
     const t = useTranslations('my-profile');
     const [infoValue, setInfoValue] = useState<string | null>(userInfo);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -43,12 +42,10 @@ const MyProfileInfoField: React.FC<MyProfileInfoFieldProps> = ({ userInfo, sessi
                 return;
             }
 
-            const userId = session.userId;
-            const token = session.token;
             const newData = { userInfo: inputData };
 
             try {
-                const res = await agent.apiUsers.updateUserInfo(userId, token, newData);
+                const res = await agent.apiUsers.updateUserInfo(token, newData);
 
                 if (res.data) {
                     setInfoValue(res.data.userInfo);

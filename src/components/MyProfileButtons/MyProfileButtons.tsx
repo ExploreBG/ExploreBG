@@ -7,10 +7,10 @@ import CConfirmationModal from '../common/CConfirmationModal/CConfirmationModal'
 import ChangePasswordPopUp from '../ChangePasswordPopUp/ChangePasswordPopUp';
 
 interface MyProfileButtonsProps {
-    userId: number;
+    token: string;
 }
 
-const MyProfileButtons: React.FC<MyProfileButtonsProps> = ({ userId }) => {
+const MyProfileButtons: React.FC<MyProfileButtonsProps> = ({ token }) => {
     const [isClickDelAccountBtn, setIsClickDelAccountBtn] = useState<boolean>(false);
     const [isClickChangePassBtn, setIsClickChangePassBtn] = useState<boolean>(false);
     const t = useTranslations('my-profile');
@@ -43,7 +43,7 @@ const MyProfileButtons: React.FC<MyProfileButtonsProps> = ({ userId }) => {
                 <CConfirmationModal deletionObj={t('deletion-obj')} confirm={onConfirmClick} cancel={onCancelClick} />
             )}
 
-            {isClickChangePassBtn && <ChangePasswordPopUp closePopUp={onCancelClick} userId={userId} />}
+            {isClickChangePassBtn && <ChangePasswordPopUp closePopUp={onCancelClick} token={token} />}
         </>
     );
 };

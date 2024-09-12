@@ -54,7 +54,7 @@ const DestinationDetails: React.FC<DestinationDetailsProps> = async ({ params: {
                     />
                 </figure>
 
-                {destination.comments.length > 0 && (
+                {destination.comments?.length > 0 && (
                     <section className="comments details-page-section">
                         <h3>comments:</h3>
 

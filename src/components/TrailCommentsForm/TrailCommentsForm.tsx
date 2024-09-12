@@ -13,14 +13,13 @@ import { agent } from '@/api/agent';
 import { commentMaxLength } from '@/utils/validations';
 
 interface TrailCommentsFormProps {
-    userId?: number
     trailId: string
     token?: string
     handleNewComment: Dispatch<IComment>
 }
 
 const TrailCommentsForm: React.FC<TrailCommentsFormProps> = ({
-    userId, trailId, token, handleNewComment
+    trailId, token, handleNewComment
 }) => {
     const t = useTranslations('trail-details');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -45,7 +44,7 @@ const TrailCommentsForm: React.FC<TrailCommentsFormProps> = ({
             const comment = { message: input }
 
             try {
-                const res = await agent.apiTrails.createTrailComment(userId!, Number(trailId), token, comment);
+                const res = await agent.apiTrails.createTrailComment(Number(trailId), token, comment);
 
                 if (res.data) {
                     handleNewComment(res.data);
