@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { TPhoto } from '@/interfaces/interfaces';
 import { useTrailPhotosCtx } from '@/contexts/TrailPhotosContext';
 import { MAX_PHOTO_COUNT_FOR_UPLOAD } from '@/utils/constants';
+import { compressImages } from '@/utils/utils';
 import { agent } from '@/api/agent';
 
 interface TrailDetailsUploadPhotosProps {
@@ -43,9 +44,10 @@ const TrailDetailsUploadPhotos: React.FC<TrailDetailsUploadPhotosProps> = ({
 
             const possibleFilesCountForUpload = MAX_PHOTO_COUNT_FOR_UPLOAD - photos.length;
             const filesForUpload = Array.from(files).slice(0, possibleFilesCountForUpload);
+            const compressedFiles = await compressImages(filesForUpload);
 
-            filesForUpload.forEach((file) => {
-                formData.append(`file`, file);
+            compressedFiles.forEach((file) => {
+                file && formData.append(`file`, file);
             });
 
             const isUpload = true;

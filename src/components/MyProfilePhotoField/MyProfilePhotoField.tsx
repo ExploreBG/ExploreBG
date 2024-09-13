@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { IUserSession } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
 import { setSession } from '@/utils/userSession';
-import { eventEmitter } from '@/utils/utils';
+import { compressImage, eventEmitter } from '@/utils/utils';
 
 import './myProfilePhotoField.scss';
 
@@ -22,15 +22,16 @@ const MyProfilePhotoField: React.FC<MyProfilePhotoFieldProps> = ({ initialImageU
     const [userImage, setUserImage] = useState<string | null>(initialImageUrl);
 
     const changePhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.currentTarget.files && e.currentTarget.files[0];
+        const file = e.currentTarget.files?.[0];
+        const compressedFile = file && await compressImage(file);
 
-        if (file) {
+        if (compressedFile) {
             const data = { folder: "Users" }
 
             const formData = new FormData();
 
             formData.append('data', JSON.stringify(data));
-            formData.append('file', file);
+            formData.append('file', compressedFile);
 
             const userId = session.userId;
             const token = session.token;

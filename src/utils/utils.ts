@@ -1,4 +1,6 @@
 import { EventEmitter } from 'events';
+import imageCompression from 'browser-image-compression';
+
 import { MONTH_NAMES } from "./constants";
 
 export const eventEmitter = new EventEmitter();
@@ -45,4 +47,26 @@ export const convertMetersToKmM = (meters: number) => {
     const remainingMeters = Math.floor(meters % 1000);
 
     return `${km} km ${remainingMeters} m`;
+};
+
+export const compressImage = async (file: File) => {
+    const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+    };
+
+    try {
+        const compressedFile = await imageCompression(file, options);
+
+        return compressedFile;
+    } catch (err) {
+        console.error('Error compressing image: ', err);
+    }
+};
+
+export const compressImages = async (files: File[]) => {
+    const compressedFiles = await Promise.all(files.map(file => compressImage(file)));
+
+    return compressedFiles;
 };

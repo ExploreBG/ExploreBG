@@ -41,7 +41,7 @@ const TrailCommentsForm: React.FC<TrailCommentsFormProps> = ({
                 return;
             }
 
-            const comment = { message: input }
+            const comment = { message: input };
 
             try {
                 const res = await agent.apiTrails.createTrailComment(Number(trailId), token, comment);
