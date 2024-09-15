@@ -8,6 +8,7 @@ export interface ITrailCard {
     trailName: string
     trailInfo: string
     imageUrl: string
+    likedByUser: boolean
 }
 
 export interface IHikeCard {

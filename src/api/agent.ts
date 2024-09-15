@@ -119,6 +119,7 @@ const apiTrails = {
     updateTrailInfo: (trailId: number, token: string, newData: { trailInfo: unknown }) => request(`${baseUrl}/trails/${trailId}/trail-info`, 'PATCH', token, newData),
     updateAvailableHuts: (trailId: number, token: string, newData: { availableHuts: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/available-huts`, 'PATCH', token, newData),
     updateDestinations: (trailId: number, token: string, newData: { destinations: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/destinations`, 'PATCH', token, newData),
+    addToOrRemoveFromFavorite: (trailId: number, token: string, body: { like: boolean }) => request(`${baseUrl}/trails/${trailId}/like`, 'PATCH', token, body),
 };
 
 const apiHikes = {

@@ -61,13 +61,18 @@ const TrailDetailsPhotosButtons: React.FC<TrailDetailsPhotosButtonsProps> = ({
                 setPhotos(state => {
                     const deleteSet = new Set(photosForDelete);
 
+                    const isMainDeleted = state.some((s) => s.isMain && deleteSet.has(s.id));
+
                     return state
                         .filter((s) => !deleteSet.has(s.id))
                         .map((item, index) => {
-                            if (index == 0) {
+                            if (isMainDeleted && index == 0) {
                                 return { ...item, isMain: true };
+                            } else if (!isMainDeleted) {
+                                return item;
+                            } else {
+                                return { ...item, isMain: false };
                             }
-                            return { ...item, isMain: false };
                         });
                 });
 

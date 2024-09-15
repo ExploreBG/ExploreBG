@@ -4,7 +4,9 @@
         "click-to": "щракнете, за да",
         "close": "затворите",
         "expand": "разширите",
-        "loading": "Зареждане"
+        "loading": "Зареждане",
+        "successfully-like": "Успешно добавяне към любими.",
+        "successfully-dislike": "Успешно премахване от любими."
     },
     "navigation": {
         "about": "3а нас",

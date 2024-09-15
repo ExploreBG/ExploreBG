@@ -1,0 +1,36 @@
+.favorite-icon {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.75rem;
+    color: black;
+    cursor: pointer;
+    transition: color 1s ease;
+
+    &:hover {
+        color: purple;
+    }
+}
+
+.liked {
+    color: purple;
+    transition: color 1s ease;
+    animation: beating-heart 4s ease-in-out infinite;
+
+    &:hover {
+        color: black;
+        animation: unset;
+    }
+}
+
+@keyframes beating-heart {
+    0% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}

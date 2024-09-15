@@ -4,7 +4,9 @@
         "click-to": "click to",
         "close": "close",
         "expand": "expand",
-        "loading": "Loading"
+        "loading": "Loading",
+        "successfully-like": "Successfully add to favorite.",
+        "successfully-dislike": "Successfully remove from favorite."
     },
     "navigation": {
         "about": "About",
