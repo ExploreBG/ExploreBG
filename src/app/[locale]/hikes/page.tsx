@@ -11,8 +11,8 @@ import HikeCard from '@/components/HikeCard/HikeCard';
 import PaginationControls from '@/components/PaginationControls/PaginationControls';
 
 interface HikesProps {
-    params: { locale: string }
-    searchParams: { [key: string]: string | string[] | undefined }
+    params: { locale: string };
+    searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateMetadata({
@@ -38,17 +38,19 @@ const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams })
     return (
         <Layout>
             <main className="catalog-wrapper hikes-wrapper">
-                {hikes.content.length > 0 && <h1>{t('title')}</h1>}
+                {hikes.content?.length > 0 && <h1>{t('title')}</h1>}
 
-                {hikes.content.length == 0 && (
+                {hikes.content?.length == 0 && (
                     <p className="hikes-wrapper__empty-page">{t('empty-page')}</p>
                 )}
 
-                <Link href={'/hikes/create'} className="catalog-wrapper__create-btn">{t('create-btn')}</Link>
+                <Link href={'/hikes/create'} className="catalog-wrapper__create-btn">
+                    {t('create-btn')}
+                </Link>
 
-                {hikes.content.length > 0 && (
+                {hikes.content?.length > 0 && (
                     <section className="catalog-wrapper__cards">
-                        {hikes.content.map((card: IHikeCard) => (
+                        {hikes.content?.map((card: IHikeCard) => (
                             <article key={card.id} className="card">
                                 <HikeCard card={card} />
                             </article>
@@ -59,7 +61,7 @@ const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams })
                 <PaginationControls
                     totalElements={hikes.totalElements}
                     cardsPerPage={Number(cardsPerPage)}
-                    pathname={'/hikes/all'}
+                    pathname={'/hikes'}
                     sortBy={'hikeDate'}
                     sortDir={'ASC'}
                 />

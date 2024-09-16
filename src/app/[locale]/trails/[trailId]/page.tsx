@@ -38,7 +38,7 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
     const userId = session?.userId;
 
     const res = token
-        ? await agent.apiTrails.getTrailByIdFromAuthUser(trailId, token)
+        ? await agent.apiTrails.getTrailById(trailId, token)
         : await agent.apiTrails.getTrailById(trailId);
 
     const trail = res.data;
@@ -60,7 +60,12 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
             {trail && (
                 <Layout>
                     <main className="trail-details">
-                        <h1>{t('title')}</h1>
+                        <h1>{t('title', { trailName: `${trail.startPoint} - ${trail.endPoint}` })}</h1>
+
+                        <details open className="trail-details__warning">
+                            <summary>{t('important-notice')}:</summary>
+                            {t('important-notice-text')}
+                        </details>
 
                         <nav className="trail-details__nav" aria-label="details-page-navigation">
                             <ul>

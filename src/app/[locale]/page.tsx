@@ -58,7 +58,7 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
                 <h2 className="home__section-title">{t('section-destinations.title')}</h2>
                 <HomeDestinationsSection />
                 <aside className="home__section-links">
-                    <Link href={'/destinations/all'}>{t('section-destinations.btn-view-all')}</Link>
+                    <Link href={'/destinations'}>{t('section-destinations.btn-view-all')}</Link>
                 </aside>
 
                 <section className="home__section-buffer"></section>
@@ -66,7 +66,7 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
                 <h2 className="home__section-title">{t('section-trails.title')}</h2>
                 <HomeTrailsSection />
                 <aside className="home__section-links">
-                    <Link href={'/trails/all'}>{t('section-trails.btn-view-all')}</Link>
+                    <Link href={'/trails'}>{t('section-trails.btn-view-all')}</Link>
                     <Link href={'/trails/create'}>{t('section-trails.btn-create')}</Link>
                 </aside>
 
@@ -75,7 +75,7 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
                 <h2 className="home__section-title">{t('section-hikes.title')}</h2>
                 <HomeHikesSection />
                 <aside className="home__section-links">
-                    <Link href={'/hikes/all'}>{t('section-hikes.btn-view-all')}</Link>
+                    <Link href={'/hikes'}>{t('section-hikes.btn-view-all')}</Link>
                     <Link href={'/hikes/create'}>{t('section-hikes.btn-create')}</Link>
                 </aside>
 
@@ -84,7 +84,7 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
                 <h2 className="home__section-title">{t('section-accommodations.title')}</h2>
                 <HomeAccommodationsSection />
                 <aside className="home__section-links">
-                    <Link href={'/accommodations/all'}>{t('section-accommodations.btn-view-all')}</Link>
+                    <Link href={'/accommodations'}>{t('section-accommodations.btn-view-all')}</Link>
                 </aside>
 
                 <section className="home__section-buffer"></section>

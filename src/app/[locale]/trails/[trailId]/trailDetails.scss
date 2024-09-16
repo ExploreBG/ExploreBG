@@ -12,6 +12,23 @@
         margin-bottom: 2rem;
     }
 
+    &__warning {
+        width: 100%;
+        max-width: 60rem;
+        margin-bottom: 2rem;
+        border: 2px dashed yellow;
+        border-radius: 1.5rem;
+        padding: 0.5rem;
+        background-color: rgba(255, 255, 0, 0.301);
+        backdrop-filter: blur(0.25rem);
+        color: black;
+        text-shadow: 0 0 4px yellowgreen;
+
+        &>summary {
+            cursor: pointer;
+        }
+    }
+
     &__nav {
         width: 100%;
         max-width: 60rem;
@@ -38,27 +55,6 @@
 
     [data-theme="dark"] &>h1 {
         @include gs.titles-dark();
-    }
-
-    & .upload-file {
-        position: absolute;
-        top: 0.75rem;
-        right: 1.25rem;
-
-        &>label {
-            @include gs.flex(none, none, center);
-            cursor: pointer;
-
-            &>span {
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-
-        &>input {
-            display: none;
-        }
     }
 }
 

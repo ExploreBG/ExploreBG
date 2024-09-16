@@ -88,7 +88,9 @@
         "metadata": {
             "tab-name": "Trail details"
         },
-        "title": "Trail details",
+        "title": "{trailName} - trail details",
+        "important-notice": "Important Notice:",
+        "important-notice-text": "While ExploreBG moderates the data, its accuracy cannot always be guaranteed. ExploreBG is not responsible for any errors or inaccuracies. Please verify information through other reliable sources and exercise caution.",
         "comments": "comments",
         "add-comment": "Add comment here...",
         "warn-login-to-comment": "Please login to add comment!",
@@ -140,6 +142,7 @@
         "set-main": "Set main",
         "success-change-main": "Successfully changed main photo.",
         "upload-gpx": "Upload Gpx",
+        "download-gpx": "Download Gpx",
         "remove-gpx": "Remove Gpx",
         "successful-upload": "Successful upload",
         "successful-remove-gpx": "Gpx file is removed",

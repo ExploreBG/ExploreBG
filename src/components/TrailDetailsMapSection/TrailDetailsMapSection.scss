@@ -7,6 +7,32 @@
         margin: 0 auto;
     }
 
+    &__buttons {
+        position: absolute;
+        top: 0.75rem;
+        right: 1.25rem;
+        @include gs.flex(none, none, center);
+        gap: 1rem;
+
+        &>a:hover {
+            text-decoration: underline;
+        }
+
+        & label {
+            cursor: pointer;
+
+            &>span {
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        & input {
+            display: none;
+        }
+    }
+
     &__track-info {
         margin-top: 2rem;
         @include gs.flex(row, space-between, none);

@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { FaFileUpload } from 'react-icons/fa';
+import { FaFileUpload, FaDownload } from 'react-icons/fa';
 import { ImBin } from 'react-icons/im';
 import { toast } from 'react-toastify';
 
@@ -54,9 +55,15 @@ const TrailDetailsUploadGpx: React.FC<TrailDetailsUploadGpxProps> = ({ trailId, 
     };
 
     return (
-        <>
+        <aside className="map__buttons">
+            {track && (
+                <Link href={track} download>
+                    {t('download-gpx')} <FaDownload />
+                </Link>
+            )}
+
             {!track && (
-                <form className="upload-file">
+                <form>
                     <label htmlFor="file-input">
                         <span>{t('upload-gpx')} <FaFileUpload style={{ fontSize: '1.25rem' }} /></span>
                     </label>
@@ -65,13 +72,13 @@ const TrailDetailsUploadGpx: React.FC<TrailDetailsUploadGpxProps> = ({ trailId, 
             )}
 
             {track && (
-                <div onClick={onRemoveGpx} className="upload-file">
+                <div onClick={onRemoveGpx}>
                     <label>
                         <span >{t('remove-gpx')} <ImBin style={{ color: 'red' }} /></span>
                     </label>
                 </div>
             )}
-        </>
+        </aside>
     );
 };
 

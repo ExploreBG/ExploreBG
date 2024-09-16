@@ -1,58 +1,68 @@
 import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-// import { Link } from '@/navigation';
+import { Link } from '@/navigation';
 
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
-import { IDestinationCard } from '@/interfaces/interfaces';
+import { ITrailCard } from '@/interfaces/interfaces';
 
 import Layout from '@/components/Layout/Layout';
-import DestinationCard from '@/components/DestinationCard/DestinationCard';
+import TrailCard from '@/components/TrailCard/TrailCard';
 import PaginationControls from '@/components/PaginationControls/PaginationControls';
 
-interface AllDestinationsProps {
-    params: { locale: string }
-    searchParams: { [key: string]: string | string[] | undefined }
+interface AllTrailsProps {
+    params: { locale: string };
+    searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateMetadata({
     params: { locale }
-}: Omit<AllDestinationsProps, 'children'>) {
-    const t = await getTranslations({ locale, namespace: 'destinations' });
+}: Omit<AllTrailsProps, 'children'>) {
+    const t = await getTranslations({ locale, namespace: 'trails' });
 
     return {
         title: t('metadata.tab-name'),
     };
 }
 
-const AllDestinations: React.FC<AllDestinationsProps> = async ({ params: { locale }, searchParams }) => {
+const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale }, searchParams }) => {
     unstable_setRequestLocale(locale);
-    const t = await getTranslations('destinations');
+    const t = await getTranslations('trails');
 
     const page = searchParams['pageNumber'] ?? '1';
     const cardsPerPage = searchParams['pageSize'] ?? '3';
     const query = `?pageNumber=${page}&pageSize=${cardsPerPage}&sortBy=id&sortDir=DESC`;
 
-    const destinations = await agent.apiDestinations.getAllDestinations(query);
+    const session = await getSession();
+    const token = session?.token;
+
+    const res = token
+        ? await agent.apiTrails.getAllTrails(query, token)
+        : await agent.apiTrails.getAllTrails(query);
+
+    const trails = res.data;
 
     return (
         <Layout>
             <main className="catalog-wrapper">
                 <h1>{t('title')}</h1>
 
-                {/* <Link href='/destinations/all' className="catalog-wrapper__create-btn">{t('create-btn')}</Link> */}
+                <Link href='/trails/create' className="catalog-wrapper__create-btn">
+                    {t('create-btn')}
+                </Link>
 
                 <section className="catalog-wrapper__cards">
-                    {destinations.content.map((card: IDestinationCard) => (
+                    {trails?.content.map((card: ITrailCard) => (
                         <article key={card.id} className="card">
-                            <DestinationCard card={card} />
+                            <TrailCard card={card} />
                         </article>
                     ))}
                 </section>
 
                 <PaginationControls
-                    totalElements={destinations.totalElements}
+                    totalElements={trails?.totalElements}
                     cardsPerPage={Number(cardsPerPage)}
-                    pathname={'/destinations/all'}
+                    pathname={'/trails'}
                     sortBy={'id'}
                     sortDir={'DESC'}
                 />
@@ -61,4 +71,4 @@ const AllDestinations: React.FC<AllDestinationsProps> = async ({ params: { local
     );
 };
 
-export default AllDestinations;
+export default AllTrails;

@@ -12,17 +12,17 @@ export const pathnames = {
         en: '/FAQ',
         bg: '/vuprosi'
     },
-    '/destinations/all': {
-        en: '/destinations/all',
-        bg: '/mesta/vsichki'
+    '/destinations': {
+        en: '/destinations',
+        bg: '/mesta'
     },
     '/destinations/[destinationId]': {
         en: '/destinations/[destinationId]',
         bg: '/mesta/[destinationId]'
     },
-    '/trails/all': {
-        en: '/trails/all',
-        bg: '/marshruti/vsichki'
+    '/trails': {
+        en: '/trails',
+        bg: '/marshruti'
     },
     '/trails/create': {
         en: '/trails/create',
@@ -32,9 +32,9 @@ export const pathnames = {
         en: '/trails/[trailId]',
         bg: '/marshruti/[trailId]'
     },
-    '/hikes/all': {
-        en: '/hikes/all',
-        bg: '/prehodi/vsichki'
+    '/hikes': {
+        en: '/hikes',
+        bg: '/prehodi'
     },
     '/hikes/[hikeId]': {
         en: '/hikes/[hikeId]',
@@ -44,9 +44,9 @@ export const pathnames = {
         en: '/hikes/create',
         bg: '/prehodi/dobavi-prehod'
     },
-    '/accommodations/all': {
-        en: '/accommodations/all',
-        bg: '/mesta-za-nastaniavane/vsichki'
+    '/accommodations': {
+        en: '/accommodations',
+        bg: '/mesta-za-nastaniavane'
     },
     '/accommodations/[accommodationId]': {
         en: '/accommodations/[accommodationId]',

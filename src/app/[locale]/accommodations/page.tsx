@@ -10,8 +10,8 @@ import AccommodationCard from '@/components/AccommodationCard/AccommodationCard'
 import PaginationControls from '@/components/PaginationControls/PaginationControls';
 
 interface AllAccommodationsProps {
-    params: { locale: string }
-    searchParams: { [key: string]: string | string[] | undefined }
+    params: { locale: string };
+    searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateMetadata({
@@ -24,7 +24,9 @@ export async function generateMetadata({
     };
 }
 
-const AllAccommodations: React.FC<AllAccommodationsProps> = async ({ params: { locale }, searchParams }) => {
+const AllAccommodations: React.FC<AllAccommodationsProps> = async ({
+    params: { locale }, searchParams
+}) => {
     unstable_setRequestLocale(locale);
     const t = await getTranslations('accommodations');
 
@@ -39,7 +41,9 @@ const AllAccommodations: React.FC<AllAccommodationsProps> = async ({ params: { l
             <main className="catalog-wrapper">
                 <h1>{t('title')}</h1>
 
-                {/* <Link href='/accommodations/all' className="catalog-wrapper__create-btn">{t('create-btn')}</Link> */}
+                {/* <Link href='/accommodations/create' className="catalog-wrapper__create-btn">
+                    {t('create-btn')}
+                </Link> */}
 
                 <section className="catalog-wrapper__cards">
                     {accommodations.content.map((card: IAccommodationCard) => (
@@ -52,7 +56,7 @@ const AllAccommodations: React.FC<AllAccommodationsProps> = async ({ params: { l
                 <PaginationControls
                     totalElements={accommodations.totalElements}
                     cardsPerPage={Number(cardsPerPage)}
-                    pathname={'/accommodations/all'}
+                    pathname={'/accommodations'}
                     sortBy={'id'}
                     sortDir={'DESC'}
                 />
