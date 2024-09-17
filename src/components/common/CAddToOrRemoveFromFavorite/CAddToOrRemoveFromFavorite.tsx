@@ -44,8 +44,8 @@ const CAddToOrRemoveFromFavorite: React.FC<CAddToOrRemoveFromFavoriteProps> = ({
     return (
         <span onClick={handleLikeClick} className="favorite-icon">
             {isLiked
-                ? <FaHeart className={isLiked ? 'liked' : ''} />
-                : <FaRegHeart />
+                ? <FaHeart className={isLiked ? 'liked' : ''} title={t('remove-from-favorite')} />
+                : <FaRegHeart title={t('add-to-favorite')} />
             }
         </span>
     );

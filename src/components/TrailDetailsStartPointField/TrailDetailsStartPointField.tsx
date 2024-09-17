@@ -13,6 +13,7 @@ import { startPointSchema } from './startPointSchema';
 import { trailPlaceMinLength, trailPlaceMaxLength } from '@/utils/validations';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -30,6 +31,7 @@ const TrailDetailsStartPointField: React.FC<TrailDetailsStartPointFieldProps> = 
     const t2 = useTranslations('trail-create');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [startPoint, setStartPoint] = useState<string>(initialStartPoint);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const [lastResult, action] = useFormState(updateStartPoint, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -57,6 +59,7 @@ const TrailDetailsStartPointField: React.FC<TrailDetailsStartPointFieldProps> = 
 
                 if (res.data) {
                     setStartPoint(res.data.startPoint);
+                    setLastUpdate(res.data.lastUpdateDate);
                     toast.success(t('successful-update-start-point'));
                     setIsVisible(false);
                 } else if (res.message) {

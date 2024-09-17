@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { IFormEnums } from '@/interfaces/interfaces';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 interface TrailDetailsActivityFieldProps {
@@ -33,6 +34,7 @@ const TrailDetailsActivityField: React.FC<TrailDetailsActivityFieldProps> = ({
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [activity, setActivity] = useState<string[]>(initialActivity);
     const [inputData, setInputData] = useState<string[]>(initialActivity);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const formRef = useRef<HTMLDivElement>(null);
 
     useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
@@ -63,6 +65,7 @@ const TrailDetailsActivityField: React.FC<TrailDetailsActivityFieldProps> = ({
 
             if (res.data) {
                 setActivity(res.data.activity);
+                setLastUpdate(res.data.lastUpdateDate);
                 toast.success(t('successful-update-activity'));
                 setIsVisible(false);
             } else if (res.message) {

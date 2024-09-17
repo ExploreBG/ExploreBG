@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 import { IHut } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CFormInputSearch from '../common/CFormInputSearch/CFormInputSearch';
@@ -31,6 +32,7 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
     const initialInputData: { id: number; }[] | (() => { id: number; }[]) = [];
     initialAvailableHuts.map(h => initialInputData.push({ id: h.id }));
     const [inputData, setInputData] = useState<{ id: number }[]>(initialInputData);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const formRef = useRef<HTMLDivElement>(null);
 
     useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
@@ -48,7 +50,8 @@ const TrailDetailsAvailableHutsField: React.FC<TrailDetailsAvailableHutsFieldPro
             const res = await agent.apiTrails.updateAvailableHuts(trailId, token!, newData);
 
             if (res.data) {
-                setAvailableHuts(res.data);
+                setAvailableHuts(res.data.availableHuts);
+                setLastUpdate(res.data.lastUpdateDate);
                 toast.success(t('successful-update-available-huts'));
                 setIsVisible(false);
             } else if (res.message) {

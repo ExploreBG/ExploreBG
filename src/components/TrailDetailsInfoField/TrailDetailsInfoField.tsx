@@ -13,6 +13,7 @@ import { trailInfoSchema } from './trailInfoSchema';
 import { trailInfoMaxLength } from '@/utils/validations';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 
 import ExpandTextToggle from '../ExpandTextToggle/ExpandTextToggle';
 import CCommonModal from '../common/CCommonModal/CCommonModal';
@@ -31,6 +32,7 @@ const TrailDetailsInfoField: React.FC<TrailDetailsInfoFieldProps> = ({
     const t2 = useTranslations('trail-create');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [trailInfo, setTrailInfo] = useState<string>(initialInfo);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const [lastResult, action] = useFormState(updateTrailInfo, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -58,6 +60,7 @@ const TrailDetailsInfoField: React.FC<TrailDetailsInfoFieldProps> = ({
 
                 if (res.data) {
                     setTrailInfo(res.data.trailInfo);
+                    setLastUpdate(res.data.lastUpdateDate);
                     toast.success(t('successful-update-trail-info'));
                     setIsVisible(false);
                 } else if (res.message) {

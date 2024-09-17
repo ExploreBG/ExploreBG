@@ -13,6 +13,7 @@ import { updateElevation } from './action';
 import { elevationSchema } from './elevationSchema';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside'
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -30,6 +31,7 @@ const TrailDetailsElevationField: React.FC<TrailDetailsElevationFieldProps> = ({
     const t2 = useTranslations('trail-create');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [elevationGained, setElevationGained] = useState<number | string>(initialElevation);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const [lastResult, action] = useFormState(updateElevation, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -57,6 +59,7 @@ const TrailDetailsElevationField: React.FC<TrailDetailsElevationFieldProps> = ({
 
                 if (res.data) {
                     setElevationGained(res.data.elevationGained);
+                    setLastUpdate(res.data.lastUpdateDate);
                     toast.success(t('successful-update-elevation'));
                     setIsVisible(false);
                 } else if (res.message) {

@@ -13,6 +13,7 @@ import { endPointSchema } from './endPointSchema';
 import { trailPlaceMinLength, trailPlaceMaxLength } from '@/utils/validations';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside'
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -30,6 +31,7 @@ const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
     const t2 = useTranslations('trail-create');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [endPoint, setEndPoint] = useState<string>(initialEndPoint);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const [lastResult, action] = useFormState(updateEndPoint, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -57,6 +59,7 @@ const TrailDetailsEndPointField: React.FC<TrailDetailsEndPointFieldProps> = ({
 
                 if (res.data) {
                     setEndPoint(res.data.endPoint);
+                    setLastUpdate(res.data.lastUpdateDate);
                     toast.success(t('successful-update-end-point'));
                     setIsVisible(false);
                 } else if (res.message) {

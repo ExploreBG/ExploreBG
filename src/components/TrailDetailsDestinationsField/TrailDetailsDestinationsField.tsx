@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 import { IPlace } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside';
 
 import CFormInputSearch from '../common/CFormInputSearch/CFormInputSearch';
@@ -31,6 +32,7 @@ const TrailDetailsDestinationsField: React.FC<TrailDetailsDestinationsFieldProps
     const initialInputData: { id: number; }[] | (() => { id: number; }[]) = [];
     initialDestinations.map(d => initialInputData.push({ id: d.id }));
     const [inputData, setInputData] = useState<{ id: number }[]>(initialInputData);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const formRef = useRef<HTMLDivElement>(null);
 
     useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
@@ -48,7 +50,8 @@ const TrailDetailsDestinationsField: React.FC<TrailDetailsDestinationsFieldProps
             const res = await agent.apiTrails.updateDestinations(trailId, token!, newData);
 
             if (res.data) {
-                setDestinations(res.data);
+                setDestinations(res.data.destinations);
+                setLastUpdate(res.data.lastUpdateDate);
                 toast.success(t('successful-update-destinations'));
                 setIsVisible(false);
             } else if (res.message) {

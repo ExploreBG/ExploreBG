@@ -59,6 +59,11 @@
         z-index: 1;
     }
 
+    & .asterisk {
+        color: red;
+        font-size: 1.25rem;
+    }
+
     &__photos {
         @include gs.flex(row, space-around, none);
         flex-wrap: wrap;

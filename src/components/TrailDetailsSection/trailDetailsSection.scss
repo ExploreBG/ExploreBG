@@ -1,6 +1,17 @@
 @use '@/global-styles/main' as gs;
 
 .trail {
+    position: relative;
+
+    &>.favorite-icon {
+        right: 1.25rem;
+        font-size: 2rem;
+        border: 1px solid gs.$bright-turquoise;
+        padding: 0.75rem;
+        border-radius: 50%;
+        display: flex;
+    }
+
     &__created-by {
         @include gs.flex(none, center, center);
         margin-bottom: 1.5rem;
@@ -188,6 +199,12 @@
                 }
             }
         }
+    }
+
+    &__last-update {
+        position: absolute;
+        bottom: 0.5rem;
+        left: 1.5rem;
     }
 }
 

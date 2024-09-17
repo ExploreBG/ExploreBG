@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { IFormEnums } from '@/interfaces/interfaces';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside'
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -27,6 +28,7 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [waterAvailable, setWaterAvailable] = useState<string>(initialWaterAvailable);
     const [inputData, setInputData] = useState<string>(initialWaterAvailable);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const formRef = useRef<HTMLFormElement>(null);
 
     useCloseOnEscapeTabAndClickOutside(formRef, () => setIsVisible(false));
@@ -48,6 +50,7 @@ const TrailDetailsWaterAvailableField: React.FC<TrailDetailsWaterAvailableFieldP
 
             if (res.data) {
                 setWaterAvailable(res.data.waterAvailable);
+                setLastUpdate(res.data.lastUpdateDate);
                 toast.success(t('successful-update-water-available'));
                 setIsVisible(false);
             } else if (res.message) {

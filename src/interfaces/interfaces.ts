@@ -43,6 +43,7 @@ export interface IComment {
     id: number
     message: string
     owner: IOwner
+    lastUpdateDate: string
 }
 
 export interface IDestination extends IDestinationCard {
@@ -75,6 +76,7 @@ export interface ITrail extends ITrailCard {
     destinations: IDestination[]
     images: TPhoto[]
     gpxUrl: string | null
+    lastUpdateDate: string
 }
 
 export type TPhoto = { id: number, imageUrl: string, isMain: boolean }

@@ -83,6 +83,13 @@ const TrailDetailsPhotos: React.FC<TrailDetailsPhotosProps> = ({
                 </div>
             )}
 
+            {photos.length == 0 && !isUploading && (
+                <p>
+                    <span className="asterisk">*</span>
+                    <em>{t('limit-photos-message', { max: MAX_PHOTO_COUNT_FOR_UPLOAD })}</em>
+                </p>
+            )}
+
             {photos.length > 0 && (
                 <div className="photos-wrapper__photos" style={{ marginTop: (isOwner ? '2rem' : '0') }}>
                     {photos.map((p, index) => (
@@ -129,8 +136,12 @@ const TrailDetailsPhotos: React.FC<TrailDetailsPhotosProps> = ({
 
                     {isOwner && (
                         <p className="photos-wrapper__photos__limit-message">
-                            <span style={{ color: 'red', fontSize: '1.25rem' }}>*</span>
-                            <em>{t('limit-photos-message', { max: MAX_PHOTO_COUNT_FOR_UPLOAD })}</em>
+                            <span className="asterisk">*</span>
+                            <em>
+                                {t('remaining-photos-message', {
+                                    count: MAX_PHOTO_COUNT_FOR_UPLOAD - photos.length
+                                })}
+                            </em>
                         </p>
                     )}
                 </div>

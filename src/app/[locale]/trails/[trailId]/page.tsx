@@ -62,12 +62,14 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
                     <main className="trail-details">
                         <h1>{t('title', { trailName: `${trail.startPoint} - ${trail.endPoint}` })}</h1>
 
-                        <details open className="trail-details__warning">
-                            <summary>{t('important-notice')}:</summary>
-                            {t('important-notice-text')}
-                        </details>
+                        {!isOwner && (
+                            <details open className="trail-details__warning">
+                                <summary>{t('important-notice')}:</summary>
+                                {t('important-notice-text')}
+                            </details>
+                        )}
 
-                        <nav className="trail-details__nav" aria-label="details-page-navigation">
+                        <nav className="trail-details__nav" aria-label="trail-details-page-navigation">
                             <ul>
                                 {trail.images.length > 0 && <li><Link href="#photos">photos</Link></li>}
                                 {trail.gpxUrl && <li><Link href="#map">map</Link></li>}

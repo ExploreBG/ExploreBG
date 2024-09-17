@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import { IFormEnums } from '@/interfaces/interfaces';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside'
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -27,6 +28,7 @@ const TrailDetailsTrailDifficultyField: React.FC<TrailDetailsTrailDifficultyFiel
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [trailDifficulty, setTrailDifficulty] = useState<string>(initialTrailDifficulty);
     const [inputData, setInputData] = useState<string>(initialTrailDifficulty);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const formRef = useRef<HTMLFormElement>(null);
 
     const maxDifficultyLevel = formEnums.trailDifficulty?.length;
@@ -61,6 +63,7 @@ const TrailDetailsTrailDifficultyField: React.FC<TrailDetailsTrailDifficultyFiel
 
             if (res.data) {
                 setTrailDifficulty(res.data.trailDifficulty);
+                setLastUpdate(res.data.lastUpdateDate);
                 toast.success(t('successful-update-trail-difficulty'));
                 setIsVisible(false);
             } else if (res.message) {

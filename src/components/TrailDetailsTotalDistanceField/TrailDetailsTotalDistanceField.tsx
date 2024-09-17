@@ -13,6 +13,7 @@ import { updateTotalDistance } from './action';
 import { totalDistanceSchema } from './totalDistanceSchema';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
+import { useTrailDetailsCtx } from '@/contexts/TrailDetailsContext';
 import useCloseOnEscapeTabAndClickOutside from '@/hooks/useCloseOnEscapeTabAndClickOutside'
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -30,6 +31,7 @@ const TrailDetailsTotalDistanceField: React.FC<TrailDetailsTotalDistanceFieldPro
     const t2 = useTranslations('trail-create');
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [totalDistance, setTotalDistance] = useState<number | string>(initialTotalDistance);
+    const { setLastUpdate } = useTrailDetailsCtx();
     const [lastResult, action] = useFormState(updateTotalDistance, undefined);
     const [form, fields] = useForm({
         lastResult,
@@ -57,6 +59,7 @@ const TrailDetailsTotalDistanceField: React.FC<TrailDetailsTotalDistanceFieldPro
 
                 if (res.data) {
                     setTotalDistance(res.data.totalDistance);
+                    setLastUpdate(res.data.lastUpdateDate);
                     toast.success(t('successful-update-total-distance'));
                     setIsVisible(false);
                 } else if (res.message) {

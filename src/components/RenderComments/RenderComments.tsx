@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { IComment } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
 import { commentMaxLength } from '@/utils/validations';
+import { formatEntityLastUpdate } from '@/utils/utils';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -56,6 +57,7 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
 
                 setInputValue('');
                 setIsVisible(null);
+                toast.success(t('success-update-comment'));
             } else if (res.message) {
                 toast.error(res.message);
             } else if (res.errors) {
@@ -91,8 +93,12 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
 
                         <div className="comments__wrapper__comment__message">
                             <p style={{ opacity: (isVisible == c.id ? '0' : '1') }}>
+
                                 {c.message}
 
+                                <time dateTime={c.lastUpdateDate}>
+                                    {formatEntityLastUpdate(c.lastUpdateDate)}
+                                </time>
                             </p>
                             {userId == c.owner.id && (
                                 <FaEdit

@@ -42,6 +42,22 @@ export const formatFullDate = (input: string) => {
     `
 };
 
+export const formatEntityLastUpdate = (date: string) => {
+    const lastUpdateDateMonthYear = formatDate(date.slice(0, 10));
+    const lastUpdateTime = date.slice(-5);
+    const lastUpdateYear = lastUpdateDateMonthYear.slice(-4);
+    const lastUpdateMonth = lastUpdateDateMonthYear.slice(3, 6);
+    const lastUpdateDate = lastUpdateDateMonthYear.slice(0, 2);
+    const dateNow = new Date(Date.now()).getDate();
+    const currentYear = new Date(Date.now()).getFullYear();
+
+    return lastUpdateDate == String(dateNow)
+        ? lastUpdateTime
+        : lastUpdateYear == String(currentYear)
+            ? `${lastUpdateDate} ${lastUpdateMonth} ${lastUpdateTime}`
+            : `${lastUpdateDateMonthYear} ${lastUpdateTime}`;
+};
+
 export const convertMetersToKmM = (meters: number) => {
     const km = Math.floor(meters / 1000);
     const remainingMeters = Math.floor(meters % 1000);
