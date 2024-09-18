@@ -8,7 +8,14 @@
         "add-to-favorite": "Add to favorite",
         "remove-from-favorite": "Remove from favorite",
         "successfully-like": "Successfully add to favorite.",
-        "successfully-dislike": "Successfully remove from favorite."
+        "successfully-dislike": "Successfully remove from favorite.",
+        "sort-by": "Sort by:",
+        "newest": "Newest",
+        "oldest": "Oldest",
+        "A-z": "A-z",
+        "Z-a": "Z-a",
+        "liked": "Liked",
+        "not-liked": "Not liked"
     },
     "navigation": {
         "about": "About",
@@ -149,6 +156,7 @@
         "upload-gpx": "Upload Gpx",
         "download-gpx": "Download Gpx",
         "remove-gpx": "Remove Gpx",
+        "creation-date": "creation date",
         "successful-upload": "Successful upload",
         "successful-remove-gpx": "Gpx file is removed",
         "in-review": "Your trail submission is currently under review."

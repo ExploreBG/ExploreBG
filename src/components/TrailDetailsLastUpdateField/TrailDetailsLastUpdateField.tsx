@@ -16,7 +16,7 @@ const TrailDetailsLastUpdateField: React.FC<TrailDetailsLastUpdateFieldProps> = 
 
     useEffect(() => {
         setLastUpdate(lastUpdateDate);
-    }, []);
+    }, [lastUpdateDate, setLastUpdate]);
 
     return (
         <p className="trail__last-update">

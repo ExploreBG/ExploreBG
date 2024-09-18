@@ -75,7 +75,10 @@ export interface ITrail extends ITrailCard {
     nextTo: string
     destinations: IDestination[]
     images: TPhoto[]
-    gpxUrl: string | null
+    gpxFile: {
+        gpxUrl: string,
+        creationDate: string
+    } | null;
     lastUpdateDate: string
 }
 

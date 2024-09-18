@@ -12,9 +12,12 @@ interface TrailDetailsUploadGpxProps {
     token: string;
     track: string | null;
     setGpx: Dispatch<SetStateAction<string | null>>;
+    setCreationDate: Dispatch<SetStateAction<string>>;
 }
 
-const TrailDetailsUploadGpx: React.FC<TrailDetailsUploadGpxProps> = ({ trailId, token, track, setGpx }) => {
+const TrailDetailsUploadGpx: React.FC<TrailDetailsUploadGpxProps> = ({
+    trailId, token, track, setGpx, setCreationDate
+}) => {
     const t = useTranslations('trail-details');
 
     const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +34,7 @@ const TrailDetailsUploadGpx: React.FC<TrailDetailsUploadGpxProps> = ({ trailId, 
 
                 if (res.data) {
                     setGpx(res.data.gpxUrl);
+                    setCreationDate(res.data.creationDate);
                     toast.success(t('successful-upload'));
                 } else if (res.message) {
                     toast.error(res.message);
@@ -48,6 +52,7 @@ const TrailDetailsUploadGpx: React.FC<TrailDetailsUploadGpxProps> = ({ trailId, 
 
         if (res.data) {
             setGpx(null);
+            setCreationDate('');
             toast.success(t('successful-remove-gpx'));
         } else if (res.message) {
             toast.error(res.message);

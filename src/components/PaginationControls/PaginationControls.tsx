@@ -1,27 +1,28 @@
 'use client';
 
 import React from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from '@/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { usePathname } from '@/navigation';
+
+import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, DEFAULT_SORT_BY, DEFAULT_SORT_DIR } from '@/utils/constants';
 
 import './paginationControls.scss';
 
 interface PaginationControlsProps {
-    totalElements: number
-    cardsPerPage: number
-    pathname: string
-    sortBy: string
-    sortDir: string
+    totalElements: number;
+    sortByProp?: string;
 }
 
 const PaginationControls: React.FC<PaginationControlsProps> = ({
-    totalElements, cardsPerPage, pathname, sortBy, sortDir
+    totalElements, sortByProp
 }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const pathname = usePathname();
 
-    const page = Number(searchParams.get('pageNumber') ?? '1');
-    const totalPages = Math.ceil(totalElements / cardsPerPage);
+    const cardsPerPage = searchParams.get('pageSize') ?? DEFAULT_CARDS_PER_PAGE;
+    const page = Number(searchParams.get('pageNumber') ?? DEFAULT_PAGE_NUMBER);
+    const totalPages = Math.ceil(totalElements / Number(cardsPerPage));
 
     const buttons = [];
     let start = page == 1 ? 1 : page - 1;
@@ -47,17 +48,18 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
         );
     }
 
-    const onChangePage = (page: number) => {
-        return router.push({
-            // @ts-ignore
-            pathname: pathname,
-            query: {
-                pageNumber: page,
-                pageSize: cardsPerPage,
-                sortBy: sortBy,
-                sortDir: sortDir
-            }
-        });
+    const sortBy = searchParams.get('sortBy');
+    const sortDir = searchParams.get('sortDir');
+
+    const onChangePage = (newPage: number) => {
+        const newParams = new URLSearchParams(searchParams.toString());
+
+        newParams.set('pageNumber', newPage.toString());
+        newParams.set('pageSize', cardsPerPage);
+        newParams.set('sortBy', sortByProp ?? (sortBy ?? DEFAULT_SORT_BY));
+        newParams.set('sortDir', sortDir ?? DEFAULT_SORT_DIR);
+
+        router.push(`${pathname}?${newParams.toString()}`);
     };
 
     return (

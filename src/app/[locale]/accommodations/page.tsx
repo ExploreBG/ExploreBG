@@ -2,6 +2,7 @@ import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 // import { Link } from '@/navigation';
 
+import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE } from '@/utils/constants';
 import { agent } from '@/api/agent';
 import { IAccommodationCard } from '@/interfaces/interfaces';
 
@@ -30,9 +31,8 @@ const AllAccommodations: React.FC<AllAccommodationsProps> = async ({
     unstable_setRequestLocale(locale);
     const t = await getTranslations('accommodations');
 
-    const page = searchParams['pageNumber'] ?? '1';
-    const cardsPerPage = searchParams['pageSize'] ?? '3';
-    const query = `?pageNumber=${page}&pageSize=${cardsPerPage}&sortBy=id&sortDir=DESC`;
+    const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
+    const query = `?pageNumber=${page}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=id&sortDir=DESC`;
 
     const accommodations = await agent.apiAccommodations.getAllAccommodations(query);
 
@@ -53,13 +53,7 @@ const AllAccommodations: React.FC<AllAccommodationsProps> = async ({
                     ))}
                 </section>
 
-                <PaginationControls
-                    totalElements={accommodations.totalElements}
-                    cardsPerPage={Number(cardsPerPage)}
-                    pathname={'/accommodations'}
-                    sortBy={'id'}
-                    sortDir={'DESC'}
-                />
+                <PaginationControls totalElements={accommodations.totalElements} />
             </main>
         </Layout>
     );

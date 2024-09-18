@@ -8,7 +8,14 @@
         "add-to-favorite": "Добави в любими",
         "remove-from-favorite": "Птрмахни от любими",
         "successfully-like": "Успешно добавяне към любими.",
-        "successfully-dislike": "Успешно премахване от любими."
+        "successfully-dislike": "Успешно премахване от любими.",
+        "sort-by": "Подреди по:",
+        "newest": "Най-нови",
+        "oldest": "Най-стари",
+        "A-z": "A-z",
+        "Z-a": "Z-a",
+        "liked": "Любими",
+        "not-liked": "Не любими"
     },
     "navigation": {
         "about": "3а нас",
@@ -149,6 +156,7 @@
         "upload-gpx": "Добавете Gpx файл",
         "download-gpx": "Изтеглете Gpx файла",
         "remove-gpx": "Премахнете Gpx файла",
+        "creation-date": "дата на създаване",
         "successful-upload": "Успешно добавен файл",
         "successful-remove-gpx": "Успешно премахнат файл",
         "in-review": "Изпратената от вас следа в момента се преглежда."

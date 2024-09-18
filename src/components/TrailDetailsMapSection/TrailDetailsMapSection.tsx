@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useTranslations } from 'next-intl';
 
 import { ITrail, ITrackInfo } from '@/interfaces/interfaces';
-import { formatFullDate, convertMetersToKmM } from '@/utils/utils';
+import { formatFullDate, convertMetersToKmM, formatEntityLastUpdate } from '@/utils/utils';
 
 import './TrailDetailsMapSection.scss';
 import CLoadingSpinner from '../common/CLoadingSpinner/CLoadingSpinner';
@@ -21,8 +22,10 @@ interface TrailDetailsMapSectionProps {
 }
 
 const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, token, isOwner }) => {
-    const [track, setTrack] = useState<string | null>(trail.gpxUrl);
+    const t = useTranslations('trail-details');
+    const [track, setTrack] = useState<string | null>(trail.gpxFile?.gpxUrl ?? null);
     const [trackInfo, setTrackInfo] = useState<ITrackInfo | null>(null);
+    const [creationDate, setCreationDate] = useState<string>(trail.gpxFile?.creationDate ?? '');
 
     const startTime = trackInfo && formatFullDate(trackInfo.startTime);
     const endTime = trackInfo && formatFullDate(trackInfo.endTime);
@@ -37,6 +40,7 @@ const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, 
                     token={token!}
                     track={track}
                     setGpx={setTrack}
+                    setCreationDate={setCreationDate}
                 />
             )}
 
@@ -104,6 +108,15 @@ const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, 
                         </aside>
                     )}
                 </>
+            )}
+
+            {creationDate && (
+                <p className="trail__last-update">
+                    <em>{t('creation-date')}:</em> &nbsp;
+                    <time dateTime={creationDate}>
+                        {formatEntityLastUpdate(creationDate)}
+                    </time>
+                </p>
             )}
         </section>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
+import { DEFAULT_PAGE_NUMBER } from '@/utils/constants';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
@@ -12,14 +13,14 @@ import AllUsersTable from '@/components/AllUsersTable/AllUsersTable';
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';
 
 interface AllUsersProps {
-    params: { locale: string }
-    searchParams: { [key: string]: string | string[] | undefined }
+    params: { locale: string };
+    searchParams: { [key: string]: string | string[] | undefined };
 }
 
 const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchParams }) => {
     unstable_setRequestLocale(locale);
 
-    const page = searchParams['pageNumber'] ?? '1';
+    const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
     const resultsPerPage = searchParams['pageSize'] ?? '3';
     const query = `?pageNumber=${page}&pageSize=${resultsPerPage}&sortBy=id&sortDir=DESC`;
 
@@ -47,13 +48,7 @@ const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchPar
                             // userCountFrom={userCountFrom}
                         />
 
-                        {/* <PaginationControls
-                            totalElements={data.totalElements}
-                            cardsPerPage={Number(resultsPerPage)}
-                            pathname={'/admin/users'}
-                            sortBy={'id'}
-                            sortDir={'DESC'}
-                        /> */}
+                        {/* <PaginationControls totalElements={data.totalElements} /> */}
                         <CSmallFooter />
                     </main>
                 </AdminLayout>

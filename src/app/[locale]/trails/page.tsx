@@ -2,17 +2,15 @@ import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Link } from '@/navigation';
 
+import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE } from '@/utils/constants';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
-import { ITrailCard } from '@/interfaces/interfaces';
 
 import Layout from '@/components/Layout/Layout';
-import TrailCard from '@/components/TrailCard/TrailCard';
-import PaginationControls from '@/components/PaginationControls/PaginationControls';
+import AllTrailsClient from '@/components/AllTrailsClient/AllTrailsClient';
 
 interface AllTrailsProps {
     params: { locale: string };
-    searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateMetadata({
@@ -25,13 +23,11 @@ export async function generateMetadata({
     };
 }
 
-const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale }, searchParams }) => {
+const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale } }) => {
     unstable_setRequestLocale(locale);
     const t = await getTranslations('trails');
 
-    const page = searchParams['pageNumber'] ?? '1';
-    const cardsPerPage = searchParams['pageSize'] ?? '3';
-    const query = `?pageNumber=${page}&pageSize=${cardsPerPage}&sortBy=id&sortDir=DESC`;
+    const query = `?pageNumber=${DEFAULT_PAGE_NUMBER}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=id&sortDir=DESC`;
 
     const session = await getSession();
     const token = session?.token;
@@ -51,21 +47,13 @@ const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale }, searchP
                     {t('create-btn')}
                 </Link>
 
-                <section className="catalog-wrapper__cards">
-                    {trails?.content.map((card: ITrailCard) => (
-                        <article key={card.id} className="card">
-                            <TrailCard card={card} />
-                        </article>
-                    ))}
-                </section>
-
-                <PaginationControls
-                    totalElements={trails?.totalElements}
-                    cardsPerPage={Number(cardsPerPage)}
-                    pathname={'/trails'}
-                    sortBy={'id'}
-                    sortDir={'DESC'}
-                />
+                {trails && (
+                    <AllTrailsClient
+                        trails={trails.content}
+                        totalElements={trails.totalElements}
+                        token={token}
+                    />
+                )}
             </main>
         </Layout>
     );

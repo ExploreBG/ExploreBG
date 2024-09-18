@@ -72,7 +72,7 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
                         <nav className="trail-details__nav" aria-label="trail-details-page-navigation">
                             <ul>
                                 {trail.images.length > 0 && <li><Link href="#photos">photos</Link></li>}
-                                {trail.gpxUrl && <li><Link href="#map">map</Link></li>}
+                                {trail.gpxFile?.gpxUrl && <li><Link href="#map">map</Link></li>}
                                 <li><Link href="#comments">comments</Link></li>
                             </ul>
                         </nav>

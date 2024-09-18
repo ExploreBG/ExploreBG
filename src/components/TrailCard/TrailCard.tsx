@@ -1,6 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 
 import { ITrailCard } from '@/interfaces/interfaces';
@@ -9,14 +11,20 @@ import { getSession } from '@/utils/userSession';
 import CAddToOrRemoveFromFavorite from '../common/CAddToOrRemoveFromFavorite/CAddToOrRemoveFromFavorite';
 
 interface TrailCardProps {
-    card: ITrailCard
+    card: ITrailCard;
 }
 
-const TrailCard: React.FC<TrailCardProps> = async ({ card }) => {
-    const t = await getTranslations('cards');
+const TrailCard: React.FC<TrailCardProps> = ({ card }) => {
+    const t = useTranslations('cards');
+    const [token, setToken] = useState<string>('');
 
-    const session = await getSession();
-    const token = session?.token;
+    useEffect(() => {
+        (async () => {
+            const session = await getSession();
+
+            session && setToken(session?.token);
+        })();
+    }, []);
 
     return (
         <>
