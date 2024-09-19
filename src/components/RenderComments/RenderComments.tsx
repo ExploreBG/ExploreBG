@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { IComment } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
 import { commentMaxLength } from '@/utils/validations';
-import { formatEntityLastUpdate } from '@/utils/utils';
+// import { formatEntityLastUpdate } from '@/utils/utils';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -96,9 +96,9 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
 
                                 {c.message}
 
-                                <time dateTime={c.lastUpdateDate}>
+                                {/* <time dateTime={c.lastUpdateDate}>
                                     {formatEntityLastUpdate(c.lastUpdateDate)}
-                                </time>
+                                </time> */}
                             </p>
                             {userId == c.owner.id && (
                                 <FaEdit

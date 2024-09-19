@@ -9,14 +9,14 @@ const Loading: React.FC<LoadingProps> = () => {
 
     return (
         <main className="loading">
-            <h1>
+            {/* <h1>
                 {text.split('').map((l, index) => (
                     <span key={index}>{l}</span>
                 ))}
                 <span>.</span>
                 <span>.</span>
                 <span>.</span>
-            </h1>
+            </h1> */}
         </main>
     );
 };
