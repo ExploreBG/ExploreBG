@@ -3,13 +3,14 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { usePathname } from '@/navigation';
 
-import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, TRAILS_ALPHABETICALLY_SEARCH_PARAM } from '@/utils/constants';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE } from '@/utils/constants';
 
 interface SortOptionsPanelProps {
+    alphabeticallySearchParam: string;
     token?: string;
 }
 
-const SortOptionsPanel: React.FC<SortOptionsPanelProps> = ({ token }) => {
+const SortOptionsPanel: React.FC<SortOptionsPanelProps> = ({ alphabeticallySearchParam, token }) => {
     const t = useTranslations('common');
     const [activeSort, setActiveSort] = useState<string>('id-DESC');
     const searchParams = useSearchParams();
@@ -50,14 +51,14 @@ const SortOptionsPanel: React.FC<SortOptionsPanelProps> = ({ token }) => {
                 {t('oldest')}
             </button>
             <button
-                onClick={() => updateSortParams(TRAILS_ALPHABETICALLY_SEARCH_PARAM, 'ASC')}
-                className={activeSort == `${TRAILS_ALPHABETICALLY_SEARCH_PARAM}-ASC` ? 'active' : ''}
+                onClick={() => updateSortParams(alphabeticallySearchParam, 'ASC')}
+                className={activeSort == `${alphabeticallySearchParam}-ASC` ? 'active' : ''}
             >
                 {t('A-z')}
             </button>
             <button
-                onClick={() => updateSortParams(TRAILS_ALPHABETICALLY_SEARCH_PARAM, 'DESC')}
-                className={activeSort == `${TRAILS_ALPHABETICALLY_SEARCH_PARAM}-DESC` ? 'active' : ''}
+                onClick={() => updateSortParams(alphabeticallySearchParam, 'DESC')}
+                className={activeSort == `${alphabeticallySearchParam}-DESC` ? 'active' : ''}
             >
                 {t('Z-a')}
             </button>

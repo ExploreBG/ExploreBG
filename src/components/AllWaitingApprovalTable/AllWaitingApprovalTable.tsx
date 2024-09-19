@@ -6,7 +6,7 @@ import { AiOutlineFieldNumber } from 'react-icons/ai';
 
 import { IUserSession, IWaitingApproval } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
-import { DEFAULT_PAGE_NUMBER } from '@/utils/constants';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE } from '@/utils/constants';
 import { formatFullDate } from '@/utils/utils';
 
 import PaginationControls from '../PaginationControls/PaginationControls';
@@ -68,7 +68,7 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
 
     const itemStatus = statusFields[activeCollection as keyof typeof statusFields];
     const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
-    const resultsPerPage = searchParams['pageSize'] ?? '1';
+    const resultsPerPage = searchParams['pageSize'] ?? DEFAULT_CARDS_PER_PAGE;
     const query = `?pageNumber=${page}&pageSize=${resultsPerPage}&sortBy=${itemStatus}`;
 
     useEffect(() => {

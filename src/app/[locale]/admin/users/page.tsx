@@ -1,7 +1,7 @@
 import React from 'react';
 import { unstable_setRequestLocale } from 'next-intl/server';
 
-import { DEFAULT_PAGE_NUMBER } from '@/utils/constants';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_SORT_BY, SORT_DIR_DESC } from '@/utils/constants';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
@@ -22,7 +22,7 @@ const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchPar
 
     const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
     const resultsPerPage = searchParams['pageSize'] ?? '3';
-    const query = `?pageNumber=${page}&pageSize=${resultsPerPage}&sortBy=id&sortDir=DESC`;
+    const query = `?pageNumber=${page}&pageSize=${resultsPerPage}&sortBy=${DEFAULT_SORT_BY}&sortDir=${SORT_DIR_DESC}`;
 
     const session = await getSession();
     const isAdminOrModerator = session?.isAdminOrModerator;

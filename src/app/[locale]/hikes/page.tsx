@@ -2,7 +2,7 @@ import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Link } from '@/navigation';
 
-import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE } from '@/utils/constants';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, HIKES_SORT_BY, SORT_DIR_ASC } from '@/utils/constants';
 import { agent } from '@/api/agent';
 import { IHikeCard } from '@/interfaces/interfaces';
 
@@ -31,7 +31,7 @@ const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams })
     const t = await getTranslations('hikes');
 
     const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
-    const query = `?pageNumber=${page}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=hikeDate&sortDir=ASC`;
+    const query = `?pageNumber=${page}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=${HIKES_SORT_BY}&sortDir=${SORT_DIR_ASC}`;
 
     const hikes = await agent.apiHikes.getAllHikes(query);
 
@@ -60,8 +60,8 @@ const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams })
 
                 <PaginationControls
                     totalElements={hikes.totalElements}
-                    // sortBy={'hikeDate'}
-                    // sortDir={'ASC'}
+                    sortByProp={HIKES_SORT_BY}
+                    sortDirProp={SORT_DIR_ASC}
                 />
             </main>
         </Layout>

@@ -6,7 +6,9 @@ export const MAP_FUNCTIONALITIES_BACKGR_COLOR = '#d3d3d3ba';
 export const DEFAULT_PAGE_NUMBER = '1';
 export const DEFAULT_CARDS_PER_PAGE = '3';
 export const DEFAULT_SORT_BY = 'id';
-export const DEFAULT_SORT_DIR = 'DESC';
+export const SORT_DIR_DESC = 'DESC';
+export const SORT_DIR_ASC = 'ASC';
+export const HIKES_SORT_BY = 'hikeDate';
 export const TRAILS_ALPHABETICALLY_SEARCH_PARAM = 'startPoint';
 
 export const MAX_PHOTO_COUNT_FOR_UPLOAD = 10;

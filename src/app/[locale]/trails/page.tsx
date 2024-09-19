@@ -2,7 +2,7 @@ import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { Link } from '@/navigation';
 
-import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE } from '@/utils/constants';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, DEFAULT_SORT_BY, SORT_DIR_DESC } from '@/utils/constants';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 
@@ -27,7 +27,7 @@ const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale } }) => {
     unstable_setRequestLocale(locale);
     const t = await getTranslations('trails');
 
-    const query = `?pageNumber=${DEFAULT_PAGE_NUMBER}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=id&sortDir=DESC`;
+    const query = `?pageNumber=${DEFAULT_PAGE_NUMBER}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=${DEFAULT_SORT_BY}&sortDir=${SORT_DIR_DESC}`;
 
     const session = await getSession();
     const token = session?.token;

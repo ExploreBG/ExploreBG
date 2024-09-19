@@ -4,17 +4,18 @@ import React from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { usePathname } from '@/navigation';
 
-import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, DEFAULT_SORT_BY, DEFAULT_SORT_DIR } from '@/utils/constants';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, DEFAULT_SORT_BY, SORT_DIR_DESC } from '@/utils/constants';
 
 import './paginationControls.scss';
 
 interface PaginationControlsProps {
     totalElements: number;
     sortByProp?: string;
+    sortDirProp?: string;
 }
 
 const PaginationControls: React.FC<PaginationControlsProps> = ({
-    totalElements, sortByProp
+    totalElements, sortByProp, sortDirProp
 }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -57,7 +58,7 @@ const PaginationControls: React.FC<PaginationControlsProps> = ({
         newParams.set('pageNumber', newPage.toString());
         newParams.set('pageSize', cardsPerPage);
         newParams.set('sortBy', sortByProp ?? (sortBy ?? DEFAULT_SORT_BY));
-        newParams.set('sortDir', sortDir ?? DEFAULT_SORT_DIR);
+        newParams.set('sortDir', sortDirProp ?? (sortDir ?? SORT_DIR_DESC));
 
         router.push(`${pathname}?${newParams.toString()}`);
     };

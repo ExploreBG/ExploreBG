@@ -2,7 +2,7 @@ import React from 'react';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 // import { Link } from '@/navigation';
 
-import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE } from '@/utils/constants';
+import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, DEFAULT_SORT_BY, SORT_DIR_DESC } from '@/utils/constants';
 import { agent } from '@/api/agent';
 import { IDestinationCard } from '@/interfaces/interfaces';
 
@@ -32,7 +32,7 @@ const AllDestinations: React.FC<AllDestinationsProps> = async ({
     const t = await getTranslations('destinations');
 
     const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
-    const query = `?pageNumber=${page}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=id&sortDir=DESC`;
+    const query = `?pageNumber=${page}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=${DEFAULT_SORT_BY}&sortDir=${SORT_DIR_DESC}`;
 
     const destinations = await agent.apiDestinations.getAllDestinations(query);
 

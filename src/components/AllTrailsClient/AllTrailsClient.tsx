@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { ITrail, ITrailCard } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
+import { TRAILS_ALPHABETICALLY_SEARCH_PARAM } from '@/utils/constants';
 
 import SortOptionsPanel from '../SortOptionsPanel/SortOptionsPanel';
 import TrailCard from '../TrailCard/TrailCard';
@@ -34,7 +35,10 @@ const AllTrailsClient: React.FC<AllTrailsClientProps> = ({ trails, totalElements
 
     return (
         <>
-            <SortOptionsPanel token={token} />
+            <SortOptionsPanel
+                alphabeticallySearchParam={TRAILS_ALPHABETICALLY_SEARCH_PARAM}
+                token={token}
+            />
 
             <section className="catalog-wrapper__cards">
                 {trailsState.map((card: ITrailCard) => (
