@@ -4,7 +4,7 @@ import { IoLocationOutline } from 'react-icons/io5';
 import { BsCalendar2Date } from 'react-icons/bs';
 
 import { agent } from '@/api/agent';
-// import { formatDate } from '@/utils/utils';
+import { formatDate } from '@/utils/utils';
 
 import './hikeDetails.scss';
 import Layout from '@/components/Layout/Layout';
@@ -31,7 +31,7 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
     // const t = await getTranslations('hike-details');
 
     const hike = await agent.apiHikes.getHikeById(hikeId);
-    // const formattedHikeDate = formatDate(hike.hikeDate);
+    const formattedHikeDate = formatDate(hike.hikeDate);
 
     return (
         <Layout>
@@ -44,7 +44,7 @@ const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeI
                     <article className="hike-details__info__date-owner">
                         <p>
                             <BsCalendar2Date />&nbsp;&nbsp;
-                            {/* <time dateTime={hike.hikeDate}>{formattedHikeDate}</time> */}
+                            <time dateTime={hike.hikeDate}>{formattedHikeDate}</time>
                         </p>
 
                         {hike.owner && (

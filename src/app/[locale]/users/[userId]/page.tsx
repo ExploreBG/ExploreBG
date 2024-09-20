@@ -7,7 +7,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { LiaBirthdayCakeSolid } from 'react-icons/lia';
 
 import { agent } from '@/api/agent';
-// import { formatDate } from '@/utils/utils';
+import { formatDate } from '@/utils/utils';
 
 import './profile.scss';
 import '@/app/[locale]/users/users.scss';
@@ -70,13 +70,13 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params: { locale, userI
                                         }
                                     </p>
 
-                                    {/* <p>
+                                    <p>
                                         <LiaBirthdayCakeSolid />
                                         {t('birthday')}: {birthdate
                                             ? <strong>{formatDate(birthdate)}</strong>
                                             : <span>{t('not-available')}</span>
                                         }
-                                    </p> */}
+                                    </p>
 
                                     <p>{userInfo}</p>
                                 </aside>

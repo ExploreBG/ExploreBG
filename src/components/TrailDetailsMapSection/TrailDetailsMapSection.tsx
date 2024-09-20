@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 
 import { ITrail, ITrackInfo } from '@/interfaces/interfaces';
-// import { formatFullDate, convertMetersToKmM, formatEntityLastUpdate } from '@/utils/utils';
+import { formatFullDate, convertMetersToKmM, formatEntityLastUpdate } from '@/utils/utils';
 
 import './TrailDetailsMapSection.scss';
 import CLoadingSpinner from '../common/CLoadingSpinner/CLoadingSpinner';
@@ -27,10 +27,10 @@ const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, 
     const [trackInfo, setTrackInfo] = useState<ITrackInfo | null>(null);
     const [creationDate, setCreationDate] = useState<string>(trail.gpxFile?.creationDate ?? '');
 
-    // const startTime = trackInfo && formatFullDate(trackInfo.startTime);
-    // const endTime = trackInfo && formatFullDate(trackInfo.endTime);
-    // const start = startTime?.trim().slice(0, 14) === '1 January 1970' ? 'n/a' : startTime;
-    // const end = endTime?.trim().slice(0, 14) === '1 January 1970' ? 'n/a' : endTime;
+    const startTime = trackInfo && formatFullDate(trackInfo.startTime);
+    const endTime = trackInfo && formatFullDate(trackInfo.endTime);
+    const start = startTime?.trim().slice(0, 14) === '1 January 1970' ? 'n/a' : startTime;
+    const end = endTime?.trim().slice(0, 14) === '1 January 1970' ? 'n/a' : endTime;
 
     return (
         <section className="map details-page-section">
@@ -53,15 +53,15 @@ const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, 
                             <span>name: &nbsp;
                                 <strong>{trackInfo.name}</strong>
                             </span>
-                            {/* <span>distance: &nbsp;
+                            <span>distance: &nbsp;
                                 <strong>{convertMetersToKmM(Number(trackInfo.distance))}</strong>
-                            </span> */}
-                            {/* <span>start time: &nbsp;
+                            </span>
+                            <span>start time: &nbsp;
                                 <strong>{start}</strong>
-                            </span> */}
-                            {/* <span>end time: &nbsp;
+                            </span>
+                            <span>end time: &nbsp;
                                 <strong>{end}</strong>
-                            </span> */}
+                            </span>
                             <span>moving time: &nbsp;
                                 <strong>{Number(trackInfo.movingTime) > 0 ? trackInfo.movingTime : 'n/a'}</strong>
                             </span>
@@ -113,9 +113,9 @@ const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, 
             {creationDate && (
                 <p className="trail__last-update">
                     <em>{t('creation-date')}:</em> &nbsp;
-                    {/* <time dateTime={creationDate}>
+                    <time dateTime={creationDate}>
                         {formatEntityLastUpdate(creationDate)}
-                    </time> */}
+                    </time>
                 </p>
             )}
         </section>

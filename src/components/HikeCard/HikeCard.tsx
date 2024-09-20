@@ -4,14 +4,14 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 
 import { IHikeCard } from '@/interfaces/interfaces';
-// import { formatDate } from '@/utils/utils';
+import { formatDate } from '@/utils/utils';
 
 interface HikeCardProps {
     card: IHikeCard
 }
 
 const HikeCard: React.FC<HikeCardProps> = ({ card }) => {
-    // const formattedHikeDate = formatDate(card.hikeDate);
+    const formattedHikeDate = formatDate(card.hikeDate);
 
     const t = useTranslations('cards');
 
@@ -27,7 +27,7 @@ const HikeCard: React.FC<HikeCardProps> = ({ card }) => {
             </figure>
 
             <h4>{card.hikeName}</h4>
-            {/* <time dateTime={card.hikeDate}>{formattedHikeDate}</time> */}
+            <time dateTime={card.hikeDate}>{formattedHikeDate}</time>
             {card.hikeInfo && <p>{card.hikeInfo.slice(0, 145)} {card.hikeInfo.length > 145 && '.....'}</p>}
             <Link href={{
                 pathname: '/hikes/[hikeId]',

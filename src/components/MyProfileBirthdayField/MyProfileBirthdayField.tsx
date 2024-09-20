@@ -9,7 +9,7 @@ import { LiaBirthdayCakeSolid } from 'react-icons/lia';
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-// import { formatDate } from '@/utils/utils';
+import { formatDate } from '@/utils/utils';
 import { changeBirthDate } from './action';
 import { birthDateSchema } from './birthDateSchema';
 import { agent } from '@/api/agent';
@@ -72,7 +72,7 @@ const MyProfileBirthdayField: React.FC<MyProfileBirthdayFieldProps> = ({ birthda
         <div>
             <p style={{ opacity: (isVisible ? '0' : '1') }}>
                 <LiaBirthdayCakeSolid /> {t('birthday')}:&nbsp;&nbsp;
-                {/* <strong>{birthDateValue ? formatDate(birthDateValue) : '.....'}</strong> */}
+                <strong>{birthDateValue ? formatDate(birthDateValue) : '.....'}</strong>
                 <FaEdit className="edit" onClick={() => setIsVisible(!isVisible)} />
             </p>
 

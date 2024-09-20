@@ -14,14 +14,14 @@ export const homeTopImages = [
     '/images/4.avif'
 ];
 
-// export const formatDate = (inputDate: string) => {
-//     const [year, monthNumber, day] = inputDate.split('-');
-//     const date = new Date();
-//     date.setMonth(Number(monthNumber) - 1);
-//     const month = date.toDateString().split(' ')[1];
+export const formatDate = (inputDate: string) => {
+    const [year, monthNumber, day] = inputDate.split('-');
+    const date = new Date();
+    date.setMonth(Number(monthNumber) - 1);
+    const month = date.toDateString().split(' ')[1];
 
-//     return `${day} ${month} ${year}`;
-// };
+    return `${day} ${month} ${year}`;
+};
 
 export const formatFullDate = (input: string) => {
     const date = new Date(input);
@@ -42,21 +42,21 @@ export const formatFullDate = (input: string) => {
     `
 };
 
-// export const formatEntityLastUpdate = (date: string) => {
-//     const lastUpdateDateMonthYear = formatDate(date.slice(0, 10));
-//     const lastUpdateTime = date.slice(-5);
-//     const lastUpdateYear = lastUpdateDateMonthYear.slice(-4);
-//     const lastUpdateMonth = lastUpdateDateMonthYear.slice(3, 6);
-//     const lastUpdateDate = lastUpdateDateMonthYear.slice(0, 2);
-//     const dateNow = new Date(Date.now()).getDate();
-//     const currentYear = new Date(Date.now()).getFullYear();
+export const formatEntityLastUpdate = (date: string) => {
+    const lastUpdateDateMonthYear = formatDate(date.slice(0, 10));
+    const lastUpdateTime = date.slice(-5);
+    const lastUpdateYear = lastUpdateDateMonthYear.slice(-4);
+    const lastUpdateMonth = lastUpdateDateMonthYear.slice(3, 6);
+    const lastUpdateDate = lastUpdateDateMonthYear.slice(0, 2);
+    const dateNow = new Date(Date.now()).getDate();
+    const currentYear = new Date(Date.now()).getFullYear();
 
-//     return lastUpdateDate == String(dateNow)
-//         ? lastUpdateTime
-//         : lastUpdateYear == String(currentYear)
-//             ? `${lastUpdateDate} ${lastUpdateMonth} ${lastUpdateTime}`
-//             : `${lastUpdateDateMonthYear} ${lastUpdateTime}`;
-// };
+    return lastUpdateDate == String(dateNow)
+        ? lastUpdateTime
+        : lastUpdateYear == String(currentYear)
+            ? `${lastUpdateDate} ${lastUpdateMonth} ${lastUpdateTime}`
+            : `${lastUpdateDateMonthYear} ${lastUpdateTime}`;
+};
 
 export const convertMetersToKmM = (meters: number) => {
     const km = Math.floor(meters / 1000);
