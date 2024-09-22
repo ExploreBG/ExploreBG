@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { GrMapLocation } from 'react-icons/gr';
 import { FaPersonWalkingDashedLineArrowRight } from 'react-icons/fa6';
 
@@ -25,8 +25,7 @@ export async function generateMetadata({
     };
 }
 
-const DestinationDetails: React.FC<DestinationDetailsProps> = async ({ params: { locale, destinationId } }) => {
-    unstable_setRequestLocale(locale);
+const DestinationDetails: React.FC<DestinationDetailsProps> = async ({ params: { destinationId } }) => {
     // const t = await getTranslations('destination-details');
 
     const destination: IDestination = await agent.apiDestinations.getDestinationById(destinationId);
@@ -36,30 +35,36 @@ const DestinationDetails: React.FC<DestinationDetailsProps> = async ({ params: {
             <main className="destination-details">
                 <h1>Destination details</h1>
 
-                <section className="destination-details__info details-page-section">
-                    <h3>{destination.destinationName}</h3>
-                    <p className="destination-details__info__type">{destination.type}</p>
-                    <p className="destination-details__info__location"><GrMapLocation /> {destination.location}</p>
+                {!destination && <p>Resource not found!</p>}
 
-                    <p><FaPersonWalkingDashedLineArrowRight /> Close to: {destination.nextTo ?? 'not available'}</p>
+                {destination && (
+                    <>
+                        <section className="destination-details__info details-page-section">
+                            <h3>{destination.destinationName}</h3>
+                            <p className="destination-details__info__type">{destination.type}</p>
+                            <p className="destination-details__info__location"><GrMapLocation /> {destination.location}</p>
 
-                    <p className="destination-details__info__text">{destination.destinationInfo}</p>
-                </section>
+                            <p><FaPersonWalkingDashedLineArrowRight /> Close to: {destination.nextTo ?? 'not available'}</p>
 
-                <figure className="destination-details__img">
-                    <Image
-                        src={destination.imageUrl}
-                        width={300} height={300} loading="eager" alt={`${destination.destinationName} - photo`}
-                        title={destination.destinationName} priority={true}
-                    />
-                </figure>
+                            <p className="destination-details__info__text">{destination.destinationInfo}</p>
+                        </section>
 
-                {destination.comments?.length > 0 && (
-                    <section className="comments details-page-section">
-                        <h3>comments:</h3>
+                        <figure className="destination-details__img">
+                            <Image
+                                src={destination.imageUrl}
+                                width={300} height={300} loading="eager" alt={`${destination.destinationName} - photo`}
+                                title={destination.destinationName} priority={true}
+                            />
+                        </figure>
 
-                        <RenderComments comments={destination.comments} />
-                    </section>
+                        {destination.comments?.length > 0 && (
+                            <section className="comments details-page-section">
+                                <h3>comments:</h3>
+
+                                <RenderComments comments={destination.comments} />
+                            </section>
+                        )}
+                    </>
                 )}
             </main>
         </Layout>

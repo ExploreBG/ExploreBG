@@ -1,7 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { FaUserNinja, FaMale, FaFemale } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
 import { LiaBirthdayCakeSolid } from 'react-icons/lia';
@@ -35,24 +35,25 @@ export async function generateMetadata({
 }
 
 const UserProfile: React.FC<UserProfileProps> = async ({ params: { locale, userId } }) => {
-    unstable_setRequestLocale(locale);
     const t = await getTranslations('user-profile');
 
     const res = await agent.apiUsers.getUserProfile(userId);
 
+    if (res.message) {
+        return <NotFound />;
+    }
+
     const {
         username, email, gender, birthdate, userInfo, imageUrl, createdHikes
-    } = res.data != undefined && res.data;
+    } = res && res.data;
 
     return (
-        <>
-            {res.message && (
-                <NotFound />
-            )}
+        <Layout>
+            <main className="profile-container">
+                {!res && <p>Resource not found!</p>}
 
-            {res.data && (
-                <Layout>
-                    <main className="profile-container">
+                {res.data && (
+                    <>
                         <article>
                             {locale === 'en'
                                 ? <h1>{res.message ? `${res.message}` : `${username}${t('title')}`}</h1>
@@ -104,10 +105,10 @@ const UserProfile: React.FC<UserProfileProps> = async ({ params: { locale, userI
                                 <UserCreatedHikes hikes={createdHikes} />
                             </section>
                         )}
-                    </main>
-                </Layout>
-            )}
-        </>
+                    </>
+                )}
+            </main>
+        </Layout>
     );
 };
 

@@ -1,12 +1,11 @@
 import React from 'react';
 import type { Viewport } from 'next';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import ProvideTheme from './theme-provider';
-import { locales } from '@/config';
 
 import '@/global-styles/main.scss';
 import { mainFont, headingFont } from '@/global-styles/fonts';
@@ -27,7 +26,7 @@ export async function generateMetadata({
         title: 'Explore BG',
         description: t('metadata.desc'),
 
-        metadataBase: new URL(process.env.APP_URL || `http://localhost:${process.env.PORT}`),
+        metadataBase: new URL(process.env.EXPLORE_BG_URL || `http://localhost:${process.env.PORT}`),
         alternates: {
             canonical: `/${locale}`,
             languages: {
@@ -38,7 +37,7 @@ export async function generateMetadata({
         openGraph: {
             title: 'Explore BG',
             description: t('metadata.desc'),
-            url: process.env.APP_URL || `http://localhost:${process.env.PORT}`,
+            url: process.env.EXPLORE_BG_URL || `http://localhost:${process.env.PORT}`,
             siteName: 'Explore BG',
             images: [
                 {
@@ -84,18 +83,11 @@ export function generateViewport(): Viewport {
     };
 }
 
-export function generateStaticParams() {
-    return locales.map((locale) => ({ locale }));
-}
-
 export default function RootLayout({
     children,
     params
 }: RootLayoutProps) {
     const locale = params?.locale;
-
-    // Enable static rendering
-    unstable_setRequestLocale(locale);
 
     const messages = useMessages();
 

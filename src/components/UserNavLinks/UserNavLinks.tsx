@@ -18,15 +18,22 @@ const UserNavLinks: React.FC<UserNavLinksProps> = ({ userRoles }) => {
             <li>
                 <CLink href={'/users/my-profile'}>{t('profile')}</CLink>
             </li>
-            <li><CLink href={'/trails/create'}>{t('create-trail')}</CLink></li>
-            {/* <li><CLink href={''}>{t('favorite')}</CLink></li> */}
+            <li>
+                <CLink href={'/trails/create'}>{t('create-trail')}</CLink>
+            </li>
 
             <span>--------------------</span>
 
             {(isAdmin || isModerator) && (
                 <>
-                    <li><CLink href={'/admin/users'}>Users</CLink></li>
-                    <li><CLink href={'/admin/waiting-approval'}>Waiting approval</CLink></li>
+                    <li>
+                        <CLink href={'/admin/users'} prefetch={false}>Users</CLink>
+                    </li>
+                    <li>
+                        <CLink href={'/admin/waiting-approval'} prefetch={false}>
+                            Waiting approval
+                        </CLink>
+                    </li>
                 </>
             )}
         </>

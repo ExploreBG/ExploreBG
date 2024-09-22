@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { IoLocationOutline } from 'react-icons/io5';
 import { BsCalendar2Date } from 'react-icons/bs';
 
@@ -26,45 +26,50 @@ export async function generateMetadata({
     };
 }
 
-const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { locale, hikeId } }) => {
-    unstable_setRequestLocale(locale);
+const HikeDetails: React.FC<HikeDetailsProps> = async ({ params: { hikeId } }) => {
     // const t = await getTranslations('hike-details');
 
     const hike = await agent.apiHikes.getHikeById(hikeId);
-    const formattedHikeDate = formatDate(hike.hikeDate);
+    const formattedHikeDate = hike && formatDate(hike.hikeDate);
 
     return (
         <Layout>
             <main className="hike-details">
                 <h1>Hike details</h1>
 
-                <section className="hike-details__info details-page-section">
-                    <h3><IoLocationOutline /> {hike.hikeName}</h3>
+                {!hike && <p>Resource not found!</p>}
 
-                    <article className="hike-details__info__date-owner">
-                        <p>
-                            <BsCalendar2Date />&nbsp;&nbsp;
-                            <time dateTime={hike.hikeDate}>{formattedHikeDate}</time>
-                        </p>
+                {hike && (
+                    <>
+                        <section className="hike-details__info details-page-section">
+                            <h3><IoLocationOutline /> {hike.hikeName}</h3>
 
-                        {hike.owner && (
-                            <CMemberImage
-                                ownerId={hike.owner.id}
-                                imageUrl={hike.owner.imageUrl}
-                                username={hike.owner.username}
-                            />
+                            <article className="hike-details__info__date-owner">
+                                <p>
+                                    <BsCalendar2Date />&nbsp;&nbsp;
+                                    <time dateTime={hike.hikeDate}>{formattedHikeDate}</time>
+                                </p>
+
+                                {hike.owner && (
+                                    <CMemberImage
+                                        ownerId={hike.owner.id}
+                                        imageUrl={hike.owner.imageUrl}
+                                        username={hike.owner.username}
+                                    />
+                                )}
+                            </article>
+
+                            <p className="hike-details__info__text">{hike.hikeInfo}</p>
+                        </section>
+
+                        {hike.hikingTrail && (
+                            <TrailDetailsSection trail={hike.hikingTrail} isOwner={false} />
                         )}
-                    </article>
 
-                    <p className="hike-details__info__text">{hike.hikeInfo}</p>
-                </section>
-
-                {hike.hikingTrail && (
-                    <TrailDetailsSection trail={hike.hikingTrail} isOwner={false} />
-                )}
-
-                {(hike.comments.length > 0 || hike.hikingTrail?.comments.length > 0) && (
-                    <HikeCommentsSection hike={hike} trail={hike.hikingTrail} />
+                        {(hike.comments.length > 0 || hike.hikingTrail?.comments.length > 0) && (
+                            <HikeCommentsSection hike={hike} trail={hike.hikingTrail} />
+                        )}
+                    </>
                 )}
             </main>
         </Layout>

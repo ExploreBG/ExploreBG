@@ -22,7 +22,7 @@ const TrailDetailsLastUpdateField: React.FC<TrailDetailsLastUpdateFieldProps> = 
         <p className="trail__last-update">
             <em>{t('last-update')}:</em> &nbsp;
             <time dateTime={lastUpdate}>
-                {formatEntityLastUpdate(lastUpdate)}
+                {lastUpdate && formatEntityLastUpdate(lastUpdate)}
             </time>
         </p>
     );

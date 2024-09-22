@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
 
 import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, DEFAULT_SORT_BY, SORT_DIR_DESC } from '@/utils/constants';
@@ -23,8 +23,7 @@ export async function generateMetadata({
     };
 }
 
-const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale } }) => {
-    unstable_setRequestLocale(locale);
+const AllTrails: React.FC<AllTrailsProps> = async () => {
     const t = await getTranslations('trails');
 
     const query = `?pageNumber=${DEFAULT_PAGE_NUMBER}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=${DEFAULT_SORT_BY}&sortDir=${SORT_DIR_DESC}`;
@@ -36,7 +35,7 @@ const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale } }) => {
         ? await agent.apiTrails.getAllTrails(query, token)
         : await agent.apiTrails.getAllTrails(query);
 
-    const trails = res.data;
+    const trails = res?.data;
 
     return (
         <Layout>
@@ -46,6 +45,8 @@ const AllTrails: React.FC<AllTrailsProps> = async ({ params: { locale } }) => {
                 <Link href='/trails/create' className="catalog-wrapper__create-btn">
                     {t('create-btn')}
                 </Link>
+
+                {!trails && <p>Resources not found!</p>}
 
                 {trails && (
                     <AllTrailsClient

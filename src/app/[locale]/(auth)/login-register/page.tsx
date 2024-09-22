@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { redirect } from '@/navigation';
 
 import { getSession } from '@/utils/userSession';
@@ -24,8 +24,7 @@ export async function generateMetadata({
     };
 }
 
-const LoginRegister: React.FC<LoginRegisterProps> = async ({ params: { locale } }) => {
-    unstable_setRequestLocale(locale);
+const LoginRegister: React.FC<LoginRegisterProps> = async () => {
     const t = await getTranslations('login-register');
 
     const session = await getSession();

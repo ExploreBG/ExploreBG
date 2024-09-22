@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
@@ -37,8 +37,7 @@ export async function generateMetadata({
     };
 }
 
-const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale } }) => {
-    unstable_setRequestLocale(locale);
+const MyProfile: React.FC<MyProfileProps> = async () => {
     const t = await getTranslations('my-profile');
 
     const session = await getSession();
@@ -46,15 +45,21 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale } }) => {
 
     const res = await agent.apiUsers.getMyProfile(token);
 
-    const { username, email, gender, birthdate, imageUrl, userInfo, createdHikes } = !res.message && res.data;
+    if (res.message) {
+        return <AccessDenied />;
+    }
+
+    const {
+        username, email, gender, birthdate, imageUrl, userInfo, createdHikes
+    } = res && res.data;
 
     return (
-        <>
-            {res.message && <AccessDenied />}
+        <Layout>
+            <main className="my-profile-container">
+                {!res && <p>Resource not found!</p>}
 
-            {!res.message && (
-                <Layout>
-                    <main className="my-profile-container">
+                {res?.data && (
+                    <>
                         <article>
                             <h1>{t('title')}</h1>
 
@@ -81,10 +86,10 @@ const MyProfile: React.FC<MyProfileProps> = async ({ params: { locale } }) => {
                                 <UserCreatedHikes hikes={createdHikes} />
                             </section>
                         )}
-                    </main>
-                </Layout>
-            )}
-        </>
+                    </>
+                )}
+            </main>
+        </Layout>
     );
 };
 

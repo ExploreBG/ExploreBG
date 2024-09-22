@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { IAccommodationCard } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
+import { Link } from '@/navigation';
 
 import AccommodationCard from '../AccommodationCard/AccommodationCard';
 import IntersectionObserverComponent from '../IntersectionObserverComponent';
@@ -15,8 +16,10 @@ const HomeAccommodationsSection: React.FC<HomeAccommodationsSectionProps> = asyn
 
     const accommodations = await agent.apiAccommodations.get4RandomAccommodations();
 
-    return (
+    return accommodations && (
         <>
+            <h2 className="home__section-title">{t('section-accommodations.title')}</h2>
+
             <section className={'home__section-wrapper home__section-cards accommodations'}>
                 <IntersectionObserverComponent />
 
@@ -28,6 +31,14 @@ const HomeAccommodationsSection: React.FC<HomeAccommodationsSectionProps> = asyn
 
                 <CPhotoInfo imgInfo={t('section-accommodations.backgr-img-info')} />
             </section>
+
+            <aside className="home__section-links">
+                <Link href={'/accommodations'} prefetch={false}>
+                    {t('section-accommodations.btn-view-all')}
+                </Link>
+            </aside>
+
+            <section className="home__section-buffer"></section>
         </>
     );
 };

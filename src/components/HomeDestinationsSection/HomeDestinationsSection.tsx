@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { IDestinationCard } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
+import { Link } from '@/navigation';
 
 import DestinationCard from '../DestinationCard/DestinationCard';
 import IntersectionObserverComponent from '../IntersectionObserverComponent';
@@ -15,8 +16,10 @@ const HomeDestinationsSection: React.FC<HomeDestinationsSectionProps> = async ()
 
     const destinations = await agent.apiDestinations.get4RandomDestinations();
 
-    return (
+    return destinations && (
         <>
+            <h2 className="home__section-title">{t('section-destinations.title')}</h2>
+
             <section className={'home__section-wrapper home__section-cards destinations'}>
                 <IntersectionObserverComponent />
 
@@ -28,6 +31,14 @@ const HomeDestinationsSection: React.FC<HomeDestinationsSectionProps> = async ()
 
                 <CPhotoInfo imgInfo={t('section-destinations.backgr-img-info')} />
             </section>
+
+            <aside className="home__section-links">
+                <Link href={'/destinations'} prefetch={false}>
+                    {t('section-destinations.btn-view-all')}
+                </Link>
+            </aside>
+
+            <section className="home__section-buffer"></section>
         </>
     );
 };

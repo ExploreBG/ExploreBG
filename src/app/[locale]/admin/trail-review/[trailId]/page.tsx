@@ -1,5 +1,4 @@
 import React from 'react';
-import { unstable_setRequestLocale } from 'next-intl/server';
 
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
@@ -11,11 +10,10 @@ import CreateTrailForm from '@/components/CreateTrailForm/CreateTrailForm';
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';
 
 interface TrailReviewProps {
-    params: { locale: string, trailId: string }
+    params: { trailId: string }
 }
 
-const TrailReview: React.FC<TrailReviewProps> = async ({ params: { locale, trailId } }) => {
-    unstable_setRequestLocale(locale);
+const TrailReview: React.FC<TrailReviewProps> = async ({ params: { trailId } }) => {
 
     const userSession = await getSession();
     const isAdminOrModerator = userSession?.isAdminOrModerator;

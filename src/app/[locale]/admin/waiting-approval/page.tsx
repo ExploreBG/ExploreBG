@@ -1,5 +1,4 @@
 import React from 'react';
-import { unstable_setRequestLocale } from 'next-intl/server';
 
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
@@ -11,12 +10,10 @@ import AllWaitingApprovalTable from '@/components/AllWaitingApprovalTable/AllWai
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';
 
 interface AllWaitingApprovalProps {
-    params: { locale: string }
-    searchParams: { [key: string]: string | string[] | undefined }
+    searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const AllWaitingApproval: React.FC<AllWaitingApprovalProps> = async ({ params: { locale }, searchParams }) => {
-    unstable_setRequestLocale(locale);
+const AllWaitingApproval: React.FC<AllWaitingApprovalProps> = async ({ searchParams }) => {
 
     const session = await getSession();
     const isAdminOrModerator = session?.isAdminOrModerator;
@@ -31,11 +28,15 @@ const AllWaitingApproval: React.FC<AllWaitingApprovalProps> = async ({ params: {
             {isAdminOrModerator && (
                 <AdminLayout>
                     <main className="admin-wrapper">
-                        <AllWaitingApprovalTable
-                            waitingApproval={res}
-                            userSession={session!}
-                            searchParams={searchParams}
-                        />
+                        {!res && <p>Resource not found!</p>}
+
+                        {res && (
+                            <AllWaitingApprovalTable
+                                waitingApproval={res}
+                                userSession={session!}
+                                searchParams={searchParams}
+                            />
+                        )}
 
                         <CSmallFooter />
                     </main>

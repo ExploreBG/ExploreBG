@@ -1,8 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import { Link } from '@/navigation';
 
 import './home.scss';
 import Layout from '@/components/Layout/Layout';
@@ -13,13 +11,9 @@ import HomeHikesSection from '@/components/HomeHikesSection/HomeHikesSection';
 import HomeAccommodationsSection from '@/components/HomeAccommodationsSection/HomeAccommodationsSection';
 import { homeTopImages } from '@/utils/utils';
 
-interface HomeProps {
-    params: { locale: string }
-}
+interface HomeProps { }
 
-const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
-    unstable_setRequestLocale(locale);
-
+const Home: React.FC<HomeProps> = () => {
     const t = useTranslations('home');
 
     return (
@@ -36,8 +30,8 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
                             <Image
                                 key={img} src={img}
                                 width={300} height={300}
-                                loading="eager" alt="Nature image"
-                                title="Nature image" priority={true}
+                                loading="eager" alt="Explore BG home page image"
+                                title="Explore BG" priority={true}
                             />
                         ))}
                     </figure>
@@ -55,39 +49,13 @@ const Home: React.FC<HomeProps> = ({ params: { locale } }) => {
 
                 <section className="home__section-buffer"></section>
 
-                <h2 className="home__section-title">{t('section-destinations.title')}</h2>
                 <HomeDestinationsSection />
-                <aside className="home__section-links">
-                    <Link href={'/destinations'}>{t('section-destinations.btn-view-all')}</Link>
-                </aside>
 
-                <section className="home__section-buffer"></section>
-
-                <h2 className="home__section-title">{t('section-trails.title')}</h2>
                 <HomeTrailsSection />
-                <aside className="home__section-links">
-                    <Link href={'/trails'}>{t('section-trails.btn-view-all')}</Link>
-                    <Link href={'/trails/create'}>{t('section-trails.btn-create')}</Link>
-                </aside>
 
-                <section className="home__section-buffer"></section>
-
-                <h2 className="home__section-title">{t('section-hikes.title')}</h2>
                 <HomeHikesSection />
-                <aside className="home__section-links">
-                    <Link href={'/hikes'}>{t('section-hikes.btn-view-all')}</Link>
-                    <Link href={'/hikes/create'}>{t('section-hikes.btn-create')}</Link>
-                </aside>
 
-                <section className="home__section-buffer"></section>
-
-                <h2 className="home__section-title">{t('section-accommodations.title')}</h2>
                 <HomeAccommodationsSection />
-                <aside className="home__section-links">
-                    <Link href={'/accommodations'}>{t('section-accommodations.btn-view-all')}</Link>
-                </aside>
-
-                <section className="home__section-buffer"></section>
             </main>
         </Layout>
     );

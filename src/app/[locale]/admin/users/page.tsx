@@ -1,5 +1,4 @@
 import React from 'react';
-import { unstable_setRequestLocale } from 'next-intl/server';
 
 import { DEFAULT_PAGE_NUMBER, DEFAULT_SORT_BY, SORT_DIR_DESC } from '@/utils/constants';
 import { getSession } from '@/utils/userSession';
@@ -13,12 +12,10 @@ import AllUsersTable from '@/components/AllUsersTable/AllUsersTable';
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';
 
 interface AllUsersProps {
-    params: { locale: string };
     searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchParams }) => {
-    unstable_setRequestLocale(locale);
+const AllUsers: React.FC<AllUsersProps> = async ({ searchParams }) => {
 
     const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
     const resultsPerPage = searchParams['pageSize'] ?? '3';
@@ -40,15 +37,22 @@ const AllUsers: React.FC<AllUsersProps> = async ({ params: { locale }, searchPar
             {isAdminOrModerator && (
                 <AdminLayout>
                     <main className="admin-wrapper">
-                        <AllUsersTable
-                            // data={data.content}
-                            data={data.reverse()}
-                            adminOrModeratorToken={token!}
-                            isAdmin={isAdmin!}
-                            // userCountFrom={userCountFrom}
-                        />
+                        {!data && <p>Resource not found!</p>}
 
-                        {/* <PaginationControls totalElements={data.totalElements} /> */}
+                        {data && (
+                            <>
+                                <AllUsersTable
+                                    // data={data.content}
+                                    data={data?.reverse()}
+                                    adminOrModeratorToken={token!}
+                                    isAdmin={isAdmin!}
+                                    // userCountFrom={userCountFrom}
+                                />
+
+                                {/* <PaginationControls totalElements={data.totalElements} /> */}
+                            </>
+                        )}
+
                         <CSmallFooter />
                     </main>
                 </AdminLayout>

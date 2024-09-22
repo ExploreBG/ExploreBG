@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import { agent } from '@/api/agent';
 import { getSession } from '@/utils/userSession';
@@ -29,8 +29,7 @@ export async function generateMetadata({
     };
 }
 
-const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, trailId } }) => {
-    unstable_setRequestLocale(locale);
+const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { trailId } }) => {
     const t = await getTranslations('trail-details');
 
     const session = await getSession();
@@ -41,7 +40,7 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { locale, tra
         ? await agent.apiTrails.getTrailById(trailId, token)
         : await agent.apiTrails.getTrailById(trailId);
 
-    const trail = res.data;
+    const trail = res?.data;
     const isOwner = token ? trail?.createdBy?.id == userId : false;
 
     return (

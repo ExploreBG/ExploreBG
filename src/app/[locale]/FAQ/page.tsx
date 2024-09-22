@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import './FAQ.scss';
 import Layout from '@/components/Layout/Layout';
@@ -20,9 +20,9 @@ export async function generateMetadata({
     };
 }
 
-const FAQ: React.FC<FAQProps> = ({ params }) => {
-    const locale = params?.locale;
-    unstable_setRequestLocale(locale);
+const FAQ: React.FC<FAQProps> = () => {
+    //   SSG ?
+    // unstable_setRequestLocale(locale);
 
     const t = useTranslations('faq');
 

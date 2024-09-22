@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
@@ -14,8 +14,7 @@ interface CreateTrailProps {
     params: { locale: string }
 }
 
-const CreateTrail: React.FC<CreateTrailProps> = async ({ params: { locale } }) => {
-    unstable_setRequestLocale(locale);
+const CreateTrail: React.FC<CreateTrailProps> = async () => {
     const t = await getTranslations('trail-create');
 
     const session = await getSession();
@@ -31,12 +30,14 @@ const CreateTrail: React.FC<CreateTrailProps> = async ({ params: { locale } }) =
 
             <h1>{t('create-trail')}</h1>
 
-            <CreateTrailForm
-                userSession={session}
-                formEnums={formEnums}
-                availableAccommodations={availableAccommodations}
-                availableDestinations={availableDestinations}
-            />
+            {formEnums && (
+                <CreateTrailForm
+                    userSession={session}
+                    formEnums={formEnums}
+                    availableAccommodations={availableAccommodations}
+                    availableDestinations={availableDestinations}
+                />
+            )}
 
             <CPhotoInfo imgInfo={t('photo-info')} />
             <CSmallFooter />

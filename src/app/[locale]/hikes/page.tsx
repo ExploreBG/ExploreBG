@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
 
 import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, HIKES_SORT_BY, SORT_DIR_ASC } from '@/utils/constants';
@@ -26,8 +26,7 @@ export async function generateMetadata({
     };
 }
 
-const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams }) => {
-    unstable_setRequestLocale(locale);
+const Hikes: React.FC<HikesProps> = async ({ searchParams }) => {
     const t = await getTranslations('hikes');
 
     const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
@@ -38,19 +37,21 @@ const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams })
     return (
         <Layout>
             <main className="catalog-wrapper hikes-wrapper">
-                {hikes.content?.length > 0 && <h1>{t('title')}</h1>}
+                {!hikes && <p style={{ marginBottom: '5rem' }}>Resources not found!</p>}
 
-                {hikes.content?.length == 0 && (
+                {hikes?.content?.length > 0 && <h1>{t('title')}</h1>}
+
+                {hikes?.content?.length == 0 && (
                     <p className="hikes-wrapper__empty-page">{t('empty-page')}</p>
                 )}
 
-                <Link href={'/hikes/create'} className="catalog-wrapper__create-btn">
+                {/* <Link href={'/hikes/create'} className="catalog-wrapper__create-btn">
                     {t('create-btn')}
-                </Link>
+                </Link> */}
 
-                {hikes.content?.length > 0 && (
+                {hikes?.content?.length > 0 && (
                     <section className="catalog-wrapper__cards">
-                        {hikes.content?.map((card: IHikeCard) => (
+                        {hikes?.content?.map((card: IHikeCard) => (
                             <article key={card.id} className="card">
                                 <HikeCard card={card} />
                             </article>
@@ -59,7 +60,7 @@ const Hikes: React.FC<HikesProps> = async ({ params: { locale }, searchParams })
                 )}
 
                 <PaginationControls
-                    totalElements={hikes.totalElements}
+                    totalElements={hikes?.totalElements}
                     sortByProp={HIKES_SORT_BY}
                     sortDirProp={SORT_DIR_ASC}
                 />

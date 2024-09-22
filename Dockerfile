@@ -4,13 +4,15 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm ci
 
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+ENV NEXT_PRIVATE_STANDALONE=true
 
 # Disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED=1

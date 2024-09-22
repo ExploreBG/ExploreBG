@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 // import { Link } from '@/navigation';
 
 import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, DEFAULT_SORT_BY, SORT_DIR_DESC } from '@/utils/constants';
@@ -26,9 +26,8 @@ export async function generateMetadata({
 }
 
 const AllAccommodations: React.FC<AllAccommodationsProps> = async ({
-    params: { locale }, searchParams
+    searchParams
 }) => {
-    unstable_setRequestLocale(locale);
     const t = await getTranslations('accommodations');
 
     const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
@@ -45,15 +44,17 @@ const AllAccommodations: React.FC<AllAccommodationsProps> = async ({
                     {t('create-btn')}
                 </Link> */}
 
+                {!accommodations && <p>Resources not found!</p>}
+
                 <section className="catalog-wrapper__cards">
-                    {accommodations.content.map((card: IAccommodationCard) => (
+                    {accommodations?.content?.map((card: IAccommodationCard) => (
                         <article key={card.id} className="card">
                             <AccommodationCard card={card} />
                         </article>
                     ))}
                 </section>
 
-                <PaginationControls totalElements={accommodations.totalElements} />
+                <PaginationControls totalElements={accommodations?.totalElements} />
             </main>
         </Layout>
     );

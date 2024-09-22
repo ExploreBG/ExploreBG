@@ -97,7 +97,7 @@ const RenderComments: React.FC<RenderCommentsProps> = ({
                                 {c.message}
 
                                 <time dateTime={c.lastUpdateDate}>
-                                    {formatEntityLastUpdate(c.lastUpdateDate)}
+                                    {c.lastUpdateDate && formatEntityLastUpdate(c.lastUpdateDate)}
                                 </time>
                             </p>
                             {userId == c.owner.id && (
