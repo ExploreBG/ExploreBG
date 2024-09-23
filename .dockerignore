@@ -1,7 +1,13 @@
 node_modules
+
 Dockerfile
-README.md
-.dockerignore
+
+.env*
+
 .git
 .next
+
+__tests__
+coverage
+
 npm-debug.log

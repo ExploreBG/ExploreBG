@@ -1,6 +1,6 @@
 import React from 'react';
 import { getTranslations } from 'next-intl/server';
-import { Link } from '@/navigation';
+// import { Link } from '@/navigation';
 
 import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, HIKES_SORT_BY, SORT_DIR_ASC } from '@/utils/constants';
 import { agent } from '@/api/agent';
