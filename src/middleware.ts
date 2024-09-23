@@ -1,12 +1,24 @@
+import { NextRequest } from 'next/server';
+
 import createMiddleware from 'next-intl/middleware';
 import { pathnames, locales, localePrefix } from './config';
 
-export default createMiddleware({
+const intlMiddleware = createMiddleware({
     locales,
     defaultLocale: 'bg',
     pathnames,
     localePrefix
 });
+
+export function middleware(request: NextRequest) {    
+    console.log('Custom middleware is running');
+
+    const res = intlMiddleware(request);
+
+    res.headers.set('x-middleware-check', 'middleware-is-working');
+    
+    return res;
+}
 
 export const config = {
     matcher: [
@@ -19,6 +31,6 @@ export const config = {
 
         // Enable redirects that add missing locales
         // (e.g. `/pathnames` -> `/en/pathnames`)
-        '/((?!_next|_vercel|.*\\..*).*)'
+        '/((?!api|_next|.*\\..*).*)'
     ]
 };
