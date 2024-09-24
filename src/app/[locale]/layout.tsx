@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Viewport } from 'next';
-import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { getTranslations, getMessages } from 'next-intl/server';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -83,20 +83,20 @@ export function generateViewport(): Viewport {
     };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
     params
 }: RootLayoutProps) {
     const locale = params?.locale;
 
-    const messages = useMessages();
+    const messages = await getMessages();
 
     return (
         <html lang={locale} className={`${mainFont.variable} ${headingFont.variable}`}>
             <body>
                 <div className="container">
                     <ProvideTheme>
-                        <NextIntlClientProvider locale={locale} messages={messages}>
+                        <NextIntlClientProvider messages={messages}>
                             {children}
                             <ScrollToTopBtn />
                         </NextIntlClientProvider>

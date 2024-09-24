@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 
 import './CMemberImage.scss';
 

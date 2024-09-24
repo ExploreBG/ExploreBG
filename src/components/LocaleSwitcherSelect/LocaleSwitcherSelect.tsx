@@ -3,7 +3,7 @@
 import React, { ReactNode, useTransition, ChangeEvent } from 'react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useRouter, usePathname } from '@/navigation';
+import { useRouter, usePathname } from '@/i18n/routing';
 
 import './localeSwitcherSelect.scss';
 

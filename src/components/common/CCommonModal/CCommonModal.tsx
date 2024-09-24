@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 
 import './CCommonModal.scss';
 import CBackBtn from '../CBackBtn/CBackBtn';

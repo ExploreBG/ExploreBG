@@ -1,6 +1,12 @@
-import { Pathnames } from 'next-intl/navigation';
+import { routing } from "./routing";
 
-export const locales = ['bg', 'en'];
+export const locales = ['bg', 'en'] as const;
+export const defaultLocale = 'en';
+
+export const localePrefix = 'always';
+
+export type AppPathnames = keyof typeof routing.pathnames;
+export type Locale = (typeof routing.locales)[number];
 
 export const pathnames = {
     '/': '/',
@@ -84,8 +90,4 @@ export const pathnames = {
         en: '/admin/trail-review/[trailId]',
         bg: '/admin/marshrut-pregled/[trailId]'
     },
-} satisfies Pathnames<typeof locales>;
-
-export const localePrefix = true;
-
-export type AppPathnames = keyof typeof pathnames;
+};

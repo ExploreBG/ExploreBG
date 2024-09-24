@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { ITrailCard } from '@/interfaces/interfaces';
 import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 
 import TrailCard from '../TrailCard/TrailCard';
 import IntersectionObserverComponent from '../IntersectionObserverComponent';

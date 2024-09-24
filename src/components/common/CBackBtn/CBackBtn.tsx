@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { useRouter } from '@/navigation';
+import { useRouter } from '@/i18n/routing';
 import { RiArrowGoBackFill } from 'react-icons/ri';
 
 interface CBackBtnProps { }

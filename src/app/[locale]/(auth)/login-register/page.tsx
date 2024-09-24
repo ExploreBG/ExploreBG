@@ -1,6 +1,6 @@
 import React from 'react';
 import { getTranslations } from 'next-intl/server';
-import { redirect } from '@/navigation';
+import { redirect } from '@/i18n/routing';
 
 import { getSession } from '@/utils/userSession';
 

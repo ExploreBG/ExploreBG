@@ -1,7 +1,7 @@
 import React, { ComponentProps } from 'react';
 
-import type { AppPathnames } from '@/config';
-import { Link, usePathname } from '@/navigation';
+import type { AppPathnames } from '@/i18n/config';
+import { Link, usePathname } from '@/i18n/routing';
 
 import './CLink.scss';
 

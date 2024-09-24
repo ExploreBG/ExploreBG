@@ -1,12 +1,13 @@
 import React from 'react';
 import { getTranslations } from 'next-intl/server';
-// import { Link } from '@/navigation';
+// import { Link } from '@/i18n/routing';
 
 import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE, HIKES_SORT_BY, SORT_DIR_ASC } from '@/utils/constants';
 import { agent } from '@/api/agent';
 import { IHikeCard } from '@/interfaces/interfaces';
 
 import './hikes.scss';
+import NotFound from '../not-found';
 import Layout from '@/components/Layout/Layout';
 import HikeCard from '@/components/HikeCard/HikeCard';
 import PaginationControls from '@/components/PaginationControls/PaginationControls';
@@ -33,6 +34,10 @@ const Hikes: React.FC<HikesProps> = async ({ searchParams }) => {
     const query = `?pageNumber=${page}&pageSize=${DEFAULT_CARDS_PER_PAGE}&sortBy=${HIKES_SORT_BY}&sortDir=${SORT_DIR_ASC}`;
 
     const hikes = await agent.apiHikes.getAllHikes(query);
+
+    if (hikes.message) {
+        return <NotFound />;
+    }
 
     return (
         <Layout>

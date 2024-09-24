@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 import { MdPhone } from 'react-icons/md';
 import { FaBed } from 'react-icons/fa';
 import { ImPriceTags, ImAccessibility } from 'react-icons/im';

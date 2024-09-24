@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 
 import { ITrailCard } from '@/interfaces/interfaces';
 import { getSession } from '@/utils/userSession';

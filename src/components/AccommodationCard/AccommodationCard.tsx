@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 
 import { IAccommodationCard } from '@/interfaces/interfaces';
 

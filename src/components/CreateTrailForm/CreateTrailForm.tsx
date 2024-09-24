@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
-import { useRouter } from '@/navigation';
+import { useRouter } from '@/i18n/routing';
 import { toast } from 'react-toastify';
 
 import { IFormEnums, IHut, IPlace, ITrail, IUserSession } from '@/interfaces/interfaces';

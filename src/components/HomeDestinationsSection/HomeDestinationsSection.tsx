@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { IDestinationCard } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 
 import DestinationCard from '../DestinationCard/DestinationCard';
 import IntersectionObserverComponent from '../IntersectionObserverComponent';

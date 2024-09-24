@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Link, useRouter } from '@/navigation';
+import { Link, useRouter } from '@/i18n/routing';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { MdClose } from 'react-icons/md';
 import { toast } from 'react-toastify';

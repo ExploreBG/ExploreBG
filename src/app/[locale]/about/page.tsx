@@ -1,7 +1,6 @@
 import React from 'react';
 // import { unstable_setRequestLocale } from 'next-intl/server';
-
-// import { locales } from '@/config';
+// import { routing } from '@/i18n/routing';
 
 import './about.scss';
 import Layout from '@/components/Layout/Layout';
@@ -11,7 +10,7 @@ interface AboutProps {
 }
 
 // export function generateStaticParams() {
-//     return locales.map((locale) => ({ locale }));
+//     return routing.locales.map((locale) => ({ locale }));
 // }
 
 const About: React.FC<AboutProps> = () => {

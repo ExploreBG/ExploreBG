@@ -2,7 +2,7 @@
 
 import React, { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { FaEdit } from 'react-icons/fa';
 import { ImBin } from "react-icons/im";

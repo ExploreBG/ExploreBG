@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { IHikeCard } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 
 import HikeCard from '../HikeCard/HikeCard';
 import IntersectionObserverComponent from '../IntersectionObserverComponent';

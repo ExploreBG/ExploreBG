@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { IAccommodationCard } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 
 import AccommodationCard from '../AccommodationCard/AccommodationCard';
 import IntersectionObserverComponent from '../IntersectionObserverComponent';

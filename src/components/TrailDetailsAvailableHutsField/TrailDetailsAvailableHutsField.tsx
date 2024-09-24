@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/navigation';
+import { Link } from '@/i18n/routing';
 import { GiWoodCabin } from "react-icons/gi";
 import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
