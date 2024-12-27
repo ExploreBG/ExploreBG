@@ -14,6 +14,7 @@ import { createTrail } from './action';
 import { createTrailSchema } from './createTrailSchema';
 import { agent } from '@/api/agent';
 import { trailPlaceMinLength, trailPlaceMaxLength, trailInfoMaxLength } from '@/utils/validations';
+import { useApproveTrailCtx } from '@/contexts/ApproveTrailContext';
 
 import CCommonModal, { requireAuthChildren } from '../common/CCommonModal/CCommonModal';
 import CBackBtn from '../common/CBackBtn/CBackBtn';
@@ -48,6 +49,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
     const tPopUp = useTranslations('pop-up');
     const router = useRouter();
     const [forReview, setForReview] = useState<boolean>(true);
+    const { ctxDataForReview, setCtxDataForReview } = useApproveTrailCtx();
     const [seasonVisited, setSeasonVisited] = useState<string>('spring');
     const [activity, setActivity] = useState<string[]>(dataForReview?.activity ?? ['hiking']);
     const [waterAvailable, setWaterAvailable] = useState<string>('no-information');
@@ -88,11 +90,19 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
 
             try {
                 if (dataForReview) {
-                    const res = await agent.apiAdmin.approveTrail(dataForReview.id, userSession?.token!, data);
+                    const res = await agent.apiAdmin.approveTrailDetails(dataForReview.id, userSession?.token!, data);
 
-                    if (res.data) {
+                    if (res.trailStatus) {
+                        setCtxDataForReview(state => {
+                            if (state) {
+                                return { ...state, detailsStatus: 'approved' };
+                            }
+                        });
                         toast.success('successful approve');
-                        router.push('/admin/waiting-approval');
+
+                        if (res.trailStatus == 'approved') {
+                            router.push('/admin/waiting-approval');
+                        }
                     } else if (res.message) {
                         toast.error(res.message);
                     } else if (res.errors) {
@@ -125,8 +135,12 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
         }
 
         if (dataForReview) {
+            if (!ctxDataForReview) {
+                setCtxDataForReview(dataForReview);
+            }
+
             (async () => {
-                const res = await agent.apiAdmin.getReviewer(dataForReview.id, userSession?.token!);
+                const res = await agent.apiAdmin.getTrailDetailsReviewer(dataForReview.id, userSession?.token!);
 
                 if (res.reviewerId && userSession?.userId == res.reviewerId) {
                     setForReview(false);
@@ -135,7 +149,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                 }
             })();
         }
-    }, [errMessage, dataForReview, userSession?.userId, userSession?.token]);
+    }, [errMessage, dataForReview, userSession?.userId, userSession?.token, ctxDataForReview, setCtxDataForReview]);
 
     const translatePopUp = {
         requireAuthMessage: tPopUp('require-auth-message'),
@@ -154,7 +168,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
     const handleReviewClick = async () => {
         const body = { review: forReview };
 
-        const res = dataForReview && await agent.apiAdmin.claimForReviewCreatedTrail(dataForReview.id, userSession?.token!, body);
+        const res = dataForReview && await agent.apiAdmin.claimForReviewTrailDetails(dataForReview.id, userSession?.token!, body);
 
         if (res.data) {
             setForReview(!forReview);
@@ -176,7 +190,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
                 </CCommonModal>
             )}
 
-            {dataForReview && (
+            {dataForReview && ctxDataForReview?.detailsStatus != 'approved' && (
                 <button onClick={handleReviewClick} className="review-btn">
                     {forReview ? 'review' : 'cancel'}
                 </button>
@@ -372,7 +386,7 @@ const CreateTrailForm: React.FC<CreateTrailFormProps> = ({
 
                 {!dataForReview && <p style={{ color: 'black' }}>* {t('photos-message')}</p>}
 
-                {(!dataForReview || (dataForReview && !forReview)) && (
+                {(!dataForReview || (dataForReview && !forReview)) && (ctxDataForReview?.detailsStatus != 'approved') && (
                     <CSubmitButton buttonName={(dataForReview && !forReview) ? 'Approve' : t('btn-create')} />
                 )}
             </form>

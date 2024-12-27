@@ -6,7 +6,7 @@ import { agent } from '@/api/agent';
 import '@/app/[locale]/admin/admin.scss';
 import AccessDenied from '@/components/AccessDenied/AccessDenied';
 import AdminLayout from '@/components/AdminLayout/AdminLayout';
-import CreateTrailForm from '@/components/CreateTrailForm/CreateTrailForm';
+import ApproveTrailDetailsImagesAndGpx from '@/components/ApproveTrailDetailsImagesAndGpx/ApproveTrailDetailsImagesAndGpx';
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';
 
 interface TrailReviewProps {
@@ -31,13 +31,12 @@ const TrailReview: React.FC<TrailReviewProps> = async ({ params: { trailId } }) 
             {isAdminOrModerator && (
                 <AdminLayout>
                     <main className="admin-forms form-container">
-                        <CreateTrailForm
+                        <ApproveTrailDetailsImagesAndGpx
                             userSession={userSession}
                             formEnums={formEnums}
                             availableAccommodations={availableAccommodations}
                             availableDestinations={availableDestinations}
                             dataForReview={trailDataForReview.data}
-                            errMessage={trailDataForReview.message}
                         />
 
                         <CSmallFooter />

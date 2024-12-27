@@ -75,14 +75,25 @@ export interface ITrail extends ITrailCard {
     nextTo: string
     destinations: IDestination[]
     images: TPhoto[]
-    gpxFile: {
-        gpxUrl: string,
-        creationDate: string
-    } | null;
+    gpxFile: TGpxFile | null;
     lastUpdateDate: string
+    detailsStatus?: string
 }
 
-export type TPhoto = { id: number, imageUrl: string, isMain: boolean }
+export type TPhoto = {
+    id: number,
+    imageUrl: string,
+    isMain: boolean,
+    imageStatus?: string,
+    reviewedBy?: TReviewedBy
+}
+
+export type TGpxFile = {
+    id: number,
+    gpxUrl: string,
+    gpxStatus: string,
+    creationDate: string
+}
 
 export interface ITrackInfo {
     name: string;
@@ -146,12 +157,28 @@ export interface IUser {
 export interface IWaitingApproval {
     id: number;
     name: string;
-    trailStatus?: string;
+    detailsStatus: string;
     destinationStatus?: string;
     accommodationStatus?: string;
-    reviewedBy?: { id: number, username: string };
+    reviewedBy?: TReviewedBy;
     creationDate: string;
+    images: TImagesForReview;
+    gpxFile: {
+        reviewedBy: TReviewedBy,
+        gpxStatus: string
+    }
 }
+
+export type TReviewedBy = {
+    id: number,
+    username: string
+}
+
+export type TImagesForReview = {
+    id: number,
+    reviewedBy: TReviewedBy,
+    image_status: string
+}[]
 
 export interface IFormEnums {
     [key: string]: string[] | number[]

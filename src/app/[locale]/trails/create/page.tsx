@@ -6,7 +6,7 @@ import { agent } from '@/api/agent';
 
 import './createTrail.scss';
 import CSmallHeader from '@/components/common/CSmallHeader/CSmallHeader';
-import CreateTrailForm from '@/components/CreateTrailForm/CreateTrailForm';
+import CreateTrailClient from '@/components/CreateTrailClient/CreateTrailClient';
 import CPhotoInfo from '@/components/common/CPhotoInfo/CPhotoInfo';
 import CSmallFooter from '@/components/common/CSmallFooter/CSmallFooter';
 
@@ -31,7 +31,7 @@ const CreateTrail: React.FC<CreateTrailProps> = async () => {
             <h1>{t('create-trail')}</h1>
 
             {formEnums && (
-                <CreateTrailForm
+                <CreateTrailClient
                     userSession={session}
                     formEnums={formEnums}
                     availableAccommodations={availableAccommodations}

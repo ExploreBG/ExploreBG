@@ -32,6 +32,7 @@
 
     &>figcaption {
         display: none;
+        z-index: 1;
     }
 
     &>svg {

@@ -4,11 +4,12 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AiOutlineFieldNumber } from 'react-icons/ai';
 
-import { IUserSession, IWaitingApproval } from '@/interfaces/interfaces';
+import { IUserSession, IWaitingApproval, TImagesForReview } from '@/interfaces/interfaces';
 import { agent } from '@/api/agent';
 import { DEFAULT_PAGE_NUMBER, DEFAULT_CARDS_PER_PAGE } from '@/utils/constants';
 import { formatFullDate } from '@/utils/utils';
 
+import CViewDetails from '../common/CViewDetails/CViewDetails';
 import PaginationControls from '../PaginationControls/PaginationControls';
 
 const pathnames = {
@@ -17,16 +18,10 @@ const pathnames = {
     accommodations: 'accommodation-review',
 };
 
-const statusFields = {
-    trails: 'trailStatus',
-    destinations: 'destinationStatus',
-    accommodations: 'accommodationStatus',
-};
-
 interface WaitingApprovalCount {
-    accommodations: { pending: number, review: number },
-    destinations: { pending: number, review: number },
-    trails: { pending: number, review: number }
+    accommodations: number,
+    destinations: number,
+    trails: number
 }
 
 interface AllWaitingApprovalTableProps {
@@ -66,10 +61,9 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
     const [totalElements, setTotalElements] = useState<number>(0);
     const [countFrom, setCountFrom] = useState<number>(0);
 
-    const itemStatus = statusFields[activeCollection as keyof typeof statusFields];
     const page = searchParams['pageNumber'] ?? DEFAULT_PAGE_NUMBER;
     const resultsPerPage = searchParams['pageSize'] ?? DEFAULT_CARDS_PER_PAGE;
-    const query = `?pageNumber=${page}&pageSize=${resultsPerPage}&sortBy=${itemStatus}`;
+    const query = `?pageNumber=${page}&pageSize=${resultsPerPage}`;
 
     useEffect(() => {
         if (activeCollection) {
@@ -79,17 +73,32 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
         }
     }, [activeCollection, query, userSession.token, page, resultsPerPage]);
 
+    const imageDetails = (images: TImagesForReview) => {
+        return (
+            <ul>
+                {images.map((i) => (
+                    <li key={i.id}>
+                        {`id: ${i.id} -- ${i.image_status == 'pending'
+                            ? i.image_status
+                            : `reviewed by: ${i.reviewedBy?.username}`}
+                        `}
+                    </li>
+                ))}
+            </ul>
+        );
+    };
+
     return (
         <>
             <ul className="admin-wrapper__pending-menu">
-                {Object.entries(waitingApproval).map(([collection, status]) => (
+                {Object.entries(waitingApproval).map(([collection, count]) => (
                     <li
                         key={collection}
                         onClick={() => setActiveCollection(collection)}
                         className={activeCollection === collection ? 'active' : ''}
-                        style={{ display: ((status.pending == 0 && status.review == 0) ? 'none' : 'inline-block') }}
+                        style={{ display: (count == 0 ? 'none' : 'inline-block') }}
                     >
-                        {`${collection} - p: ${status.pending} / r: ${status.review}`}
+                        {`${collection} - ${count}`}
                     </li>
                 ))}
             </ul>
@@ -99,8 +108,10 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
                     <tr>
                         <th><AiOutlineFieldNumber /></th>
                         <th>Name</th>
-                        <th>Status</th>
+                        <th>Details status</th>
                         <th>Link</th>
+                        <th>Images status</th>
+                        <th>Gpx status</th>
                         <th>Creation date</th>
                         <th>Review by</th>
                     </tr>
@@ -110,13 +121,37 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
                         <tr key={p.id}>
                             <td>{countFrom - index}</td>
                             <td>{p.name}</td>
-                            <td>{`${p[itemStatus as keyof IWaitingApproval]}`}</td>
+                            <td>{`${p.detailsStatus}`}</td>
                             <td>
-                                {(userSession.userId == p.reviewedBy?.id || p[itemStatus as keyof IWaitingApproval] != 'review') && (
+                                {(userSession.userId == p.reviewedBy?.id || p.detailsStatus != 'review') && (
                                     <Link href={`/admin/${pathnames[activeCollection as keyof typeof pathnames]}/${p.id}`}>
                                         View
                                     </Link>
                                 )}
+                            </td>
+                            <td>
+                                {p.images.length > 0 && (
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <span>
+                                            {`${p.images.filter((i) => i.image_status == 'pending').length} - pending`}
+                                        </span>
+                                        <span>
+                                            {`${p.images.filter((i) => i.image_status == 'review').length} - review`}
+                                        </span>
+                                        <span>
+                                            {`${p.images.filter((i) => i.image_status == 'approved').length} - approved`}
+                                        </span>
+                                        <CViewDetails element={imageDetails(p.images)} />
+                                    </div>
+                                )}
+                            </td>
+                            <td>
+                                <div>
+                                    <span>{p.gpxFile?.gpxStatus}</span>
+                                    {p.gpxFile?.gpxStatus && p.gpxFile?.gpxStatus != 'pending' && (
+                                        <CViewDetails details={`reviewed by: ${p.gpxFile?.reviewedBy?.username}`} />
+                                    )}
+                                </div>
                             </td>
                             <td>{formatFullDate(p.creationDate)}</td>
                             <td>{p.reviewedBy?.username}</td>
@@ -125,7 +160,7 @@ const AllWaitingApprovalTable: React.FC<AllWaitingApprovalTableProps> = ({
                 </tbody>
             </table>
 
-            <PaginationControls totalElements={totalElements} sortByProp={itemStatus} />
+            <PaginationControls totalElements={totalElements} />
         </>
     );
 };
