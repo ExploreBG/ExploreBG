@@ -1,17 +1,17 @@
-'use client';
-
 import React from 'react';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
+import { decodeJwt } from 'jose';
 import { useRouter } from '@/i18n/routing';
 import { toast } from 'react-toastify';
 
 import { login } from './action';
 import { loginSchema } from './loginSchema';
 import { agent } from '@/api/agent';
-import { getSession } from '@/utils/userSession';
+import { IDecodedToken } from '@/interfaces/interfaces';
+import { setSession } from '@/utils/userSession';
 
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
 
@@ -35,16 +35,21 @@ const LoginForm: React.FC<LoginFormProps> = () => {
 
             try {
                 const res = await agent.apiUsers.login(formData!);
-                const session = await getSession();
 
-                if (session) {
-                    toast.success(t('successful-login', { name: res.username }));
+                if (res.token) {
+                    const token = res.token;
+                    const decodedToken = decodeJwt<IDecodedToken>(token);
+                    const userRoles = decodedToken.roles;
+                    const userId = res.data.id;
+
+                    await setSession({ token, userId, userRoles });
+                    toast.success(t('successful-login', { name: res.data.username }));
                     router.push('/users/my-profile');
                 } else {
                     toast.error(res.message);
                 }
             } catch (err) {
-                console.error(err);
+                console.error('Login request failed: ', err);
             }
         }
     });

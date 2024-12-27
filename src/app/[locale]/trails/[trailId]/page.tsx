@@ -36,19 +36,26 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { trailId } }
     const token = session?.token;
     const userId = session?.userId;
 
-    const res = token
-        ? await agent.apiTrails.getTrailById(trailId, token)
-        : await agent.apiTrails.getTrailById(trailId);
+    let trail;
+    try {
+        const res = token
+            ? await agent.apiTrails.getTrailById(trailId, token)
+            : await agent.apiTrails.getTrailById(trailId);
 
-    const trail = res?.data;
+        trail = res?.data;
+    } catch (err) {
+        console.error('Error fetching trail: ', err);
+        return <NotFound />;
+    }
+
     const isOwner = token ? trail?.createdBy?.id == userId : false;
+
+    if (!trail) {
+        return <NotFound />;
+    }
 
     return (
         <>
-            {!trail && (
-                <NotFound />
-            )}
-
             {(trail && trail.trailStatus == 'review') && (
                 <CCommonModal>
                     <p>{t('in-review')}</p>

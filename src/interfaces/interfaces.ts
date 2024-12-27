@@ -118,6 +118,13 @@ export interface IAccommodation extends IAccommodationCard {
     comments: IComment[]
 }
 
+export interface IDecodedToken {
+    iss: string;
+    iat: number;
+    exp: number;
+    roles: string[];
+}
+
 export interface IUserSession {
     token: string
     userId: number

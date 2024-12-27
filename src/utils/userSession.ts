@@ -11,7 +11,7 @@ interface SessionPayload extends JWTPayload {
 }
 
 const key = new TextEncoder().encode(process.env.USER_SESSION_SECRET_KEY);
-const expireTime = Date.now() + 3 * 24 * 60 * 60 * 1000;
+const expireTime = Date.now() + 8 * 60 * 60 * 1000;
 
 const encrypt = async (payload: SessionPayload) => {
     return await new SignJWT(payload)
@@ -42,22 +42,28 @@ export const setSession = async (userData: IUserSession) => {
 };
 
 export const getSession = async (): Promise<IUserSession | null> => {
-    const session = cookies().get('user-session')?.value;
+    try {
+        const session = cookies().get('user-session')?.value;
 
-    if (!session) {
+        if (!session) {
+            return null;
+        }
+
+        const res = await decrypt(session);
+
+        const isAdmin = res?.userData?.userRoles.includes('ADMIN') ?? false;
+        const isAdminOrModerator = (isAdmin || res?.userData?.userRoles.includes('MODERATOR')) ?? false;
+
+        return {
+            ...res?.userData,
+            isAdmin,
+            isAdminOrModerator,
+            // expires: res.expires
+        };
+    } catch (err) {
+        console.error('Failed to get session: ', err);
         return null;
     }
-
-    const res = await decrypt(session);
-
-    const isAdmin = res?.userData?.userRoles.includes('ADMIN') ?? false;
-    const isAdminOrModerator = (isAdmin || res?.userData?.userRoles.includes('MODERATOR')) ?? false;
-
-    return {
-        ...res?.userData,
-        isAdmin,
-        isAdminOrModerator
-    };
 };
 
 export const clearSession = async () => {

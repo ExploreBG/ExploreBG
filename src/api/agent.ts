@@ -1,41 +1,28 @@
 import { RequestInit } from 'next/dist/server/web/spec-extension/request';
-import { decodeJwt } from 'jose';
-
-import { setSession, getSession } from '@/utils/userSession';
 
 import { ICreateTrail } from '@/components/CreateTrailForm/CreateTrailForm';
-
-interface IDecodedToken { exp: number; iat: number; iss: string; roles: string[] }
 
 const baseUrl = process.env.NODE_ENV == 'production' ? `${process.env.API_URL}/api` : 'http://localhost:8080/api';
 
 const request = async (url: string, method: string = 'GET', sessionToken?: string, body?: any, isUpload?: boolean) => {
+    const headers: Record<string, string> = {};
+
+    if (body && !isUpload) {
+        headers['Content-Type'] = 'application/json';
+    }
+
+    if (sessionToken) {
+        headers['Authorization'] = `Bearer ${sessionToken}`;
+    }
+
     const options: RequestInit = {
         method,
-        cache: 'no-cache'
+        cache: 'no-store',
+        headers,
     };
 
-    if (body && !isUpload) {
-        options.headers = {
-            'Content-Type': 'application/json'
-        }
-    }
-
-    if (sessionToken && !isUpload) {
-        options.headers = {
-            ...options.headers,
-            'Authorization': `Bearer ${sessionToken}`
-        };
-    } else if (sessionToken || isUpload) {
-        options.headers = {
-            'Authorization': `Bearer ${sessionToken}`
-        };
-    }
-
-    if (body && !isUpload) {
-        options.body = JSON.stringify(body);
-    } else if (body && isUpload) {
-        options.body = body;
+    if (body) {
+        options.body = isUpload ? body : JSON.stringify(body);
     }
 
     try {
@@ -45,28 +32,23 @@ const request = async (url: string, method: string = 'GET', sessionToken?: strin
             console.error('Something went wrong!');
         }
 
-        const data = await response.json();
+        const contentType = response.headers.get('Content-Type');
+        let data;
 
-        const token = response.headers.get('Authorization');
-        const userId = data.id;
-
-        if (token && userId) {
-            const decodedToken = decodeJwt<IDecodedToken>(token);
-            const userRoles = decodedToken.roles;
-
-            setSession({ token, userId, userRoles });
-        } else if (token) {
-            const session = await getSession();
-            const userId = session?.userId;
-            const decodedToken = decodeJwt<IDecodedToken>(token);
-            const userRoles = decodedToken.roles;
-
-            userId && setSession({ token, userId, userRoles });
+        if (contentType && contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            const text = await response.text();
+            console.error('Unexpected response format:', text);
+            throw new Error('Expected JSON, but got non-JSON response');
         }
 
-        return data;
+        const token = response.headers.get('Authorization');
+
+        return token ? { data, token } : data;
     } catch (err) {
-        console.error(err);
+        console.error('Request failed: ', err);
+        throw err;
     }
 };
 

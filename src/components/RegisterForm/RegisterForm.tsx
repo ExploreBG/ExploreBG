@@ -1,17 +1,17 @@
-'use client';
-
 import React from 'react';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
+import { decodeJwt } from 'jose';
 import { useRouter } from '@/i18n/routing';
 import { toast } from 'react-toastify';
 
 import { register } from './action';
 import { registerSchema } from './registerSchema';
 import { agent } from '@/api/agent';
-import { getSession } from '@/utils/userSession';
+import { IDecodedToken } from '@/interfaces/interfaces';
+import { setSession } from '@/utils/userSession';
 
 import CPasswordInfo from '../common/CPasswordInfo/CPasswordInfo';
 import CSubmitButton from '../common/CSubmitButton/CSubmitButton';
@@ -36,16 +36,21 @@ const RegisterForm: React.FC<RegisterFormProps> = () => {
 
             try {
                 const res = await agent.apiUsers.register(formData!);
-                const session = await getSession();
 
-                if (session) {
-                    toast.success(t('successful-register', { name: res.username }));
+                if (res.token) {
+                    const token = res.token;
+                    const decodedToken = decodeJwt<IDecodedToken>(token);
+                    const userRoles = decodedToken.roles;
+                    const userId = res.data.id;
+
+                    await setSession({ token, userId, userRoles });
+                    toast.success(t('successful-register', { name: res.data.username }));
                     router.push('/users/my-profile');
                 } else {
                     res.errors.slice(0, 4).map((err: string) => toast.error(err, { autoClose: 10000 }));
                 }
             } catch (err) {
-                console.error(err);
+                console.error('Register request failed: ', err);
             }
         }
     });
