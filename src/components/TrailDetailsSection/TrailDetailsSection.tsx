@@ -56,7 +56,7 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, token,
                 setAccommodations(availableAccommodations);
                 setDestinations(availableDestinations);
             }
-        }
+        };
         getFormEnums();
     }, [token]);
 
@@ -84,82 +84,90 @@ const TrailDetailsSection: React.FC<TrailDetailsSectionProps> = ({ trail, token,
                     </div>
                 )}
 
-                <TrailDetailsStartPointField
-                    initialStartPoint={trail.startPoint}
-                    trailId={trail.id}
-                    isTrailOwner={isOwner}
-                />
-                <TrailDetailsEndPointField
-                    initialEndPoint={trail.endPoint}
-                    trailId={trail.id}
-                    isTrailOwner={isOwner}
-                />
+                {trail.detailsStatus == 'review' && (
+                    <p>Trail details are currently in review!</p>
+                )}
 
-                <div className="trail__pair">
-                    <TrailDetailsTotalDistanceField
-                        initialTotalDistance={trail.totalDistance}
-                        trailId={trail.id}
-                        isTrailOwner={isOwner}
-                    />
-                    <TrailDetailsElevationField
-                        initialElevation={trail.elevationGained}
-                        trailId={trail.id}
-                        isTrailOwner={isOwner}
-                    />
-                </div>
+                {trail.detailsStatus != 'review' && (
+                    <>
+                        <TrailDetailsStartPointField
+                            initialStartPoint={trail.startPoint}
+                            trailId={trail.id}
+                            isTrailOwner={isOwner}
+                        />
+                        <TrailDetailsEndPointField
+                            initialEndPoint={trail.endPoint}
+                            trailId={trail.id}
+                            isTrailOwner={isOwner}
+                        />
 
-                <div className="trail__pair">
-                    {trail.seasonVisited
-                        ? <p className="trail__pair__season">
-                            {seasonIcons[season as keyof typeof seasonIcons]}&nbsp; {t('visited-in')}:&nbsp; {t2(trail.seasonVisited)}
-                        </p>
-                        : <p>{t('not-available')}</p>
-                    }
-                    <TrailDetailsActivityField
-                        initialActivity={trail.activity}
-                        trailId={trail.id}
-                        isTrailOwner={isOwner}
-                        formEnums={enums}
-                    />
-                </div>
+                        <div className="trail__pair">
+                            <TrailDetailsTotalDistanceField
+                                initialTotalDistance={trail.totalDistance}
+                                trailId={trail.id}
+                                isTrailOwner={isOwner}
+                            />
+                            <TrailDetailsElevationField
+                                initialElevation={trail.elevationGained}
+                                trailId={trail.id}
+                                isTrailOwner={isOwner}
+                            />
+                        </div>
 
-                <div className="trail__pair">
-                    <TrailDetailsWaterAvailableField
-                        initialWaterAvailable={trail.waterAvailable}
-                        trailId={trail.id}
-                        isTrailOwner={isOwner}
-                        formEnums={enums}
-                    />
-                    <TrailDetailsTrailDifficultyField
-                        initialTrailDifficulty={String(trail.trailDifficulty)}
-                        trailId={trail.id}
-                        isTrailOwner={isOwner}
-                        formEnums={enums}
-                    />
-                </div>
+                        <div className="trail__pair">
+                            {trail.seasonVisited
+                                ? <p className="trail__pair__season">
+                                    {seasonIcons[season as keyof typeof seasonIcons]}&nbsp; {t('visited-in')}:&nbsp; {t2(trail.seasonVisited)}
+                                </p>
+                                : <p>{t('not-available')}</p>
+                            }
+                            <TrailDetailsActivityField
+                                initialActivity={trail.activity}
+                                trailId={trail.id}
+                                isTrailOwner={isOwner}
+                                formEnums={enums}
+                            />
+                        </div>
 
-                <TrailDetailsInfoField
-                    initialInfo={trail.trailInfo}
-                    trailId={trail.id}
-                    isTrailOwner={isOwner}
-                />
+                        <div className="trail__pair">
+                            <TrailDetailsWaterAvailableField
+                                initialWaterAvailable={trail.waterAvailable}
+                                trailId={trail.id}
+                                isTrailOwner={isOwner}
+                                formEnums={enums}
+                            />
+                            <TrailDetailsTrailDifficultyField
+                                initialTrailDifficulty={String(trail.trailDifficulty)}
+                                trailId={trail.id}
+                                isTrailOwner={isOwner}
+                                formEnums={enums}
+                            />
+                        </div>
 
-                <aside className="trail__links">
-                    <TrailDetailsAvailableHutsField
-                        initialAvailableHuts={trail.availableHuts}
-                        trailId={trail.id}
-                        isTrailOwner={isOwner}
-                        availableAccommodations={accommodations}
-                        token={token}
-                    />
-                    <TrailDetailsDestinationsField
-                        initialDestinations={trail.destinations}
-                        trailId={trail.id}
-                        isTrailOwner={isOwner}
-                        availableDestinations={destinations}
-                        token={token}
-                    />
-                </aside>
+                        <TrailDetailsInfoField
+                            initialInfo={trail.trailInfo}
+                            trailId={trail.id}
+                            isTrailOwner={isOwner}
+                        />
+
+                        <aside className="trail__links">
+                            <TrailDetailsAvailableHutsField
+                                initialAvailableHuts={trail.availableHuts}
+                                trailId={trail.id}
+                                isTrailOwner={isOwner}
+                                availableAccommodations={accommodations}
+                                token={token}
+                            />
+                            <TrailDetailsDestinationsField
+                                initialDestinations={trail.destinations}
+                                trailId={trail.id}
+                                isTrailOwner={isOwner}
+                                availableDestinations={destinations}
+                                token={token}
+                            />
+                        </aside>
+                    </>
+                )}
 
                 <TrailDetailsLastUpdateField lastUpdateDate={trail.lastUpdateDate} />
             </section>

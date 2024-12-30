@@ -34,7 +34,11 @@ const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, 
 
     return (
         <section className="map details-page-section">
-            {isOwner && (
+            {trail.gpxFile?.gpxStatus == 'review' && (
+                <p>Your GPX file is currently in review!</p>
+            )}
+
+            {isOwner && trail.gpxFile?.gpxStatus != 'review' && (
                 <TrailDetailsUploadGpx
                     trailId={trail.id}
                     token={token!}
@@ -44,7 +48,7 @@ const TrailDetailsMapSection: React.FC<TrailDetailsMapSectionProps> = ({ trail, 
                 />
             )}
 
-            {track && (
+            {track && trail.gpxFile?.gpxStatus != 'review' && (
                 <>
                     <Map gpxUrl={track} setTrackInfo={setTrackInfo} />
 

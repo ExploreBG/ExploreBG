@@ -92,43 +92,50 @@ const TrailDetailsPhotos: React.FC<TrailDetailsPhotosProps> = ({
 
             {photos.length > 0 && (
                 <div className="photos-wrapper__photos" style={{ marginTop: (isOwner ? '2rem' : '0') }}>
-                    {photos.map((p, index) => (
-                        <div
-                            key={p.id}
-                            className="photos-wrapper__photos__img"
-                        >
-                            {p.isMain && isOwner && (
-                                <span className="photos-wrapper__photos__img__span-main">{t('main')}</span>
-                            )}
-                            {!p.isMain && isOwner && changeMainClick && (
-                                <span
-                                    onClick={() => handleChangeMainPhoto(p.id)}
-                                    className="photos-wrapper__photos__img__span-set-main"
-                                >
-                                    {t('set-main')}
-                                </span>
-                            )}
+                    {photos.some((p) => p.imageStatus?.toLocaleLowerCase() == 'review') && (
+                        <p>{`There are currently ${photos.filter((p) =>
+                            p.imageStatus?.toLocaleLowerCase() == 'review').length} images in review!`}</p>
+                    )}
 
-                            {isDeletePhotosClick && (
-                                <input
-                                    type="checkbox"
-                                    onChange={() => handleCheckboxClick(p.id)}
-                                    checked={photosForDelete.includes(p.id)}
-                                    className="photos-wrapper__photos__img__checkbox"
-                                />
-                            )}
+                    {photos
+                        .filter((p) => p.imageStatus?.toLocaleLowerCase() != 'review')
+                        .map((p, index) => (
+                            <div
+                                key={p.id}
+                                className="photos-wrapper__photos__img"
+                            >
+                                {p.isMain && isOwner && (
+                                    <span className="photos-wrapper__photos__img__span-main">{t('main')}</span>
+                                )}
+                                {!p.isMain && isOwner && changeMainClick && (
+                                    <span
+                                        onClick={() => handleChangeMainPhoto(p.id)}
+                                        className="photos-wrapper__photos__img__span-set-main"
+                                    >
+                                        {t('set-main')}
+                                    </span>
+                                )}
 
-                            <figure>
-                                <Image
-                                    src={p.imageUrl}
-                                    onClick={() => setZoomPhoto({ imageUrl: p.imageUrl, index })}
-                                    width={150} height={150}
-                                    alt="Trail photo"
-                                    className={(p.isMain && isOwner) ? 'photos-wrapper__photos__img__main' : ''}
-                                />
-                            </figure>
-                        </div>
-                    ))}
+                                {isDeletePhotosClick && (
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => handleCheckboxClick(p.id)}
+                                        checked={photosForDelete.includes(p.id)}
+                                        className="photos-wrapper__photos__img__checkbox"
+                                    />
+                                )}
+
+                                <figure>
+                                    <Image
+                                        src={p.imageUrl}
+                                        onClick={() => setZoomPhoto({ imageUrl: p.imageUrl, index })}
+                                        width={150} height={150}
+                                        alt="Trail photo"
+                                        className={(p.isMain && isOwner) ? 'photos-wrapper__photos__img__main' : ''}
+                                    />
+                                </figure>
+                            </div>
+                        ))}
 
                     {zoomPhoto && (
                         <ZoomPhoto photos={photos} zoomPhoto={zoomPhoto} setZoomPhoto={setZoomPhoto} />

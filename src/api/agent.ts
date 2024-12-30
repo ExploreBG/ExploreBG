@@ -69,7 +69,7 @@ const apiUsers = {
 };
 
 const apiDestinations = {
-    get4RandomDestinations: () => request(`${baseUrl}/destinations/random`),
+    get4RandomDestinations: (token?: string) => request(`${baseUrl}/destinations/random`, 'GET', token),
     getAllDestinations: (query: string) => request(`${baseUrl}/destinations${query}`),
     getDestinationById: (destinationId: string) => request(`${baseUrl}/destinations/${destinationId}`)
 };
@@ -101,6 +101,7 @@ const apiTrails = {
     updateAvailableHuts: (trailId: number, token: string, newData: { availableHuts: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/available-huts`, 'PATCH', token, newData),
     updateDestinations: (trailId: number, token: string, newData: { destinations: { id: number }[] }) => request(`${baseUrl}/trails/${trailId}/destinations`, 'PATCH', token, newData),
     addToOrRemoveFromFavorite: (trailId: number, token: string, body: { like: boolean }) => request(`${baseUrl}/trails/${trailId}/like`, 'PATCH', token, body),
+    deleteTrail: (trailId: number, token: string) => request(`${baseUrl}/trails/${trailId}`, 'DELETE', token),
 };
 
 const apiHikes = {
@@ -110,7 +111,7 @@ const apiHikes = {
 };
 
 const apiAccommodations = {
-    get4RandomAccommodations: () => request(`${baseUrl}/accommodations/random`),
+    get4RandomAccommodations: (token?: string) => request(`${baseUrl}/accommodations/random`, 'GET', token),
     getAllAccommodations: (query: string) => request(`${baseUrl}/accommodations${query}`),
     getAccommodationById: (accommodationId: string) => request(`${baseUrl}/accommodations/${accommodationId}`)
 };

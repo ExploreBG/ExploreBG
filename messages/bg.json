@@ -158,7 +158,7 @@
         "creation-date": "дата на създаване",
         "successful-upload": "Успешно добавен файл",
         "successful-remove-gpx": "Успешно премахнат файл",
-        "in-review": "Изпратената от вас следа в момента се преглежда."
+        "delete-trail": "този маршрут"
     },
     "trail-create": {
         "create-trail": "Добави маршрут",

@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 
 import { agent } from '@/api/agent';
+import { ITrail } from '@/interfaces/interfaces';
 import { getSession } from '@/utils/userSession';
 
 import './trailDetails.scss';
 import NotFound from '../../not-found';
-import CCommonModal from '@/components/common/CCommonModal/CCommonModal';
-import CBackBtn from '@/components/common/CBackBtn/CBackBtn';
 import Layout from '@/components/Layout/Layout';
+import DeleteItem from '@/components/DeleteItem/DeleteItem';
 import TrailDetailsSection from '@/components/TrailDetailsSection/TrailDetailsSection';
 import TrailDetailsPhotosSection from '@/components/TrailDetailsPhotosSection/TrailDetailsPhotosSection';
 import TrailDetailsMapSection from '@/components/TrailDetailsMapSection/TrailDetailsMapSection';
@@ -36,7 +36,7 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { trailId } }
     const token = session?.token;
     const userId = session?.userId;
 
-    let trail;
+    let trail: ITrail;
     try {
         const res = token
             ? await agent.apiTrails.getTrailById(trailId, token)
@@ -54,69 +54,67 @@ const TrailDetails: React.FC<TrailDetailsProps> = async ({ params: { trailId } }
         return <NotFound />;
     }
 
-    return (
-        <>
-            {(trail && trail.trailStatus == 'review') && (
-                <CCommonModal>
-                    <p>{t('in-review')}</p>
-                    <CBackBtn />
-                </CCommonModal>
-            )}
+    return trail && (
+        <Layout>
+            <main className="trail-details">
+                <h1>{t('title', { trailName: `${trail.startPoint} - ${trail.endPoint}` })}</h1>
 
-            {trail && (
-                <Layout>
-                    <main className="trail-details">
-                        <h1>{t('title', { trailName: `${trail.startPoint} - ${trail.endPoint}` })}</h1>
+                {!isOwner && (
+                    <details open className="trail-details__warning">
+                        <summary>{t('important-notice')}:</summary>
+                        {t('important-notice-text')}
+                    </details>
+                )}
 
-                        {!isOwner && (
-                            <details open className="trail-details__warning">
-                                <summary>{t('important-notice')}:</summary>
-                                {t('important-notice-text')}
-                            </details>
-                        )}
-
-                        <nav className="trail-details__nav" aria-label="trail-details-page-navigation">
-                            <ul>
-                                {trail.images.length > 0 && <li><Link href="#photos">photos</Link></li>}
-                                {trail.gpxFile?.gpxUrl && <li><Link href="#map">map</Link></li>}
-                                <li><Link href="#comments">comments</Link></li>
-                            </ul>
-                        </nav>
-                        <TrailDetailsSection
-                            trail={trail}
-                            token={token}
-                            isOwner={isOwner}
+                <nav className="trail-details__nav" aria-label="trail-details-page-navigation">
+                    {isOwner && (
+                        <DeleteItem
+                            deletionObj={t('delete-trail')}
+                            itemType='trail'
+                            itemId={trail.id}
+                            token={token!}
                         />
+                    )}
 
-                        <span id="photos" />
-                        {(trail.images.length > 0 || isOwner) && (
-                            <TrailDetailsPhotosSection
-                                trail={trail}
-                                token={token}
-                                isOwner={isOwner}
-                            />
-                        )}
+                    <ul>
+                        {trail.images.length > 0 && <li><Link href="#photos">photos</Link></li>}
+                        {trail.gpxFile?.gpxUrl && <li><Link href="#map">map</Link></li>}
+                        <li><Link href="#comments">comments</Link></li>
+                    </ul>
+                </nav>
+                <TrailDetailsSection
+                    trail={trail}
+                    token={token}
+                    isOwner={isOwner}
+                />
 
-                        <span id="map" />
-                        {(trail.gpxUrl || isOwner) && (
-                            <TrailDetailsMapSection
-                                trail={trail}
-                                token={token}
-                                isOwner={isOwner}
-                            />
-                        )}
+                <span id="photos" />
+                {(trail.images.length > 0 || isOwner) && (
+                    <TrailDetailsPhotosSection
+                        trail={trail}
+                        token={token}
+                        isOwner={isOwner}
+                    />
+                )}
 
-                        <span id="comments" />
-                        <TrailComments
-                            trail={trail}
-                            userId={userId}
-                            trailId={trailId}
-                            token={token}
-                        />
-                    </main>
-                </Layout>
-            )}
-        </>
+                <span id="map" />
+                {(trail.gpxFile?.gpxUrl || isOwner) && (
+                    <TrailDetailsMapSection
+                        trail={trail}
+                        token={token}
+                        isOwner={isOwner}
+                    />
+                )}
+
+                <span id="comments" />
+                <TrailComments
+                    trail={trail}
+                    userId={userId}
+                    trailId={trailId}
+                    token={token}
+                />
+            </main>
+        </Layout>
     );
 };
 

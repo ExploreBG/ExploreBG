@@ -1,4 +1,4 @@
-import { routing } from "./routing";
+import { routing } from './routing';
 
 export const locales = ['bg', 'en'] as const;
 export const defaultLocale = 'en';

@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 
 import { IDestinationCard } from '@/interfaces/interfaces';
+import { getSession } from '@/utils/userSession';
 import { agent } from '@/api/agent';
 import { Link } from '@/i18n/routing';
 
@@ -14,16 +15,21 @@ interface HomeDestinationsSectionProps { }
 const HomeDestinationsSection: React.FC<HomeDestinationsSectionProps> = async () => {
     const t = useTranslations('home');
 
-    const destinations = await agent.apiDestinations.get4RandomDestinations();
+    const session = await getSession();
+    const token = session?.token;
 
-    return destinations && (
+    const res = token
+        ? await agent.apiDestinations.get4RandomDestinations(token)
+        : await agent.apiDestinations.get4RandomDestinations();
+
+    return res.data && (
         <>
             <h2 className="home__section-title">{t('section-destinations.title')}</h2>
 
             <section className={'home__section-wrapper home__section-cards destinations'}>
                 <IntersectionObserverComponent />
 
-                {destinations.map((destination: IDestinationCard) => (
+                {res.data.map((destination: IDestinationCard) => (
                     <article key={destination.id} className="card hidden">
                         <DestinationCard card={destination} />
                     </article>

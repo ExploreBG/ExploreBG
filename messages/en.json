@@ -158,7 +158,7 @@
         "creation-date": "creation date",
         "successful-upload": "Successful upload",
         "successful-remove-gpx": "Gpx file is removed",
-        "in-review": "Your trail submission is currently under review."
+        "delete-trail": "this trail"
     },
     "trail-create": {
         "create-trail": "Create trail",
